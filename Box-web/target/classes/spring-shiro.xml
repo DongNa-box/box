@@ -102,7 +102,7 @@
 		<property name="failureKeyAttribute" value="shiroLoginFailure"/>
 	</bean>
 
-	<bean id="jCaptchaValidateFilter" class="com.pdone.framework.captcha.JCaptchaValidateFilter">
+	<bean id="jCaptchaValidateFilter" class="com.box.framework.captcha.JCaptchaValidateFilter">
 		<property name="jcaptchaEbabled" value="true"/>
 		<property name="jcaptchaParam" value="jcaptchaCode"/>
 		<property name="failureKeyAttribute" value="shiroLoginFailure"/>

@@ -7,12 +7,11 @@
     <artifactId>Box</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.box</groupId>
+  
   <artifactId>Box-www</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>Box-www Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <name>Box-www</name>
+
   <dependencies>
 		<dependency>
 			<groupId>com.box</groupId>
