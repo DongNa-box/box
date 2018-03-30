@@ -1,0 +1,54 @@
+<!-- 查看用户的弹窗 -->
+<!-- Bootstrap -->
+<link rel="stylesheet" href="${basePath}/assets/adminlte/bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome --> 
+<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/font-awesome-master/css/font-awesome.min.css">
+<div class="box box-primary">
+	<div class="box-body">
+		<ul class="list-group list-group-unbordered">
+           <li class="list-group-item">
+             <b>用户ID:</b><p class="pull-right">${appUser.id}</p>
+           </li>
+           <li class="list-group-item">
+             <b>真实姓名:</b><p class="pull-right">${appUser.name}</p>
+           </li>
+           <li class="list-group-item">
+             <b>昵称:</b><p class="pull-right">${appUser.nickName}</p>
+           </li>
+           <li class="list-group-item">
+             <b>手机号码:</b><p class="pull-right">${appUser.phone}</p>
+           </li>
+           <li class="list-group-item">
+             <b>出生日期:</b><p class="pull-right">${appUser.birthday?string('yyyy-MM-dd')}</p>
+           </li>
+           <li class="list-group-item">
+             <b>性别:</b><p class="pull-right">${appUser.sex}</p>
+           </li>
+           <li class="list-group-item">
+      		 <div class="container">
+      			<b class="pull-left">用户头像:</b><img src="http://ospkfic88.bkt.clouddn.com${appUser.userImage}" class="img-rounded">
+      		 </div>
+           </li>
+           <li class="list-group-item">
+           	 <b class="pull-left">刷脸图片:</b>
+           	 <div class="container">
+           	 	<#list faceImage as face>
+           	 		<img src="http://ospkfic88.bkt.clouddn.com${face.imageUrl}" class="img-thumbnail">
+           	 	</#list>
+           	 </div>
+           </li>
+           <li class="list-group-item">
+             <b>登陆次数:</b><p class="pull-right">${appUser.loginCount}</p>
+           </li>
+           <li class="list-group-item">
+             <b>注册时间:</b><p class="pull-right">${appUser.createTime?string('yyyy-MM-dd hh:mm:ss')}</p>
+           </li>
+           <li class="list-group-item">
+             <b>最后登录:</b><p class="pull-right">${appUser.lastLoginTime?string('yyyy-MM-dd hh:mm:ss')}</p>
+           </li>
+           <li class="list-group-item">
+             <b>状态:</b><p class="pull-right">${appUser.status}</p>
+           </li>
+        </ul>
+	</div>
+</div>

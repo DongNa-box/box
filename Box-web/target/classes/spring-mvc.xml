@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/aop   
+    http://www.springframework.org/schema/aop/spring-aop.xsd   
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:config.properties"/>
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.box.**.controller"/>
+	
+	<!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
+	<mvc:resources location="/assets/" mapping="/assets/**"/>
+	
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <property name="messageConverters">  
+            <list>  
+                <bean  
+                    class="org.springframework.http.converter.StringHttpMessageConverter">  
+                    <property name="supportedMediaTypes">  
+                        <list>  
+                            <value>text/html;charset=UTF-8</value>  
+                        </list>  
+                    </property>  
+                </bean>  
+            </list>  
+        </property>  
+    </bean>  
+	
+	<!-- 根据request中的内容，解析出MediaType的List列表。 -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">  
+        <property name="mediaTypes">
+        	<map>  
+                <entry key="html" value="text/html" />
+                <entry key="pdf" value="application/pdf" />  
+                <entry key="xsl" value="application/vnd.ms-excel" /> 
+                <entry key="xml" value="application/xml" />  
+                <entry key="json" value="application/json" />  
+            </map>  
+        </property>  
+        <property name="defaultContentType" value="text/html" />  
+    </bean>
+    
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">  
+        <property name="order" value="0" />  
+        <property name="contentNegotiationManager" ref="contentNegotiationManager" />
+        <property name="viewResolvers">  
+            <list>
+            	<ref bean="freeMarkerViewResolver"/>
+            </list>  
+        </property> 
+        <property name="defaultViews">  
+            <list>  
+            	<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+            		<property name="extractValueFromSingleKeyModel" value="true" />
+            	</bean>
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                	<property name="marshaller" ref="xmlMarshaller"/>
+                </bean>
+            </list>  
+        </property>         
+    </bean>  
+
+	<!--将模型数据转换为XML格式 -->
+	<bean id="xmlMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="autodetectAnnotations" value="true"/>
+		<property name="streamDriver">
+			<bean class="com.thoughtworks.xstream.io.xml.StaxDriver" />
+		</property>
+	</bean>
+	
+	<!-- freemarker 视图解析器 -->
+	<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean"/>
+
+	<bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="cache" value="true"/>
+		<property name="requestContextAttribute" value="request"/>
+		<property name="suffix" value=".html"/>
+		<property name="contentType" value="text/html; charset=UTF-8"/>
+	</bean>
+	
+	<!-- freemarker配置 -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/views/"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="template_update_delay">0</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="boolean_format">true,false</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="number_format">0.######</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+			</props>
+		</property>
+	</bean>
+		
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>10485760000</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>40960</value>
+		</property>
+	</bean>
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<!--  
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	-->
+	<!--  
+	<mvc:interceptors>
+	    csrf攻击防御
+		<mvc:interceptor>
+			需拦截的地址 
+			<mvc:mapping path="/**"/>
+			需排除拦截的地址
+			<mvc:exclude-mapping path="/assets/**"/>
+			<bean class="com.pdone.framework.interceptor.CSRFInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	-->
+</beans>
