@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.box</groupId>
+    <artifactId>Box</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.box</groupId>
+  <artifactId>Box-www</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Box-www Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+		<dependency>
+			<groupId>com.box</groupId>
+			<artifactId>Box-framework</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.box</groupId>
+			<artifactId>Box-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>${junit.version}</version>
+		</dependency>
+
+		
+		<!-- Shiro security -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+		</dependency>
+
+		<dependency>
+	        <groupId>org.apache.shiro</groupId>
+	        <artifactId>shiro-ehcache</artifactId>
+        </dependency>
+		<!-- mybatis -->
+		
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+
+		<!-- mysql驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- druid 连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+		</dependency>
+
+		
+		<!-- Freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>com.octo.captcha</groupId>
+			<artifactId>jcaptcha-api</artifactId>
+		</dependency>
+		
+	    <dependency>
+   			<groupId>com.jhlabs</groupId>
+   			<artifactId>filters</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.octo.captcha</groupId>
+     		<artifactId>jcaptcha</artifactId>
+   		</dependency>
+
+		<dependency> 
+     		<groupId>com.octo.captcha</groupId>
+     		<artifactId>jcaptcha-integration-simple-servlet</artifactId>
+   		</dependency>
+		
+		<!--  
+		<dependency> 
+   			<groupId>com.octo.captcha</groupId> 
+   			<artifactId>jcaptcha-integration-simple-servlet</artifactId>
+   		</dependency>
+   		
+		-->
+		
+
+	</dependencies>
+	<build>
+		<defaultGoal>compile</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<attachClasses>true</attachClasses>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
