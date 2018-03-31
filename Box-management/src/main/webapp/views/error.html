@@ -1,0 +1,25 @@
+<!-- Main content -->
+<script>
+   $(function(){ 
+	   layer.msg("您的账户已在别处登录,请重新登录！", {
+			time : 5000,
+			shade: 0.6,
+			success: function(layero,index){
+			    var msg = layero.text();
+			    var i = 5;
+			    var timer = null;
+			    var fn = function() {
+				layero.find(".layui-layer-content").text(msg+'('+i+'s'+')');
+				if(!i) {
+				    layer.close(index);
+				    clearInterval(timer);
+				} 
+				i--;
+			    };
+			    timer = setInterval(fn, 1000);
+			    fn();
+			},}, function() {
+	            window.location.href='${basePath}/logout';
+	       	});
+   });
+</script>

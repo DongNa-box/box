@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="PDoneCI">
+  <meta name="description" content="宝堂智慧社区后台管理系统">
+  <title>宝堂智慧社区</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" type="image/x-icon" href="${basePath}/assets/common/favicon.ico"/>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome --> 
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/font-awesome-master/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/ionicons/css/ionicons.min.css">
+  <!-- Bootstrap Validator -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/css/bootstrap-validator.css"/>
+  <!-- iCheck -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/iCheck/square/blue.css">
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/datepicker/datepicker3.css">
+  <!-- Bootstrap Table -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.min.css">
+  <!-- select2 -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/select2/css/select2.min.css">
+  <!-- treeview -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-treeview/bootstrap-treeview.min.css" />
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-select/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/css/fileinput.css">
+ 
+  <!-- Theme style -->
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/AdminLTE.css">
+  <link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/skins/_all-skins.css">
+  <link rel="stylesheet" href="${basePath}/assets/common/css/index.css">
+  <link rel="stylesheet" href="${basePath}/assets/common/css/body.css">
+  
+</head>
+<!--
+收缩左边菜单栏
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<a name="main"></a>
+<div class="wrapper">
+
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="${basePath}/main" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>P</b>Done</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>宝堂</b>智慧社区</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <!-- Navbar Right Menu -->
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">${user.name}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+				<img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="img-circle" alt="User Image">
+                <p>
+                  ${user.name}
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-right">
+                  <a href="${basePath}/logout" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>${user.name}</p>
+          <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+          <label><i class="fa fa-circle text-success"></i>Online</label>
+        </div>
+      </div>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" id="mainDiv">
+    
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer text-center">
+
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">最近活动</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">智慧社区V1.0上线日期</h4>
+
+                <p>2017/12/01</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">客户支持热线</h4>
+
+                <p>Tel:027-5111653</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">邮箱地址</h4>
+
+                <p>1982841291@qq.com</p>
+              </div>
+            </a>
+          </li>
+          <!--  
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">定时任务</h4>
+
+                <p>5秒执行一次</p>
+              </div>
+            </a>
+          </li>
+          -->
+        </ul>
+        <!-- /.control-sidebar-menu -->
+		<!--  
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        -->
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">常规设置</h3>
+		  <!--  
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          -->
+          <!-- /.form-group -->
+		  <!-- 
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          -->
+          <!-- /.form-group -->
+		  <!--
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          -->
+          <!-- /.form-group -->
+		  <!--
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          -->
+          <!-- /.form-group -->
+		  <!--
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          -->
+          <!-- /.form-group -->
+		  <!--
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          -->
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div> 
+  
+</div>
+<!-- ./wrapper -->
+<script type="text/javascript">
+var basePath="${basePath}";//给外部js文件传递路径参数
+var apiHost="${apiHost}";
+var softwareVersionUrl="${softwareVersionUrl}";
+</script>
+<!-- jQuery 2.2.3 -->
+<script src="${basePath}/assets/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!--JSON2-->
+<script src="${basePath}/assets/common/js/json2.js"></script>
+<!-- Bootstrap -->
+<script src="${basePath}/assets/adminlte/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="${basePath}/assets/adminlte/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="${basePath}/assets/adminlte/dist/js/app.min.js"></script>
+<!-- Bootstrap Table -->
+<!--  
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/tableExport/tableExport.min.js"></script>
+-->
+<!-- fileinput -->
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/fileinput.js"></script> 
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/plugins/sortable.js"></script> 
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/locales/zh.js"></script> 
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+<!-- select2 -->
+<script src="${basePath}/assets/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<!-- form -->
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/js/bootstrap-validator.js"></script>
+<script src="${basePath}/assets/adminlte/plugins/iCheck/icheck.min.js"></script>
+<script src="${basePath}/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="${basePath}/assets/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<!-- treeview -->
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+<!-- echarts -->
+<script src="${basePath}/assets/adminlte/plugins/echarts/echarts.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="${basePath}/assets/adminlte/dist/js/demo.js"></script>
+<!-- layer -->
+<script src="${basePath}/assets/adminlte/plugins/layer/layer.js"></script>
+<!-- Custom Js -->
+<script type="text/javascript" src="${basePath}/assets/common/js/base.js"></script>
+<script type="text/javascript" src="${basePath}/assets/common/js/common.js"></script>
+<script type="text/javascript" src="${basePath}/assets/common/js/constant.js"></script>
+<!-- 加入页面的的脚本 -->
+<script>
+   //加载菜单
+	ajaxPost(basePath+"/uums/menuTree",null,function(data){
+	  var $li,$menu_f_ul;
+	  $.each(data,function(index,item){
+		  if(item.levelCode==0){	
+			  $li=$('<li class="treeview"></li>');
+			  var $menu_f=$('<a href="#">\n'+
+					           '<i class="'+item.icon+'"></i> <span>'+item.text+'</span>\n'+
+                                ' <span class="pull-right-container">\n'+
+					           '<i class="fa fa-angle-left pull-right"></i>\n'+
+				            '</span></a>');
+			  $li.append($menu_f);
+			  $menu_f_ul=$('<ul class="treeview-menu"></ul>');
+			  $li.append($menu_f_ul);
+			  $("ul.sidebar-menu").append($li); 
+			  if(item.nodes != null){
+				  $.each(item.nodes,function(index,childItem){
+					  $menu_s=$('<li><a href="#" data-url="${basePath}'+childItem.url+'"><i class="'+childItem.icon+'"></i>'+childItem.text+'</a></li>');
+					  $menu_f_ul.append($menu_s); 
+				  });
+			  }
+		  } 
+	  });
+	  $($.parseHTML($menu_f_ul, document, true)).appendTo("body");
+   });
+   
+   $(function(){ 
+	   //首页默认加载
+       loadPage(basePath+"/homePage");
+	   $("a[data-url]").click(function(evt){
+		   loadPage($(this).data("url"));
+		   $("ul.treeview-menu li").removeClass("active");
+		   $(this).parent().addClass("active");
+	   });
+   });
+</script>
+</body>
+
+</html>
