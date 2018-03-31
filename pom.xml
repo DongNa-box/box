@@ -10,7 +10,6 @@
   	<module>Box-framework</module>
     <module>Box-api</module>
     <module>Box-web</module>
-    <module>Box-www</module>
   </modules>
   
   <properties>
