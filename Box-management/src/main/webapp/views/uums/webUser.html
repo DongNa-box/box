@@ -1,120 +1,89 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-	<h1>
-		物管用户管理<small>Estate User Management</small>
-	</h1>
-	<ol class="breadcrumb">
-		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-		<li class="active">物管用户管理</li>
-	</ol>
-</section>
-
 <!-- Main content -->
 <section class="content">
 <!--  
 	<div class="container-fluid">
 -->		
 		<div class="box box-primary">
-	        <form id="user-search-form" action="" class="form-horizontal" method="post">
-	        <div class="box-body citys" id="search-citys">
+	        <form id="web-search-form" action="" class="form-horizontal" method="post">
+	        <div class="box-body">
 	          	<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label">省份</label>
-						<div class="col-sm-8">
-							<select id="province" name="province" class="form-control"></select>
-						</div>
+		          	<div class="form-group">
+						<label class="col-sm-4 control-label">用户名</label>
+							<div class="col-sm-8">
+								<input id="search-loginName" name="search-loginName" type="text" class="form-control"
+								placeholder="请输入用户名">
+							</div>
 					</div>
 					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">街道/乡镇</label>
+	          		<div class="form-group">
+						<label class="col-sm-4 control-label">手机号</label>
 						<div class="col-sm-8">
-							<select id="search-town" name="town" class="form-control"></select>
+							<input id="search-phone" name="search-phone" type="text" class="form-control"
+								placeholder="请输入手机号码" maxlength="11">
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label">地市</label>
-						<div class="col-sm-8">
-							<select id="city" name="city" class="form-control"></select>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">社区名称</label>
-						<div class="col-sm-8">
-							<input id="search-communityName" name="communityName" type="text" class="form-control"
-								placeholder="请输入社区名称">
-						</div>
-					</div>			
-				</div>
 				
 				<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label">区县</label>
+	          		<div class="form-group">
+						<label class="col-sm-4 control-label">真实姓名</label>
 						<div class="col-sm-8">
-							<select id="search-area" name="area" class="form-control"></select>
+							<input id="search-name" name="search-name" type="text" class="form-control"
+								placeholder="请输入真实姓名">
 						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">状态</label>
+						<div class="col-sm-8">
+							<select name="search-status" id="search-status" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">启用</option>
+								<option value="2">禁用</option>
+							</select>
+						</div>	
 					</div>
 					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">社区ID</label>
-						<div class="col-sm-8">
-							<input id="search-communityId" name="communityId" type="text" class="form-control"
-								placeholder="请输入社区ID">
-						</div>
-					</div>
-						
 				</div>
+				
 	        </div>
 	        </form>
 	        
 	        <!-- /.box-body -->
 	        <div class="box-footer">
 	        	<div class="row">
-	          	<div id="toolbar" class="btn-toolbar">
+	          	<div id="webuserbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
-						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
-						<!--  
-						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
-						-->
-						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
-						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
+						<button type="button" data-btn-type="web-add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
+						<button type="button" data-btn-type="web-edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
+						<button type="button" data-btn-type="web-delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
+						<!-- <button type="button" data-btn-type="web-check" class="btn btn-info"><i class="fa fa-search-plus"></i> 查看</button> -->
 					</div>
-
+					
+					
 					<div class="btn-group pull-left">
-						<button type="button" data-btn-type="enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
-						<button type="button" data-btn-type="disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
-					</div>					
+						<button type="button" data-btn-type="web-enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
+						<button type="button" data-btn-type="web-disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
+					</div>		
+					
 					<div class="btn-group pull-right">
-						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
-						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+						<button type="button" data-btn-type="web-search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+						<button type="button" data-btn-type="web-reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
 					</div>
 				</div>
 				</div>
 				<div class="row">
-					<table id="user-table" data-toggle="table" data-url="uums/estUserList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
+					<table id="web-user-table" data-toggle="table" data-url="uums/adminList" data-toolbar="#webuserbar" data-pagination="true" data-search="false"
 						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
 						<thead>
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="id" data-sortable="true">用户ID</th>
-								<th data-align="center" data-field="loginName" data-sortable="true">登录名</th>
-								<th data-align="center" data-field="communityId" data-sortable="true">社区ID</th>
-								<th data-align="center" data-field="phone" data-sortable="true">电话号码</th>
+								<th data-align="center" data-field="loginName" data-sortable="true">用户名</th>
 								<th data-align="center" data-field="name" data-sortable="true">真实姓名</th>
+								<th data-align="center" data-field="phone" data-sortable="true">手机号码</th>
 								<th data-align="center" data-field="sex" data-sortable="true" data-formatter="sexFormatter">性别</th>
-								<th data-align="center" data-field="birthday" data-sortable="true">出生日期</th>
-								<th data-align="center" data-field="province" data-visible="false" data-sortable="true">省份ID</th>
-								<th data-align="center" data-field="provinceName" data-sortable="true">省份</th>
-								<th data-align="center" data-field="city" data-visible="false" data-sortable="true">地市ID</th>
-								<th data-align="center" data-field="cityName" data-sortable="true">地市</th>
-								<th data-align="center" data-field="area" data-visible="false" data-sortable="true">区县ID</th>
-								<th data-align="center" data-field="areaName" data-sortable="true">区县</th>
-								<th data-align="center" data-field="town" data-visible="false" data-sortable="true">街道/乡镇ID</th>
-								<th data-align="center" data-field="townName" data-sortable="true">街道/乡镇</th>
-								<th data-align="center" data-field="communityName" data-sortable="true">社区名称</th>
+								<th data-align="center" data-field="birthday" data-sortable="true" data-formatter="formatteryyyyMMdd">出生日期</th>
 								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
 								<th data-align="center" data-field="lastLoginTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">最近登陆时间</th>
 								<th data-align="center" data-field="loginCount" data-sortable="true">登陆次数</th>
@@ -132,19 +101,19 @@
 	-->
 </section>
 
-<!-- 新增物管用户的弹窗 -->
-<div class="modal fade" id="modal-user" aria-labelledby="modalUserLabel" aria-hidden="true">
+<!-- 新增用户的弹窗 -->
+<div class="modal fade" id="modal-user" aria-labelledby="modalWebUserLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="user-form" method="post">
+			<form class="form-horizontal" action="" id="web-user-form" method="post">
 				<input type="hidden" id="flag" name="flag">
 				<input type="hidden" id="id" name="id">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="modalUserLabel"></h4>
+					<h4 class="modal-title" id="modalWebUserLabel"></h4>
 				</div>
-				<div class="modal-body citys" id="citys">
+				<div class="modal-body">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">用户名<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
@@ -159,6 +128,7 @@
 								placeholder="请输入手机号码" maxlength="11">
 						</div>
 					</div>
+					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">真实姓名<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
@@ -166,7 +136,7 @@
 								placeholder="请输入真实姓名">
 						</div>
 					</div>
- 
+
 					<div class="form-group">
 						<label class="col-sm-4 control-label">出生日期<span style="color: red;">*</span></label>
 						<div class="input-group date col-sm-8">
@@ -190,91 +160,16 @@
 						</div>
 					</div>
 
-					<div id="addEstDisplay">
-						<div class="form-group" >
-							<label class="col-sm-4 control-label">省份<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<select name="province" id="province" class="form-control"></select>
-							</div>
-				    	</div>
-				    	  
-				    	<div class="form-group">
-							<label class="col-sm-4 control-label">地市<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<select name="city" id="city" class="form-control"></select>
-							</div>
-						</div>
-				    	  
-						<div class="form-group">
-							<label class="col-sm-4 control-label">区县<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<select name="area" id="area" class="form-control"></select>
-							</div>
-						</div>
-	
-						<div class="form-group" >
-							<label class="col-sm-4 control-label">街道/乡镇<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<select name="town" id="town" class="form-control"></select>
-							</div>
-				   		</div>					
-	
-						<div class="form-group" >
-							<label class="col-sm-4 control-label">社区<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<select name="communityId" id="communityId" class="form-control">
-									<option value="">请选择...</option>
-								</select>
-							</div>
-				   		</div>
-					</div>
-								    	  
-					<div id="editEstDisplay">
-				    	<div class="form-group">
-				    		<label class="col-sm-4 control-label">省份<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<input id="provinceName" name="provinceName" type="text" class="form-control"/>
-							</div>
-				    	</div>
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label">地市<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<input id="cityName" name="cityName" type="text" class="form-control"/>
-							</div>
-						</div>						
-						
-						<div class="form-group">
-							<label class="col-sm-4 control-label">区县</label>
-							<div class="col-sm-8">
-								<input id="areaName" name="areaName" type="text" class="form-control"/>
-							</div>
-						</div>
-				   		
-						<div class="form-group" >
-							<label class="col-sm-4 control-label">街道/乡镇<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<input id="townName" name="townName" type="text" class="form-control"/>
-							</div>
-				   		</div>
-						
-						<div class="form-group" >
-							<label class="col-sm-4 control-label">社区<span style="color: red;">*</span></label>
-							<div class="col-sm-8">
-								<input id="editCommunityName" name="communityName" type="text" class="form-control"/>
-							</div>
-				   		</div>
-			   		</div>			
-					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-sm-4 control-label">用户类别<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<select name="type" id="type" class="form-control">
 								<option value="">请选择...</option>
-								<option value="4">物管用户</option>
+								<option value="2">后台管理员</option>
+								<option value="3">后台业务员</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="form-group">
 						<label class="col-sm-4 control-label">状态<span style="color: red;">*</span></label>
@@ -299,27 +194,24 @@
 	</div>
 </div>
 
+
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
-<script src="${basePath}/assets/common/js/jquery.citys.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
 
 <script type="text/javascript">
 $(function(){
 	userForm = $("#user-form").form();
 	userSearchForm = $("#user-search-form").form();
-	loadcitys('search-citys','search-area','search-town');
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#user-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
-		case 'add':
+		case 'web-add':
 			resetForm();
-			$("#flag").val("0");
-			$("#modalUserLabel").text("新增物管用户");
+			$("#flag").val("02");
+			$("#modalWebUserLabel").text("新增web用户");
 			$('#modal-user').modal('toggle');
-			loadcitys('citys','area','town');
-			$("#addEstDisplay").show();
-			$("#editEstDisplay").hide();
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -328,18 +220,11 @@ $(function(){
 			}
 			resetForm();
 			$("#flag").val("1");
-			$("#modalUserLabel").text("编辑物管用户");
+			$("#modalUserLabel").text("编辑web用户");
 			$("#modal-user").modal("toggle");
 			userForm.initFormData(selected[0]);
-			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为readonly
-			$("#phone").attr("disabled","disabled");    //将phone input元素设置为disabled
-			$("#provinceName").attr("disabled","disabled");
-			$("#cityName").attr("disabled","disabled");
-			$("#areaName").attr("disabled","disabled");
-			$("#townName").attr("disabled","disabled");
-			$("#editCommunityName").attr("disabled","disabled");
-			$("#editEstDisplay").show();
-			$("#addEstDisplay").hide();
+			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为disabled 
+			$("#phone").attr("disabled","disabled");//将phone input元素设置为disabled 
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -348,7 +233,7 @@ $(function(){
 			}
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
-				ajaxPost(basePath + "/uums/est/deleteUser", {
+				ajaxPost(basePath + "/uums/deleteAdmin", {
 					uids: JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
@@ -358,22 +243,21 @@ $(function(){
 					$('#user-table').bootstrapTable('remove', { field: 'id', values: rowIds});
 				});
 				return true;
-			});
+			})
 			break;
-		case 'search':
+		case 'user-search':
 			var formParams = $("#user-search-form").serializeJSON();
-			//alert(JSON.stringify(formParams));
-			$.get(basePath + "/uums/estUserList", {
+			$.get(basePath + "/uums/adminList", {
 				params : JSON.stringify(formParams)
 			}, function(data) {
 				$('#user-table').bootstrapTable('load',data);
 			});	
 			break;
-		case 'reset':
+		case 'user-reset':
 			userSearchForm.clearForm();
 			$('#user-table').bootstrapTable('refresh');
 			break;
-		case 'enable':
+		case 'user-enable':
 			if(selected.length != 1){
 				layer.alert('请选择要启用的用户,每次只能选一条!');
 				return false;
@@ -397,13 +281,17 @@ $(function(){
 	        	});
 			}
 			break;
-		case 'disable':
+		case 'user-disable':
 			if(selected.length != 1){
 				layer.alert('请选择要禁用的用户,每次只能选一条!');
 				return false;
 			}
 			if(selected[0].status == '0'){
 				layer.alert('已是禁用状态!');
+				return false;
+			}
+			if(selected[0].type == 2){
+				layer.alert('管理员不可被禁用');
 				return false;
 			}else{
 				var params = {};
@@ -427,22 +315,6 @@ $(function(){
 	});
 	//-------------button event end----------------
 	
-	//-------------select change begin-----------------
-	$("#town").change(function(){
-		var community = $("#communityId");
-		var streetId = $("#town").val();
-		community.empty();
-		ajaxPost(basePath + "/common/getCommunityByStreet",{
-			params: streetId
-		},function(data){
-			$.each(data,function(index,item){
-				var option = $("<option>").text(item.communityName).val(item.communityId);
-				community.append(option);
-			});	
-		});
-	});
-	//-------------select change end-------------------
-	
 	//-------------Validator from begin----------------
 	$("#user-form").bootstrapValidator({
 		message : '请输入有效值',
@@ -456,7 +328,7 @@ $(function(){
 				validators : {
 					notEmpty : {
 						message : '请输入用户名'
-					},					
+					},
 					threshold : 10,
 					remote : {
 						url : basePath + "/uums/checkLoginNameExists",
@@ -499,12 +371,15 @@ $(function(){
 					integer : {
 						message : '请输入数字'
 					},
+					integer : {
+						message : '请输入数字'
+					},
 					stringLength: {
                         min: 11,
                         max: 12,
                         message: '固定号码长度应该为11位'
                     }, 
-                    /* regexp: {
+                   /*  regexp: {
                         regexp: /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/,
                         message: '请输入正确的11位手机号码'
                     }, */
@@ -530,47 +405,11 @@ $(function(){
 						message : '请选择状态'
 					}
 				}				
-			},
-			province : {
-				validators : {
-					notEmpty : {
-						message : '请选择省份'
-					}
-				}				
-			},			
-			city : {
-				validators : {
-					notEmpty : {
-						message : '请选择地市'
-					}
-				}				
-			},			
-			/* area : {
-				validators : {
-					notEmpty : {
-						message : '请选择区县'
-					}
-				}				
-			},		 */	
-			town : {
-				validators : {
-					notEmpty : {
-						message : '请选择街道/乡镇'
-					}
-				}				
-			},
-			communityId : {
-				validators : {
-					notEmpty : {
-						message : '请选择社区'
-					}
-				}				
 			}
 		},
-
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
-        	ajaxPost(basePath + "/uums/est/editUser", {
+        	ajaxPost(basePath + "/uums/editUser", {
         		params: JSON.stringify(formParams)
 			},  function(data){
 				$('#modal-user').modal('hide');
@@ -599,5 +438,4 @@ $(function(){
 				return row.id;
 		});
 	}
-	
 </script>

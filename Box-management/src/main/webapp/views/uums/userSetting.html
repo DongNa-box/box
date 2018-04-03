@@ -12,15 +12,7 @@
 		#ex1Slider .slider-selection {
 			background: #2681E6;
 		}
-		
-		/*显示隐藏密码图片*/
-/* 	img {
-			width: 30px;
-			height: 16px;
-			position: absolute;left: 0；z-index:5;
-			right: 25px;
-			margin: 15px;
-		}  */
+
 	</style>
 	
 </section>
@@ -52,9 +44,9 @@
 							<input id="phone" name="phone" type="text" class="form-control"
 								 maxlength="11" value="${userDtl.phone}" readonly="readonly" >
 						</div>
-						<div class="col-sm-3">
+						<!-- <div class="col-sm-3">
 							<button type="button" data-btn-type="edit-phone" class="btn btn-warning "><i class="fa fa-edit"></i>修改</button>
-						</div>
+						</div> -->
 					</div>
 				<!-- </div> 
 				
@@ -87,8 +79,8 @@
 						<div class="col-sm-4">
 							<select name="sex" id="sex" class="form-control">
 								<option value="">请选择...</option>
-								<option value="1">男</option>
-								<option value="2">女</option>
+								<option value="M">男</option>
+								<option value="F">女</option>
 							</select>
 						</div>
 					</div>
@@ -320,8 +312,7 @@ $(function(){
 		},
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
-        	//alert(JSON.stringify(formParams));
-        	ajaxPost(basePath + "/uums/all/editUser", {
+        	ajaxPost(basePath + "/uums/editUserSetting", {
         		params: JSON.stringify(formParams)
 			},  function(data){
 				layer.msg(data.code, {
@@ -329,7 +320,6 @@ $(function(){
 					time : 1500,
 				});
 				var password = $('#password').val();
-				//alert(JSON.stringify(password));
 				if(password == null || password == ''){
 					loadPage(basePath+"/uums/userSetting");
 				}else{
@@ -376,13 +366,13 @@ $(function(){
                         regexp: /^1[3|5|8]{1}[0-9]{9}$/,
                         message: '请输入正确的手机号码'
                     },
-					threshold : 11,
+					/* threshold : 11,
 					remote : {
 						url : basePath + "/uums/checkPhoneExists",
 						message : '手机号码已存在',
 						delay : 2000,
 						type : 'POST'
-					}
+					} */
 				}
 			}
 		},

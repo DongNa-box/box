@@ -17,8 +17,8 @@
 		<!-- small box -->
 		<div class="small-box bg-aqua">
 			<div class="inner">
-				<h3>社区</h3>
-				<p>社区管理</p>
+				<h3>盒型</h3>
+				<p>盒型管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-bag"></i>
@@ -32,8 +32,8 @@
 		<!-- small box -->
 		<div class="small-box bg-green">
 			<div class="inner">
-				<h3>媒体</h3>
-				<p>广告管理</p>
+				<h3>排版</h3>
+				<p>排版管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-stats-bars"></i>
@@ -47,8 +47,8 @@
 		<!-- small box -->
 		<div class="small-box bg-yellow">
 			<div class="inner">
-				<h3>物业</h3>
-				<p>物业管理</p>
+				<h3>工艺</h3>
+				<p>工艺管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-person-add"></i>
@@ -62,8 +62,8 @@
 		<!-- small box -->
 		<div class="small-box bg-red">
 			<div class="inner">
-				<h3>门口机</h3>
-				<p>门口机管理</p>
+				<h3>价格</h3>
+				<p>价格管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-pie-graph"></i>
@@ -77,8 +77,8 @@
 		<!-- small box -->
 		<div class="small-box bg-green">
 			<div class="inner">
-				<h3>授权</h3>
-				<p>身份证授权</p>
+				<h3>购物车</h3>
+				<p>购物车管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-stats-bars"></i>
@@ -92,8 +92,8 @@
 		<!-- small box -->
 		<div class="small-box bg-yellow">
 			<div class="inner">
-				<h3>通知公告</h3>
-				<p>社区公告</p>
+				<h3>订单</h3>
+				<p>订单管理</p>
 			</div>
 			<div class="icon">
 				<i class="ion ion-pie-graph"></i>
@@ -147,7 +147,7 @@ $(function(){
    });
 });
 
-$(function(){
+/* $(function(){
 	var userType = ${user.type};
 	if(userType==2||userType==3){
 		$("#cardDiv").hide();
@@ -159,167 +159,7 @@ $(function(){
 		$("#comDiv").hide();
 		$("#machineDiv").hide();
 	}
-}); 
+});  */
 
-var myChart = echarts.init($("#echartsDiv")[0],'vintage');
-option = {
-	    title : {
-	        text: '今日开门方式占比',
-	        subtext: '',
-	        x:'center'
-	    },
-	    tooltip : {
-	        trigger: 'item',
-	        formatter: "{a} <br/>{b} : {c} ({d}%)"
-	    },
-	    toolbox: {
-	        show: true,
-	        feature: {
-	            saveAsImage: {}
-	        }
-	    },
-	    legend: {
-	        orient: 'vertical',
-	        left: 'left',
-	        data: ['APP','分享钥匙','身份证','物管后台','刷脸']
-	    },
-	    series : [
-	        {
-	            name: '开门方式',
-	            type: 'pie',
-	            radius : '55%',
-	            center: ['50%', '60%'],
-	            /* data:[
-	                {value:335, name:'APP'},
-	                {value:310, name:'分享钥匙'},
-	                {value:234, name:'身份证'},
-	                {value:135, name:'物管后台'}
-	                {value:135, name:'刷脸'}
-	            ], */ 
-	            data:(function(){
-                    var arr=[];
-                    //var curdata = new Date();
-                    //alert(JSON.stringify(curdata));
-                    ajaxPost("machine/countOpenTimes", {
-					}, function(data){
-						//alert(JSON.stringify(data[0]));
-						//for(var i=0;i<data.length;i++){
-							arr.push({name: "APP",value: data[0].app});
-							arr.push({name: "刷脸",value: data[0].face});
-							//arr.push({name: "门禁卡",value: data[0].accard});
-							arr.push({name: "物管后台",value: data[0].est});
-							arr.push({name: "身份证",value: data[0].idcard});
-							arr.push({name: "分享钥匙",value: data[0].sharekey});
-                         // }         
-					});
-                    
-              		return arr;
-       			 })(),
-         
-	            itemStyle: {
-	                emphasis: {
-	                    shadowBlur: 10,
-	                    shadowOffsetX: 0,
-	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-	                }
-	            }
-	        }
-	    ]
-	};
-
-myChart.setOption(option);
-
-
-var myChart1 = echarts.init($("#echartsDiv1")[0],'vintage');
-var serie=[];
-var xAxi=[];
-ajaxPost("machine/countEachHourOpenTimes", null, function(data){
-    for(var i=data.length-1;i >= 0;i--){
-  	  //alert(JSON.stringify(data[i][0].sum));
-        serie.push(data[i][0].sum);
-        xAxi.push(data[i][1].legends);
-    }
-});
-var xAxis =xAxi;
-var series=serie;
-
-option = {
-	    title: {
-	        text: '今日开门时段分布',
-	        subtext: '',
-	        x:'center'
-	    },
-	    tooltip: {
-	        trigger: 'axis',
-	        axisPointer: {
-	            type: 'cross'
-	        }
-	    },
-	    toolbox: {
-	        show: true,
-	        feature: {
-	            saveAsImage: {}
-	        }
-	    },
-	    /* legend: {
-	    	data:[]  
-	    }, */
-	    lineStyle:{
-            normal:{
-                width:10,  //连线粗细
-                color: "#00CD00"  //连线颜色
-            }
-        },
-	    xAxis:  {
-	        type: 'category',
-	        boundaryGap: false,
-	        data:xAxis
-	    },
-	    yAxis: {
-	        type: 'value',
-	        axisLabel: {
-	            formatter: '{value} 次'
-	        },
-	        axisPointer: {
-	            snap: true
-	        }
-	    },
-	     /* visualMap: {
-	        show: false,
-	        dimension: 0,
-	        pieces: [{
-	            lte: 6,
-	            color: 'green'
-	        }, {
-	            gt: 6,
-	            lte: 8,
-	            color: 'red'
-	        }, {
-	            gt: 8,
-	            lte: 14,
-	            color: 'green'
-	        }, {
-	            gt: 14,
-	            lte: 17,
-	            color: 'red'
-	        }, {
-	            gt: 17,
-	            color: 'green'
-	        }] 
-	    },  */
-	    series: [
-	         {
-	            name:'开门次数',
-	            type:'line',
-	            smooth: true,
-	            //data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
-	            data:series
-	        } 
-	    ]
-	};
-	
-	
-
-myChart1.setOption(option);
 
 </script>

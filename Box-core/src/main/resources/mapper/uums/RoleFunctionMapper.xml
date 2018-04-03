@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.uums.dao.RoleFunctionMapper">
+  <resultMap id="roleFunctionResultMap" type="com.box.uums.model.RoleFunction">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="function_id" jdbcType="VARCHAR" property="functionId" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="roleFunctionColumnList">
+    id, role_id, function_id, createby, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="roleFunctionResultMap">
+    select 
+    <include refid="roleFunctionColumnList" />
+    from t_uums_rolefunction
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_uums_rolefunction
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.uums.model.RoleFunction">
+    insert into t_uums_rolefunction (id, role_id, function_id, 
+      createby, createtime)
+    values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{functionId,jdbcType=VARCHAR}, 
+      #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.uums.model.RoleFunction">
+    insert into t_uums_rolefunction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="functionId != null">
+        function_id,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionId != null">
+        #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.uums.model.RoleFunction">
+    update t_uums_rolefunction
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionId != null">
+        function_id = #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.uums.model.RoleFunction">
+    update t_uums_rolefunction
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      function_id = #{functionId,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <insert id="batchInsert" parameterType="java.util.List">
+  	<foreach collection="roleFunctions" item="item" separator=";">
+	    insert into t_uums_rolefunction
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="item.id != null">
+	        id,
+	      </if>
+	      <if test="item.roleId != null">
+	        role_id,
+	      </if>
+	      <if test="item.functionId != null">
+	        function_id,
+	      </if>
+	      <if test="item.createTime != null">
+	        create_time,
+	      </if>
+	      <if test="item.createBy != null">
+	        create_by,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="item.id != null">
+	        #{item.id,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.roleId != null">
+	        #{item.roleId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.functionId != null">
+	        #{item.functionId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.createTime != null">
+	        #{item.createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="item.createBy != null">
+	        #{item.createBy,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+    </foreach>
+  </insert>
+  <select id="selectByRoleId" parameterType="java.lang.String" resultMap="roleFunctionResultMap">
+    select 
+    <include refid="roleFunctionColumnList" />
+    from t_uums_rolefunction
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+</mapper>

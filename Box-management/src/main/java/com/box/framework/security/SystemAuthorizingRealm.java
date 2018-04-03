@@ -31,10 +31,11 @@ import org.slf4j.LoggerFactory;
 
 import com.box.framework.utils.EncryptUtil;
 import com.box.framework.utils.PropertiesUtil;
-import com.box.web.uums.controller.LoginController;
+
 import com.box.uums.model.User;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
+
 
 /**
  * ClassName:SystemAuthorizingRealm

@@ -36,6 +36,7 @@ import com.box.uums.model.User;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
 
+
 /**
  * ClassName:SystemAuthorizingRealm
  * Function: TODO ADD FUNCTION.

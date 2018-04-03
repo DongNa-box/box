@@ -1,0 +1,72 @@
+
+<section class="content">
+	<div class="nav-tabs-custom">
+		<ul class="nav nav-tabs pull-right" id="myTab">
+			<li class="pull-left header"><i class="fa fa-list-alt"></i><small>用户管理</small></li>
+			</li>
+			<li>
+				<a href="#tab-content-admin" data-toggle="tab" id="" >
+				<img src="assets/common/images/householder.png">管理员</a>
+			</li>
+			<li>
+				<a href="#tab-content-webuser" data-toggle="tab" id="" >
+				<img src="assets/common/images/householder.png">web用户</a>
+			</li>
+			<li>
+				<a href="#tab-content-appuser" data-toggle="tab" id="" >
+				<img src="assets/common/images/householder.png">app用户</a>
+			</li>
+			
+		</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab-content-admin"></div>
+		<div class="tab-pane" id="tab-content-webuser"></div>
+		<div class="tab-pane" id="tab-content-appuser"></div>
+	</div>		
+	</div>
+</section>
+
+<script type="text/javascript">
+$(function(){
+	showTabs('tab-content-admin',basePath + '/uums/admin');
+ });
+	/**
+	 * tab页面加载
+	 * @param tabsId
+	 * @param url
+	 * @returns
+	 */
+	function showTabs(tabsId,url) {
+	    $("a[href='#"+tabsId+"']").tab('show');
+	    var $tabContent = $('#'+tabsId);
+	    if($tabContent.length < 100) {
+	        $tabContent.load(url);
+	    }
+	}
+    //准备tabs数据
+		var tabsData = [{
+		    "id" : "tab-content-admin",
+		    "url" : basePath + "/uums/admin"
+		},{
+		    "id" : "tab-content-webuser",
+		    "url" : basePath + "/uums/webUser"
+		},{
+		    "id" : "tab-content-appuser",
+		    "url" : basePath + "/uums/appUser"
+		}];
+		
+		$(tabsData).each(function(){
+		    //console.info(this.id + "--->" + this.url);
+		    $("a[href='#"+this.id+"']").bind('click',{
+		        id : this.id,
+		        url : this.url
+		    },tabsHandler);
+		});
+		function tabsHandler(event) {
+		    var data = event.data;
+			sessionStorage.setItem('isscan','1');
+		    showTabs(data.id,data.url);
+		    return false; //阻止默认a标签响应
+		}
+		
+</script> 

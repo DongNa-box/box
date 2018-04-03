@@ -27,6 +27,7 @@ import com.box.framework.utils.StrUtil;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
 
+
 @Controller
 public class LoginController {
 	  private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);

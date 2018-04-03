@@ -1,87 +1,49 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-	<h1>
-		APP用户管理<small>APP User Management</small>
-	</h1>
-	<ol class="breadcrumb">
-		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i>首页</a></li>
-		<li class="active">APP用户管理</li>
-	</ol>
-</section>
-
 <!-- Main content -->
 <section class="content">
 <!--  
 	<div class="container-fluid">
 -->		
 		<div class="box box-primary">
-	        <form id="user-search-form" action="" class="form-horizontal" method="post">
+	        <form id="app-search-form" action="" class="form-horizontal" method="post">
 	        <div class="box-body">
 	          	<div class="col-sm-4">
+		          	<div class="form-group">
+						<label class="col-sm-4 control-label">用户名</label>
+							<div class="col-sm-8">
+								<input id="search-loginName" name="search-loginName" type="text" class="form-control"
+								placeholder="请输入用户名">
+							</div>
+					</div>
+					
 	          		<div class="form-group">
-						<label class="col-sm-4 control-label">绑定手机号</label>
+						<label class="col-sm-4 control-label">手机号</label>
 						<div class="col-sm-8">
 							<input id="search-phone" name="search-phone" type="text" class="form-control"
 								placeholder="请输入手机号码" maxlength="11">
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">用户ID</label>
-						<div class="col-sm-8">
-							<input id="search-id" name="search-id" type="text" class="form-control"
-								placeholder="请输入用户ID">
-						</div>	
-					</div>	
 				</div>
 				
 				
 				<div class="col-sm-4">
-					<div class="form-group">
-						<label class="col-sm-4 control-label">注册时间</label>
-						<div class="input-group date col-sm-8">
-							<div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-							<input name="createTimeBegin" type="text" class="form-control" id="search-createTimeBegin" data-flag="datepicker" data-format="yyyy-MM-dd"
-								placeholder="请选择...">
+	          		<div class="form-group">
+						<label class="col-sm-4 control-label">真实姓名</label>
+						<div class="col-sm-8">
+							<input id="search-name" name="search-name" type="text" class="form-control"
+								placeholder="请输入真实姓名">
 						</div>
 					</div>
-					
 					<div class="form-group">
-						<label class="col-sm-4 control-label">最近登陆时间</label>
-						<div class="input-group date col-sm-8">
-							<div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-							<input name="lastLoginTimeBegin" type="text" class="form-control" id="search-lastLoginTimeBegin"
-							 data-flag="datepicker" data-format="yyyy-MM-dd" placeholder="请选择...">
-						</div>
-					</div>	
-				</div>
-				
-				<div class="col-sm-4">
-	          		<div class="form-group" >
-						<label for="" class="col-sm-1 control-label" >~</label>
-						<div class="input-group date col-sm-8">
-							<div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-							<input name="createTimeEnd" type="text" class="form-control" id="search-createTimeEnd" 
-							data-flag="datepicker" data-format="yyyy-MM-dd" placeholder="请选择...">
-						</div>
-			        </div> 
-					
-					<div class="form-group">
-						<label for="" class="col-sm-1 control-label" >~</label>
-						<div class="input-group date col-sm-8">
-							<div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-							<input name="lastLoginTimeEnd" type="text" class="form-control" id="search-lastLoginTimeEnd" data-flag="datepicker" data-format="yyyy-MM-dd"
-								placeholder="请选择...">
+						<label class="col-sm-4 control-label">状态</label>
+						<div class="col-sm-8">
+							<select name="search-status" id="search-status" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">启用</option>
+								<option value="2">禁用</option>
+							</select>
 						</div>	
-					</div>	
+					</div>
+					
 				</div>
 				
 	        </div>
@@ -90,37 +52,42 @@
 	        <!-- /.box-body -->
 	        <div class="box-footer">
 	        	<div class="row">
-	          	<div id="toolbar" class="btn-toolbar">
+	          	<div id="appuserbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
-						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+						<button type="button" data-btn-type="app-add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
+						<button type="button" data-btn-type="app-edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
+						<button type="button" data-btn-type="app-delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
+						<!-- <button type="button" data-btn-type="app-check" class="btn btn-info"><i class="fa fa-search-plus"></i> 查看</button> -->
 					</div>
 					
+					
 					<div class="btn-group pull-left">
-						<button type="button" data-btn-type="enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
-						<button type="button" data-btn-type="disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
+						<button type="button" data-btn-type="app-enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
+						<button type="button" data-btn-type="app-disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
 					</div>		
 					
 					<div class="btn-group pull-right">
-						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
-						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+						<button type="button" data-btn-type="app-search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+						<button type="button" data-btn-type="app-reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
 					</div>
 				</div>
 				</div>
 				<div class="row">
-					<table id="user-table" data-toggle="table" data-url="uums/appUserList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
+					<table id="app-user-table" data-toggle="table" data-url="uums/adminList" data-toolbar="#appuserbar" data-pagination="true" data-search="false"
 						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
 						<thead>
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="id" data-sortable="true">用户ID</th>
-								<th data-align="center" data-field="phone" data-sortable="true">绑定手机号</th>
-								<th data-align="center" data-field="nickName" data-sortable="true">昵称</th>
+								<th data-align="center" data-field="loginName" data-sortable="true">用户名</th>
 								<th data-align="center" data-field="name" data-sortable="true">真实姓名</th>
+								<th data-align="center" data-field="phone" data-sortable="true">手机号码</th>
 								<th data-align="center" data-field="sex" data-sortable="true" data-formatter="sexFormatter">性别</th>
 								<th data-align="center" data-field="birthday" data-sortable="true" data-formatter="formatteryyyyMMdd">出生日期</th>
 								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
 								<th data-align="center" data-field="lastLoginTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">最近登陆时间</th>
 								<th data-align="center" data-field="loginCount" data-sortable="true">登陆次数</th>
+								<th data-align="center" data-field="type" data-sortable="true" data-formatter="userTypeFormatter">用户类别</th>
 								<th data-align="center" data-field="status" data-sortable="true" data-formatter="operateFormatter">是否启用</th>
 							</tr>
 						</thead>
@@ -134,223 +101,163 @@
 	-->
 </section>
 
-<!-- 查看APP用户的弹窗 -->
-<div class="modal fade" id="modal-appuser" aria-labelledby="modalAPPUserLabel" aria-hidden="true">
+<!-- 新增用户的弹窗 -->
+<div class="modal fade" id="modal-user" aria-labelledby="modalappUserLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="appuser-form" method="post">
+			<form class="form-horizontal" action="" id="app-user-form" method="post">
+				<input type="hidden" id="flag" name="flag">
+				<input type="hidden" id="id" name="id">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="modalUserLabel">查看APP用户信息</h4>
+					<h4 class="modal-title" id="modalappUserLabel"></h4>
 				</div>
-				
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">用户ID:</label>
+						<label class="col-sm-4 control-label">用户名<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="id" name="id" type="text" class="form-control" disabled="disabled">
+							<input id="loginName" name="loginName" type="text" class="form-control"
+								placeholder="请输入用户名">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">手机号码<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="phone" name="phone" type="text" class="form-control"
+								placeholder="请输入手机号码" maxlength="11">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-4 control-label">真实姓名:</label>
+						<label class="col-sm-4 control-label">真实姓名<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="name" name="name" type="text" class="form-control" disabled="disabled">
+							<input name="name" type="text" class="form-control"
+								placeholder="请输入真实姓名">
 						</div>
 					</div>
-					
+
 					<div class="form-group">
-						<label class="col-sm-4 control-label">昵称:</label>
-						<div class="col-sm-8">
-							<input id="nickName" name="nickName" type="text" class="form-control" disabled="disabled">
+						<label class="col-sm-4 control-label">出生日期<span style="color: red;">*</span></label>
+						<div class="input-group date col-sm-8">
+							<div class="input-group-addon">
+	                        	<i class="fa fa-calendar"></i>
+	                        </div>
+							<input name="birthday" type="text" class="form-control" id="birthday" data-flag="datepicker" data-format="yyyy-MM-dd"
+								placeholder="请选择出生日期">
+
 						</div>
 					</div>
-					
+
 					<div class="form-group">
-						<label class="col-sm-4 control-label">手机号码:</label>
+						<label class="col-sm-4 control-label">性别<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="phone" name="phone" type="text" class="form-control" disabled="disabled">
+							<select name="sex" id="sex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
 						</div>
 					</div>
-					
+
+					<!-- <div class="form-group">
+						<label class="col-sm-4 control-label">用户类别<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="type" id="type" class="form-control">
+								<option value="">请选择...</option>
+								<option value="2">后台管理员</option>
+								<option value="3">后台业务员</option>
+							</select>
+						</div>
+					</div> -->
+
 					<div class="form-group">
-						<label class="col-sm-4 control-label">出生日期:</label>
+						<label class="col-sm-4 control-label">状态<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="birthday" name="birthday" type="text" class="form-control" data-flag="datepicker" data-format="yyyy-MM-dd" disabled="disabled">
+							<label class="control-label"> <input type="radio"
+								name="status" data-flag="icheck" value="1" checked="checked">
+								启用
+							</label> &nbsp; <label class="control-label"> <input type="radio"
+								name="status" data-flag="icheck" value="0">
+								禁用
+							</label>
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">性别:</label>
-						<div class="col-sm-8">
-							<input id="sex" name="sex" type="text" class="form-control" disabled="disabled">
-						</div>
-					</div>
-					
-					<div class="form-group" id="userImage">
-						<label class="col-sm-4 control-label">用户头像:</label>
-						<div class="col-sm-8">
-							<img id="userImageId" src="" height="67" width="67" >
-						</div>
-					</div>
-					  
-					<div class="form-group" id="imageAll">
-						<label class="col-sm-4 control-label">刷脸图片:</label>
-					<!-- </div>
-					<div class="form-group"> -->
-						<div class="col-sm-2" id="image1">
-							<img id="faceImageId1" src="" height="67" width="67" >
-						</div>
-						<div class="col-sm-2" id="image2">
-							<img id="faceImageId2" src="" height="67" width="67" >
-						</div>
-						<div class="col-sm-2" id="image3">
-							<img id="faceImageId3" src="" height="67" width="67" >
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">登陆次数:</label>
-						<div class="col-sm-8">
-							<input id="loginCount" name="loginCount" type="text" class="form-control" disabled="disabled">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">注册时间:</label>
-						<div class="col-sm-8">
-							<input id="createTime" name="createTime" type="text" class="form-control" data-flag="datepicker" data-format="yyyy-MM-dd HH:mm:ss" disabled="disabled">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">最近登陆:</label>
-						<div class="col-sm-8">
-							<input id="lastLoginTime" name="lastLoginTime" type="text" class="form-control" data-flag="datepicker" data-format="yyyy-MM-dd HH:mm:ss" disabled="disabled">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">是否启用:</label>
-						<div class="col-sm-8">
-							<input id="status" name="status" type="text" class="form-control" disabled="disabled">
-						</div>
-					</div>
 					<div class="modal-footer">
-						<button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
 					</div>
-			   	</div>			
+				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
 
-
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
 
 <script type="text/javascript">
 $(function(){
-	userForm = $("#appuser-form").form();
+	userForm = $("#user-form").form();
 	userSearchForm = $("#user-search-form").form();
-	
-	$('#closeBtn').click(function() {
-		$('#user-table').bootstrapTable('refresh');
-	});
-			
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#user-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
-		case 'search':
+		case 'app-add':
+			resetForm();
+			$("#flag").val("02");
+			$("#modalappUserLabel").text("新增app用户");
+			$('#modal-user').modal('toggle');
+			break;
+		case 'edit':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#flag").val("1");
+			$("#modalappUserLabel").text("编辑app用户");
+			$("#modal-user").modal("toggle");
+			userForm.initFormData(selected[0]);
+			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为disabled 
+			$("#phone").attr("disabled","disabled");//将phone input元素设置为disabled 
+		   	break;
+		case 'delete':
+			if(selected.length < 1){
+				layer.alert('请选择要删除的数据');
+				return false;
+			}
+			layer.confirm("是否要删除该行数据？",function(){
+				var rowIds = getIdSelections();
+				ajaxPost(basePath + "/uums/deleteAdmin", {
+					uids: JSON.stringify(rowIds)
+				}, function(data){
+					layer.msg(data.code, {
+						icon : 1,
+						time : 1500,
+				});
+					$('#user-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+				});
+				return true;
+			})
+			break;
+		case 'user-search':
 			var formParams = $("#user-search-form").serializeJSON();
-			//alert(JSON.stringify(formParams));
-			if((formParams.createTimeBegin!=null && formParams.createTimeBegin!="")
-					&&(formParams.createTimeEnd!=null && formParams.createTimeEnd!="")
-					&&(formParams.createTimeBegin>formParams.createTimeEnd)){
-				layer.alert('开始日期不能大于结束日期');
-			}
-			if((formParams.lastLoginTimeBegin!=null && formParams.lastLoginTimeBegin!="")
-					&&(formParams.lastLoginTimeEnd!=null && formParams.lastLoginTimeEnd!="")
-					&&(formParams.lastLoginTimeBegin>formParams.lastLoginTimeEnd)){
-				layer.alert('开始日期不能大于结束日期');				
-			}
-			//$.get(basePath + "/uums/app/userlist", {
-			ajaxGet(basePath + "/uums/appUserList", {
+			$.get(basePath + "/uums/adminList", {
 				params : JSON.stringify(formParams)
 			}, function(data) {
 				$('#user-table').bootstrapTable('load',data);
 			});	
 			break;
-		case 'reset':
+		case 'user-reset':
 			userSearchForm.clearForm();
 			$('#user-table').bootstrapTable('refresh');
 			break;
-		case 'detail':	
-			if(selected == ''){
-				layer.alert('请选择要查看的用户');
-				return false;
-			}
-			if (selected.length > 1) {
-				layer.alert('请选择一个用户的信息进行查看');
-				return false;
-			}
-
-		      var userId = selected[0].id;
-		      ajaxPost(basePath + "/uums/appUserDetail", {
-					params: userId
-				}, function(data){
-					//alert(JSON.stringify(data));
-					if(data[0].userImage!=null&&data[0].userImage!=''){
-						var userImageUrl="http://ospkfic88.bkt.clouddn.com"+data[0].userImage;
-						$("#userImageId").attr('src',userImageUrl);
-					}else{
-						$("#userImage").hide();
-					}
-
-					if((data[1]!=null&&data[1]=='')||(data[2]!=null&&data[2]!='')
-							||(data[3]!=null&&data[3]!='')){
-						if(data[1]!=null&&data[1]!=''){
-							var faceImageUrl1="http://ospky3ulf.bkt.clouddn.com/"+data[1].imageUrl;
-							$("#faceImageId1").attr('src',faceImageUrl1);
-						}else{
-							$("#image1").hide();
-						}
-						if(data[2]!=null&&data[2]!=''){
-							var faceImageUrl2="http://ospky3ulf.bkt.clouddn.com/"+data[2].imageUrl;
-							$("#faceImageId2").attr('src',faceImageUrl2);
-						}else{
-							$("#image2").hide();
-						}
-						if(data[3]!=null&&data[3]!=''){
-							var faceImageUrl3="http://ospky3ulf.bkt.clouddn.com/"+data[3].imageUrl;
-							$("#faceImageId3").attr('src',faceImageUrl3);
-						}else{
-							$("#image3").hide();
-						}
-					}else{
-						$("#imageAll").hide();
-					}	
-									
-				});		
-			$('#modal-appuser').modal('toggle');	
-			userForm.initFormData(selected[0]);
-			var sex=selected[0].sex;
-			var status=selected[0].status;
-			if(sex=='1'){
-	        	$('#sex').val("男");
-	        }else{
-	        	$('#sex').val("女");
-	        }
-			if(status=='1'){
-	        	$('#status').val("是");
-	        }else{
-	        	$('#status').val("否");
-	        }
-			break;
-		case 'enable':
+		case 'user-enable':
 			if(selected.length != 1){
 				layer.alert('请选择要启用的用户,每次只能选一条!');
 				return false;
@@ -362,7 +269,7 @@ $(function(){
 				var params = {};
 				params['id'] = selected[0].id;
 				params['status'] = 1;
-				ajaxPost(basePath + '/uums/updateStatus', {
+				ajaxPost(basePath + "/uums/updateStatus", {
 	        		params: JSON.stringify(params)
 				},  function(data){
 					$('#modal-user').modal('hide');
@@ -374,7 +281,7 @@ $(function(){
 	        	});
 			}
 			break;
-		case 'disable':
+		case 'user-disable':
 			if(selected.length != 1){
 				layer.alert('请选择要禁用的用户,每次只能选一条!');
 				return false;
@@ -382,11 +289,15 @@ $(function(){
 			if(selected[0].status == '0'){
 				layer.alert('已是禁用状态!');
 				return false;
+			}
+			if(selected[0].type == 2){
+				layer.alert('管理员不可被禁用');
+				return false;
 			}else{
 				var params = {};
 				params['id'] = selected[0].id;
 				params['status'] = 0;
-				ajaxPost(basePath + '/uums/updateStatus', {
+				ajaxPost(basePath + "/uums/updateStatus", {
 	        		params: JSON.stringify(params)
 				},  function(data){
 					$('#modal-user').modal('hide');
@@ -398,14 +309,125 @@ $(function(){
 	        	});
 			}
 			break;
+		
 		}
+
 	});
 	//-------------button event end----------------
+	
+	//-------------Validator from begin----------------
+	$("#user-form").bootstrapValidator({
+		message : '请输入有效值',
+		feedbackIcons : {
+			valid : 'glyphicon glyphicon-ok',
+			invalid : 'glyphicon glyphicon-remove',
+			validating : 'glyphicon glyphicon-refresh'
+		},
+		fields : {
+			loginName : {
+				validators : {
+					notEmpty : {
+						message : '请输入用户名'
+					},
+					threshold : 10,
+					remote : {
+						url : basePath + "/uums/checkLoginNameExists",
+						message : '用户名已存在',
+						delay : 2000,
+						type : 'POST'
+					}
+				}
+			},
+			sex : {
+				validators : {
+					notEmpty : {
+						message : '请选择性别'
+					}
+				}
+			},
+			birthday : {
+				validators : {
+					notEmpty : {
+						message : '请输入出生日期'
+					},
+					date : {
+						format : 'YYYY-MM-DD',
+						message : '请输入有效日期'
+					} 
+				}
+			},
+			name : {
+				validators : {
+					notEmpty : {
+						message : '请输入真实姓名'
+					}
+				}
+			},
+			phone : {
+				validators : {
+					notEmpty : {
+						message : '请输入手机号码'
+					},
+					integer : {
+						message : '请输入数字'
+					},
+					integer : {
+						message : '请输入数字'
+					},
+					stringLength: {
+                        min: 11,
+                        max: 12,
+                        message: '固定号码长度应该为11位'
+                    }, 
+                   /*  regexp: {
+                        regexp: /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/,
+                        message: '请输入正确的11位手机号码'
+                    }, */
+					threshold : 11,
+					remote : {
+						url : basePath + "/uums/checkPhoneExists",
+						message : '手机号码已存在',
+						delay : 2000,
+						type : 'POST'
+					}
+				}
+			},
+			type : {
+				validators : {
+					notEmpty : {
+						message : '请选择用户类别'
+					}
+				}
+			},
+			status : {
+				validators : {
+					notEmpty : {
+						message : '请选择状态'
+					}
+				}				
+			}
+		},
+        submitHandler: function (validator, form, submitButton) {
+        	var formParams = form.serializeJSON();
+        	ajaxPost(basePath + "/uums/editUser", {
+        		params: JSON.stringify(formParams)
+			},  function(data){
+				$('#modal-user').modal('hide');
+				layer.msg(data.code, {
+					icon : 1,
+					time : 1500,
+				});
+				$('#user-table').bootstrapTable('refresh');
+        	});
+        }
+	});
+	//-------------Validator from end----------------
 });
 
+	
 	function resetForm(){
 		userForm.clearForm();
-		$("#appuser-form").data('bootstrapValidator').resetForm();
+		$("#user-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
@@ -416,5 +438,4 @@ $(function(){
 				return row.id;
 		});
 	}
-	
 </script>
