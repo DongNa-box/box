@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.boxmanage.dao.BoxTypeMapper">
+  <resultMap id="BoxTypeResultMap" type="com.box.boxmanage.model.BoxType">
+    <id column="boxId" jdbcType="VARCHAR" property="boxid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dime" jdbcType="VARCHAR" property="dime" />
+    <result column="pla" jdbcType="VARCHAR" property="pla" />
+    <result column="plan" jdbcType="VARCHAR" property="plan" />
+    <result column="phy" jdbcType="VARCHAR" property="phy" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="calssId" jdbcType="VARCHAR" property="calssid" />
+    <result column="detail1" jdbcType="VARCHAR" property="detail1" />
+    <result column="detail2" jdbcType="VARCHAR" property="detail2" />
+    <result column="detail3" jdbcType="VARCHAR" property="detail3" />
+    <result column="wmin" jdbcType="DOUBLE" property="wmin" />
+    <result column="hmin" jdbcType="DOUBLE" property="hmin" />
+    <result column="lmin" jdbcType="DOUBLE" property="lmin" />
+    <result column="wmax" jdbcType="DOUBLE" property="wmax" />
+    <result column="hwax" jdbcType="DOUBLE" property="hwax" />
+    <result column="lwax" jdbcType="DOUBLE" property="lwax" />
+    <result column="unit" jdbcType="INTEGER" property="unit" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="BoxType_Column_List">
+    boxId, name, dime, pla, plan, phy, description, calssId, detail1, detail2, detail3, 
+    wmin, hmin, lmin, wmax, hwax, lwax, unit, createby, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BoxTypeResultMap">
+    select 
+    <include refid="BoxType_Column_List" />
+    from t_box_type
+    where boxId = #{boxid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_box_type
+    where boxId = #{boxid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.boxmanage.model.BoxType">
+    insert into t_box_type (boxId, name, dime, 
+      pla, plan, phy, description, 
+      calssId, detail1, detail2, 
+      detail3, wmin, hmin, 
+      lmin, wmax, hwax, lwax, 
+      unit, createby, createtime
+      )
+    values (#{boxid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dime,jdbcType=VARCHAR}, 
+      #{pla,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{phy,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{calssid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
+      #{detail3,jdbcType=VARCHAR}, #{wmin,jdbcType=DOUBLE}, #{hmin,jdbcType=DOUBLE}, 
+      #{lmin,jdbcType=DOUBLE}, #{wmax,jdbcType=DOUBLE}, #{hwax,jdbcType=DOUBLE}, #{lwax,jdbcType=DOUBLE}, 
+      #{unit,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.boxmanage.model.BoxType">
+    insert into t_box_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boxid != null">
+        boxId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="dime != null">
+        dime,
+      </if>
+      <if test="pla != null">
+        pla,
+      </if>
+      <if test="plan != null">
+        plan,
+      </if>
+      <if test="phy != null">
+        phy,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="calssid != null">
+        calssId,
+      </if>
+      <if test="detail1 != null">
+        detail1,
+      </if>
+      <if test="detail2 != null">
+        detail2,
+      </if>
+      <if test="detail3 != null">
+        detail3,
+      </if>
+      <if test="wmin != null">
+        wmin,
+      </if>
+      <if test="hmin != null">
+        hmin,
+      </if>
+      <if test="lmin != null">
+        lmin,
+      </if>
+      <if test="wmax != null">
+        wmax,
+      </if>
+      <if test="hwax != null">
+        hwax,
+      </if>
+      <if test="lwax != null">
+        lwax,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boxid != null">
+        #{boxid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dime != null">
+        #{dime,jdbcType=VARCHAR},
+      </if>
+      <if test="pla != null">
+        #{pla,jdbcType=VARCHAR},
+      </if>
+      <if test="plan != null">
+        #{plan,jdbcType=VARCHAR},
+      </if>
+      <if test="phy != null">
+        #{phy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="calssid != null">
+        #{calssid,jdbcType=VARCHAR},
+      </if>
+      <if test="detail1 != null">
+        #{detail1,jdbcType=VARCHAR},
+      </if>
+      <if test="detail2 != null">
+        #{detail2,jdbcType=VARCHAR},
+      </if>
+      <if test="detail3 != null">
+        #{detail3,jdbcType=VARCHAR},
+      </if>
+      <if test="wmin != null">
+        #{wmin,jdbcType=DOUBLE},
+      </if>
+      <if test="hmin != null">
+        #{hmin,jdbcType=DOUBLE},
+      </if>
+      <if test="lmin != null">
+        #{lmin,jdbcType=DOUBLE},
+      </if>
+      <if test="wmax != null">
+        #{wmax,jdbcType=DOUBLE},
+      </if>
+      <if test="hwax != null">
+        #{hwax,jdbcType=DOUBLE},
+      </if>
+      <if test="lwax != null">
+        #{lwax,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.boxmanage.model.BoxType">
+    update t_box_type
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dime != null">
+        dime = #{dime,jdbcType=VARCHAR},
+      </if>
+      <if test="pla != null">
+        pla = #{pla,jdbcType=VARCHAR},
+      </if>
+      <if test="plan != null">
+        plan = #{plan,jdbcType=VARCHAR},
+      </if>
+      <if test="phy != null">
+        phy = #{phy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="calssid != null">
+        calssId = #{calssid,jdbcType=VARCHAR},
+      </if>
+      <if test="detail1 != null">
+        detail1 = #{detail1,jdbcType=VARCHAR},
+      </if>
+      <if test="detail2 != null">
+        detail2 = #{detail2,jdbcType=VARCHAR},
+      </if>
+      <if test="detail3 != null">
+        detail3 = #{detail3,jdbcType=VARCHAR},
+      </if>
+      <if test="wmin != null">
+        wmin = #{wmin,jdbcType=DOUBLE},
+      </if>
+      <if test="hmin != null">
+        hmin = #{hmin,jdbcType=DOUBLE},
+      </if>
+      <if test="lmin != null">
+        lmin = #{lmin,jdbcType=DOUBLE},
+      </if>
+      <if test="wmax != null">
+        wmax = #{wmax,jdbcType=DOUBLE},
+      </if>
+      <if test="hwax != null">
+        hwax = #{hwax,jdbcType=DOUBLE},
+      </if>
+      <if test="lwax != null">
+        lwax = #{lwax,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where boxId = #{boxid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.boxmanage.model.BoxType">
+    update t_box_type
+    set name = #{name,jdbcType=VARCHAR},
+      dime = #{dime,jdbcType=VARCHAR},
+      pla = #{pla,jdbcType=VARCHAR},
+      plan = #{plan,jdbcType=VARCHAR},
+      phy = #{phy,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      calssId = #{calssid,jdbcType=VARCHAR},
+      detail1 = #{detail1,jdbcType=VARCHAR},
+      detail2 = #{detail2,jdbcType=VARCHAR},
+      detail3 = #{detail3,jdbcType=VARCHAR},
+      wmin = #{wmin,jdbcType=DOUBLE},
+      hmin = #{hmin,jdbcType=DOUBLE},
+      lmin = #{lmin,jdbcType=DOUBLE},
+      wmax = #{wmax,jdbcType=DOUBLE},
+      hwax = #{hwax,jdbcType=DOUBLE},
+      lwax = #{lwax,jdbcType=DOUBLE},
+      unit = #{unit,jdbcType=INTEGER},
+      createby = #{createby,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where boxId = #{boxid,jdbcType=VARCHAR}
+  </update>
+</mapper>

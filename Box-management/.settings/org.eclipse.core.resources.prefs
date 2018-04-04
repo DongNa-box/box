@@ -1,4 +1,12 @@
 eclipse.preferences.version=1
 encoding//src/main/java=utf-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/views/boxmanage/boxClassification.html=UTF-8
+encoding//src/main/webapp/views/boxmanage/boxType.html=UTF-8
+encoding//src/main/webapp/views/error.html=UTF-8
+encoding//src/main/webapp/views/homePage.html=UTF-8
+encoding//src/main/webapp/views/uums/admin.html=UTF-8
+encoding//src/main/webapp/views/uums/user.html=UTF-8
+encoding//src/main/webapp/views/uums/userSetting.html=UTF-8
+encoding//src/main/webapp/views/uums/webUser.html=UTF-8
 encoding/<project>=UTF-8

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.box.uums.dao.UserMapper">
-  <resultMap id="UserResultMap" type="com.box.uums.model.User">
+  <resultMap id="userResultMap" type="com.box.uums.model.User">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -14,35 +14,27 @@
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="login_count" jdbcType="INTEGER" property="loginCount" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="code" jdbcType="INTEGER" property="code" />
     <result column="user_image" jdbcType="VARCHAR" property="userImage" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
-  <sql id="User_Column_List">
+  <sql id="userColumList">
     id, login_name, password, phone, nick_name, name, sex, birthday, create_time, last_login_time, 
     login_count, status, code, user_image, email, type
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="UserResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="userResultMap">
     select 
-    <include refid="User_Column_List" />
-    from t_user
+    <include refid="userColumList" />
+    from t_uums_user
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  
-    <select id="selectUserForLogin" parameterType="java.lang.String" resultMap="UserResultMap">
-    select 
-    <include refid="User_Column_List" />
-    from t_user
-    where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 and type in (2,3,4)
-  </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_user
+    delete from t_uums_user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.box.uums.model.User">
-    insert into t_user (id, login_name, password, 
+    insert into t_uums_user (id, login_name, password, 
       phone, nick_name, name, 
       sex, birthday, create_time, 
       last_login_time, login_count, status, 
@@ -52,11 +44,11 @@
       #{phone,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}, 
       #{lastLoginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{code,jdbcType=CHAR}, #{userImage,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{code,jdbcType=INTEGER}, #{userImage,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.box.uums.model.User">
-    insert into t_user
+    insert into t_uums_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -145,7 +137,7 @@
         #{status,jdbcType=INTEGER},
       </if>
       <if test="code != null">
-        #{code,jdbcType=CHAR},
+        #{code,jdbcType=INTEGER},
       </if>
       <if test="userImage != null">
         #{userImage,jdbcType=VARCHAR},
@@ -159,7 +151,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.box.uums.model.User">
-    update t_user
+    update t_uums_user
     <set>
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
@@ -195,7 +187,7 @@
         status = #{status,jdbcType=INTEGER},
       </if>
       <if test="code != null">
-        code = #{code,jdbcType=CHAR},
+        code = #{code,jdbcType=INTEGER},
       </if>
       <if test="userImage != null">
         user_image = #{userImage,jdbcType=VARCHAR},
@@ -210,7 +202,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.box.uums.model.User">
-    update t_user
+    update t_uums_user
     set login_name = #{loginName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -222,10 +214,115 @@
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       login_count = #{loginCount,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      code = #{code,jdbcType=CHAR},
+      code = #{code,jdbcType=INTEGER},
       user_image = #{userImage,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+   <select id="getUserByPhone" parameterType="java.lang.String" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where phone = #{phone,jdbcType=VARCHAR} and status = 1 
+  </select>
+  
+  <select id="getUserByLoginName" parameterType="java.lang.String" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 
+  </select>
+  
+  <select id="getUserForLogin" parameterType="java.lang.String" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 and type=1
+  </select>
+  
+  <update id="updateStatusById" parameterType="java.util.Map">
+  	update t_uums_user set status = #{status,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="batchDeleteByIds">
+  	delete from t_uums_user where id in
+  	<foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+   <select id="getAdminSearchlist"  resultType="map">
+select a.id,a.login_name as loginName,a.name,a.sex,a.phone,a.birthday,a.email,a.create_time as createTime,a.status
+from t_uums_user a
+	<where>
+	<if test="type!=null ">
+	a.type=#{type,jdbcType=INTEGER}
+	</if>
+	<if test="loginname!=null and loginname!='' ">
+       AND a.login_name=#{loginname,jdbcType=VARCHAR}
+       </if>
+        <if test="name!=null and name!='' ">
+       AND a.name=#{name,jdbcType=VARCHAR}
+       </if>
+       <if test="phone!=null and phone!='' ">
+       AND a.phone=#{phone,jdbcType=VARCHAR}
+       </if>
+	   <if test="status!=null and status!='' ">
+       AND a.status=#{status,jdbcType=VARCHAR}
+       </if>
+    </where> 
+    </select>
+    <select id="selectUser" parameterType="com.box.uums.model.User" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where 1=1 
+     <if test="loginName != null">
+        and login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        and password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        and phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        and nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        and sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        and birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        and last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null">
+        and login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        and code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="userImage != null">
+        and user_image = #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        and email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER},
+      </if>
+    order by id
+  </select>
+ 
 </mapper>

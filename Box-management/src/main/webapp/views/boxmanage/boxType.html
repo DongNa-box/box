@@ -1,0 +1,394 @@
+<!-- Main content -->
+<section class="content">
+
+		<div class="box box-primary">
+	        <form id="boxType-search-form" action="" class="form-horizontal" method="post">
+	        <div class="box-body">
+	          	<div class="col-sm-4">
+		          	<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒名称</label>
+							<div class="col-sm-8">
+								<input id="search-loginName" name="search-loginName" type="text" class="form-control"
+								placeholder="请输入纸盒名称">
+							</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒类型</label>
+						<div class="col-sm-8">
+							<select name="search-status" id="search-status" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">上下插口盒</option>
+								<option value="2">上插口下扣盒</option>
+							</select>
+						</div>	
+					</div>
+                </div>
+				
+	        </div>
+	        </form>
+	        
+	        <!-- /.box-body -->
+	        <div class="box-footer">
+	        	<div class="row">
+	          	<div id="boxTypebar" class="btn-toolbar">
+					<div class="btn-group pull-left">
+						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
+						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>编辑</button>
+						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
+						<button type="button" data-btn-type="scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button> 
+					</div>
+
+					<div class="btn-group pull-right">
+						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+					<table id="boxType-table" data-toggle="table" data-url="boxmanage/boxTypeList" data-toolbar="#boxTypebar" data-pagination="true" data-search="false"
+						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
+						<thead>
+							<tr>
+								<th data-checkbox="true" class="select-checkbox"></th>
+								<th data-align="center" data-field="name" data-sortable="true">纸盒名称</th>
+								<th data-align="center" data-field="classification" data-sortable="true">纸盒类型</th>
+								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+	        </div>
+	        <!-- /.box-footer-->
+      </div>
+</section>
+
+<!-- 新增弹窗 -->
+<div class="modal fade" id="modal-boxType" aria-labelledby="modalBoxTypeLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" action="" id="boxType-form" method="post">
+				<input type="hidden" id="flag" name="flag">
+				<input type="hidden" id="id" name="id">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="modalBoxTypeLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒名称<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="name" name="name" type="text" class="form-control"
+								placeholder="请输入纸盒名称">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒类型<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="classId" id="classId" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">上下插口盒</option>
+								<option value="2">上插口下扣盒</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">细节1<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="sex" id="sex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">前开直插</option>
+								<option value="2"> </option>
+							</select>
+						</div>
+					</div>
+						
+					<div class="form-group">
+						<label class="col-sm-4 control-label">细节2<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="sex" id="sex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">后开直插</option>
+								<option value="2"> </option>
+							</select>
+						</div>
+					</div>
+					
+				   <div class="form-group">
+						<label class="col-sm-4 control-label">细节3<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="sex" id="sex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">撕拉</option>
+								<option value="2"> </option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的长度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="description" name="description" type="text" class="form-control"
+								placeholder="请输入纸盒的长度最小值" maxlength="11">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的长度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input name="lmin" type="text" class="form-control"
+								placeholder="请输入纸盒的长度最大值">
+						</div>
+					</div>
+					
+                    <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的宽度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input name="lmax" type="text" class="form-control"
+								placeholder="请输入纸盒的宽度最小值">
+						</div>
+					</div>
+
+                    <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的宽度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input name="wmin" type="text" class="form-control"
+								placeholder="请输入纸盒的宽度最大值">
+						</div>
+					</div>
+					   <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的高度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input name="wmax" type="text" class="form-control"
+								placeholder="请输入纸盒的高度最小值">
+						</div>
+					</div>
+					   <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒的高度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input name="hmin" type="text" class="form-control"
+								placeholder="请输入纸盒的高度最大值">
+						</div>
+
+
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>����</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>�ر�</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	userForm = $("#user-form").form();
+	userSearchForm = $("#user-search-form").form();
+	//-------------button event begin----------------
+	$('button[data-btn-type]').click(function() {
+		var selected = $('#user-table').bootstrapTable('getSelections');
+		var action = $(this).attr('data-btn-type');
+		switch (action) {
+		case 'add':
+			resetForm();
+			$("#flag").val("1");
+			$("#modalBoxTypeLabel").text("新增纸盒类型");
+			$('#modal-boxType').modal('toggle');
+			break;
+		case 'edit':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#flag").val("2");
+			$("#modalBoxTypeLabel").text("编辑纸盒类型");
+			$("#modal-boxType").modal("toggle");
+			userForm.initFormData(selected[0]);
+		   	break;
+		case 'scan':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#flag").val("2");
+			$("#modalBoxTypeLabel").text("查看");
+			$("#modal-boxType").modal("toggle");
+			userForm.initFormData(selected[0]);
+			$("#loginName").attr("disabled","disabled");//��loginName inputԪ������Ϊdisabled 
+			$("#phone").attr("disabled","disabled");//��phone inputԪ������Ϊdisabled 
+		   	break;
+		case 'delete':
+			if(selected.length < 1){
+				layer.alert('请选择要删除的数据');
+				return false;
+			}
+			layer.confirm("是否要删除该行数据？",function(){
+				var rowIds = getIdSelections();
+				ajaxPost(basePath + "/uums/deleteAdmin", {
+					uids=JSON.stringify(rowIds)
+				}, function(data){
+					layer.msg(data.code, {
+						icon : 1,
+						time : 1500,
+				});
+					$('#boxType-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+				});
+				return true;
+			})
+			break;
+		case 'search':
+			var formParams = $("#boxType-search-form").serializeJSON();
+			ajaxGet(basePath + "/uums/adminList", {
+				params=JSON.stringify(formParams)
+				alert(params);
+			}, function(data) {
+				$('#boxType-table').bootstrapTable('load',data);
+			});	
+			break;
+		case 'reset':
+			userSearchForm.clearForm();
+			$('#boxType-table').bootstrapTable('refresh');
+			break;
+
+		}
+
+	});
+	//-------------button event end----------------
+	
+	//-------------Validator from begin----------------
+	$("#boxType-form").bootstrapValidator({
+		message : '请输入有效值',
+		feedbackIcons : {
+			valid : 'glyphicon glyphicon-ok',
+			invalid : 'glyphicon glyphicon-remove',
+			validating : 'glyphicon glyphicon-refresh'
+		},
+		fields : {
+			loginName : {
+				validators : {
+					notEmpty : {
+						message : '�������û���'
+					},
+					threshold : 10,
+					remote : {
+						url : basePath + "/uums/checkLoginNameExists",
+						message : '�û����Ѵ���',
+						delay : 2000,
+						type : 'POST'
+					}
+				}
+			},
+			sex : {
+				validators : {
+					notEmpty : {
+						message : '��ѡ���Ա�'
+					}
+				}
+			},
+			birthday : {
+				validators : {
+					notEmpty : {
+						message : '�������������'
+					},
+					date : {
+						format : 'YYYY-MM-DD',
+						message : '��������Ч����'
+					} 
+				}
+			},
+			name : {
+				validators : {
+					notEmpty : {
+						message : '��������ʵ����'
+					}
+				}
+			},
+			phone : {
+				validators : {
+					notEmpty : {
+						message : '�������ֻ�����'
+					},
+					integer : {
+						message : '����������'
+					},
+					integer : {
+						message : '����������'
+					},
+					stringLength: {
+                        min: 11,
+                        max: 12,
+                        message: '�̶����볤��Ӧ��Ϊ11λ'
+                    }, 
+                   /*  regexp: {
+                        regexp: /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/,
+                        message: '��������ȷ��11λ�ֻ�����'
+                    }, */
+					threshold : 11,
+					remote : {
+						url : basePath + "/uums/checkPhoneExists",
+						message : '�ֻ������Ѵ���',
+						delay : 2000,
+						type : 'POST'
+					}
+				}
+			},
+			type : {
+				validators : {
+					notEmpty : {
+						message : '��ѡ���û����'
+					}
+				}
+			},
+			status : {
+				validators : {
+					notEmpty : {
+						message : '��ѡ��״̬'
+					}
+				}				
+			}
+		},
+
+        submitHandler: function (validator, form, submitButton) {
+        	var formParams = form.serializeJSON();
+        	ajaxPost(basePath + "/uums/editUser", {
+        		params=JSON.stringify(formParams)
+			},  function(data){
+				$('#modal-admin').modal('hide');
+				layer.msg(data.code, {
+					icon : 1,
+					time : 1500,
+				});
+				$('#boxType-table').bootstrapTable('refresh');
+        	});
+        }
+	});
+	//-------------Validator from end----------------
+});
+
+	
+	function resetForm(){
+		userForm.clearForm();
+		$("#user-form").data('bootstrapValidator').resetForm();
+	}
+	
+	/*
+	 * 得到所有选中行
+	 */
+	function getIdSelections() {
+		return $.map($('#boxType-table').bootstrapTable('getSelections'),function(row) {
+				return row.id;
+		});
+	}
+</script>

@@ -13,10 +13,10 @@
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManager" ref="ehcache"/>
 	</bean>
-	<!-- 自定义Realm -->
+	<!-- 自定义Realm 配置进行授权和认证的 Realm，要新增一个java类来实现，下面会有，class=包名.类名，init-methood是初始化的方法 -->
 	<bean id="boxRealm" class="com.box.framework.security.SystemAuthorizingRealm" />
 	
-	<!-- 安全管理器 -->
+	<!--  配置 Shiro 的 SecurityManager Bean 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="boxRealm"/>
 		<property name="rememberMeManager" ref="rememberMeManager"/>
@@ -109,7 +109,7 @@
 	</bean>
 
 
-	<!-- Shiro过滤器 -->
+	<!-- Shiro过滤器 : 配置 ShiroFilter bean: 该 bean 的 id 必须和 web.xml 文件中配置的 shiro filter 的 name 一致 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- Shiro的核心安全接口,这个属性是必须的 -->
 		<property name="securityManager" ref="securityManager" />
@@ -124,13 +124,13 @@
 				<entry key="kickout" value-ref="kickoutSessionControlFilter"/>
 			</map>
 		</property>
-		<!-- Shiro连接约束配置,即过滤链的定义 -->
+		<!-- Shiro连接约束配置,即过滤链的定义  具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.-->
 		<property name="filterChainDefinitions">
 			<value>
 			<!--/**=anon-->
 				/jcaptcha*=anon 
 				/login=jcaptcha,authc
-				<!-- /logout=logout -->
+				<!-- /logout=logout 配置登出: 使用 logout 过滤器 -->
 				/assets/**=anon<!-- 其他所有路径任何人都可以访问。 -->
 				/favicon.ico=anon
 				/**=kickout,user
@@ -138,6 +138,6 @@
 		</property>
 	</bean>
 	
-	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法-->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 </beans> 
