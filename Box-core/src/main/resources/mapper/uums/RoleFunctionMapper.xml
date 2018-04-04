@@ -103,11 +103,11 @@
 	      <if test="item.functionId != null">
 	        function_id,
 	      </if>
-	      <if test="item.createTime != null">
-	        create_time,
+	      <if test="item.createtime != null">
+	        createtime,
 	      </if>
-	      <if test="item.createBy != null">
-	        create_by,
+	      <if test="item.createby != null">
+	        createby,
 	      </if>
 	    </trim>
 	    <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -120,11 +120,11 @@
 	      <if test="item.functionId != null">
 	        #{item.functionId,jdbcType=VARCHAR},
 	      </if>
-	      <if test="item.createTime != null">
-	        #{item.createTime,jdbcType=TIMESTAMP},
+	      <if test="item.createtime != null">
+	        #{item.createtime,jdbcType=TIMESTAMP},
 	      </if>
-	      <if test="item.createBy != null">
-	        #{item.createBy,jdbcType=VARCHAR},
+	      <if test="item.createby != null">
+	        #{item.createby,jdbcType=VARCHAR},
 	      </if>
 	    </trim>
     </foreach>

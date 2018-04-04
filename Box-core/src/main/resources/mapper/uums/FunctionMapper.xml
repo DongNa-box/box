@@ -164,7 +164,7 @@
    <select id="selectMenuTree" parameterType="java.lang.String" resultMap="FunctionResultMap">
     select 
     <include refid="FunctionColumnList" />
-    from t_uums_function where id in (select rf.function_id from t_uums_role_function rf where rf.role_id = #{roleId,jdbcType=VARCHAR}) order by sort
+    from t_uums_function where id in (select rf.function_id from t_uums_rolefunction rf where rf.role_id = #{roleId,jdbcType=VARCHAR}) order by sort
   </select>
   
   <select id="selectAuthTree" resultMap="FunctionResultMap">
@@ -177,5 +177,10 @@
   	select 
   	<include refid="FunctionColumnList"/>
   	from t_uums_function where type = '0'
+  </select>
+  <select id="selectAll" resultMap="FunctionResultMap">
+    select 
+    <include refid="FunctionColumnList" />
+    from t_uums_function 
   </select>
 </mapper>

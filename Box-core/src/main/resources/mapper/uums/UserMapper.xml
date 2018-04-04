@@ -255,7 +255,12 @@
 select a.id,a.login_name as loginName,a.name,a.sex,a.phone,a.birthday,a.email,a.create_time as createTime,a.status
 from t_uums_user a
 	<where>
-	a.type=1
+	<if test="type!=null ">
+	a.type=#{type,jdbcType=INTEGER}
+	</if>
+	<if test="loginname!=null and loginname!='' ">
+       AND a.login_name=#{loginname,jdbcType=VARCHAR}
+       </if>
         <if test="name!=null and name!='' ">
        AND a.name=#{name,jdbcType=VARCHAR}
        </if>
@@ -265,6 +270,59 @@ from t_uums_user a
 	   <if test="status!=null and status!='' ">
        AND a.status=#{status,jdbcType=VARCHAR}
        </if>
-    </where>
+    </where> 
+    </select>
+    <select id="selectUser" parameterType="com.box.uums.model.User" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where 1=1 
+     <if test="loginName != null">
+        and login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        and password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        and phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        and nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        and sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        and birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        and last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null">
+        and login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        and code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="userImage != null">
+        and user_image = #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        and email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER},
+      </if>
+    order by id
   </select>
+ 
 </mapper>

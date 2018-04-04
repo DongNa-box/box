@@ -68,7 +68,7 @@ public class UserContoller {
 		
 		CacheManager manager =CacheManager.create(); 
 		
-	    @RequestMapping(method = RequestMethod.GET, value = "/{category}/user")
+	   /* @RequestMapping(method = RequestMethod.GET, value = "/{category}/user")
 	    private String user(@PathVariable String category) {
 	    	String url = "";
 	    	if(SYSTEM_USER.equals(category)){
@@ -77,8 +77,13 @@ public class UserContoller {
 	    		url = "uums/appUser";
 	    	}
 	        return url;
-	    }
+	    }*/
 	    
+	 	@RequestMapping(method = RequestMethod.GET, value = "/user")
+	    protected String user() {
+	        return "uums/user";
+		}
+	 	
 	    @RequestMapping(method = RequestMethod.GET, value = "/admin")
 	    protected String admin() {
 	        return "uums/admin";
@@ -115,15 +120,70 @@ public class UserContoller {
 	     */
 	    @RequestMapping(method = RequestMethod.GET, value = "/adminList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> adminUserList(@Param(value = "searchparams") String searchparams){
-	   		JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> adminUserList(@Param(value = "params") String searchparams){
+	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-		    	map.put("name", jsonObj.getString("asearch-name"));
-		    	map.put("phone", jsonObj.getString("asearch-phone"));
-		    	map.put("status", jsonObj.getString("asearch-status"));
+	   			map.put("loginname", jsonObj.getString("search-loginname"));
+		    	map.put("phone", jsonObj.getString("search-phone"));
+		    	map.put("name", jsonObj.getString("search-name"));
+		    	map.put("status", jsonObj.getString("search-status"));
+		    	
 	       	}
+	   		map.put("type", 1);
+	   		list = userService.getAdminSearchlist(map);
+	   		return list;
+	   	}
+	    /**
+	     * web用户查询（查询所有和条件查询）
+	     * adminList:(这里用一句话描述这个方法的作用).
+	     *
+	     * @author Administrator
+	     * @param searchparams
+	     * @return
+	     * @since JDK 1.8
+	     */
+	    @RequestMapping(method = RequestMethod.GET, value = "/webUserList")
+	   	@ResponseBody
+		protected List<Map<String,Object>> webUserList(@Param(value = "params") String searchparams){
+	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   		Map<String,Object> map = new HashMap<String,Object>();
+	   		List<Map<String,Object>> list = null;
+	   		if(jsonObj!=null ){
+		    	map.put("loginname", jsonObj.getString("search-loginname"));
+		    	map.put("phone", jsonObj.getString("search-phone"));
+		    	map.put("name", jsonObj.getString("search-name"));
+		    	map.put("status", jsonObj.getString("search-status"));
+		    	
+	       	}
+	   		map.put("type", 2);
+	   		list = userService.getAdminSearchlist(map);
+	   		return list;
+	   	}
+	    /**
+	     * app用户查询（查询所有和条件查询）
+	     * adminList:(这里用一句话描述这个方法的作用).
+	     *
+	     * @author Administrator
+	     * @param searchparams
+	     * @return
+	     * @since JDK 1.8
+	     */
+	    @RequestMapping(method = RequestMethod.GET, value = "/appUserList")
+	   	@ResponseBody
+	   	protected List<Map<String,Object>> appUserList(@Param(value = "params") String searchparams){
+	      	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   		Map<String,Object> map = new HashMap<String,Object>();
+	   		List<Map<String,Object>> list = null;
+	   		if(jsonObj!=null ){
+	   			map.put("loginname", jsonObj.getString("search-loginname"));
+		    	map.put("phone", jsonObj.getString("search-phone"));
+		    	map.put("name", jsonObj.getString("search-name"));
+		    	map.put("status", jsonObj.getString("search-status"));
+		    	
+	       	}
+	   		map.put("type", 3);
 	   		list = userService.getAdminSearchlist(map);
 	   		return list;
 	   	}
@@ -166,12 +226,12 @@ public class UserContoller {
 	    	String flag = jsonObj.getString("flag");
 	    	boolean result;
 	    	switch(flag){
-	    	//管理员修改
-	    		case "01":
+	    	//管理员新增
+	    		case "1":
 	    			boolean b= userService.checkLoginNameExists(user.getLoginName());
 	    			boolean b1= userService.checkPhoneExists(user.getPhone());
 	    			if(b){
-	    				return new Result(false,"工号已存在");
+	    				return new Result(false,"用户名已存在");
 	    			}
 	    			if(b1){
 	    				return new Result(false,"手机号已存在");
@@ -190,48 +250,13 @@ public class UserContoller {
 			    	paramsMap.put("userRole", userRole);
 			    	result = userService.batchSaveUser(paramsMap);
 	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");
-	    		//webuser修改
-	    		case "02":
-	    			boolean b2= userService.checkPhoneExists(user.getPhone());
-	    			if(b2){
-	    				return new Result(false,"手机号已存在");
-	    			}
-	    			user.setId(Sequence.nextId());
-	    	    	user.setPassword(EncryptUtil.encodeByMD5(DEFAULT_PASSWORD));
-	    	    	paramsMap.put("user", user);
-	    	    	role = roleService.getRoleByType(user.getType());
-			    	userRole.setId(Sequence.nextId());
-			    	userRole.setRoleId(role.getId());
-			    	userRole.setUserId(user.getId());
-			    	userRole.setCreateby(SecurityUtil.getUser().getId());
-			    	userRole.setCreatetime(DateUtil.getCurrDate());
-			    	paramsMap.put("userRole", userRole);
-			    	result = userService.batchSaveUser(paramsMap);
-	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");
-	    		//appuser修改
-	    		case "03":
-	    			boolean b3= userService.checkLoginNameExists(user.getLoginName());
-	    			boolean b4= userService.checkPhoneExists(user.getPhone());
-	    			if(b3){
-	    				return new Result(false,"用户名已存在");
-	    			}
-	    			if(b4){
-	    				return new Result(false,"手机号已存在");
-	    			}
-	    			user.setId(Sequence.nextId());
-	    	    	user.setPassword(EncryptUtil.encodeByMD5(DEFAULT_PASSWORD));
-	    	    	paramsMap.put("user", user);
-	    	    	role = roleService.getRoleByType(user.getType());
-			    	userRole.setId(Sequence.nextId());
-			    	userRole.setRoleId(role.getId());
-			    	userRole.setUserId(user.getId());
-			    	userRole.setCreateby(SecurityUtil.getUser().getId());
-			    	userRole.setCreatetime(DateUtil.getCurrDate());
-			    	paramsMap.put("userRole", userRole);
-			    	result = userService.batchSaveUser(paramsMap);
-	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");
+	    		
 	    	    		
-	    		case "1":
+	    		case "2":
+	    			if("".equals(user.getPassword()) || user.getPassword() == null){	
+					}else{
+						user.setPassword(EncryptUtil.encodeByMD5(user.getPassword()));
+					}
 	    	    	result = userService.update(user);
 	    	    	return result ? new Result(true,"修改成功") : new Result(false,"修改失败");
 	    			
@@ -239,8 +264,7 @@ public class UserContoller {
 	    	return new Result(false,"操作失败");
 	    	
 	    }
-	    
-	    
+	   
 	    /**
 	     * 工号去重
 	     * checkLoginNameExists:(这里用一句话描述这个方法的作用).
@@ -255,7 +279,7 @@ public class UserContoller {
 	    private JSONObject checkLoginNameExists(@RequestParam String loginName){
 		   boolean result = userService.checkLoginNameExists(loginName);
 	    	JSONObject jsonObj = new JSONObject();
-	    	jsonObj.put("valid", result);
+	    	jsonObj.put("valid", (!result));
 			return jsonObj;
 	    }
 	    
@@ -273,7 +297,7 @@ public class UserContoller {
 	    private JSONObject checkPhoneExists(@RequestParam String phone){
 	    	boolean result = userService.checkPhoneExists(phone);
 	    	JSONObject jsonObj = new JSONObject();
-	    	jsonObj.put("valid", result);
+	    	jsonObj.put("valid", (!result));
 			return jsonObj;
 	    }
 	    

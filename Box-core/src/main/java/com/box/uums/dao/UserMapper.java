@@ -20,5 +20,7 @@ public interface UserMapper extends BaseMapper<User, String> {
 	User getUserByLoginName(String loginName);
 
 	User getUserByPhone(String phone);
+	
+	List<User> getSearchUser(User user);
 
 }

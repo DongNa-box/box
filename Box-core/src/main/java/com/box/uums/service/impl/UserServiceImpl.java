@@ -151,4 +151,10 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public List<User> getSearchUser(User user) {
+		
+		return userMapper.getSearchUser(user);
+	}
+
 }

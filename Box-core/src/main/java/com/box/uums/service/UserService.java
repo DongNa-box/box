@@ -34,4 +34,6 @@ public interface UserService extends BaseService<User, String> {
 	boolean batchSaveUser(Map<String, Object> paramsMap);
 
 	boolean batchDeleteAdmin(List<String> list);
+	
+	List<User> getSearchUser(User user);
 }

@@ -65,6 +65,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm{
             throw new AuthenticationException("parameter token is null");
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
         // 校验用户名密码
+        LOGGER.info("======Username======"+token.getUsername());
         String password=String.copyValueOf(token.getPassword());
         User user= userService.getUserForLogin(token.getUsername());
         if (user!=null) {

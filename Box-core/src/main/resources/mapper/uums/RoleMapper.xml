@@ -135,4 +135,9 @@
     from t_uums_role
     where type = #{type,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="RoleResultMap">
+    select 
+    <include refid="RoleColumnList" />
+    from t_uums_role 
+  </select>
 </mapper>

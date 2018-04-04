@@ -209,7 +209,7 @@ $(function(){
 		switch (action) {
 		case 'admin-add':
 			resetForm();
-			$("#flag").val("01");
+			$("#flag").val("1");
 			$("#modalAdminLabel").text("新增后台管理员");
 			$('#modal-admin').modal('toggle');
 			break;
@@ -219,7 +219,7 @@ $(function(){
 				return false;
 			}
 			resetForm();
-			$("#flag").val("1");
+			$("#flag").val("2");
 			$("#modalAdminLabel").text("编辑系统管理员");
 			$("#modal-admin").modal("toggle");
 			userForm.initFormData(selected[0]);
@@ -234,7 +234,7 @@ $(function(){
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
 				ajaxPost(basePath + "/uums/deleteAdmin", {
-					uids: JSON.stringify(rowIds)
+					uids=JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
@@ -247,8 +247,9 @@ $(function(){
 			break;
 		case 'admin-search':
 			var formParams = $("#user-search-form").serializeJSON();
-			$.get(basePath + "/uums/adminList", {
-				params : JSON.stringify(formParams)
+			ajaxGet(basePath + "/uums/adminList", {
+				params=JSON.stringify(formParams)
+				alert(params);
 			}, function(data) {
 				$('#user-table').bootstrapTable('load',data);
 			});	
@@ -270,7 +271,7 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 1;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params: JSON.stringify(params)
+	        		params=JSON.stringify(params)
 				},  function(data){
 					$('#modal-admin').modal('hide');
 					layer.msg(data.code, {
@@ -298,7 +299,7 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 0;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params: JSON.stringify(params)
+	        		params=JSON.stringify(params)
 				},  function(data){
 					$('#modal-admin').modal('hide');
 					layer.msg(data.code, {
@@ -411,7 +412,7 @@ $(function(){
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
         	ajaxPost(basePath + "/uums/editUser", {
-        		params: JSON.stringify(formParams)
+        		params=JSON.stringify(formParams)
 			},  function(data){
 				$('#modal-admin').modal('hide');
 				layer.msg(data.code, {
