@@ -369,14 +369,12 @@ function birthFormatter(value,row,index){
 function userTypeFormatter(value, row, index) {
 	if (value != undefined && value != null && $.trim(value) != '') {
 	    if(value == '1'){
-	    	return 'app用户';
+	    	return '后台管理员';
 	    }else if(value == '2'){
-			return '后台管理员';
+			return 'web用户';
 		}else if(value == '3'){
-			return '后台业务员';
-		}else if(value == '4'){
-			return '物管业务员';
-		}
+			return 'app用户';
+		
 	}else{
 		return value;
 	}	

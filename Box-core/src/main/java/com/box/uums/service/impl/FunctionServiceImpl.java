@@ -46,7 +46,7 @@ public class FunctionServiceImpl implements FunctionService {
 
 	@Override
 	public boolean update(Function record) {
-		int result = functionMapper.updateByPrimaryKey(record);
+		int result = functionMapper.updateByPrimaryKeySelective(record);
 		return result>0?true:false;
 	}
 

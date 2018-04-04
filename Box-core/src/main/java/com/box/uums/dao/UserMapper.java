@@ -22,5 +22,7 @@ public interface UserMapper extends BaseMapper<User, String> {
 	User getUserByPhone(String phone);
 	
 	List<User> getSearchUser(User user);
+	 
+	int updateByPrimaryKeySelective(User record);
 
 }

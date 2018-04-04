@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public boolean update(Role record) {
-		int row = roleMapper.updateByPrimaryKey(record);
+		int row = roleMapper.updateByPrimaryKeySelective(record);
 		return row>0?true:false;
 	}
 

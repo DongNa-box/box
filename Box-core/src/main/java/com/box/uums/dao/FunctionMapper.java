@@ -11,4 +11,6 @@ public interface FunctionMapper extends BaseMapper<Function, String>{
 	List<Function> selectAuthTree();
 	
 	List<Function> selectParentMenu();
+
+	int updateByPrimaryKeySelective(Function record);
 }

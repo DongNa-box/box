@@ -9,4 +9,6 @@ public interface RoleMapper extends BaseMapper<Role, String>{
 	List<Role> getRoleCode(String loginName);
 	
 	Role getRoleByType(Integer type);
+	 
+	int updateByPrimaryKeySelective(Role record);
 }

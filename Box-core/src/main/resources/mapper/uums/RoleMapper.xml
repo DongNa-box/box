@@ -140,4 +140,10 @@
     <include refid="RoleColumnList" />
     from t_uums_role 
   </select>
+  <select id="getRoleByType" parameterType="int" resultMap="RoleResultMap">
+    select 
+    <include refid="RoleColumnList" />
+    from t_uums_role
+    where type = #{type,jdbcType=INTEGER}
+  </select>
 </mapper>

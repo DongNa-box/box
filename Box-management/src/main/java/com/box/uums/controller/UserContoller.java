@@ -35,6 +35,7 @@ import com.box.uums.model.User;
 import com.box.uums.model.UserRole;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
+import com.octo.captcha.service.CaptchaService;
 
 import net.sf.ehcache.CacheManager;
 
@@ -172,8 +173,8 @@ public class UserContoller {
 	     */
 	    @RequestMapping(method = RequestMethod.GET, value = "/appUserList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> appUserList(@Param(value = "params") String searchparams){
-	      	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> appUserList(@Param(value = "params") String params){
+	      	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
@@ -227,7 +228,9 @@ public class UserContoller {
 	    	boolean result;
 	    	switch(flag){
 	    	//管理员新增
-	    		case "1":
+	    		case "01":
+	    		case "02":
+	    		case "03":
 	    			boolean b= userService.checkLoginNameExists(user.getLoginName());
 	    			boolean b1= userService.checkPhoneExists(user.getPhone());
 	    			if(b){
@@ -238,8 +241,16 @@ public class UserContoller {
 	    			}
 	    			user.setId(Sequence.nextId());
 	    	    	user.setPassword(EncryptUtil.encodeByMD5(DEFAULT_PASSWORD));
+	    	    	if (flag.equals("01")) {
+	    	    		user.setType(1);
+					}else if (flag.equals("02")) {
+						user.setType(2);
+					}else if (flag.equals("03")) {
+						user.setType(3);
+					}
 	    	    	paramsMap.put("user", user);
 	    	    	role = roleService.getRoleByType(user.getType());
+	    	    	
 			    	//UserRole userRole = new UserRole();
 			    	userRole.setId(Sequence.nextId());
 			    	userRole.setRoleId(role.getId());
@@ -249,9 +260,7 @@ public class UserContoller {
 	
 			    	paramsMap.put("userRole", userRole);
 			    	result = userService.batchSaveUser(paramsMap);
-	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");
-	    		
-	    	    		
+	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");	
 	    		case "2":
 	    			if("".equals(user.getPassword()) || user.getPassword() == null){	
 					}else{

@@ -4,7 +4,7 @@
 	<div class="container-fluid">
 -->		
 		<div class="box box-primary">
-	        <form id="user-search-form" action="" class="form-horizontal" method="post">
+	        <form id="admin-search-form" action="" class="form-horizontal" method="post">
 	        <div class="box-body">
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
@@ -52,7 +52,7 @@
 	        <!-- /.box-body -->
 	        <div class="box-footer">
 	        	<div class="row">
-	          	<div id="webuserbar" class="btn-toolbar">
+	          	<div id="adminbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
 						<button type="button" data-btn-type="admin-add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
 						<button type="button" data-btn-type="admin-edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
@@ -73,7 +73,7 @@
 				</div>
 				</div>
 				<div class="row">
-					<table id="user-table" data-toggle="table" data-url="uums/adminList" data-toolbar="#webuserbar" data-pagination="true" data-search="false"
+					<table id="admin-table" data-toggle="table" data-url="uums/adminList" data-toolbar="#adminbar" data-pagination="true" data-search="false"
 						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
 						<thead>
 							<tr>
@@ -105,7 +105,7 @@
 <div class="modal fade" id="modal-admin" aria-labelledby="modalAdminLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="user-form" method="post">
+			<form class="form-horizontal" action="" id="admin-user-form" method="post">
 				<input type="hidden" id="flag" name="flag">
 				<input type="hidden" id="id" name="id">
 				<div class="modal-header">
@@ -200,16 +200,16 @@
 
 <script type="text/javascript">
 $(function(){
-	userForm = $("#user-form").form();
-	userSearchForm = $("#user-search-form").form();
+	userForm = $("#admin-user-form").form();
+	userSearchForm = $("#admin-search-form").form();
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
-		var selected = $('#user-table').bootstrapTable('getSelections');
+		var selected = $('#admin-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		case 'admin-add':
 			resetForm();
-			$("#flag").val("1");
+			$("#flag").val("01");
 			$("#modalAdminLabel").text("新增后台管理员");
 			$('#modal-admin').modal('toggle');
 			break;
@@ -234,29 +234,30 @@ $(function(){
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
 				ajaxPost(basePath + "/uums/deleteAdmin", {
-					uids=JSON.stringify(rowIds)
+					uids:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 				});
-					$('#user-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+					$('#admin-table').bootstrapTable('remove', { field: 'id', values: rowIds});
 				});
 				return true;
 			})
 			break;
 		case 'admin-search':
-			var formParams = $("#user-search-form").serializeJSON();
+			var formParams = $("#admin-search-form").serializeJSON();
+			
 			ajaxGet(basePath + "/uums/adminList", {
-				params=JSON.stringify(formParams)
-				alert(params);
+				params:JSON.stringify(formParams)
+				
 			}, function(data) {
-				$('#user-table').bootstrapTable('load',data);
+				$('#admin-table').bootstrapTable('load',data);
 			});	
 			break;
 		case 'admin-reset':
 			userSearchForm.clearForm();
-			$('#user-table').bootstrapTable('refresh');
+			$('#admin-table').bootstrapTable('refresh');
 			break;
 		case 'admin-enable':
 			if(selected.length != 1){
@@ -271,14 +272,14 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 1;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params=JSON.stringify(params)
+	        		params:JSON.stringify(params)
 				},  function(data){
 					$('#modal-admin').modal('hide');
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 					});
-					$('#user-table').bootstrapTable('refresh');
+					$('#admin-table').bootstrapTable('refresh');
 	        	});
 			}
 			break;
@@ -299,14 +300,14 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 0;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params=JSON.stringify(params)
+	        		params:JSON.stringify(params)
 				},  function(data){
 					$('#modal-admin').modal('hide');
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 					});
-					$('#user-table').bootstrapTable('refresh');
+					$('#admin-table').bootstrapTable('refresh');
 	        	});
 			}
 			break;
@@ -317,7 +318,7 @@ $(function(){
 	//-------------button event end----------------
 	
 	//-------------Validator from begin----------------
-	$("#user-form").bootstrapValidator({
+	$("#admin-user-form").bootstrapValidator({
 		message : '请输入有效值',
 		feedbackIcons : {
 			valid : 'glyphicon glyphicon-ok',
@@ -411,15 +412,16 @@ $(function(){
 
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
+        	alert(JSON.stringify(fromParams));
         	ajaxPost(basePath + "/uums/editUser", {
-        		params=JSON.stringify(formParams)
+        		params:JSON.stringify(formParams)
 			},  function(data){
 				$('#modal-admin').modal('hide');
 				layer.msg(data.code, {
 					icon : 1,
 					time : 1500,
 				});
-				$('#user-table').bootstrapTable('refresh');
+				$('#admin-table').bootstrapTable('refresh');
         	});
         }
 	});
@@ -429,14 +431,14 @@ $(function(){
 	
 	function resetForm(){
 		userForm.clearForm();
-		$("#user-form").data('bootstrapValidator').resetForm();
+		$("#admin-user-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
 	 * 得到所有选中行
 	 */
 	function getIdSelections() {
-		return $.map($('#user-table').bootstrapTable('getSelections'),function(row) {
+		return $.map($('#admin-table').bootstrapTable('getSelections'),function(row) {
 				return row.id;
 		});
 	}

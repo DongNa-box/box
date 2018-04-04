@@ -4,7 +4,7 @@
 	<div class="container-fluid">
 -->		
 		<div class="box box-primary">
-	        <form id="user-search-form" action="" class="form-horizontal" method="post">
+	        <form id="appuser-search-form" action="" class="form-horizontal" method="post">
 	        <div class="box-body">
 	          	<div class="col-sm-4">
 					<div class="form-group">
@@ -72,7 +72,7 @@
 				</div>
 				</div>
 				<div class="row">
-					<table id="user-table" data-toggle="table" data-url="uums/appUserList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
+					<table id="appuser-table" data-toggle="table" data-url="uums/appUserList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
 						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
 						<thead>
 							<tr>
@@ -101,16 +101,16 @@
 </section>
 
 <!-- 新增用户的弹窗 -->
-<div class="modal fade" id="modal-user" aria-labelledby="modalUserLabel" aria-hidden="true">
+<div class="modal fade" id="modal-appuser" aria-labelledby="modalAppUserLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="user-form" method="post">
+			<form class="form-horizontal" action="" id="appuser-form" method="post">
 				<input type="hidden" id="flag" name="flag">
 				<input type="hidden" id="id" name="id">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="modalUserLabel"></h4>
+					<h4 class="modal-title" id="modalAppUserLabel"></h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -186,18 +186,18 @@
 
 <script type="text/javascript">
 $(function(){
-	userForm = $("#user-form").form();
-	userSearchForm = $("#user-search-form").form();
+	userForm = $("#appuser-form").form();
+	userSearchForm = $("#appuser-search-form").form();
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
-		var selected = $('#user-table').bootstrapTable('getSelections');
+		var selected = $('#appuser-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		case 'add':
 			resetForm();
-			$("#flag").val("1");
-			$("#modalUserLabel").text("新增app用户");
-			$('#modal-user').modal('toggle');
+			$("#flag").val("03");
+			$("#modalAppUserLabel").text("新增app用户");
+			$('#modal-appuser').modal('toggle');
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -206,8 +206,8 @@ $(function(){
 			}
 			resetForm();
 			$("#flag").val("2");
-			$("#modalUserLabel").text("编辑app用户");
-			$("#modal-user").modal("toggle");
+			$("#modalAppUserLabel").text("编辑app用户");
+			$("#modal-appuser").modal("toggle");
 			userForm.initFormData(selected[0]);
 			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为disabled 
 			$("#phone").attr("disabled","disabled");//将phone input元素设置为disabled 
@@ -220,28 +220,28 @@ $(function(){
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
 				ajaxPost(basePath + "/uums/deleteAdmin", {
-					uids=JSON.stringify(rowIds)
+					uids:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 				});
-					$('#user-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+					$('#appuser-table').bootstrapTable('remove', { field: 'id', values: rowIds});
 				});
 				return true;
 			})
 			break;
 		case 'search':
-			var formParams = $("#user-search-form").serializeJSON();
+			var formParams = $("#appuser-search-form").serializeJSON();
 			ajaxGet(basePath + "/uums/appUserList", {
-				params=JSON.stringify(formParams)
+				params:JSON.stringify(formParams)
 			}, function(data) {
-				$('#user-table').bootstrapTable('load',data);
+				$('#appuser-table').bootstrapTable('load',data);
 			});	
 			break;
 		case 'reset':
 			userSearchForm.clearForm();
-			$('#user-table').bootstrapTable('refresh');
+			$('#appuser-table').bootstrapTable('refresh');
 			break;
 		case 'enable':
 			if(selected.length != 1){
@@ -256,14 +256,14 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 1;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params=JSON.stringify(params)
+	        		params:JSON.stringify(params)
 				},  function(data){
-					$('#modal-user').modal('hide');
+					$('#modal-appuser').modal('hide');
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 					});
-					$('#user-table').bootstrapTable('refresh');
+					$('#appuser-table').bootstrapTable('refresh');
 	        	});
 			}
 			break;
@@ -284,14 +284,14 @@ $(function(){
 				params['id'] = selected[0].id;
 				params['status'] = 0;
 				ajaxPost(basePath + "/uums/updateStatus", {
-	        		params=JSON.stringify(params)
+	        		params:JSON.stringify(params)
 				},  function(data){
-					$('#modal-user').modal('hide');
+					$('#modal-appuser').modal('hide');
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 					});
-					$('#user-table').bootstrapTable('refresh');
+					$('#appuser-table').bootstrapTable('refresh');
 	        	});
 			}
 			break;
@@ -302,7 +302,7 @@ $(function(){
 	//-------------button event end----------------
 	
 	//-------------Validator from begin----------------
-	$("#user-form").bootstrapValidator({
+	$("#appuser-form").bootstrapValidator({
 		message : '请输入有效值',
 		feedbackIcons : {
 			valid : 'glyphicon glyphicon-ok',
@@ -396,15 +396,16 @@ $(function(){
 
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
+        	alert(JSON.stringify(fromParams));
         	ajaxPost(basePath + "/uums/editUser", {
-        		params=JSON.stringify(formParams)
+        		params:JSON.stringify(formParams)
 			},  function(data){
-				$('#modal-user').modal('hide');
+				$('#modal-appuser').modal('hide');
 				layer.msg(data.code, {
 					icon : 1,
 					time : 1500,
 				});
-				$('#user-table').bootstrapTable('refresh');
+				$('#appuser-table').bootstrapTable('refresh');
         	});
         }
 	});
@@ -414,14 +415,14 @@ $(function(){
 	
 	function resetForm(){
 		userForm.clearForm();
-		$("#user-form").data('bootstrapValidator').resetForm();
+		$("#appuser-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
 	 * 得到所有选中行
 	 */
 	function getIdSelections() {
-		return $.map($('#user-table').bootstrapTable('getSelections'),function(row) {
+		return $.map($('#appuser-table').bootstrapTable('getSelections'),function(row) {
 				return row.id;
 		});
 	}
