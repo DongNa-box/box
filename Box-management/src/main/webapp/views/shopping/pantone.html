@@ -1,0 +1,348 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		Pantone色号管理<small>Pantone Management</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+		<li class="active">Pantone色号管理</li>
+	</ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+		<div class="box box-primary">
+	        <form id="pantone-search-form" action="" class="form-horizontal" method="post">
+	        <div class="box-body">
+	          	<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">颜色工艺Id</label>
+						<div class="col-sm-8">
+							<input id="search-tid" name="search-tid" type="text" class="form-control"
+								placeholder="请输入工艺id" maxlength="11"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">专色数量</label>
+						<div class="col-sm-8">
+							<select name="search-colorNum" id="search-colorNum" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">属性值1</label>
+						<div class="col-sm-8">
+							<input id="search-attr1" name="search-attr1" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">属性值2</label>
+						<div class="col-sm-8">
+							<input id="search-attr2" name="search-attr2" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4">
+				<div class="form-group">
+						<label class="col-sm-4 control-label">属性值3</label>
+						<div class="col-sm-8">
+							<input id="search-attr3" name="search-attr3" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+				</div>
+				
+	        </div>
+	        </form>
+	        
+	        <!-- /.box-body -->
+	        <div class="box-footer">
+	        	<div class="row">
+	          	<div id="toolbar" class="btn-toolbar">
+					<div class="btn-group pull-left">
+ 						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
+ 						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
+						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
+					</div>
+
+					<!-- <div class="btn-group pull-left">
+						<button type="button" data-btn-type="enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
+						<button type="button" data-btn-type="disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
+					</div> -->					
+					<div class="btn-group pull-right">
+						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+					<table id="pantone-table" data-toggle="table" data-url="shopping/pantoneList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
+						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
+						<thead>
+							<tr>
+								<th data-checkbox="true" class="select-checkbox"></th>
+								<th data-align="center" data-field="id" data-sortable="true">pantoneID</th>
+
+								<th data-align="center" data-field="tid" data-sortable="true" >颜色工艺id</th>
+								<th data-align="center" data-field="colorNum" data-sortable="true" data-formatter="colorNumFormatter">专色数量</th>
+								<th data-align="center" data-field="attr1" data-sortable="true">属性值1</th>
+								<th data-align="center" data-field="attr2" data-sortable="true">属性值2</th>
+								<th data-align="center" data-field="attr3" data-sortable="true">属性值3</th>
+
+								<th data-align="center" data-field="createby" data-sortable="true" >创建人</th>
+								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
+								
+							</tr>
+						</thead>
+					</table>
+				</div>
+	        </div>
+	        <!-- /.box-footer-->
+      </div>
+</section>
+
+<!-- 编辑菜单的弹窗 -->
+<div class="modal fade" id="model-pantone" aria-labelledby="modalPantoneLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" action="" id="pantone-form" method="post">
+				<input type="hidden" id="flag" name="flag">
+				<input type="hidden" id="id" name="id">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="modalPantoneLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">工艺id<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="tid" name="tid" type="text" class="form-control"
+								placeholder="请输入工艺id" maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">专色数量<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="colorNum" id="colorNum" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+
+						</div>
+					</div>
+					<div id="display" style="display:none;">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">属性值1<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="attr1" name="attr1" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">属性值2<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="attr2" name="attr2" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">属性值3<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="attr3" name="attr3" type="text" class="form-control"
+								placeholder="请输入属性值" maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script type="text/javascript">
+	$(function(){
+	pantoneForm = $("#pantone-form").form();
+	//-------------button event begin----------------
+	$('button[data-btn-type]').click(function() {
+		var selected = $('#pantone-table').bootstrapTable('getSelections');
+		var action = $(this).attr('data-btn-type');
+		switch (action) {
+		case 'add':
+			resetForm();
+			$("#flag").val("0");
+			$("#modalPantoneLabel").text("新增pantone");
+			$('#model-pantone').modal('toggle');
+			$("#display").hide();
+			break;
+		case 'edit':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#flag").val("1");
+			$("#modalPantoneLabel").text("修改pantone");
+			$("#model-pantone").modal("toggle");
+			pantoneForm.initFormData(selected[0]);
+		   break;
+		case 'delete':
+			if(selected.length < 1){
+				layer.alert('请选择要删除的数据');
+				return false;
+			}
+			layer.confirm("是否要删除该行数据？",function(){
+				var rowIds = getIdSelections();
+				ajaxPost(basePath + "/shopping/deletePantone", {
+					ids: JSON.stringify(rowIds)
+				}, function(data){
+					layer.msg(data.code, {
+						icon : 1,
+						time : 1500,
+				});
+					$('#pantone-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+				});
+				return true;
+			})
+			break;
+		case 'search':
+			var formParams = $("#pantone-search-form").serializeJSON();
+			ajaxGet(basePath + "/shopping/pantoneList", {
+				params:JSON.stringify(formParams)
+			}, function(data) {
+				$('#pantone-table').bootstrapTable('load',data);
+			});	
+			break;
+		case 'reset':
+			userSearchForm.clearForm();
+			$('#pantone-table').bootstrapTable('refresh');
+			break;
+		}
+
+	});
+	//-------------button event end----------------
+	
+	//-------------Validator from begin----------------
+	$("#pantone-form").bootstrapValidator({
+		message : '请输入有效值',
+		feedbackIcons : {
+			valid : 'glyphicon glyphicon-ok',
+			invalid : 'glyphicon glyphicon-remove',
+			validating : 'glyphicon glyphicon-refresh'
+		},
+		fields : {
+			tid : {
+				validators : {
+					notEmpty : {
+						message : '请输入颜色工艺id'
+					}
+				}
+			},
+			colorNum : {
+				validators : {
+					notEmpty : {
+						message : '请选择专色数量'
+					}
+				}
+			},
+			attr1 : {
+				validators : {
+					notEmpty : {
+						message : '请输入属性值'
+					}
+				}
+			},
+			attr2 : {
+				validators : {
+					notEmpty : {
+						message : '请输入属性值'
+					}
+				}
+			},
+			attr3 : {
+				validators : {
+					notEmpty : {
+						message : '请输入属性值'
+					}
+				}
+			}
+		},
+        submitHandler: function (validator, form, submitButton) {
+        	var fromParams = form.serializeJSON();
+        	if(fromParams.flag=='0'){
+			    var ctime=new Date();
+				fromParams.createtime=ctime;
+			}
+        	ajaxPost(basePath + "/shopping/editPantone", {
+        		params: JSON.stringify(fromParams)
+			},  function(data){
+				$('#model-pantone').modal('hide');
+				layer.msg(data.code, {
+					icon : 1,
+					time : 1500,
+				});
+				$('#pantone-table').bootstrapTable('refresh');
+        	});
+        }
+	});
+	
+	//-------------Validator from end----------------
+	});
+	
+	function resetForm(){
+		pantoneForm.clearForm();
+		$("#pantone-form").data('bootstrapValidator').resetForm();
+	}
+	
+	/*
+	 * 得到所有选中行
+	 */
+	function getIdSelections() {
+		return $.map($('#pantone-table').bootstrapTable('getSelections'), function(row) {
+			return row.id;
+		});
+	}
+	
+	/*
+	 *专色数量colorNum格式化
+	 */
+	function colorNumFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '0';
+			}else if(value=='1'){
+				return '1';
+			}else if(value=='2'){
+				return '2';
+			}else if(value=='3'){
+				return '3';
+			}
+		}else{
+			return value;
+		}	
+	}
+	
+</script>

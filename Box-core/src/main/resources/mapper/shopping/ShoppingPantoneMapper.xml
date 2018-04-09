@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.shopping.dao.ShoppingPantoneMapper">
+  <resultMap id="BaseResultMap" type="com.box.shopping.model.ShoppingPantone">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="color_num" jdbcType="VARCHAR" property="colorNum" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tid, color_num, attr1, attr2, attr3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_shopping_pantone
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_shopping_pantone
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.shopping.model.ShoppingPantone">
+    insert into t_shopping_pantone (id, tid, color_num, 
+      attr1, attr2, attr3
+      )
+    values (#{id,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, #{colorNum,jdbcType=VARCHAR}, 
+      #{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.shopping.model.ShoppingPantone">
+    insert into t_shopping_pantone
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="colorNum != null">
+        color_num,
+      </if>
+      <if test="attr1 != null">
+        attr1,
+      </if>
+      <if test="attr2 != null">
+        attr2,
+      </if>
+      <if test="attr3 != null">
+        attr3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNum != null">
+        #{colorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null">
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null">
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null">
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.shopping.model.ShoppingPantone">
+    update t_shopping_pantone
+    <set>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNum != null">
+        color_num = #{colorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null">
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null">
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null">
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.shopping.model.ShoppingPantone">
+    update t_shopping_pantone
+    set tid = #{tid,jdbcType=VARCHAR},
+      color_num = #{colorNum,jdbcType=VARCHAR},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getPantoneList"  resultType="map">
+	select 
+	 <include refid="Base_Column_List" />
+	from t_shopping_pantone 
+		where 1=1 
+		  <if test="tid != null">
+	       and tid = #{tid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="colorNum != null">
+	       and color_num = #{colorNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="attr1 != null">
+	       and attr1 = #{attr1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="attr2 != null">
+	       and attr2 = #{attr2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="attr3 != null">
+	       and attr3 = #{attr3,jdbcType=VARCHAR},
+	      </if>
+	 </select>
+	 <delete id="batchDeleteByIds">
+  	delete from t_layout_size where id in
+  	<foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+</mapper>

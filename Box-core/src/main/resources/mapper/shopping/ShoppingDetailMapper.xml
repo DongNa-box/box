@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.shopping.dao.ShoppingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.box.shopping.model.ShoppingDetail">
+    <id column="shopping_id" jdbcType="VARCHAR" property="shoppingId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="box_id" jdbcType="VARCHAR" property="boxId" />
+    <result column="layout_id" jdbcType="VARCHAR" property="layoutId" />
+    <result column="price_paper_id" jdbcType="VARCHAR" property="pricePaperId" />
+    <result column="paper_grams_id" jdbcType="VARCHAR" property="paperGramsId" />
+    <result column="print_color_id" jdbcType="VARCHAR" property="printColorId" />
+    <result column="pantone_id" jdbcType="VARCHAR" property="pantoneId" />
+    <result column="surface_treatment_id" jdbcType="VARCHAR" property="surfaceTreatmentId" />
+    <result column="is_bronzing" jdbcType="INTEGER" property="isBronzing" />
+    <result column="bronzing_length" jdbcType="DOUBLE" property="bronzingLength" />
+    <result column="bronzing_width" jdbcType="DOUBLE" property="bronzingWidth" />
+    <result column="bronzing_unit" jdbcType="INTEGER" property="bronzingUnit" />
+    <result column="is_convex" jdbcType="INTEGER" property="isConvex" />
+    <result column="convex_length" jdbcType="DOUBLE" property="convexLength" />
+    <result column="convex_width" jdbcType="DOUBLE" property="convexWidth" />
+    <result column="convex_unit" jdbcType="INTEGER" property="convexUnit" />
+    <result column="is_UV" jdbcType="INTEGER" property="isUv" />
+    <result column="UV_length" jdbcType="DOUBLE" property="uvLength" />
+    <result column="UV_width" jdbcType="DOUBLE" property="uvWidth" />
+    <result column="UV_unit" jdbcType="INTEGER" property="uvUnit" />
+    <result column="is_PVC" jdbcType="INTEGER" property="isPvc" />
+    <result column="PVC_length" jdbcType="DOUBLE" property="pvcLength" />
+    <result column="PVC_width" jdbcType="DOUBLE" property="pvcWidth" />
+    <result column="PVC_unit" jdbcType="INTEGER" property="pvcUnit" />
+    <result column="receive_area_id" jdbcType="VARCHAR" property="receiveAreaId" />
+    <result column="paper_price" jdbcType="DOUBLE" property="paperPrice" />
+    <result column="color_price" jdbcType="DOUBLE" property="colorPrice" />
+    <result column="surface_price" jdbcType="DOUBLE" property="surfacePrice" />
+    <result column="bronzing_price" jdbcType="DOUBLE" property="bronzingPrice" />
+    <result column="convex_price" jdbcType="DOUBLE" property="convexPrice" />
+    <result column="print_number" jdbcType="INTEGER" property="printNumber" />
+    <result column="UV_price" jdbcType="DOUBLE" property="uvPrice" />
+    <result column="PVC_price" jdbcType="DOUBLE" property="pvcPrice" />
+    <result column="tax_price" jdbcType="DOUBLE" property="taxPrice" />
+    <result column="management_price" jdbcType="DOUBLE" property="managementPrice" />
+    <result column="transport_price" jdbcType="DOUBLE" property="transportPrice" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
+    <result column="createby" jdbcType="DOUBLE" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shopping_id, user_id, box_id, layout_id, price_paper_id, paper_grams_id, print_color_id, 
+    pantone_id, surface_treatment_id, is_bronzing, bronzing_length, bronzing_width, bronzing_unit, 
+    is_convex, convex_length, convex_width, convex_unit, is_UV, UV_length, UV_width, 
+    UV_unit, is_PVC, PVC_length, PVC_width, PVC_unit, receive_area_id, paper_price, color_price, 
+    surface_price, bronzing_price, convex_price, print_number, UV_price, PVC_price, tax_price, 
+    management_price, transport_price, total_price, unit_price, createby, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_shopping_detail
+    where shopping_id = #{shoppingId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_shopping_detail
+    where shopping_id = #{shoppingId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.shopping.model.ShoppingDetail">
+    insert into t_shopping_detail (shopping_id, user_id, box_id, 
+      layout_id, price_paper_id, paper_grams_id, 
+      print_color_id, pantone_id, surface_treatment_id, 
+      is_bronzing, bronzing_length, bronzing_width, 
+      bronzing_unit, is_convex, convex_length, 
+      convex_width, convex_unit, is_UV, 
+      UV_length, UV_width, UV_unit, 
+      is_PVC, PVC_length, PVC_width, 
+      PVC_unit, receive_area_id, paper_price, 
+      color_price, surface_price, bronzing_price, 
+      convex_price, print_number, UV_price, 
+      PVC_price, tax_price, management_price, 
+      transport_price, total_price, unit_price, 
+      createby, createtime)
+    values (#{shoppingId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, 
+      #{layoutId,jdbcType=VARCHAR}, #{pricePaperId,jdbcType=VARCHAR}, #{paperGramsId,jdbcType=VARCHAR}, 
+      #{printColorId,jdbcType=VARCHAR}, #{pantoneId,jdbcType=VARCHAR}, #{surfaceTreatmentId,jdbcType=VARCHAR}, 
+      #{isBronzing,jdbcType=INTEGER}, #{bronzingLength,jdbcType=DOUBLE}, #{bronzingWidth,jdbcType=DOUBLE}, 
+      #{bronzingUnit,jdbcType=INTEGER}, #{isConvex,jdbcType=INTEGER}, #{convexLength,jdbcType=DOUBLE}, 
+      #{convexWidth,jdbcType=DOUBLE}, #{convexUnit,jdbcType=INTEGER}, #{isUv,jdbcType=INTEGER}, 
+      #{uvLength,jdbcType=DOUBLE}, #{uvWidth,jdbcType=DOUBLE}, #{uvUnit,jdbcType=INTEGER}, 
+      #{isPvc,jdbcType=INTEGER}, #{pvcLength,jdbcType=DOUBLE}, #{pvcWidth,jdbcType=DOUBLE}, 
+      #{pvcUnit,jdbcType=INTEGER}, #{receiveAreaId,jdbcType=VARCHAR}, #{paperPrice,jdbcType=DOUBLE}, 
+      #{colorPrice,jdbcType=DOUBLE}, #{surfacePrice,jdbcType=DOUBLE}, #{bronzingPrice,jdbcType=DOUBLE}, 
+      #{convexPrice,jdbcType=DOUBLE}, #{printNumber,jdbcType=INTEGER}, #{uvPrice,jdbcType=DOUBLE}, 
+      #{pvcPrice,jdbcType=DOUBLE}, #{taxPrice,jdbcType=DOUBLE}, #{managementPrice,jdbcType=DOUBLE}, 
+      #{transportPrice,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE}, #{unitPrice,jdbcType=DOUBLE}, 
+      #{createby,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.shopping.model.ShoppingDetail">
+    insert into t_shopping_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shoppingId != null">
+        shopping_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="boxId != null">
+        box_id,
+      </if>
+      <if test="layoutId != null">
+        layout_id,
+      </if>
+      <if test="pricePaperId != null">
+        price_paper_id,
+      </if>
+      <if test="paperGramsId != null">
+        paper_grams_id,
+      </if>
+      <if test="printColorId != null">
+        print_color_id,
+      </if>
+      <if test="pantoneId != null">
+        pantone_id,
+      </if>
+      <if test="surfaceTreatmentId != null">
+        surface_treatment_id,
+      </if>
+      <if test="isBronzing != null">
+        is_bronzing,
+      </if>
+      <if test="bronzingLength != null">
+        bronzing_length,
+      </if>
+      <if test="bronzingWidth != null">
+        bronzing_width,
+      </if>
+      <if test="bronzingUnit != null">
+        bronzing_unit,
+      </if>
+      <if test="isConvex != null">
+        is_convex,
+      </if>
+      <if test="convexLength != null">
+        convex_length,
+      </if>
+      <if test="convexWidth != null">
+        convex_width,
+      </if>
+      <if test="convexUnit != null">
+        convex_unit,
+      </if>
+      <if test="isUv != null">
+        is_UV,
+      </if>
+      <if test="uvLength != null">
+        UV_length,
+      </if>
+      <if test="uvWidth != null">
+        UV_width,
+      </if>
+      <if test="uvUnit != null">
+        UV_unit,
+      </if>
+      <if test="isPvc != null">
+        is_PVC,
+      </if>
+      <if test="pvcLength != null">
+        PVC_length,
+      </if>
+      <if test="pvcWidth != null">
+        PVC_width,
+      </if>
+      <if test="pvcUnit != null">
+        PVC_unit,
+      </if>
+      <if test="receiveAreaId != null">
+        receive_area_id,
+      </if>
+      <if test="paperPrice != null">
+        paper_price,
+      </if>
+      <if test="colorPrice != null">
+        color_price,
+      </if>
+      <if test="surfacePrice != null">
+        surface_price,
+      </if>
+      <if test="bronzingPrice != null">
+        bronzing_price,
+      </if>
+      <if test="convexPrice != null">
+        convex_price,
+      </if>
+      <if test="printNumber != null">
+        print_number,
+      </if>
+      <if test="uvPrice != null">
+        UV_price,
+      </if>
+      <if test="pvcPrice != null">
+        PVC_price,
+      </if>
+      <if test="taxPrice != null">
+        tax_price,
+      </if>
+      <if test="managementPrice != null">
+        management_price,
+      </if>
+      <if test="transportPrice != null">
+        transport_price,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shoppingId != null">
+        #{shoppingId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="boxId != null">
+        #{boxId,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutId != null">
+        #{layoutId,jdbcType=VARCHAR},
+      </if>
+      <if test="pricePaperId != null">
+        #{pricePaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperGramsId != null">
+        #{paperGramsId,jdbcType=VARCHAR},
+      </if>
+      <if test="printColorId != null">
+        #{printColorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pantoneId != null">
+        #{pantoneId,jdbcType=VARCHAR},
+      </if>
+      <if test="surfaceTreatmentId != null">
+        #{surfaceTreatmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isBronzing != null">
+        #{isBronzing,jdbcType=INTEGER},
+      </if>
+      <if test="bronzingLength != null">
+        #{bronzingLength,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingWidth != null">
+        #{bronzingWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingUnit != null">
+        #{bronzingUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isConvex != null">
+        #{isConvex,jdbcType=INTEGER},
+      </if>
+      <if test="convexLength != null">
+        #{convexLength,jdbcType=DOUBLE},
+      </if>
+      <if test="convexWidth != null">
+        #{convexWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="convexUnit != null">
+        #{convexUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isUv != null">
+        #{isUv,jdbcType=INTEGER},
+      </if>
+      <if test="uvLength != null">
+        #{uvLength,jdbcType=DOUBLE},
+      </if>
+      <if test="uvWidth != null">
+        #{uvWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="uvUnit != null">
+        #{uvUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isPvc != null">
+        #{isPvc,jdbcType=INTEGER},
+      </if>
+      <if test="pvcLength != null">
+        #{pvcLength,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcWidth != null">
+        #{pvcWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcUnit != null">
+        #{pvcUnit,jdbcType=INTEGER},
+      </if>
+      <if test="receiveAreaId != null">
+        #{receiveAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperPrice != null">
+        #{paperPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="colorPrice != null">
+        #{colorPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="surfacePrice != null">
+        #{surfacePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingPrice != null">
+        #{bronzingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="convexPrice != null">
+        #{convexPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="printNumber != null">
+        #{printNumber,jdbcType=INTEGER},
+      </if>
+      <if test="uvPrice != null">
+        #{uvPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcPrice != null">
+        #{pvcPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="taxPrice != null">
+        #{taxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="managementPrice != null">
+        #{managementPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="transportPrice != null">
+        #{transportPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.shopping.model.ShoppingDetail">
+    update t_shopping_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="boxId != null">
+        box_id = #{boxId,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutId != null">
+        layout_id = #{layoutId,jdbcType=VARCHAR},
+      </if>
+      <if test="pricePaperId != null">
+        price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperGramsId != null">
+        paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
+      </if>
+      <if test="printColorId != null">
+        print_color_id = #{printColorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pantoneId != null">
+        pantone_id = #{pantoneId,jdbcType=VARCHAR},
+      </if>
+      <if test="surfaceTreatmentId != null">
+        surface_treatment_id = #{surfaceTreatmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isBronzing != null">
+        is_bronzing = #{isBronzing,jdbcType=INTEGER},
+      </if>
+      <if test="bronzingLength != null">
+        bronzing_length = #{bronzingLength,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingWidth != null">
+        bronzing_width = #{bronzingWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingUnit != null">
+        bronzing_unit = #{bronzingUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isConvex != null">
+        is_convex = #{isConvex,jdbcType=INTEGER},
+      </if>
+      <if test="convexLength != null">
+        convex_length = #{convexLength,jdbcType=DOUBLE},
+      </if>
+      <if test="convexWidth != null">
+        convex_width = #{convexWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="convexUnit != null">
+        convex_unit = #{convexUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isUv != null">
+        is_UV = #{isUv,jdbcType=INTEGER},
+      </if>
+      <if test="uvLength != null">
+        UV_length = #{uvLength,jdbcType=DOUBLE},
+      </if>
+      <if test="uvWidth != null">
+        UV_width = #{uvWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="uvUnit != null">
+        UV_unit = #{uvUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isPvc != null">
+        is_PVC = #{isPvc,jdbcType=INTEGER},
+      </if>
+      <if test="pvcLength != null">
+        PVC_length = #{pvcLength,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcWidth != null">
+        PVC_width = #{pvcWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcUnit != null">
+        PVC_unit = #{pvcUnit,jdbcType=INTEGER},
+      </if>
+      <if test="receiveAreaId != null">
+        receive_area_id = #{receiveAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperPrice != null">
+        paper_price = #{paperPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="colorPrice != null">
+        color_price = #{colorPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="surfacePrice != null">
+        surface_price = #{surfacePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingPrice != null">
+        bronzing_price = #{bronzingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="convexPrice != null">
+        convex_price = #{convexPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="printNumber != null">
+        print_number = #{printNumber,jdbcType=INTEGER},
+      </if>
+      <if test="uvPrice != null">
+        UV_price = #{uvPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcPrice != null">
+        PVC_price = #{pvcPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="taxPrice != null">
+        tax_price = #{taxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="managementPrice != null">
+        management_price = #{managementPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="transportPrice != null">
+        transport_price = #{transportPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shopping_id = #{shoppingId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.shopping.model.ShoppingDetail">
+    update t_shopping_detail
+    set user_id = #{userId,jdbcType=VARCHAR},
+      box_id = #{boxId,jdbcType=VARCHAR},
+      layout_id = #{layoutId,jdbcType=VARCHAR},
+      price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
+      print_color_id = #{printColorId,jdbcType=VARCHAR},
+      pantone_id = #{pantoneId,jdbcType=VARCHAR},
+      surface_treatment_id = #{surfaceTreatmentId,jdbcType=VARCHAR},
+      is_bronzing = #{isBronzing,jdbcType=INTEGER},
+      bronzing_length = #{bronzingLength,jdbcType=DOUBLE},
+      bronzing_width = #{bronzingWidth,jdbcType=DOUBLE},
+      bronzing_unit = #{bronzingUnit,jdbcType=INTEGER},
+      is_convex = #{isConvex,jdbcType=INTEGER},
+      convex_length = #{convexLength,jdbcType=DOUBLE},
+      convex_width = #{convexWidth,jdbcType=DOUBLE},
+      convex_unit = #{convexUnit,jdbcType=INTEGER},
+      is_UV = #{isUv,jdbcType=INTEGER},
+      UV_length = #{uvLength,jdbcType=DOUBLE},
+      UV_width = #{uvWidth,jdbcType=DOUBLE},
+      UV_unit = #{uvUnit,jdbcType=INTEGER},
+      is_PVC = #{isPvc,jdbcType=INTEGER},
+      PVC_length = #{pvcLength,jdbcType=DOUBLE},
+      PVC_width = #{pvcWidth,jdbcType=DOUBLE},
+      PVC_unit = #{pvcUnit,jdbcType=INTEGER},
+      receive_area_id = #{receiveAreaId,jdbcType=VARCHAR},
+      paper_price = #{paperPrice,jdbcType=DOUBLE},
+      color_price = #{colorPrice,jdbcType=DOUBLE},
+      surface_price = #{surfacePrice,jdbcType=DOUBLE},
+      bronzing_price = #{bronzingPrice,jdbcType=DOUBLE},
+      convex_price = #{convexPrice,jdbcType=DOUBLE},
+      print_number = #{printNumber,jdbcType=INTEGER},
+      UV_price = #{uvPrice,jdbcType=DOUBLE},
+      PVC_price = #{pvcPrice,jdbcType=DOUBLE},
+      tax_price = #{taxPrice,jdbcType=DOUBLE},
+      management_price = #{managementPrice,jdbcType=DOUBLE},
+      transport_price = #{transportPrice,jdbcType=DOUBLE},
+      total_price = #{totalPrice,jdbcType=DOUBLE},
+      unit_price = #{unitPrice,jdbcType=DOUBLE},
+      createby = #{createby,jdbcType=DOUBLE},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where shopping_id = #{shoppingId,jdbcType=VARCHAR}
+  </update>
+  <select id="getShoppingDetailList"  resultType="map">
+	select 
+	 <include refid="Base_Column_List" />
+	from t_shopping_detail 
+		where 1=1 
+		 <if test="userId != null">
+        and user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="boxId != null">
+        and box_id = #{boxId,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutId != null">
+       and layout_id = #{layoutId,jdbcType=VARCHAR},
+      </if>
+      <if test="pricePaperId != null">
+       and price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperGramsId != null">
+       and paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
+      </if>
+      <if test="printColorId != null">
+       and print_color_id = #{printColorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pantoneId != null">
+       and pantone_id = #{pantoneId,jdbcType=VARCHAR},
+      </if>
+      <if test="surfaceTreatmentId != null">
+       and surface_treatment_id = #{surfaceTreatmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isBronzing != null">
+        and is_bronzing = #{isBronzing,jdbcType=INTEGER},
+      </if>
+      <if test="bronzingLength != null">
+       and bronzing_length = #{bronzingLength,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingWidth != null">
+       and bronzing_width = #{bronzingWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingUnit != null">
+       and bronzing_unit = #{bronzingUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isConvex != null">
+       and is_convex = #{isConvex,jdbcType=INTEGER},
+      </if>
+      <if test="convexLength != null">
+       and convex_length = #{convexLength,jdbcType=DOUBLE},
+      </if>
+      <if test="convexWidth != null">
+       and convex_width = #{convexWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="convexUnit != null">
+       and convex_unit = #{convexUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isUv != null">
+       and is_UV = #{isUv,jdbcType=INTEGER},
+      </if>
+      <if test="uvLength != null">
+       and UV_length = #{uvLength,jdbcType=DOUBLE},
+      </if>
+      <if test="uvWidth != null">
+       and UV_width = #{uvWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="uvUnit != null">
+       and UV_unit = #{uvUnit,jdbcType=INTEGER},
+      </if>
+      <if test="isPvc != null">
+       and is_PVC = #{isPvc,jdbcType=INTEGER},
+      </if>
+      <if test="pvcLength != null">
+       and PVC_length = #{pvcLength,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcWidth != null">
+       and PVC_width = #{pvcWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcUnit != null">
+       and PVC_unit = #{pvcUnit,jdbcType=INTEGER},
+      </if>
+      <if test="receiveAreaId != null">
+       and receive_area_id = #{receiveAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperPrice != null">
+       and paper_price = #{paperPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="colorPrice != null">
+       and color_price = #{colorPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="surfacePrice != null">
+       and surface_price = #{surfacePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="bronzingPrice != null">
+       and bronzing_price = #{bronzingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="convexPrice != null">
+       and convex_price = #{convexPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="printNumber != null">
+       and print_number = #{printNumber,jdbcType=INTEGER},
+      </if>
+      <if test="uvPrice != null">
+       and UV_price = #{uvPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pvcPrice != null">
+       and PVC_price = #{pvcPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="taxPrice != null">
+       and tax_price = #{taxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="managementPrice != null">
+       and management_price = #{managementPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="transportPrice != null">
+       and transport_price = #{transportPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalPrice != null">
+       and total_price = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPrice != null">
+       and unit_price = #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="createby != null">
+       and createby = #{createby,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null">
+       and createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+	 </select>
+  
+</mapper>

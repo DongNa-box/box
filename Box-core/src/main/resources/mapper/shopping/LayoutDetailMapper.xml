@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.shopping.dao.LayoutDetailMapper">
+  <resultMap id="BaseResultMap" type="com.box.shopping.model.LayoutDetail">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="box_id" jdbcType="VARCHAR" property="boxId" />
+    <result column="box_length" jdbcType="DOUBLE" property="boxLength" />
+    <result column="box_width" jdbcType="DOUBLE" property="boxWidth" />
+    <result column="box_highth" jdbcType="DOUBLE" property="boxHighth" />
+    <result column="box_unit" jdbcType="INTEGER" property="boxUnit" />
+    <result column="paper_length" jdbcType="DOUBLE" property="paperLength" />
+    <result column="paper_width" jdbcType="DOUBLE" property="paperWidth" />
+    <result column="paper_unit" jdbcType="INTEGER" property="paperUnit" />
+    <result column="paper_X_id" jdbcType="VARCHAR" property="paperXId" />
+    <result column="xnumber" jdbcType="INTEGER" property="xnumber" />
+    <result column="ynumber" jdbcType="INTEGER" property="ynumber" />
+    <result column="picture_address" jdbcType="VARCHAR" property="pictureAddress" />
+    <result column="dxf_address" jdbcType="VARCHAR" property="dxfAddress" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, box_id, box_length, box_width, box_highth, box_unit, paper_length, paper_width, 
+    paper_unit, paper_X_id, xnumber, ynumber, picture_address, dxf_address, createby, 
+    createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_layout_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_layout_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.shopping.model.LayoutDetail">
+    insert into t_layout_detail (id, box_id, box_length, 
+      box_width, box_highth, box_unit, 
+      paper_length, paper_width, paper_unit, 
+      paper_X_id, xnumber, ynumber, 
+      picture_address, dxf_address, createby, 
+      createtime)
+    values (#{id,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, #{boxLength,jdbcType=DOUBLE}, 
+      #{boxWidth,jdbcType=DOUBLE}, #{boxHighth,jdbcType=DOUBLE}, #{boxUnit,jdbcType=INTEGER}, 
+      #{paperLength,jdbcType=DOUBLE}, #{paperWidth,jdbcType=DOUBLE}, #{paperUnit,jdbcType=INTEGER}, 
+      #{paperXId,jdbcType=VARCHAR}, #{xnumber,jdbcType=INTEGER}, #{ynumber,jdbcType=INTEGER}, 
+      #{pictureAddress,jdbcType=VARCHAR}, #{dxfAddress,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.shopping.model.LayoutDetail">
+    insert into t_layout_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="boxId != null">
+        box_id,
+      </if>
+      <if test="boxLength != null">
+        box_length,
+      </if>
+      <if test="boxWidth != null">
+        box_width,
+      </if>
+      <if test="boxHighth != null">
+        box_highth,
+      </if>
+      <if test="boxUnit != null">
+        box_unit,
+      </if>
+      <if test="paperLength != null">
+        paper_length,
+      </if>
+      <if test="paperWidth != null">
+        paper_width,
+      </if>
+      <if test="paperUnit != null">
+        paper_unit,
+      </if>
+      <if test="paperXId != null">
+        paper_X_id,
+      </if>
+      <if test="xnumber != null">
+        xnumber,
+      </if>
+      <if test="ynumber != null">
+        ynumber,
+      </if>
+      <if test="pictureAddress != null">
+        picture_address,
+      </if>
+      <if test="dxfAddress != null">
+        dxf_address,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="boxId != null">
+        #{boxId,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLength != null">
+        #{boxLength,jdbcType=DOUBLE},
+      </if>
+      <if test="boxWidth != null">
+        #{boxWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="boxHighth != null">
+        #{boxHighth,jdbcType=DOUBLE},
+      </if>
+      <if test="boxUnit != null">
+        #{boxUnit,jdbcType=INTEGER},
+      </if>
+      <if test="paperLength != null">
+        #{paperLength,jdbcType=DOUBLE},
+      </if>
+      <if test="paperWidth != null">
+        #{paperWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="paperUnit != null">
+        #{paperUnit,jdbcType=INTEGER},
+      </if>
+      <if test="paperXId != null">
+        #{paperXId,jdbcType=VARCHAR},
+      </if>
+      <if test="xnumber != null">
+        #{xnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ynumber != null">
+        #{ynumber,jdbcType=INTEGER},
+      </if>
+      <if test="pictureAddress != null">
+        #{pictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dxfAddress != null">
+        #{dxfAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.shopping.model.LayoutDetail">
+    update t_layout_detail
+    <set>
+      <if test="boxId != null">
+        box_id = #{boxId,jdbcType=VARCHAR},
+      </if>
+      <if test="boxLength != null">
+        box_length = #{boxLength,jdbcType=DOUBLE},
+      </if>
+      <if test="boxWidth != null">
+        box_width = #{boxWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="boxHighth != null">
+        box_highth = #{boxHighth,jdbcType=DOUBLE},
+      </if>
+      <if test="boxUnit != null">
+        box_unit = #{boxUnit,jdbcType=INTEGER},
+      </if>
+      <if test="paperLength != null">
+        paper_length = #{paperLength,jdbcType=DOUBLE},
+      </if>
+      <if test="paperWidth != null">
+        paper_width = #{paperWidth,jdbcType=DOUBLE},
+      </if>
+      <if test="paperUnit != null">
+        paper_unit = #{paperUnit,jdbcType=INTEGER},
+      </if>
+      <if test="paperXId != null">
+        paper_X_id = #{paperXId,jdbcType=VARCHAR},
+      </if>
+      <if test="xnumber != null">
+        xnumber = #{xnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ynumber != null">
+        ynumber = #{ynumber,jdbcType=INTEGER},
+      </if>
+      <if test="pictureAddress != null">
+        picture_address = #{pictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dxfAddress != null">
+        dxf_address = #{dxfAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.shopping.model.LayoutDetail">
+    update t_layout_detail
+    set box_id = #{boxId,jdbcType=VARCHAR},
+      box_length = #{boxLength,jdbcType=DOUBLE},
+      box_width = #{boxWidth,jdbcType=DOUBLE},
+      box_highth = #{boxHighth,jdbcType=DOUBLE},
+      box_unit = #{boxUnit,jdbcType=INTEGER},
+      paper_length = #{paperLength,jdbcType=DOUBLE},
+      paper_width = #{paperWidth,jdbcType=DOUBLE},
+      paper_unit = #{paperUnit,jdbcType=INTEGER},
+      paper_X_id = #{paperXId,jdbcType=VARCHAR},
+      xnumber = #{xnumber,jdbcType=INTEGER},
+      ynumber = #{ynumber,jdbcType=INTEGER},
+      picture_address = #{pictureAddress,jdbcType=VARCHAR},
+      dxf_address = #{dxfAddress,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getLayoutDetailList"  resultType="map">
+	select 
+	 <include refid="Base_Column_List" />
+	from t_layout_detail 
+		where 1=1 
+		<if test="boxId != null">
+        box_id = #{boxId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="boxLength != null">
+	       and box_length = #{boxLength,jdbcType=DOUBLE},
+	      </if>
+	      <if test="boxWidth != null">
+	        and box_width = #{boxWidth,jdbcType=DOUBLE},
+	      </if>
+	      <if test="boxHighth != null">
+	       and box_highth = #{boxHighth,jdbcType=DOUBLE},
+	      </if>
+	      <if test="boxUnit != null">
+	       and box_unit = #{boxUnit,jdbcType=INTEGER},
+	      </if>
+	      <if test="paperLength != null">
+	       and paper_length = #{paperLength,jdbcType=DOUBLE},
+	      </if>
+	      <if test="paperWidth != null">
+	       and paper_width = #{paperWidth,jdbcType=DOUBLE},
+	      </if>
+	      <if test="paperUnit != null">
+	       and paper_unit = #{paperUnit,jdbcType=INTEGER},
+	      </if>
+	      <if test="paperXId != null">
+	       and paper_X_id = #{paperXId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="xnumber != null">
+	       and xnumber = #{xnumber,jdbcType=INTEGER},
+	      </if>
+	      <if test="ynumber != null">
+	       and ynumber = #{ynumber,jdbcType=INTEGER},
+	      </if>
+	      <if test="pictureAddress != null">
+	        picture_address = #{pictureAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dxfAddress != null">
+	       and dxf_address = #{dxfAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createby != null">
+	       and createby = #{createby,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createtime != null">
+	       and createtime = #{createtime,jdbcType=TIMESTAMP},
+	      </if>
+	 </select>
+</mapper>

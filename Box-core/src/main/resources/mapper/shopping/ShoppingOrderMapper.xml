@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.shopping.dao.ShoppingOrderMapper">
+  <resultMap id="BaseResultMap" type="com.box.shopping.model.ShoppingOrder">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="shopping_id" jdbcType="VARCHAR" property="shoppingId" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, shopping_id, order_state, adress, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_shopping_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_shopping_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.shopping.model.ShoppingOrder">
+    insert into t_shopping_order (order_id, shopping_id, order_state, 
+      adress, createtime)
+    values (#{orderId,jdbcType=VARCHAR}, #{shoppingId,jdbcType=VARCHAR}, #{orderState,jdbcType=INTEGER}, 
+      #{adress,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.shopping.model.ShoppingOrder">
+    insert into t_shopping_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="shoppingId != null">
+        shopping_id,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingId != null">
+        #{shoppingId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.shopping.model.ShoppingOrder">
+    update t_shopping_order
+    <set>
+      <if test="shoppingId != null">
+        shopping_id = #{shoppingId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.shopping.model.ShoppingOrder">
+    update t_shopping_order
+    set shopping_id = #{shoppingId,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=INTEGER},
+      adress = #{adress,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

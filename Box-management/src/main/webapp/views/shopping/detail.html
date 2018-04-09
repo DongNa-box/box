@@ -1,0 +1,589 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		购物车管理<small>Shopping Management</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+		<li class="active">购物车管理</li>
+	</ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+		<div class="box box-primary">
+	        <form id="shopping-search-form" action="" class="form-horizontal" method="post">
+	        <div class="box-body">
+	          	<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">盒子Id</label>
+						<div class="col-sm-8">
+							<input id="search-boxId" name="search-boxId" type="text" class="form-control"
+								placeholder="请输入盒子id" maxlength="11"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">用户Id</label>
+						<div class="col-sm-8">
+							<input id="search-userId" name="search-userId" type="text" class="form-control"
+								placeholder="请输入盒子长" maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">排版Id</label>
+						<div class="col-sm-8">
+							<input id="search-layoutId" name="search-layoutId" type="text" class="form-control"
+								placeholder="请输入盒子宽" maxlength="11"/>
+						</div>
+					</div>
+				</div>
+				
+	        </div>
+	        </form>
+	        
+	        <!-- /.box-body -->
+	        <div class="box-footer">
+	        	<div class="row">
+	          	<div id="toolbar" class="btn-toolbar">
+					<div class="btn-group pull-left">
+ 		<!-- 				<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button> -->
+ 						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+						<!-- <button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
+						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button> -->
+					</div>
+
+					<!-- <div class="btn-group pull-left">
+						<button type="button" data-btn-type="enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
+						<button type="button" data-btn-type="disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
+					</div> -->					
+					<div class="btn-group pull-right">
+						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+					<table id="shopping-table" data-toggle="table" data-url="shopping/detailList" data-toolbar="#toolbar" data-pagination="true" data-search="false"
+						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
+						<thead>
+							<tr>
+								<th data-checkbox="true" class="select-checkbox"></th>
+								<th data-align="center" data-field="shoppingId" data-sortable="true">购物车id</th>
+								<th data-align="center" data-field="userId" data-sortable="true" >用户id</th>
+								<th data-align="center" data-field="boxId" data-sortable="true" >盒子id</th>
+								<th data-align="center" data-field="layoutId" data-sortable="true">排版id</th>
+								<th data-align="center" data-field="pricePaperId" data-sortable="true">印刷纸质</th>
+								<th data-align="center" data-field="paperGramsId" data-sortable="true" >纸张克数</th>
+								<th data-align="center" data-field="printColorId" data-sortable="true">印刷颜色</th>
+								<th data-align="center" data-field="pantoneId" data-sortable="true">pantone色号</th>
+								<th data-align="center" data-field="surfaceTreatmentId" data-sortable="true" >表面处理</th>
+								<th data-align="center" data-field="isBronzing" data-sortable="true" data-formatter="bronzingFormatter">是否烫金 </th>
+								<th data-align="center" data-field="bronzingLength" data-sortable="true">烫金长</th>
+								<th data-align="center" data-field="bronzingWidth" data-sortable="true">烫金宽</th>
+								<th data-align="center" data-field="bronzingUnit" data-sortable="true" data-formatter="unitFormatter">烫金单位</th>
+								<th data-align="center" data-field="isConvex" data-sortable="true" data-formatter="convexFormatter">是否击凸</th>
+								<th data-align="center" data-field="convexLength" data-sortable="true">击凸长</th>
+								<th data-align="center" data-field="convexWidth" data-sortable="true">击凸宽</th>
+								<th data-align="center" data-field="convexUnit" data-sortable="true" data-formatter="unitFormatter">击凸单位</th>
+								<th data-align="center" data-field="isUv" data-sortable="true" data-formatter="uvFormatter">是否UV </th>
+								<th data-align="center" data-field="uvLength" data-sortable="true">UV长</th>
+								<th data-align="center" data-field="uvWidth" data-sortable="true">UV宽</th>
+								<th data-align="center" data-field="uvUnit" data-sortable="true" data-formatter="unitFormatter">UV单位</th>
+								<th data-align="center" data-field="isPvc" data-sortable="true" data-formatter="pvcFormatter">是否PVC</th>
+								<th data-align="center" data-field="pvcLength" data-sortable="true">PVC长</th>
+								<th data-align="center" data-field="pvcWidth" data-sortable="true" >PVC宽</th>
+								<th data-align="center" data-field="pvcUnit" data-sortable="true" data-formatter="unitFormatter">PVC单位</th>
+								
+								<th data-align="center" data-field="receiveAreaId" data-sortable="true">收货地址</th>
+								<th data-align="center" data-field="paperPrice" data-sortable="true">纸价</th>
+								<th data-align="center" data-field="colorPrice" data-sortable="true">颜色价格</th>
+								<th data-align="center" data-field="surfacePrice" data-sortable="true">表面处理价格</th>
+								<th data-align="center" data-field="bronzingPrice" data-sortable="true">烫金价格</th>
+								<th data-align="center" data-field="convexPrice" data-sortable="true">击凸价格</th>
+								<th data-align="center" data-field="uvPrice" data-sortable="true">UV价格 </th>
+								<th data-align="center" data-field="pvcPrice" data-sortable="true">PVC价格</th>
+								<th data-align="center" data-field="printNumber" data-sortable="true">印刷数量</th>
+								<th data-align="center" data-field="taxPrice" data-sortable="true">税费</th>
+								<th data-align="center" data-field="managementPrice" data-sortable="true">管理费</th>
+								<th data-align="center" data-field="transportPrice" data-sortable="true" >运输费</th>
+								<th data-align="center" data-field="totalPrice" data-sortable="true" >总价</th>
+								<th data-align="center" data-field="unitPrice" data-sortable="true" >单价</th>
+								<th data-align="center" data-field="createby" data-sortable="true" >创建人</th>
+								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
+								
+							</tr>
+						</thead>
+					</table>
+				</div>
+	        </div>
+	        <!-- /.box-footer-->
+      </div>
+</section>
+
+<!-- 编辑菜单的弹窗 -->
+<div class="modal fade" id="model-shopping" aria-labelledby="modalshoppingLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" action="" id="shopping-form" method="post">
+				<input type="hidden" id="flag" name="flag">
+				<input type="hidden" id="id" name="id">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="modalshoppingLabel"></h4>
+				</div>
+				<div class="modal-body">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">用户id<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="userId" name="userId" type="text" class="form-control"
+								 maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">盒子id<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="boxId" name="boxId" type="text" class="form-control"
+								 maxlength="11"/>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">排版id<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="layoutId" name="layoutId" type="text" class="form-control"
+								 maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">印刷纸质<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="pricePaperId" name="pricePaperId" type="text" class="form-control"
+								 maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸张克数<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="paperGramsId" name="paperGramsId" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸张颜色<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="printColorId" name="printColorId" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">pantone专色<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="pantoneId" name="pantoneId" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">表面处理<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="surfaceTreatmentId" name="surfaceTreatmentId" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">是否烫金<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+						 <select name="isBronzing" id="isBronzing" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">不烫金</option>
+								<option value="1">烫金</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">烫金长<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="bronzingLength" name="bronzingLength" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">烫金宽<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="bronzingWidth" name="bronzingWidth" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">烫金单位<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							
+							<select name="bronzingUnit" id="bronzingUnit" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">mm</option>
+								<option value="1">cm</option>
+								<option value="2">dm</option>
+								<option value="3">m</option>
+							</select>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+						<div class="form-group">
+						<label class="col-sm-4 control-label">是否击凸<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							
+							<select name="isConvex" id="isConvex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">不击凸</option>
+								<option value="1">击凸</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">击凸长<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="convexLength" name="convexLength" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">击凸宽<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="convexWidth" name="convexWidth" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">击凸单位<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="convexUnit" id="convexUnit" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">mm</option>
+								<option value="1">cm</option>
+								<option value="2">dm</option>
+								<option value="3">m</option>
+							</select>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+						<div class="form-group">
+						<label class="col-sm-4 control-label">是否UV<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="isUv" id="isUv" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">不UV</option>
+								<option value="1">UV</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">UV长<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="uvLength" name="uvLength" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">UV宽<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="uvWidth" name="uvWidth" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">UV单位<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							
+							<select name="uvUnit" id="uvUnit" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">mm</option>
+								<option value="1">cm</option>
+								<option value="2">dm</option>
+								<option value="3">m</option>
+							</select>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">是否PVC<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="isPvc" id="isPvc" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">不PVC</option>
+								<option value="1">PVC</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">PVC长<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="pvcLength" name="pvcLength" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">PVC宽<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="pvcWidth" name="pvcWidth" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">PVC单位<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							
+							<select name="pvcUnit" id="pvcUnit" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">mm</option>
+								<option value="1">cm</option>
+								<option value="2">dm</option>
+								<option value="3">m</option>
+							</select>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">收货地址<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="receiveAreaId" name="receiveAreaId" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">印刷数量<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="printNumber" name="printNumber" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸价<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="paperPrice" name="paperPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">颜色价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="colorPrice" name="colorPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">表面处理价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="surfacePrice" name="surfacePrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">烫金价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="bronzingPrice" name="bronzingPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">击凸价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="convexPrice" name="convexPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">uv价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="uvPrice" name="uvPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">pvc价格<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="pvcPrice" name="pvcPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">税费<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="taxPrice" name="taxPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">管理费<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="managementPrice" name="managementPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">运输费<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="transportPrice" name="transportPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">单价<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="unitPrice" name="unitPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">总价<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="totalPrice" name="totalPrice" type="text" class="form-control"
+								maxlength="11"/>
+						</div>
+					</div>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script type="text/javascript">
+	$(function(){
+	shoppingForm = $("#shopping-form").form();
+	//-------------button event begin----------------
+	$('button[data-btn-type]').click(function() {
+		var selected = $('#shopping-table').bootstrapTable('getSelections');
+		var action = $(this).attr('data-btn-type');
+		switch (action) {
+		case 'search':
+			var formParams = $("#shopping-search-form").serializeJSON();
+			ajaxGet(basePath + "/shopping/detailList", {
+				params:JSON.stringify(formParams)
+			}, function(data) {
+				$('#shopping-table').bootstrapTable('load',data);
+			});	
+			break;
+		case 'reset':
+			userSearchForm.clearForm();
+			$('#shopping-table').bootstrapTable('refresh');
+			break;
+		}
+
+	});
+	//-------------button event end----------------
+	});
+	
+	function resetForm(){
+		shoppingForm.clearForm();
+		$("#shopping-form").data('bootstrapValidator').resetForm();
+	}
+	
+	/*
+	 * 得到所有选中行
+	 */
+	function getIdSelections() {
+		return $.map($('#shopping-table').bootstrapTable('getSelections'), function(row) {
+			return row.id;
+		});
+	}
+	/*
+	 *是否烫金格式化
+	 */
+	function bronzingFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '不烫金';
+			}else if(value=='1'){
+				return '烫金';
+			}
+		}else{
+			return value;
+		}	
+	}
+	/*
+	 *是否击凸
+	 */
+	function convexFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '不击凸';
+			}else if(value=='1'){
+				return '击凸';
+			}
+		}else{
+			return value;
+		}	
+	}
+	/*
+	 *uv
+	 */
+	function uvFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '不uv';
+			}else if(value=='1'){
+				return 'uv';
+			}
+		}else{
+			return value;
+		}	
+	}
+	/*
+	 *是否pvc
+	 */
+	function pvcFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '不pvc';
+			}else if(value=='1'){
+				return 'pvc';
+			}
+		}else{
+			return value;
+		}	
+	}
+	
+</script>
