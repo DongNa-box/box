@@ -18,10 +18,49 @@
     from t_box_classification
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectAll"  resultMap="BoxClassificationResultMap">
+    select 
+    <include refid="BoxClassification_Column_List" />
+    from t_box_classification
+  </select>
+ 
+  <select id="checkBoxClassNameExists" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
+    select 
+    <include refid="BoxClassification_Column_List" />
+    from t_box_classification
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getBoxClassificaionByLevel" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
+    select 
+    <include refid="BoxClassification_Column_List" />
+    from t_box_classification
+    where level = #{level,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="getBoxClassificaionByGroupLevel" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
+    select 
+    <include refid="BoxClassification_Column_List" />
+    from t_box_classification
+    where groupID= #{groupID,jdbcType=VARCHAR} and level = 1 
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_box_classification
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  
+    
+  <delete id="batchDeleteByIds" parameterType="java.lang.String">
+    delete from t_box_classification
+     where id in
+     <foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+  
   <insert id="insert" parameterType="com.box.boxmanage.model.BoxClassification">
     insert into t_box_classification (id, name, level, 
       groupID, createby, createtime

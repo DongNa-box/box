@@ -52,8 +52,9 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="name" data-sortable="true">纸盒类型</th>
-								<th data-align="center" data-field="classification" data-sortable="true">分类</th>
-								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
+								<th data-align="center" data-field="level" data-sortable="true">分类</th>
+								<th data-align="center" data-field="groupid" data-sortable="true">父类id</th>
+								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
 						</thead>
 					</table>
@@ -76,115 +77,45 @@
 					<h4 class="modal-title" id="modalBoxClassificationLabel"></h4>
 				</div>
 				<div class="modal-body">
+				   <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒类型级别<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="level" id="level" class="form-control" autocomplete="off">
+								<option value="0" selected="selected">第0级</option>
+								<option value="1">第1级</option>
+								<option value="2">第2级</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group"  id="divgroupid1" style="display:none">
+						<label class="col-sm-4 control-label">纸盒类型第0级<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select  id="groupid1" class="form-control" > </select>
+						</div>
+					</div>
+					
+					<div class="form-group"  id="divgroupid2" style="display:none">
+						<label class="col-sm-4 control-label">纸盒类型第1级<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select id="groupid2" class="form-control"> </select>
+						</div>
+					</div>
+
 					<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒<span style="color: red;">*</span></label>
+						<label class="col-sm-4 control-label">纸盒类型名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="name" name="name" type="text" class="form-control"
-								placeholder="请输入纸盒类型">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒类型<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="classId" id="classId" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">上下</option>
-								<option value="2">细节</option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">ϸ��1<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">��ѡ��...</option>
-								<option value="1">���²�ں�</option>
-								<option value="2">�ϲ���¿ۺ�</option>
-							</select>
-						</div>
-					</div>
-						
-					<div class="form-group">
-						<label class="col-sm-4 control-label">ϸ��2<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">��ѡ��...</option>
-								<option value="1">���²�ں�</option>
-								<option value="2">�ϲ���¿ۺ�</option>
-							</select>
-						</div>
-					</div>
-					
-				   <div class="form-group">
-						<label class="col-sm-4 control-label">ϸ��3<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">��ѡ��...</option>
-								<option value="1">���²�ں�</option>
-								<option value="2">�ϲ���¿ۺ�</option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">ֽ������<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input id="description" name="description" type="text" class="form-control"
-								placeholder="������ֽ������" maxlength="11">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">������Сֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="lmin" type="text" class="form-control"
-								placeholder="�����볤����Сֵ">
-						</div>
-					</div>
-					
-                    <div class="form-group">
-						<label class="col-sm-4 control-label">�������ֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="lmax" type="text" class="form-control"
-								placeholder="�����볤�����ֵ">
+								placeholder="请输入纸盒类型名称">
 						</div>
 					</div>
 
-                    <div class="form-group">
-						<label class="col-sm-4 control-label">�����Сֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="wmin" type="text" class="form-control"
-								placeholder="����������Сֵ">
-						</div>
-					</div>
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">������ֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="wmax" type="text" class="form-control"
-								placeholder="�����������ֵ">
-						</div>
-					</div>
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">�߶���Сֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="hmin" type="text" class="form-control"
-								placeholder="������߶���Сֵ">
-						</div>
-					</div>
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">�߶����ֵ<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input name="hmax" type="text" class="form-control"
-								placeholder="������߶���Сֵ">
-						</div>
-					</div>
-
+		
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>����</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>�ر�</button>
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
 					</div>
+					
+					
 				</div>
 			</form>
 		</div>
@@ -197,11 +128,11 @@
 
 <script type="text/javascript">
 $(function(){
-	userForm = $("#user-form").form();
-	userSearchForm = $("#user-search-form").form();
+	boxClassificationForm = $("#boxClassification-form").form();
+	boxClassificationSearchForm = $("#boxClassification-search-form").form();
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
-		var selected = $('#user-table').bootstrapTable('getSelections');
+		var selected = $('#boxClassification-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		case 'add':
@@ -209,6 +140,9 @@ $(function(){
 			$("#flag").val("1");
 			$("#modalBoxClassificationLabel").text("新增纸盒类型");
 			$('#modal-boxClassification').modal('toggle');
+			$('#level').val('0');
+		 	$("#divgroupid1").hide();
+	    	$("#divgroupid2").hide();
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -219,9 +153,8 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxClassificationLabel").text("编辑纸盒类型");
 			$("#modal-boxClassification").modal("toggle");
-			userForm.initFormData(selected[0]);
-			$("#loginName").attr("disabled","disabled");//��loginName inputԪ������Ϊdisabled 
-			$("#phone").attr("disabled","disabled");//��phone inputԪ������Ϊdisabled 
+			alert(JSON.stringify(selected));
+			boxClassificationForm.initFormData(selected[0]);
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -232,9 +165,7 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxClassificationLabel").text("查看");
 			$("#modal-boxClassification").modal("toggle");
-			userForm.initFormData(selected[0]);
-			$("#loginName").attr("disabled","disabled");//��loginName inputԪ������Ϊdisabled 
-			$("#phone").attr("disabled","disabled");//��phone inputԪ������Ϊdisabled 
+			boxClassificationForm.initFormData(selected[0]);
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -244,7 +175,7 @@ $(function(){
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
 				ajaxPost(basePath + "/boxmanage/deleteBoxClassification", {
-					uids=JSON.stringify(rowIds)
+					boxCids:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
@@ -257,15 +188,14 @@ $(function(){
 			break;
 		case 'search':
 			var formParams = $("#boxClassification-search-form").serializeJSON();
-			ajaxGet(basePath + "/uums/boxClassificationList", {
-				params=JSON.stringify(formParams)
-				alert(params);
+			ajaxGet(basePath + "/boxmanage/boxClassificationSearchList", {
+				params:JSON.stringify(formParams)
 			}, function(data) {
 				$('#boxClassification-table').bootstrapTable('load',data);
 			});	
 			break;
 		case 'reset':
-			userSearchForm.clearForm();
+			boxClassificationSearchForm.clearForm();
 			$('#boxClassification-table').bootstrapTable('refresh');
 			break;
 
@@ -283,96 +213,38 @@ $(function(){
 			validating : 'glyphicon glyphicon-refresh'
 		},
 		fields : {
-			loginName : {
-				validators : {
-					notEmpty : {
-						message : '�������û���'
-					},
-					threshold : 10,
-					remote : {
-						url : basePath + "/uums/checkLoginNameExists",
-						message : '�û����Ѵ���',
-						delay : 2000,
-						type : 'POST'
-					}
-				}
-			},
-			sex : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ���Ա�'
-					}
-				}
-			},
-			birthday : {
-				validators : {
-					notEmpty : {
-						message : '�������������'
-					},
-					date : {
-						format : 'YYYY-MM-DD',
-						message : '��������Ч����'
-					} 
-				}
-			},
 			name : {
 				validators : {
 					notEmpty : {
-						message : '��������ʵ����'
-					}
-				}
-			},
-			phone : {
-				validators : {
-					notEmpty : {
-						message : '�������ֻ�����'
+						message : '请输入纸盒类型名称'
 					},
-					integer : {
-						message : '����������'
-					},
-					integer : {
-						message : '����������'
-					},
-					stringLength: {
-                        min: 11,
-                        max: 12,
-                        message: '�̶����볤��Ӧ��Ϊ11λ'
-                    }, 
-                   /*  regexp: {
-                        regexp: /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/,
-                        message: '��������ȷ��11λ�ֻ�����'
-                    }, */
-					threshold : 11,
-					remote : {
-						url : basePath + "/uums/checkPhoneExists",
-						message : '�ֻ������Ѵ���',
-						delay : 2000,
-						type : 'POST'
-					}
+					threshold : 10
+					//remote : {
+					//	url : basePath + "/boxmanage/checkBoxClassNameExists",
+					//	message : '该纸盒类型名已存在',
+					//	delay : 2000,
+					//	type : 'POST'
+					//}
 				}
-			},
-			type : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ���û����'
-					}
-				}
-			},
-			status : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ��״̬'
-					}
-				}				
 			}
 		},
 
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
-        	ajaxPost(basePath + "/uums/editUser", {
-        		params=JSON.stringify(formParams)
+        	var groupid1=$('#groupid1').val();
+        	var groupid2=$('#groupid2').val();
+        	alert("groupid1:"+groupid1);
+        	alert("groupid2"+groupid2);
+        	if(groupid2!=null){
+        		formParams.groupid=groupid2;
+        	}else{
+        		formParams.groupid=groupid1;
+        	}
+        	alert(JSON.stringify(formParams));
+        	ajaxPost(basePath + "/boxmanage/editBoxClassification", {
+        		params:JSON.stringify(formParams)
 			},  function(data){
-				$('#modal-admin').modal('hide');
+				$('#modal-boxClassification').modal('hide');
 				layer.msg(data.code, {
 					icon : 1,
 					time : 1500,
@@ -382,12 +254,38 @@ $(function(){
         }
 	});
 	//-------------Validator from end----------------
+	
+	 $("#level").change(function(){
+	       var selected=$(this).children('option:selected').val()
+	       if(selected=="0"){
+	    	   $("#divgroupid1").hide();
+		       $("#divgroupid2").hide();
+	       }else if(selected=="1"){
+	    	   $("#divgroupid2").hide();
+	           $("#divgroupid1").show();
+	           setSelect('groupid1',0);
+	       }else if(selected=="2"){
+	    	   setSelect('groupid1',0);
+	    	   $("#divgroupid1").show();
+		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val());
+		 	   $("#divgroupid2").show();
+	       }
+	   });
+		
+	 $("#groupid1").change(function(){
+	       var selected=$(this).children('option:selected').val()
+	       var level=$('#level').val();
+	       if(selected!="" && level=="2"){
+	        setSelect('groupid2',selected);
+	        $("#divgroupid2").show();
+	       }
+	 });
 });
 
 	
 	function resetForm(){
-		userForm.clearForm();
-		$("#user-form").data('bootstrapValidator').resetForm();
+		boxClassificationForm.clearForm();
+		$("#boxClassification-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
@@ -398,4 +296,32 @@ $(function(){
 				return row.id;
 		});
 	}
+	 
+	 /**
+	  * 设置类型级别为0级的下拉列表
+	  * @param selectid
+	  * @returns
+	  */
+	 function setSelect(selectid,level){
+	 	ajaxPost("boxmanage/getBoxClassLevelList", {
+	 		params : level
+	 	}, function(data) {
+	 		var $select = $('#'+selectid); 
+	 		$select.empty();
+	 		if(data.length==0){
+	 			 $select.val("");
+	 		}
+	 		if(data.length>0){
+	 			 $select.append('<option value="">请选择...</option>'); 
+	 		}
+	 		for(var i=0, len = data.length;i<len;i++){ 
+	 		  var b=data[i];
+	 		  var bid=b.id;
+	 		  var bname=b.name;
+	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
+	 		} 
+
+	 	});
+	 }
+
 </script>

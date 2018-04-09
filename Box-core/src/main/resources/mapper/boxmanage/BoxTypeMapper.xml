@@ -33,6 +33,13 @@
     from t_box_type
     where boxId = #{boxid,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectAll" resultMap="BoxTypeResultMap">
+      select 
+    <include refid="BoxType_Column_List" />
+    from t_box_type
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_box_type
     where boxId = #{boxid,jdbcType=VARCHAR}

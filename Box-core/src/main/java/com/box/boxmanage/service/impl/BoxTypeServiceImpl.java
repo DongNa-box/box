@@ -107,18 +107,11 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 	@Override
 	public List<BoxType> getAllList() {
 
-		// TODO Auto-generated method stub
-		return null;
+		List<BoxType> list=boxTypeMapper.selectAll();
+		return list;
 
 	}
 
-	@Override
-	public List<Map<String, Object>> getBoxTypelist(Map<String, String> map) {
-		
-		// TODO Auto-generated method stub
-		return null;
-		
-	}
 
 }
 

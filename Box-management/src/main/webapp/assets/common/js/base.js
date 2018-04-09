@@ -533,4 +533,4 @@ function setCellSelect(selectid,communityid){
 		});
 	}
 	
-	
+}	

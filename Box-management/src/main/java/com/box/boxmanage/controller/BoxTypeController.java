@@ -62,7 +62,7 @@ public class BoxTypeController {
 	     return "boxmanage/boxType";
        }
 	 /**
-	  * 查找盒型列表
+	  * 获取全部盒型列表
 	  * boxTypeList:(这里用一句话描述这个方法的作用).
 	  *
 	  * @author cheng
@@ -72,22 +72,20 @@ public class BoxTypeController {
 	  */
 	    @RequestMapping(method = RequestMethod.GET, value = "/boxTypeList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> boxTypeList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
-			Map<String,String> map = new HashMap<String,String>();
-			if(jsonObj != null){
-		    	map.put("prRid", jsonObj.getString("province"));
-		    	map.put("ciRid", jsonObj.getString("city"));
-		    	map.put("arRid", jsonObj.getString("area"));
-		    	map.put("streetId", jsonObj.getString("town"));
-		    	map.put("communityName", jsonObj.getString("communityName"));
-		    	map.put("communityId", jsonObj.getString("communityId"));
-		    	map.put("status", jsonObj.getString("status"));
-			}
-			List<Map<String,Object>> list = boxTypeService.getBoxTypelist(map);
+	   	protected List<BoxType> boxTypeList(){
+			List<BoxType> list = boxTypeService.getAllList();
 	   		return list;
-	   	}	
-
+	   	}
+	    
+      /**
+       * 纸盒类型的新增与修改
+       * editUser:(这里用一句话描述这个方法的作用).
+       *
+       * @author cheng
+       * @param params
+       * @return
+       * @since JDK 1.8
+       */
 	    @RequestMapping(method = RequestMethod.POST, value = "/editBoxType")
 	    @ResponseBody
 	    private Result editUser(@Param(value = "params") String params) {

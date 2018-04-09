@@ -28,7 +28,6 @@ import com.box.framework.base.service.BaseService;
  */
 public interface BoxTypeService extends BaseService<BoxType, String> {
 
-	List<Map<String, Object>> getBoxTypelist(Map<String, String> map);
 
 }
 

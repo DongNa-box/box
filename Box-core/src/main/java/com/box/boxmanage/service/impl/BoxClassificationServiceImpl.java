@@ -44,8 +44,8 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	@Override
 	public boolean save(BoxClassification record) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxClassficationMapper.insert(record);
+		return row>0?true:false;
 
 	}
 
@@ -68,8 +68,8 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	@Override
 	public boolean batchDeleteById(List<String> records) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxClassficationMapper.batchDeleteByIds(records);
+		return row>0?true:false;
 
 	}
 
@@ -108,9 +108,33 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	@Override
 	public List<BoxClassification> getAllList() {
 
-		// TODO Auto-generated method stub
-		return null;
+		List<BoxClassification> list=boxClassficationMapper.selectAll();
+		return list;
 
+	}
+
+	@Override
+	public boolean checkBoxClassNameExists(String name) {
+		
+		BoxClassification boxCl=boxClassficationMapper.checkBoxClassNameExists(name);
+		return boxCl==null?false:true;
+		
+	}
+
+	@Override
+	public List<BoxClassification> getBoxClassificaionByLevel(String level) {
+		
+		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByLevel(level);
+		return boxCl;
+		
+	}
+
+	@Override
+	public List<BoxClassification> getBoxClassificaionByGroupLevel(String groupid) {
+
+		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByGroupLevel(groupid);
+		return boxCl;
+		
 	}
 
 }
