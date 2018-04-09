@@ -8,7 +8,7 @@
 		          	<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒名称</label>
 							<div class="col-sm-8">
-								<input id="search-loginName" name="search-loginName" type="text" class="form-control"
+								<input id="search-boxName" name="search-boxName" type="text" class="form-control"
 								placeholder="请输入纸盒名称">
 							</div>
 					</div>
@@ -18,11 +18,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒类型</label>
 						<div class="col-sm-8">
-							<select name="search-status" id="search-status" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">上下插口盒</option>
-								<option value="2">上插口下扣盒</option>
-							</select>
+							<select name="search-type" id="search-type" class="form-control"> </select>
 						</div>	
 					</div>
                 </div>
@@ -89,96 +85,90 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒类型<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<select name="classId" id="classId" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">上下插口盒</option>
-								<option value="2">上插口下扣盒</option>
-							</select>
+							<select name="classId" id="classId" class="form-control"> </select>
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">细节1<span style="color: red;">*</span></label>
+					<div class="form-group" id="xijie1"  style="display:none">
+						<label class="col-sm-4 control-label" id="detail1-label">细节1<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">前开直插</option>
-								<option value="2"> </option>
-							</select>
+							<select name="detail1" id="detail1" class="form-control"> </select>
 						</div>
 					</div>
 						
-					<div class="form-group">
-						<label class="col-sm-4 control-label">细节2<span style="color: red;">*</span></label>
+					<div class="form-group" id="xijie2"  style="display:none">
+						<label class="col-sm-4 control-label" id="detail2-label">细节2<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">后开直插</option>
-								<option value="2"> </option>
-							</select>
+							<select name="detail2" id="detail2" class="form-control"> </select>
 						</div>
 					</div>
 					
-				   <div class="form-group">
-						<label class="col-sm-4 control-label">细节3<span style="color: red;">*</span></label>
+				   <div class="form-group" id="xijie3"  style="display:none">
+						<label class="col-sm-4 control-label" id="detail3-label">细节3<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">撕拉</option>
-								<option value="2"> </option>
-							</select>
+							<select name="detail3" id="detail3" class="form-control"> </select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒描述<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="description" name="description" type="text" class="form-control"
+								placeholder="请输入纸盒类型名称">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的长度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="description" name="description" type="text" class="form-control"
-								placeholder="请输入纸盒的长度最小值" maxlength="11">
+							<input  name="lmin" type="text" class="form-control"
+								placeholder="请输入纸盒的长度最小值" maxlength="5">
+							<span>mm</span>
 						</div>
+						
 					</div>
 					
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的长度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input name="lmin" type="text" class="form-control"
-								placeholder="请输入纸盒的长度最大值">
+							<input name="lmax" type="text" class="form-control"
+								placeholder="请输入纸盒的长度最大值"><span>mm</span>
 						</div>
 					</div>
 					
                     <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的宽度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input name="lmax" type="text" class="form-control"
-								placeholder="请输入纸盒的宽度最小值">
+							<input name="wmin" type="text" class="form-control"
+								placeholder="请输入纸盒的宽度最小值"> <span>mm</span>
 						</div>
 					</div>
 
                     <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的宽度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input name="wmin" type="text" class="form-control"
-								placeholder="请输入纸盒的宽度最大值">
+							<input name="wmax" type="text" class="form-control"
+								placeholder="请输入纸盒的宽度最大值"> <span>mm</span>
 						</div>
 					</div>
 					   <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的高度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input name="wmax" type="text" class="form-control"
-								placeholder="请输入纸盒的高度最小值">
+							<input name="hmin" type="text" class="form-control"
+								placeholder="请输入纸盒的高度最小值"><span>mm</span>
 						</div>
 					</div>
 					   <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒的高度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input name="hmin" type="text" class="form-control"
-								placeholder="请输入纸盒的高度最大值">
+							<input name="hmax" type="text" class="form-control"
+								placeholder="请输入纸盒的高度最大值"><span>mm</span>
 						</div>
-
+                   </div>
 
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>����</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>�ر�</button>
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
 					</div>
 				</div>
 			</form>
@@ -192,11 +182,12 @@
 
 <script type="text/javascript">
 $(function(){
-	userForm = $("#user-form").form();
-	userSearchForm = $("#user-search-form").form();
+	boxTypeForm = $("#boxType-form").form();
+	boxTypeSearchForm = $("#boxType-search-form").form();
+	setDetailIdSelect('classId',null,"0");
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
-		var selected = $('#user-table').bootstrapTable('getSelections');
+		var selected = $('#boxType-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		case 'add':
@@ -214,7 +205,7 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxTypeLabel").text("编辑纸盒类型");
 			$("#modal-boxType").modal("toggle");
-			userForm.initFormData(selected[0]);
+			boxTypeForm.initFormData(selected[0]);
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -225,7 +216,7 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxTypeLabel").text("查看");
 			$("#modal-boxType").modal("toggle");
-			userForm.initFormData(selected[0]);
+			boxTypeForm.initFormData(selected[0]);
 			$("#loginName").attr("disabled","disabled");//��loginName inputԪ������Ϊdisabled 
 			$("#phone").attr("disabled","disabled");//��phone inputԪ������Ϊdisabled 
 		   	break;
@@ -237,7 +228,7 @@ $(function(){
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
 				ajaxPost(basePath + "/uums/deleteAdmin", {
-					uids=JSON.stringify(rowIds)
+					uids:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
@@ -251,14 +242,13 @@ $(function(){
 		case 'search':
 			var formParams = $("#boxType-search-form").serializeJSON();
 			ajaxGet(basePath + "/uums/adminList", {
-				params=JSON.stringify(formParams)
-				alert(params);
+				params:JSON.stringify(formParams)
 			}, function(data) {
 				$('#boxType-table').bootstrapTable('load',data);
 			});	
 			break;
 		case 'reset':
-			userSearchForm.clearForm();
+			boxTypeSearchForm.clearForm();
 			$('#boxType-table').bootstrapTable('refresh');
 			break;
 
@@ -284,86 +274,18 @@ $(function(){
 					threshold : 10,
 					remote : {
 						url : basePath + "/uums/checkLoginNameExists",
-						message : '�û����Ѵ���',
+						message : '纸盒名称已存在',
 						delay : 2000,
 						type : 'POST'
 					}
 				}
-			},
-			sex : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ���Ա�'
-					}
-				}
-			},
-			birthday : {
-				validators : {
-					notEmpty : {
-						message : '�������������'
-					},
-					date : {
-						format : 'YYYY-MM-DD',
-						message : '��������Ч����'
-					} 
-				}
-			},
-			name : {
-				validators : {
-					notEmpty : {
-						message : '��������ʵ����'
-					}
-				}
-			},
-			phone : {
-				validators : {
-					notEmpty : {
-						message : '�������ֻ�����'
-					},
-					integer : {
-						message : '����������'
-					},
-					integer : {
-						message : '����������'
-					},
-					stringLength: {
-                        min: 11,
-                        max: 12,
-                        message: '�̶����볤��Ӧ��Ϊ11λ'
-                    }, 
-                   /*  regexp: {
-                        regexp: /^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/,
-                        message: '��������ȷ��11λ�ֻ�����'
-                    }, */
-					threshold : 11,
-					remote : {
-						url : basePath + "/uums/checkPhoneExists",
-						message : '�ֻ������Ѵ���',
-						delay : 2000,
-						type : 'POST'
-					}
-				}
-			},
-			type : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ���û����'
-					}
-				}
-			},
-			status : {
-				validators : {
-					notEmpty : {
-						message : '��ѡ��״̬'
-					}
-				}				
 			}
 		},
 
         submitHandler: function (validator, form, submitButton) {
         	var formParams = form.serializeJSON();
-        	ajaxPost(basePath + "/uums/editUser", {
-        		params=JSON.stringify(formParams)
+        	ajaxPost(basePath + "/uums/editboxType", {
+        		params:JSON.stringify(formParams)
 			},  function(data){
 				$('#modal-admin').modal('hide');
 				layer.msg(data.code, {
@@ -375,12 +297,23 @@ $(function(){
         }
 	});
 	//-------------Validator from end----------------
+	
+	 $("#classId").change(function(){
+	       var selected=$(this).children('option:selected').val()
+	       if(selected!=""){
+		 	   setXijieSelect(selected,"1");  
+	       }else{
+	    		$("#xijie1").hide(); 
+	 	    	$("#xijie2").hide(); 
+	 	    	$("#xijie3").hide(); 
+	       }
+	   });
 });
 
 	
 	function resetForm(){
-		userForm.clearForm();
-		$("#user-form").data('bootstrapValidator').resetForm();
+		boxTypeForm.clearForm();
+		$("#boxType-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
@@ -391,4 +324,101 @@ $(function(){
 				return row.id;
 		});
 	}
+	
+	 /**
+	  * 设置类型级别为0级的下拉列表
+	  * @param selectid
+	  * @returns
+	  */
+	 function setClassIdSelect(selectid,level){
+	 	ajaxPost("boxmanage/getBoxClassLevelList", {
+	 		params : level
+	 	}, function(data) {
+	 		var $select = $('#'+selectid); 
+	 		$select.empty();
+	 		if(data.length==0){
+	 			 $select.val("");
+	 		}
+	 		if(data.length>0){
+	 			 $select.append('<option value="">请选择...</option>'); 
+	 		}
+	 		for(var i=0, len = data.length;i<len;i++){ 
+	 		  var b=data[i];
+	 		  var bid=b.id;
+	 		  var bname=b.name;
+	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
+	 		} 
+	 	});
+	 }
+	 
+	 /**
+	  * 设置类型级别为0级的下拉列表
+	  * @param selectid
+	  * @returns
+	  */
+	 function setDetailIdSelect(selectid,groupid,level){
+		var p=new Object();
+		p.groupid=groupid;
+		p.level=level;
+		alert(JSON.stringify(p)); 
+	 	ajaxPost("boxmanage/getBoxClassLevelList", {
+	 		params : JSON.stringify(p)
+	 	}, function(data) {
+	 		var $select = $('#'+selectid); 
+	 		$select.empty();
+	 		if(data.length==0){
+	 			 $select.val("");
+	 		}
+	 		if(data.length>0){
+	 			 $select.append('<option value="">请选择...</option>'); 
+	 		}
+	 		for(var i=0, len = data.length;i<len;i++){ 
+	 		  var b=data[i];
+	 		  var bid=b.id;
+	 		  var bname=b.name;
+	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
+	 		} 
+	 	});
+	 }
+	 function  setXijieSelect(groupid,level){
+			var p=new Object();
+			p.groupid=groupid;
+			p.level=level;
+		 	ajaxPost("boxmanage/getBoxClassLevelList", {
+		 		params :  JSON.stringify(p)
+		 	}, function(data) {
+		 		alert(JSON.stringify(data));
+		 	    if(data.length<=0){
+		 	    	$("#xijie1").hide(); 
+		 	    	$("#xijie2").hide(); 
+		 	    	$("#xijie3").hide(); 
+		 	    }else if(data.length==1){
+		 	    	$("#xijie1").show(); 
+		 	    	$("#xijie2").hide(); 
+		 	    	$("#xijie3").hide();
+		 	    	$("#detail1-label").html(data[0].name+'<span style="color: red;">*</span>');
+		 		    setDetailIdSelect('detail1',data[0].id,"2");
+		 	    }else if(data.length==2){
+		 	    	$("#xijie1").show(); 
+		 	    	$("#xijie2").show(); 
+		 	    	$("#xijie3").hide(); 
+		 	     	$("#detail1-label").html(data[0].name+'<span style="color: red;">*</span>');
+		 		    $("#detail2-label").html(data[1].name+'<span style="color: red;">*</span>');
+		 		    setDetailIdSelect('detail1',data[0].id,"2");
+		 		    setDetailIdSelect('detail2',data[1].id,"2");
+		 	    }else if(data.length==3){
+		 	    	$("#xijie1").show(); 
+		 	    	$("#xijie2").show(); 
+		 	    	$("#xijie3").show(); 
+		 	    	$("#detail1-label").html(data[0].name+'<span style="color: red;">*</span>');
+		 		    $("#detail2-label").html(data[1].name+'<span style="color: red;">*</span>');
+		 		    $("#detail3-label").html(data[2].name+'<span style="color: red;">*</span>');
+		 		    alert("data.id+"+data[0].id);
+		 		    setDetailIdSelect('detail1',data[0].id,"2");
+		 		    setDetailIdSelect('detail2',data[1].id,"2");
+		 		    setDetailIdSelect('detail3',data[2].id,"2");
+		 	    }
+		 	});
+		 }
+	
 </script>

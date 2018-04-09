@@ -11,6 +11,7 @@
 package com.box.boxmanage.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.box.boxmanage.model.BoxClassification;
 import com.box.framework.base.service.BaseService;
@@ -27,13 +28,13 @@ import com.box.framework.base.service.BaseService;
  */
 public interface BoxClassficationService extends BaseService<BoxClassification, String> {
 
-	boolean checkBoxClassNameExists(String name);
-
 	List<BoxClassification> getBoxClassificaionByLevel(String level);
 
-	List<BoxClassification> getBoxClassificaionByGroupLevel(String groupid);
+	List<BoxClassification> getBoxClassificaionByGroupLevel(Map<String, Object> map);
 
 	BoxClassification getBoxClassificaionByGroupid(String groupid);
+
+	List<BoxClassification> boxClassificationSearchList(String name);
 
 }
 

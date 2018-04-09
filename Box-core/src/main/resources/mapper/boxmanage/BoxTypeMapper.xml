@@ -269,8 +269,6 @@
       hwax = #{hwax,jdbcType=DOUBLE},
       lwax = #{lwax,jdbcType=DOUBLE},
       unit = #{unit,jdbcType=INTEGER},
-      createby = #{createby,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
     where boxId = #{boxid,jdbcType=VARCHAR}
   </update>
 </mapper>

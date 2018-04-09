@@ -24,13 +24,6 @@
     <include refid="BoxClassification_Column_List" />
     from t_box_classification
   </select>
- 
-  <select id="checkBoxClassNameExists" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
-    select 
-    <include refid="BoxClassification_Column_List" />
-    from t_box_classification
-    where name = #{name,jdbcType=VARCHAR}
-  </select>
   
   <select id="getBoxClassificaionByLevel" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
     select 
@@ -40,11 +33,11 @@
   </select>
   
   
-  <select id="getBoxClassificaionByGroupLevel" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
+  <select id="getBoxClassificaionByGroupLevel" parameterType="java.util.Map" resultMap="BoxClassificationResultMap">
     select 
     <include refid="BoxClassification_Column_List" />
     from t_box_classification
-    where groupID= #{groupID,jdbcType=VARCHAR} and level = 1 
+    where groupID= #{map.groupid,jdbcType=VARCHAR} and level = #{map.level,jdbcType=VARCHAR} 
   </select>
  
   
@@ -53,6 +46,14 @@
     left join  t_box_classification b
     on a.groupID=b.id
     where a.id= #{groupID,jdbcType=VARCHAR} and b.level=0
+  </select>
+  
+   <select id="boxClassificationSearchList" parameterType="java.lang.String"  resultMap="BoxClassificationResultMap">
+    select 
+    <include refid="BoxClassification_Column_List" />
+    from t_box_classification
+   where name LIKE CONCAT(CONCAT('%', #{name}),'%') 
+
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

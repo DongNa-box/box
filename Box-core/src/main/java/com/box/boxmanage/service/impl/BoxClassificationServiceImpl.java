@@ -11,6 +11,7 @@
 package com.box.boxmanage.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -113,14 +114,6 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	}
 
 	@Override
-	public boolean checkBoxClassNameExists(String name) {
-		
-		BoxClassification boxCl=boxClassficationMapper.checkBoxClassNameExists(name);
-		return boxCl==null?false:true;
-		
-	}
-
-	@Override
 	public List<BoxClassification> getBoxClassificaionByLevel(String level) {
 		
 		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByLevel(level);
@@ -129,9 +122,9 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	}
 
 	@Override
-	public List<BoxClassification> getBoxClassificaionByGroupLevel(String groupid) {
+	public List<BoxClassification> getBoxClassificaionByGroupLevel(Map<String, Object> map) {
 
-		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByGroupLevel(groupid);
+		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByGroupLevel(map);
 		return boxCl;
 		
 	}
@@ -141,6 +134,13 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 		BoxClassification boxCl=boxClassficationMapper.getBoxClassificaionByGroupid(groupid);
 		return boxCl;
 		
+	}
+
+	@Override
+	public List<BoxClassification> boxClassificationSearchList(String name) {
+		List<BoxClassification> boxCl=boxClassficationMapper.boxClassificationSearchList(name);
+		return boxCl;
+
 	}
 
 }

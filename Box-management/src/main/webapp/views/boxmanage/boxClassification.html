@@ -6,27 +6,15 @@
 	        <div class="box-body">
 	         	<div class="col-sm-4">
 	         	        	<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒名称</label>
+						<label class="col-sm-4 control-label">纸盒类型名称</label>
 							<div class="col-sm-8">
-								<input id="search-loginName" name="search-loginName" type="text" class="form-control"
-								placeholder="请输入纸盒名称">
+								<input id="search-name" name="search-name" type="text" class="form-control"
+								placeholder="请输入纸盒类型名称,支持模糊查询">
 							</div>
 							</div>
-			</div>
-  	        <div class="col-sm-4">
-						<label class="col-sm-4 control-label">纸盒类型</label>
-						<div class="col-sm-8">
-							<select name="search-status" id="search-status" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">上下插口盒</option>
-								<option value="2">上插口下扣口</option>
-							</select>
-
-					</div>
-                </div>
-				
-	        </div>
-	        </form>
+			   </div>
+           </div>
+	       </form>
 	        
 	        <!-- /.box-body -->
 	        <div class="box-footer">
@@ -52,8 +40,7 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="name" data-sortable="true">纸盒类型</th>
-								<th data-align="center" data-field="level" data-sortable="true">分类</th>
-								<th data-align="center" data-field="groupid" data-sortable="true">父类id</th>
+								<th data-align="center" data-field="level" data-sortable="true" data-formatter="formatterlevel">类型级别</th>
 								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
 						</thead>
@@ -78,9 +65,9 @@
 				</div>
 				<div class="modal-body">
 				   <div class="form-group">
-						<label class="col-sm-4 control-label">纸盒类型级别<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="level" id="level" class="form-control" autocomplete="off">
+						<label class="col-sm-5 control-label">纸盒类型级别<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
+							<select name="level" id="level" class="form-control">
 								<option value="0" selected="selected">第0级</option>
 								<option value="1">第1级</option>
 								<option value="2">第2级</option>
@@ -88,22 +75,22 @@
 						</div>
 					</div>
 					<div class="form-group"  id="divgroupid1" style="display:none">
-						<label class="col-sm-4 control-label">纸盒类型第0级<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-5 control-label">纸盒类型第0级<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
 							<select  id="groupid1" class="form-control" > </select>
 						</div>
 					</div>
 					
 					<div class="form-group"  id="divgroupid2" style="display:none">
-						<label class="col-sm-4 control-label">纸盒类型第1级<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-5 control-label">纸盒类型第1级<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
 							<select id="groupid2" class="form-control"> </select>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒类型名称<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-5 control-label">纸盒类型名称<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
 							<input id="name" name="name" type="text" class="form-control"
 								placeholder="请输入纸盒类型名称">
 						</div>
@@ -215,7 +202,6 @@ $(function(){
 			boxClassificationSearchForm.clearForm();
 			$('#boxClassification-table').bootstrapTable('refresh');
 			break;
-
 		}
 
 	});
@@ -278,11 +264,11 @@ $(function(){
 	       }else if(selected=="1"){
 	    	   $("#divgroupid2").hide();
 	           $("#divgroupid1").show();
-	           setSelect('groupid1',0,null);
+	           setSelect('groupid1',null,"0",null);
 	       }else if(selected=="2"){
-	    	   setSelect('groupid1',0,null);
+	    	   setSelect('groupid1',null,"0",null);
 	    	   $("#divgroupid1").show();
-		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),null);
+		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null);
 		 	   $("#divgroupid2").show();
 	       }
 	   });
@@ -291,7 +277,7 @@ $(function(){
 	       var selected=$(this).children('option:selected').val()
 	       var level=$('#level').val();
 	       if(selected!="" && level=="2"){
-	        setSelect('groupid2',selected,null);
+	        setSelect('groupid2',selected,"1",null);
 	        $("#divgroupid2").show();
 	       }
 	 });
@@ -317,9 +303,13 @@ $(function(){
 	  * @param selectid
 	  * @returns
 	  */
-	 function setSelect(selectid,level,oneGroupid){
+	 function setSelect(selectid,groupid,level,oneGroupid){
+		var p=new Object();
+		p.groupid=groupid;
+		p.level=level;
+		alert(JSON.stringify(p));
 	 	ajaxPost("boxmanage/getBoxClassLevelList", {
-	 		params : level
+	 		params :JSON.stringify(p)
 	 	}, function(data) {
 	 		var $select = $('#'+selectid); 
 	 		$select.empty();
@@ -344,7 +334,7 @@ $(function(){
 	 function setScanSelect(selected){
 		if(selected.level==1){
 			$("#divgroupid1").show();
-			setSelect('groupid1',0,selected.groupid);
+			setSelect('groupid1',null,"0",selected.groupid);
 		}else if(selected.level==2){
 			$("#divgroupid1").show();
 			$("#divgroupid2").show();
@@ -352,9 +342,30 @@ $(function(){
 			ajaxPost(basePath + "/boxmanage/getBoxClassifByGroupid", {
 	        	params:JSON.stringify(selected.groupid)
 			},  function(data){
-				setSelect('groupid1',0,data.id);
-				setSelect('groupid2',data.id,selected.groupid);
+				setSelect('groupid1',null,"0",data.id);
+				setSelect('groupid2',data.id,"1",selected.groupid);
 	        });
 		}
+	 }
+	 
+	 /**
+	  * 日期格式化处理 yyyy-MM-dd HH:mm:ss
+	  * @param value
+	  * @param row
+	  * @param index
+	  * @returns
+	  */
+	 function formatterlevel(value){
+	 	if (value != undefined && value != null && $.trim(value) != '') {
+	 		if(value==0){
+	 			return "第0级";
+	 		}else if(value==1){
+	 			return "第1级";
+	 		}else if(value==2){
+	 			return "第2级";
+	 		}	
+	 	}else{
+	 		return value;
+	 	}	
 	 }
 </script>

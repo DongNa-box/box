@@ -43,16 +43,15 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 	@Override
 	public boolean save(BoxType record) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxTypeMapper.insert(record);
+		return row>0?true:false;
 
 	}
 
 	@Override
 	public boolean update(BoxType record) {
-
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxTypeMapper.updateByPrimaryKey(record);
+		return row>0?true:false;
 
 	}
 
@@ -66,9 +65,8 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 
 	@Override
 	public boolean batchDeleteById(List<String> records) {
-
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxTypeMapper.batchDeleteByIds(records);
+		return row>0?true:false;
 
 	}
 

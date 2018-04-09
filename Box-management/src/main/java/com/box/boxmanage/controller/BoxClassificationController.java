@@ -50,13 +50,14 @@ import com.box.framework.utils.Sequence;
 public class BoxClassificationController {
 	 private static final Logger LOGGER = LoggerFactory.getLogger(BoxTypeController.class);
 	  
-	   @Resource
-	   BoxClassficationService boxClassificationService;
+	 @Resource
+	 BoxClassficationService boxClassificationService;
 	 
-	   @RequestMapping(method = RequestMethod.GET, value = "/boxClassification")
-	   protected String user() {
+	 @RequestMapping(method = RequestMethod.GET, value = "/boxClassification")
+	 protected String user() {
 	     return "boxmanage/boxClassification";
      }
+	   
 	 /**
 	  * 查找纸盒类型列表
 	  * boxTypeList:(这里用一句话描述这个方法的作用).
@@ -72,6 +73,7 @@ public class BoxClassificationController {
 			List<BoxClassification> list = boxClassificationService.getAllList();
 	   		return list;
 	   	}	
+	    
        /**
         * 对纸盒类型进行新增和修改操作
         * editBoxClassification:(这里用一句话描述这个方法的作用).
@@ -105,6 +107,7 @@ public class BoxClassificationController {
 	    	return new Result(false,"操作失败");
 	    	
 	    }
+	    
         /**
          * 删除纸盒类型
          * deleteBoxClassification:(这里用一句话描述这个方法的作用).
@@ -126,24 +129,26 @@ public class BoxClassificationController {
 		   	       } 	
 		  
 		  }
+		 
 	     /**
-	      * 查找包装盒类型是否存储
-	      * checkBoxClassNameExists:(这里用一句话描述这个方法的作用).
+	      * 查找包装盒类型依据名称的模糊查询
+	      * boxClassificationSearchList:(这里用一句话描述这个方法的作用).
 	      *
 	      * @author cheng
 	      * @param name
 	      * @return
 	      * @since JDK 1.8
 	      */
-		 @RequestMapping(method = RequestMethod.POST, value = "checkBoxClassNameExists")
+		 @RequestMapping(method = RequestMethod.GET, value = "boxClassificationSearchList")
 		 @ResponseBody
-		 private JSONObject checkBoxClassNameExists(@RequestParam String name) {
-			  boolean result = boxClassificationService.checkBoxClassNameExists(name);
-		      JSONObject jsonObj = new JSONObject();
-		      jsonObj.put("valid", (!result));
-			  return jsonObj;
+		 private List<BoxClassification> boxClassificationSearchList(@RequestParam String params) {
+		     JSONObject jsonObj = JSONObject.parseObject(params);
+		     String name= jsonObj.getString("search-name");
+			 List<BoxClassification> list= boxClassificationService.boxClassificationSearchList(name);
+			 return list;
 		  
 		  }
+		 
 		/**
 		 * 获取不同级别的列表
 		 * getBoxClassLevelList:(这里用一句话描述这个方法的作用).
@@ -156,12 +161,19 @@ public class BoxClassificationController {
 		 @RequestMapping(method = RequestMethod.POST, value = "/getBoxClassLevelList")
 		 @ResponseBody
 		 private Object getBoxClassLevelList(@Param(value = "params") String params) {
-		     String groupid=params.replaceAll("\"","").replace("[", "").replace("]", "");
+		     JSONObject jsonObj = JSONObject.parseObject(params);
+			 String level=jsonObj.getString("level");
 		     List<BoxClassification> boxClassification=new ArrayList<BoxClassification>();
-		     if(groupid.equals("0")){
-		    	 boxClassification = boxClassificationService.getBoxClassificaionByLevel(groupid);
+		     if(level.equals("0")){
+		    	 boxClassification = boxClassificationService.getBoxClassificaionByLevel(level);
 		     }else{
-		    	 boxClassification = boxClassificationService.getBoxClassificaionByGroupLevel(groupid);
+		       	 Map<String,Object> map=new HashMap<String,Object>();	
+		         if(jsonObj.getString("groupid")!=null){
+			    	   String groupid= jsonObj.getString("groupid");
+			    	   map.put("groupid", groupid);
+			     }
+		    	 map.put("level", level);
+		    	 boxClassification = boxClassificationService.getBoxClassificaionByGroupLevel(map);
 		     }
 		     return boxClassification;
 		 }
