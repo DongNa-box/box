@@ -165,5 +165,14 @@ public class BoxClassificationController {
 		     }
 		     return boxClassification;
 		 }
+		
+		 
+		 @RequestMapping(method = RequestMethod.POST, value = "/getBoxClassifByGroupid")
+		 @ResponseBody
+		 private Object  getBoxClassifByGroupid(@Param(value = "params") String params) {
+		     String groupid=params.replaceAll("\"","").replace("[", "").replace("]", "");
+		     BoxClassification boxClassification= boxClassificationService.getBoxClassificaionByGroupid(groupid);
+		     return boxClassification;
+		 }
 }
 

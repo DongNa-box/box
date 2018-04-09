@@ -33,5 +33,7 @@ public interface BoxClassficationService extends BaseService<BoxClassification, 
 
 	List<BoxClassification> getBoxClassificaionByGroupLevel(String groupid);
 
+	BoxClassification getBoxClassificaionByGroupid(String groupid);
+
 }
 

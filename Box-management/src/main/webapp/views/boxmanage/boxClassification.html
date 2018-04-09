@@ -143,6 +143,10 @@ $(function(){
 			$('#level').val('0');
 		 	$("#divgroupid1").hide();
 	    	$("#divgroupid2").hide();
+	    	$("#groupid1").removeAttr("disabled");
+			$("#groupid2").removeAttr("disabled");
+			$("#level").removeAttr("disabled");
+			$("#name").removeAttr("disabled");
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -151,21 +155,34 @@ $(function(){
 			}
 			resetForm();
 			$("#flag").val("2");
+			$("#divgroupid1").hide();
+	    	$("#divgroupid2").hide();
+	    	$("#groupid1").removeAttr("disabled");
+			$("#groupid2").removeAttr("disabled");
+			$("#level").removeAttr("disabled");
+			$("#name").removeAttr("disabled");
 			$("#modalBoxClassificationLabel").text("编辑纸盒类型");
 			$("#modal-boxClassification").modal("toggle");
-			alert(JSON.stringify(selected));
 			boxClassificationForm.initFormData(selected[0]);
+			setScanSelect(selected[0]);
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
-				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				layer.alert('请选择要查看的数据,每次只能选一条!');
 				return false;
 			}
 			resetForm();
 			$("#flag").val("2");
+			$("#divgroupid1").hide();
+	    	$("#divgroupid2").hide();
 			$("#modalBoxClassificationLabel").text("查看");
 			$("#modal-boxClassification").modal("toggle");
 			boxClassificationForm.initFormData(selected[0]);
+			setScanSelect(selected[0]);
+			$("#groupid1").attr("disabled","disabled");
+			$("#groupid2").attr("disabled","disabled");
+			$("#level").attr("disabled","disabled");
+			$("#name").attr("disabled","disabled");
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -233,8 +250,6 @@ $(function(){
         	var formParams = form.serializeJSON();
         	var groupid1=$('#groupid1').val();
         	var groupid2=$('#groupid2').val();
-        	alert("groupid1:"+groupid1);
-        	alert("groupid2"+groupid2);
         	if(groupid2!=null){
         		formParams.groupid=groupid2;
         	}else{
@@ -263,11 +278,11 @@ $(function(){
 	       }else if(selected=="1"){
 	    	   $("#divgroupid2").hide();
 	           $("#divgroupid1").show();
-	           setSelect('groupid1',0);
+	           setSelect('groupid1',0,null);
 	       }else if(selected=="2"){
-	    	   setSelect('groupid1',0);
+	    	   setSelect('groupid1',0,null);
 	    	   $("#divgroupid1").show();
-		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val());
+		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),null);
 		 	   $("#divgroupid2").show();
 	       }
 	   });
@@ -276,7 +291,7 @@ $(function(){
 	       var selected=$(this).children('option:selected').val()
 	       var level=$('#level').val();
 	       if(selected!="" && level=="2"){
-	        setSelect('groupid2',selected);
+	        setSelect('groupid2',selected,null);
 	        $("#divgroupid2").show();
 	       }
 	 });
@@ -302,7 +317,7 @@ $(function(){
 	  * @param selectid
 	  * @returns
 	  */
-	 function setSelect(selectid,level){
+	 function setSelect(selectid,level,oneGroupid){
 	 	ajaxPost("boxmanage/getBoxClassLevelList", {
 	 		params : level
 	 	}, function(data) {
@@ -320,8 +335,26 @@ $(function(){
 	 		  var bname=b.name;
 	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
 	 		} 
-
+            if(oneGroupid!=null){
+            	$select.val(oneGroupid);
+            }
 	 	});
 	 }
 
+	 function setScanSelect(selected){
+		if(selected.level==1){
+			$("#divgroupid1").show();
+			setSelect('groupid1',0,selected.groupid);
+		}else if(selected.level==2){
+			$("#divgroupid1").show();
+			$("#divgroupid2").show();
+			//通过1级id查0级id
+			ajaxPost(basePath + "/boxmanage/getBoxClassifByGroupid", {
+	        	params:JSON.stringify(selected.groupid)
+			},  function(data){
+				setSelect('groupid1',0,data.id);
+				setSelect('groupid2',data.id,selected.groupid);
+	        });
+		}
+	 }
 </script>

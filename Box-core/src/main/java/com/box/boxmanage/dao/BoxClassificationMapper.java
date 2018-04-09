@@ -12,5 +12,7 @@ public interface BoxClassificationMapper extends BaseMapper<BoxClassification,St
 	List<BoxClassification> getBoxClassificaionByLevel(String level);
 
 	List<BoxClassification> getBoxClassificaionByGroupLevel(String groupID);
+
+	BoxClassification getBoxClassificaionByGroupid(String groupid);
  
 }

@@ -51,9 +51,8 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 
 	@Override
 	public boolean update(BoxClassification record) {
-
-		// TODO Auto-generated method stub
-		return false;
+		int row=boxClassficationMapper.updateByPrimaryKey(record);
+		return row>0?true:false;
 
 	}
 
@@ -133,6 +132,13 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 	public List<BoxClassification> getBoxClassificaionByGroupLevel(String groupid) {
 
 		List<BoxClassification> boxCl=boxClassficationMapper.getBoxClassificaionByGroupLevel(groupid);
+		return boxCl;
+		
+	}
+
+	@Override
+	public BoxClassification getBoxClassificaionByGroupid(String groupid) {
+		BoxClassification boxCl=boxClassficationMapper.getBoxClassificaionByGroupid(groupid);
 		return boxCl;
 		
 	}

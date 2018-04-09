@@ -46,6 +46,14 @@
     from t_box_classification
     where groupID= #{groupID,jdbcType=VARCHAR} and level = 1 
   </select>
+ 
+  
+  <select id="getBoxClassificaionByGroupid" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
+    SELECT b.* from t_box_classification a
+    left join  t_box_classification b
+    on a.groupID=b.id
+    where a.id= #{groupID,jdbcType=VARCHAR} and b.level=0
+  </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_box_classification
@@ -138,8 +146,6 @@
     set name = #{name,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       groupID = #{groupid,jdbcType=VARCHAR},
-      createby = #{createby,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
