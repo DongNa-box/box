@@ -67,7 +67,7 @@
 	          	<div id="toolbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
 						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
-						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+						<button type="button" data-btn-type="scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
 						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
 						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
 					</div>
@@ -89,12 +89,13 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="id" data-sortable="true">尺寸ID</th>
+																
+								<th data-align="center" data-field="type" data-sortable="true" data-formatter="sizeTypeFormatter">尺寸类型</th>
+								<th data-align="center" data-field="name" data-sortable="true">尺寸名称</th>
 								<th data-align="center" data-field="size" data-sortable="true">尺寸大小</th>
 								<th data-align="center" data-field="unit" data-sortable="true" data-formatter="unitFormatter">单位</th>
-								<th data-align="center" data-field="name" data-sortable="true">尺寸名称</th>
-								<th data-align="center" data-field="type" data-sortable="true" data-formatter="sizeTypeFormatter">尺寸类型</th>
 								<th data-align="center" data-field="createby" data-sortable="true" >创建人</th>
-								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
+								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
 								
 							</tr>
 						</thead>
@@ -143,21 +144,20 @@
 						</div>
 					</div>
 					
-					<div id="display" style="display:none;">
 						<div class="form-group">
 							<label class="col-sm-4 control-label">尺寸单位<span style="color: red;">*</span></label>
 							<div class="col-sm-8">
-								<select name="search-unit" id="search-unit" class="form-control">
-								<option value="">请选择...</option>
-								<option value="0">mm</option>
-								<option value="1">cm</option>
-								<option value="2">dm</option>
-								<option value="3">m</option>
-							</select>
+								<select name="unit" id="unit" class="form-control">
+									<option value="">请选择...</option>
+									<option value="0">mm</option>
+									<option value="1">cm</option>
+									<option value="2">dm</option>
+									<option value="3">m</option>
+								</select>
 							</div>
 						</div>
 						
-					</div>
+	
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
@@ -169,9 +169,11 @@
 	</div>
 </div>
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
 <script type="text/javascript">
 	$(function(){
 	sizeForm = $("#size-form").form();
+	sizeSearchForm=$("#size-search-form");
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#size-table').bootstrapTable('getSelections');
@@ -179,21 +181,37 @@
 		switch (action) {
 		case 'add':
 			resetForm();
-			$("#flag").val("0");
+			$("#flag").val("1");
 			$("#modalSizeLabel").text("新增尺寸");
 			$('#model-size').modal('toggle');
-			$("#display").hide();
+			
+			$("#saveBtn").show();
+			$('#size-form').find('input,textarea,select').attr('readonly',false);
 			break;
+		case 'scan':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#modalSizeLabel").text("查看尺寸信息");
+			$("#model-size").modal("toggle");
+			$("#saveBtn").hide();
+			$('#size-form').find('input,textarea,select').attr('readonly',true);
+			sizeForm.initFormData(selected[0]);
+		   	break;
 		case 'edit':
 			if(selected.length != 1){
 				layer.alert('请选择要编辑的数据,每次只能选一条!');
 				return false;
 			}
 			resetForm();
-			$("#flag").val("1");
+			$("#flag").val("2");
 			$("#modalSizeLabel").text("修改尺寸");
 			$("#model-size").modal("toggle");
-			sizeForm.initFormData(selected[0]);
+			$("#saveBtn").show();
+			$('#size-form').find('input,textarea,select').attr('readonly',false);
+			rateForm.initFormData(selected[0]);
 		   break;
 		case 'delete':
 			if(selected.length < 1){
@@ -223,7 +241,7 @@
 			});	
 			break;
 		case 'reset':
-			userSearchForm.clearForm();
+			sizeSearchForm.clearForm();
 			$('#size-table').bootstrapTable('refresh');
 			break;
 		}
@@ -321,4 +339,19 @@
 		}	
 	}
 	
+function unitFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return 'mm';
+			}else if(value=='1'){
+				return 'cm';
+			}else if(value=='2'){
+				return 'dm';
+			}else if(value=='3'){
+				return 'm';
+			}
+		}else{
+			return value;
+		}	
+	}
 </script>

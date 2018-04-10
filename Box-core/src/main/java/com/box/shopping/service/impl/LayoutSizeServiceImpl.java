@@ -66,8 +66,8 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 	@Override
 	public boolean batchDeleteById(List<String> records) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int userRow = layoutSizeMapper.batchDeleteByIds(records);
+		return userRow>0?true:false;
 
 	}
 
@@ -125,26 +125,6 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 		
 	}
 
-	
-	 /**
-	 * TODO 简单描述该方法的实现功能（可选）.
-	 * @see com.box.shopping.service.LayoutSizeService#batchDeleteSize(java.util.List)
-	 */
-	 
-	@Override
-	public boolean batchDeleteSize(List<String> list) {
-		
-		try {
-			int userRow = layoutSizeMapper.batchDeleteByIds(list);
-			return userRow>0?true:false;
-		} catch (Exception ex) {
-			logger.error(UserServiceImpl.class.getName() + ":错误信息："+ex.getMessage().toString());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return false;			
-		}
-		
-		
-	}
 
 }
 

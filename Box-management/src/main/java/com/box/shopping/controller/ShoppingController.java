@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.box.framework.pojo.Result;
+import com.box.framework.security.util.SecurityUtil;
+import com.box.framework.utils.DateUtil;
 import com.box.framework.utils.Sequence;
 import com.box.shopping.model.LayoutSize;
 import com.box.shopping.model.ShoppingPantone;
@@ -106,7 +108,7 @@ public class ShoppingController {
 	    @ResponseBody
 	    private Result deleteRate(@Param(value = "ids")String ids) {
 		 List<String> list = JSON.parseArray(ids, String.class);
-	    	boolean result = shoppingRateService.batchDeleteRate(list);
+	    	boolean result = shoppingRateService.batchDeleteById(list);
 	    	return result ? new Result(true,"删除成功") : new Result(false,"删除失败");
 	    
 	 }
@@ -131,11 +133,13 @@ public class ShoppingController {
 		//新增
 			case "1":
 				shoppingRate.setId(Sequence.nextId());
+				shoppingRate.setCreateby(SecurityUtil.getUser().getId());
+				shoppingRate.setCreatetime(DateUtil.getCurrDate());
 				result = shoppingRateService.save(shoppingRate);
 				return result ? new Result(true,"新增成功") : new Result(false,"新增失败");	
 			case "2":
 				result = shoppingRateService.update(shoppingRate);
-				return result ? new Result(true,"新增成功") : new Result(false,"新增失败");	
+				return result ? new Result(true,"修改成功") : new Result(false,"修改失败");	
 		}
 		return new Result(false,"操作失败");
 		
@@ -179,7 +183,7 @@ public class ShoppingController {
 	    @ResponseBody
 	    private Result deleteUser(@Param(value = "ids")String ids) {
 		 List<String> list = JSON.parseArray(ids, String.class);
-	    	boolean result = shoppingPantoneService.batchDeletePantone(list);
+	    	boolean result = shoppingPantoneService.batchDeleteById(list);
 	    	return result ? new Result(true,"删除成功") : new Result(false,"删除失败");
 	    
 	 }

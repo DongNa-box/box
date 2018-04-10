@@ -124,8 +124,8 @@
 	       and attr3 = #{attr3,jdbcType=VARCHAR},
 	      </if>
 	 </select>
-	 <delete id="batchDeleteByIds">
-  	delete from t_layout_size where id in
+	 <delete id="batchDeleteByIds" >
+  	delete from t_shopping_pantone where id in
   	<foreach collection="ids" item="id" open="(" separator="," close=")">
   		#{id}
   	</foreach>

@@ -55,6 +55,7 @@
 	          	<div id="adminbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
 						<button type="button" data-btn-type="admin-add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
+						<button type="button" data-btn-type="admin-scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
 						<button type="button" data-btn-type="admin-edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
 						<button type="button" data-btn-type="admin-delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
 						<!-- <button type="button" data-btn-type="sch-check" class="btn btn-info"><i class="fa fa-search-plus"></i> 查看</button> -->
@@ -212,7 +213,21 @@ $(function(){
 			$("#flag").val("01");
 			$("#modalAdminLabel").text("新增后台管理员");
 			$('#modal-admin').modal('toggle');
+			$("#saveBtn").show();
+			$('#admin-user-form').find('input,textarea,select').attr('readonly',false);
 			break;
+		case 'admin-scan':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#modalAdminLabel").text("查看用户信息");
+			$("#model-admin").modal("toggle");
+			$("#saveBtn").hide();
+			$('#admin-user-form').find('input,textarea,select').attr('readonly',true);
+			userForm.initFormData(selected[0]);
+		   	break;
 		case 'admin-edit':
 			if(selected.length != 1){
 				layer.alert('请选择要编辑的数据,每次只能选一条!');
@@ -223,6 +238,8 @@ $(function(){
 			$("#modalAdminLabel").text("编辑系统管理员");
 			$("#modal-admin").modal("toggle");
 			userForm.initFormData(selected[0]);
+			$("#saveBtn").show();
+			$('#admin-user-form').find('input,textarea,select').attr('readonly',false);
 			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为disabled 
 			$("#phone").attr("disabled","disabled");//将phone input元素设置为disabled 
 		   	break;

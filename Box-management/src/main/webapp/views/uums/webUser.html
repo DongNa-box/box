@@ -54,9 +54,9 @@
 	          	<div id="toolbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
 						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
-						<!--  
-						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
-						-->
+						 
+						<button type="button" data-btn-type="scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+						
 						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
 						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
 					</div>
@@ -183,7 +183,7 @@
 </div>
 
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
-
+<script src="${basePath}/assets/common/js/base.js"></script>
 <script type="text/javascript">
 $(function(){
 	userForm = $("#webuser-form").form();
@@ -198,7 +198,21 @@ $(function(){
 			$("#flag").val("02");
 			$("#modalWebUserLabel").text("新增web用户");
 			$('#modal-webuser').modal('toggle');
+			$("#saveBtn").hide();
+			$('#webuser-form').find('input,textarea,select').attr('readonly',true);
 			break;
+		case 'scan':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#modalWebUserLabel").text("查看用户信息");
+			$("#model-webuser").modal("toggle");
+			$("#saveBtn").hide();
+			$('#webuser-form').find('input,textarea,select').attr('readonly',true);
+			userForm.initFormData(selected[0]);
+		   	break;
 		case 'edit':
 			if(selected.length != 1){
 				layer.alert('请选择要编辑的数据,每次只能选一条!');
@@ -209,6 +223,8 @@ $(function(){
 			$("#modalWebUserLabel").text("编辑web用户");
 			$("#modal-webuser").modal("toggle");
 			userForm.initFormData(selected[0]);
+			$("#saveBtn").show();
+			$('#webuser-form').find('input,textarea,select').attr('readonly',false);
 			$("#loginName").attr("disabled","disabled");//将loginName input元素设置为disabled 
 			$("#phone").attr("disabled","disabled");//将phone input元素设置为disabled 
 		   	break;

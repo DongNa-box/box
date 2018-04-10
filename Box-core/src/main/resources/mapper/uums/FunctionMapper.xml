@@ -183,4 +183,10 @@
     <include refid="FunctionColumnList" />
     from t_uums_function 
   </select>
+  <delete id="batchDeleteByIds">
+  	delete from t_uums_function where id in
+  	<foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
 </mapper>

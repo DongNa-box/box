@@ -41,6 +41,5 @@ import com.box.shopping.model.LayoutSize;
 public interface LayoutSizeService extends BaseService<LayoutSize, String> {
 	List<Map<String,Object>> getLayoutSizelist(Map<String, Object> map);
 
-	boolean batchDeleteSize(List<String> list);
 }
 

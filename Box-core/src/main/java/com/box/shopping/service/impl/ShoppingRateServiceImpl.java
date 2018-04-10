@@ -65,8 +65,8 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 	@Override
 	public boolean batchDeleteById(List<String> records) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int userRow = shoppingRateMapper.batchDeleteByIds(records);
+		return userRow>0?true:false;
 
 	}
 
@@ -124,25 +124,6 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 		
 	}
 
-	
-	 /**
-	 * TODO 简单描述该方法的实现功能（可选）.
-	 * @see com.box.shopping.service.ShoppingRateService#batchDeleteRate(java.util.List)
-	 */
-	 
-	@Override
-	public boolean batchDeleteRate(List<String> list) {
-		try {
-			int userRow = shoppingRateMapper.batchDeleteByIds(list);
-			return userRow>0?true:false;
-		} catch (Exception ex) {
-			logger.error(ShoppingRateServiceImpl.class.getName() + ":错误信息："+ex.getMessage().toString());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return false;			
-		}
-		
-		
-	}
 
 }
 

@@ -29,6 +29,5 @@ import com.box.shopping.model.ShoppingRate;
 public interface ShoppingRateService extends BaseService<ShoppingRate, String> {
 	List<Map<String,Object>> getRatelist(Map<String, Object> map);
 
-	boolean batchDeleteRate(List<String> list);
 }
 

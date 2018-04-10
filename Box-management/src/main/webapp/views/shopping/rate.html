@@ -45,7 +45,7 @@
 	          	<div id="toolbar" class="btn-toolbar">
 					<div class="btn-group pull-left">
  						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
- 						<button type="button" data-btn-type="detail" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
+ 						<button type="button" data-btn-type="scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
 						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
 						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
 					</div>
@@ -127,9 +127,11 @@
 	</div>
 </div>
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
 <script type="text/javascript">
 	$(function(){
 	rateForm = $("#rate-form").form();
+	rateSearchForm=$("#rate-search-form").form();
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#rate-table').bootstrapTable('getSelections');
@@ -137,20 +139,35 @@
 		switch (action) {
 		case 'add':
 			resetForm();
-			$("#flag").val("0");
+			$("#flag").val("1");
 			$("#modalRateLabel").text("新增利率");
 			$('#model-rate').modal('toggle');
-			$("#display").hide();
+			$("#saveBtn").show();
+			$('#size-form').find('input,textarea,select').attr('readonly',false);
 			break;
+		case 'scan':
+			if(selected.length != 1){
+				layer.alert('请选择要编辑的数据,每次只能选一条!');
+				return false;
+			}
+			resetForm();
+			$("#modalRateLabel").text("查看利率信息");
+			$("#model-rate").modal("toggle");
+			$("#saveBtn").hide();
+			$('#rate-form').find('input,textarea,select').attr('readonly',true);
+			rateForm.initFormData(selected[0]);
+		   	break;
 		case 'edit':
 			if(selected.length != 1){
 				layer.alert('请选择要编辑的数据,每次只能选一条!');
 				return false;
 			}
 			resetForm();
-			$("#flag").val("1");
+			$("#flag").val("2");
 			$("#modalRateLabel").text("修改利率");
 			$("#model-rate").modal("toggle");
+			$("#saveBtn").show();
+			$('#size-form').find('input,textarea,select').attr('readonly',false);
 			rateForm.initFormData(selected[0]);
 		   break;
 		case 'delete':
@@ -181,7 +198,7 @@
 			});	
 			break;
 		case 'reset':
-			userSearchForm.clearForm();
+			rateSearchForm.clearForm();
 			$('#rate-table').bootstrapTable('refresh');
 			break;
 		}

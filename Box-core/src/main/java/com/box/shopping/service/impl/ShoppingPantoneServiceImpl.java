@@ -65,10 +65,8 @@ public class ShoppingPantoneServiceImpl implements ShoppingPantoneService {
 
 	@Override
 	public boolean batchDeleteById(List<String> records) {
-
-		// TODO Auto-generated method stub
-		return false;
-
+		int userRow = shoppingPantoneMapper.batchDeleteByIds(records);
+		return userRow>0?true:false;
 	}
 
 	@Override
@@ -117,29 +115,5 @@ public class ShoppingPantoneServiceImpl implements ShoppingPantoneService {
 		return shoppingPantoneMapper.getPantoneList(map);
 		
 	}
-	/**
-	 * 
-	 * batchDeleteRate:(这里用一句话描述这个方法的作用).
-	 *
-	 * @author luowen
-	 * @param list
-	 * @return
-	 * @since JDK 1.8
-	 */
-	 
-	@Override
-	public boolean batchDeletePantone(List<String> list) {
-		try {
-			int userRow = shoppingPantoneMapper.batchDeleteByIds(list);
-			return userRow>0?true:false;
-		} catch (Exception ex) {
-			logger.error(ShoppingRateServiceImpl.class.getName() + ":错误信息："+ex.getMessage().toString());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return false;			
-		}
-		
-		
-	}
-
 }
 

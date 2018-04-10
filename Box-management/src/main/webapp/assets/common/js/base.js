@@ -380,6 +380,7 @@ function userTypeFormatter(value, row, index) {
 	}	
 }
 
+	
 
 function jsGetAge(strBirthday) {
 	var bDay = new Date(strBirthday),

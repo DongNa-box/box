@@ -28,8 +28,6 @@ import com.box.shopping.model.ShoppingPantone;
  */
 public interface ShoppingPantoneService extends BaseService<ShoppingPantone, String> {
 
-	boolean batchDeletePantone(List<String> list);
-
 	List<Map<String, Object>> getPantoneList(Map<String, Object> map);
 
 }
