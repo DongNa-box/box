@@ -27,7 +27,7 @@ import com.box.shopping.model.ShoppingRate;
  * @see 	 
  */
 public interface ShoppingRateService extends BaseService<ShoppingRate, String> {
-	List<Map<String,Object>> getRatelist(Map<String, Object> map);
+	List<Map<String,Object>> getRateList(Map<String, Object> map);
 
 }
 

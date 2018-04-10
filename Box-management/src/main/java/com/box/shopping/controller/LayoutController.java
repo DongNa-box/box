@@ -79,17 +79,15 @@ public class LayoutController {
 	  */
 	 @RequestMapping(method = RequestMethod.GET, value = "/sizeList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> sizeList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> sizeList(@Param(value = "params") String params){
+	    	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("size", jsonObj.getString("search-size"));
 		    	map.put("name", jsonObj.getString("search-name"));
-		    	map.put("unit", jsonObj.getString("search-unit"));
 		    	map.put("type", jsonObj.getString("search-type"));
-		    	
-	       	}
+			}
 	   		list = layoutSizeService.getLayoutSizelist(map);
 	   		return list;
 	   	}
@@ -153,20 +151,20 @@ public class LayoutController {
 	  */
 	    @RequestMapping(method = RequestMethod.GET, value = "/detailList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> detailList(@Param(value = "params") String searchparams){
-		 JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> detailList(@Param(value = "params") String params){
+		 JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("boxId", jsonObj.getString("search-boxId"));
-		    	map.put("boxLength", jsonObj.getString("search-boxLength"));
-		    	map.put("boxWidth", jsonObj.getString("search-boxWidth"));
-		    	map.put("boxHighth", jsonObj.getString("search-boxHighth"));
-		    	map.put("paperLength", jsonObj.getString("search-paperLength"));
+	   			map.put("boxLength", jsonObj.getString("search-boxLength"));
+			   	map.put("boxWidth", jsonObj.getString("search-boxWidth"));
+			    map.put("boxHighth", jsonObj.getString("search-boxHighth"));
+		    	map.put("paperLength",jsonObj.getString("search-paperLength"));
 		    	map.put("paperWidth", jsonObj.getString("search-paperWidth"));
-		    	map.put("paperXId", jsonObj.getString("search-paperXId"));
-		    	map.put("xnumber", jsonObj.getString("search-xnumber"));
-		    	map.put("ynumber", jsonObj.getString("search-ynumber"));
+				map.put("paperXId", jsonObj.getString("search-paperXId"));
+	    		map.put("xnumber", jsonObj.getString("search-xnumber"));
+				map.put("ynumber", Integer.valueOf(jsonObj.getString("search-ynumber")));
 	       	}
 	   		list = layoutDetailService.getLayoutDetailList(map);
 	   		return list;

@@ -22,7 +22,8 @@
 								placeholder="请输入工艺id" maxlength="11"/>
 						</div>
 					</div>
-					
+					</div>
+					<div class="col-sm-4">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">专色数量</label>
 						<div class="col-sm-8">
@@ -35,13 +36,13 @@
 							</select>
 						</div>
 					</div>
-				
-				
+				</div>
+				<div class="col-sm-4">
 				<div class="form-group">
 					<label class="col-sm-4 control-label">属性值</label>
 					<div class="col-sm-8">
-						<input id="search-attr" name="search-attr" type="text" class="form-control"
-							placeholder="请输入属性值" maxlength="11"/>
+						<input id="search-attr1" name="search-attr1" type="text" class="form-control"
+							placeholder="请输入属性值" maxlength="11">
 					</div>
 				</div>
 					
@@ -78,15 +79,11 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="id" data-sortable="true">pantoneID</th>
-
 								<th data-align="center" data-field="tid" data-sortable="true" >颜色工艺id</th>
 								<th data-align="center" data-field="colorNum" data-sortable="true" data-formatter="colorNumFormatter">专色数量</th>
 								<th data-align="center" data-field="attr1" data-sortable="true">属性值1</th>
 								<th data-align="center" data-field="attr2" data-sortable="true">属性值2</th>
 								<th data-align="center" data-field="attr3" data-sortable="true">属性值3</th>
-
-				
-								
 							</tr>
 						</thead>
 					</table>
@@ -113,7 +110,7 @@
 						<label class="col-sm-4 control-label">工艺id<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="tid" name="tid" type="text" class="form-control"
-								placeholder="请输入工艺id" maxlength="11"/>
+								placeholder="请输入工艺id" maxlength="11">
 						</div>
 					</div>
 					<div class="form-group">
@@ -134,21 +131,21 @@
 						<label class="col-sm-4 control-label">属性值1<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="attr1" name="attr1" type="text" class="form-control"
-								placeholder="请输入属性值" maxlength="11"/>
+								placeholder="请输入属性值" maxlength="11">
 						</div>
 					</div>
 					<div class="form-group"  id="divgroupid2" style="display:none">
 						<label class="col-sm-4 control-label">属性值2<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="attr2" name="attr2" type="text" class="form-control"
-								placeholder="请输入属性值" maxlength="11"/>
+								placeholder="请输入属性值" maxlength="11">
 						</div>
 					</div>
 					<div class="form-group"  id="divgroupid3" style="display:none">
 						<label class="col-sm-4 control-label">属性值3<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="attr3" name="attr3" type="text" class="form-control"
-								placeholder="请输入属性值" maxlength="11"/>
+								placeholder="请输入属性值" maxlength="11">
 						</div>
 					</div>
 					
@@ -183,18 +180,18 @@
 			$("#divgroupid2").hide();
 			$("#divgroupid3").hide();
 			$("#saveBtn").show();
-			$('#pantone-form').find('input,textarea,select').attr('readonly',false);
+			$('#pantone-form').find('input,textarea,select,option').attr('readonly',false);
 			break;
 		case 'scan':
 			if(selected.length != 1){
 				layer.alert('请选择要编辑的数据,每次只能选一条!');
 				return false;
 			}
-			//resetForm();
+			resetForm();
 			$("#modalPantoneLabel").text("查看pantone");
 			$("#model-pantone").modal("toggle");
 			$("#saveBtn").hide();
-			$('#pantone-form').find('input,textarea,select').attr('readonly',true);
+			$('#pantone-form').find('input,textarea,select,option').attr('readonly',true);
 			pantoneForm.initFormData(selected[0]);
 		   	break;
 		case 'edit':
@@ -207,7 +204,7 @@
 			$("#modalPantoneLabel").text("修改pantone");
 			$("#model-pantone").modal("toggle");
 			$("#saveBtn").show();
-			$('#pantone-form').find('input,textarea,select').attr('readonly',false);
+			$('#pantone-form').find('input,textarea,select,option').attr('readonly',false);
 			pantoneForm.initFormData(selected[0]);
 		   break;
 		case 'delete':
@@ -348,24 +345,7 @@
 		});
 	}
 	
-	/*
-	 *专色数量colorNum格式化
-	 */
-	function colorNumFormatter(value, row, index) {
-		if (value != undefined && value != null && $.trim(value) != '') {
-			if(value == '0'){
-				return '0';
-			}else if(value=='1'){
-				return '1';
-			}else if(value=='2'){
-				return '2';
-			}else if(value=='3'){
-				return '3';
-			}
-		}else{
-			return value;
-		}	
-	}
+	
 	 /**
 	  * 设置类型级别为工艺名称的下拉菜单（未做）
 	  * @param selectid
@@ -392,4 +372,23 @@
 
 	 	});
 	 }
+
+	 /*
+		 *专色数量colorNum格式化
+		 */
+		function colorNumFormatter(value, row, index) {
+			if (value != undefined && value != null && $.trim(value) != '') {
+				if(value == '0'){
+					return '0';
+				}else if(value=='1'){
+					return '1';
+				}else if(value=='2'){
+					return '2';
+				}else if(value=='3'){
+					return '3';
+				}
+			}else{
+				return value;
+			}	
+		}
 </script>

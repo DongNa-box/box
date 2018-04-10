@@ -95,17 +95,17 @@
 	 <include refid="Base_Column_List" />
 	from t_shopping_rate 
 		where 1=1 
-		 <if test="size != null">
-	       and size = #{size,jdbcType=VARCHAR},
+		 <if test="size != null and size!=''">
+	       and size like CONCAT(CONCAT('%',#{size,jdbcType=VARCHAR}),'%') 
 	      </if>
-	      <if test="unit != null">
-	       and unit = #{unit,jdbcType=INTEGER},
+	      <if test="unit != null and unit!=''">
+	       and unit = #{unit,jdbcType=INTEGER}
 	      </if>
-	      <if test="name != null">
-	       and name = #{name,jdbcType=VARCHAR},
+	      <if test="name != null and name!=''">
+	       and name like CONCAT(CONCAT('%',#{name,jdbcType=VARCHAR}),'%') 
 	      </if>
-	      <if test="type != null">
-	       and type = #{type,jdbcType=INTEGER},
+	      <if test="type != null and type!=''">
+	       and type = #{type,jdbcType=INTEGER}
 	      </if>
 	 </select>
 	 <delete id="batchDeleteByIds">

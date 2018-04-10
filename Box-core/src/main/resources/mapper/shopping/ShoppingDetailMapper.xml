@@ -520,126 +520,52 @@
 	 <include refid="Base_Column_List" />
 	from t_shopping_detail 
 		where 1=1 
-		 <if test="userId != null">
-        and user_id = #{userId,jdbcType=VARCHAR},
+		 <if test="userId != null and userId!=''">
+        and user_id like CONCAT(CONCAT('%',#{userId,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="boxId != null">
-        and box_id = #{boxId,jdbcType=VARCHAR},
+      <if test="boxId != null and boxId!=''">
+        and box_id like CONCAT(CONCAT('%',#{boxId,jdbcType=VARCHAR}),'%') 
       </if>
-      <if test="layoutId != null">
-       and layout_id = #{layoutId,jdbcType=VARCHAR},
+      <if test="layoutId != null and layoutId!=''">
+       and layout_id like CONCAT(CONCAT('%',#{layoutId,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="pricePaperId != null">
-       and price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      <if test="pricePaperId != null and pricePaperId !=''">
+       and price_paper_id like CONCAT(CONCAT('%',#{pricePaperId,jdbcType=VARCHAR}),'%')   
       </if>
-      <if test="paperGramsId != null">
-       and paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
+      <if test="paperGramsId != null and paperGramsId != ''">
+       and paper_grams_id like CONCAT(CONCAT('%',#{paperGramsId,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="printColorId != null">
-       and print_color_id = #{printColorId,jdbcType=VARCHAR},
+      <if test="printColorId != null and printColorId != ''">
+       and print_color_id like CONCAT(CONCAT('%',#{printColorId,jdbcType=VARCHAR}),'%')   
       </if>
-      <if test="pantoneId != null">
-       and pantone_id = #{pantoneId,jdbcType=VARCHAR},
+     
+      <if test="surfaceTreatmentId != null and surfaceTreatmentId != ''">
+       and surface_treatment_id like CONCAT(CONCAT('%',#{surfaceTreatmentId,jdbcType=VARCHAR}),'%')   
       </if>
-      <if test="surfaceTreatmentId != null">
-       and surface_treatment_id = #{surfaceTreatmentId,jdbcType=VARCHAR},
+      <if test="isBronzing != null isBronzing != ''">
+        and is_bronzing = #{isBronzing,jdbcType=INTEGER}
       </if>
-      <if test="isBronzing != null">
-        and is_bronzing = #{isBronzing,jdbcType=INTEGER},
+      
+      <if test="isConvex != null and isConvex != ''">
+       and is_convex = #{isConvex,jdbcType=INTEGER}
       </if>
-      <if test="bronzingLength != null">
-       and bronzing_length = #{bronzingLength,jdbcType=DOUBLE},
+     
+      <if test="isUv != null and isUv != ''">
+       and is_UV = #{isUv,jdbcType=INTEGER}
       </if>
-      <if test="bronzingWidth != null">
-       and bronzing_width = #{bronzingWidth,jdbcType=DOUBLE},
+      
+      <if test="isPvc != null and isPvc != ''">
+       and is_PVC = #{isPvc,jdbcType=INTEGER}
       </if>
-      <if test="bronzingUnit != null">
-       and bronzing_unit = #{bronzingUnit,jdbcType=INTEGER},
+      
+      <if test="receiveAreaId != null and receiveAreaId != ''">
+       and receive_area_id like CONCAT(CONCAT('%', #{receiveAreaId,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="isConvex != null">
-       and is_convex = #{isConvex,jdbcType=INTEGER},
+      
+      <if test="printNumber != null and printNumber != ''">
+       and print_number = #{printNumber,jdbcType=INTEGER}
       </if>
-      <if test="convexLength != null">
-       and convex_length = #{convexLength,jdbcType=DOUBLE},
-      </if>
-      <if test="convexWidth != null">
-       and convex_width = #{convexWidth,jdbcType=DOUBLE},
-      </if>
-      <if test="convexUnit != null">
-       and convex_unit = #{convexUnit,jdbcType=INTEGER},
-      </if>
-      <if test="isUv != null">
-       and is_UV = #{isUv,jdbcType=INTEGER},
-      </if>
-      <if test="uvLength != null">
-       and UV_length = #{uvLength,jdbcType=DOUBLE},
-      </if>
-      <if test="uvWidth != null">
-       and UV_width = #{uvWidth,jdbcType=DOUBLE},
-      </if>
-      <if test="uvUnit != null">
-       and UV_unit = #{uvUnit,jdbcType=INTEGER},
-      </if>
-      <if test="isPvc != null">
-       and is_PVC = #{isPvc,jdbcType=INTEGER},
-      </if>
-      <if test="pvcLength != null">
-       and PVC_length = #{pvcLength,jdbcType=DOUBLE},
-      </if>
-      <if test="pvcWidth != null">
-       and PVC_width = #{pvcWidth,jdbcType=DOUBLE},
-      </if>
-      <if test="pvcUnit != null">
-       and PVC_unit = #{pvcUnit,jdbcType=INTEGER},
-      </if>
-      <if test="receiveAreaId != null">
-       and receive_area_id = #{receiveAreaId,jdbcType=VARCHAR},
-      </if>
-      <if test="paperPrice != null">
-       and paper_price = #{paperPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="colorPrice != null">
-       and color_price = #{colorPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="surfacePrice != null">
-       and surface_price = #{surfacePrice,jdbcType=DOUBLE},
-      </if>
-      <if test="bronzingPrice != null">
-       and bronzing_price = #{bronzingPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="convexPrice != null">
-       and convex_price = #{convexPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="printNumber != null">
-       and print_number = #{printNumber,jdbcType=INTEGER},
-      </if>
-      <if test="uvPrice != null">
-       and UV_price = #{uvPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="pvcPrice != null">
-       and PVC_price = #{pvcPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="taxPrice != null">
-       and tax_price = #{taxPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="managementPrice != null">
-       and management_price = #{managementPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="transportPrice != null">
-       and transport_price = #{transportPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="totalPrice != null">
-       and total_price = #{totalPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="unitPrice != null">
-       and unit_price = #{unitPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="createby != null">
-       and createby = #{createby,jdbcType=DOUBLE},
-      </if>
-      <if test="createtime != null">
-       and createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
+      
 	 </select>
   
 </mapper>

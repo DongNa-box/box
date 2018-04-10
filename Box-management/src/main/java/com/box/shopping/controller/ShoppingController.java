@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -31,6 +32,7 @@ import com.box.framework.security.util.SecurityUtil;
 import com.box.framework.utils.DateUtil;
 import com.box.framework.utils.Sequence;
 import com.box.shopping.model.LayoutSize;
+import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.model.ShoppingPantone;
 import com.box.shopping.model.ShoppingRate;
 import com.box.shopping.service.ShoppingDeatilService;
@@ -83,16 +85,16 @@ public class ShoppingController {
 	  */
 	 @RequestMapping(method = RequestMethod.GET, value = "/rateList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> rateList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> rateList(@Param(value = "params") String params){
+	    	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("value", jsonObj.getString("search-value"));
-		    	map.put("type", jsonObj.getString("search-type"));
+		    	map.put("type", Integer.valueOf(jsonObj.getString("search-type")));
 		    	
 	       	}
-	   		list = shoppingRateService.getRatelist(map);
+	   		list = shoppingRateService.getRateList(map);
 	   		return list;
 	   	}
 	 /**
@@ -125,7 +127,6 @@ public class ShoppingController {
 	@ResponseBody
 	private Result editRate(@Param(value = "params") String params) {
 		ShoppingRate shoppingRate  = JSON.parseObject(params,ShoppingRate.class);
-		
 		JSONObject jsonObj = JSONObject.parseObject(params);
 		String flag = jsonObj.getString("flag");
 		boolean result;
@@ -156,16 +157,14 @@ public class ShoppingController {
 	  */
 	 @RequestMapping(method = RequestMethod.GET, value = "/pantoneList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> pantoneList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> pantoneList(@Param(value = "params") String params){
+	    	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("tid", jsonObj.getString("search-tid"));
-		    	map.put("colorNum", jsonObj.getString("search-colorNum"));
+	   			map.put("colorNum", jsonObj.getString("search-colorNum"));
 		    	map.put("attr1", jsonObj.getString("search-attr1"));
-		    	map.put("attr2", jsonObj.getString("search-attr2"));
-		    	map.put("attr3", jsonObj.getString("search-attr3"));
 	       	}
 	   		list = shoppingPantoneService.getPantoneList(map);
 	   		return list;
@@ -217,18 +216,36 @@ public class ShoppingController {
 		return new Result(false,"操作失败");
 		
 }
+	 /**
+	  * 购物车查询表
+	  * detailList:(这里用一句话描述这个方法的作用).
+	  *@Param(value = "params") String searchparams
+	  * @author luowen
+	  * @param searchparams
+	  * @return
+	  * @since JDK 1.8
+	  */
 	 @RequestMapping(method = RequestMethod.GET, value = "/detailList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> detailList(@Param(value = "params") String searchparams){
-		 JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> detailList(@RequestParam String params){
+		 JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("boxId", jsonObj.getString("search-boxId"));
 		    	map.put("userId", jsonObj.getString("search-userId"));
 		    	map.put("layoutId", jsonObj.getString("search-layoutId"));
-
-	       	}
+		    	map.put("pricePaperId", jsonObj.getString("search-pricePaperId"));
+		    	map.put("paperGramsId", jsonObj.getString("search-paperGramsId"));
+		    	map.put("printColorId", jsonObj.getString("search-printColorId"));
+		    	map.put("surfaceTreatmentId", jsonObj.getString("search-surfaceTreatmentId"));
+		    	map.put("receiveAreaId", jsonObj.getString("search-receiveAreaId"));
+			    map.put("isBronzing", jsonObj.getString("search-isBronzing"));
+		    	map.put("isConvex", jsonObj.getString("search-isConvex"));
+		    	map.put("isUv", jsonObj.getString("search-isUv"));
+		    	map.put("isPvc",jsonObj.getString("search-isPvc"));
+				
+	   		}
 	   		list = shoppingDeatilService.getShoppingDetailList(map);
 	   		return list;
 	 }

@@ -25,7 +25,8 @@
 							</select>
 						</div>
 					</div>
-					
+					</div>
+					<div class="col-sm-4">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">名称</label>
 						<div class="col-sm-8">
@@ -33,10 +34,8 @@
 								placeholder="请输入尺寸名称" maxlength="11">
 						</div>
 					</div>
-				</div>
-				
+					</div>
 				<div class="col-sm-4">
-				
 					<div class="form-group">
 						<label class="col-sm-4 control-label">尺寸大小</label>
 						<div class="col-sm-8">
@@ -44,8 +43,8 @@
 								placeholder="请输入尺寸大小">
 						</div>
 					</div>
-					
-					<div class="form-group">
+					</div>
+					<!-- <div class="form-group">
 						<label class="col-sm-4 control-label">尺寸单位</label>
 						<div class="col-sm-8">
 							<select name="search-unit" id="search-unit" class="form-control">
@@ -56,8 +55,8 @@
 								<option value="3">m</option>
 							</select>
 						</div>
-					</div>			
-				</div>
+					</div>		 -->	
+	
 	        </div>
 	        </form>
 	        
@@ -173,7 +172,7 @@
 <script type="text/javascript">
 	$(function(){
 	sizeForm = $("#size-form").form();
-	sizeSearchForm=$("#size-search-form");
+	sizeSearchForm=$("#size-search-form").form;
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#size-table').bootstrapTable('getSelections');
@@ -211,7 +210,7 @@
 			$("#model-size").modal("toggle");
 			$("#saveBtn").show();
 			$('#size-form').find('input,textarea,select').attr('readonly',false);
-			rateForm.initFormData(selected[0]);
+			sizeForm.initFormData(selected[0]);
 		   break;
 		case 'delete':
 			if(selected.length < 1){

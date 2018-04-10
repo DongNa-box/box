@@ -221,55 +221,49 @@
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <select id="getLayoutDetailList"  resultType="map">
+  <select id="getLayoutDetailList" resultType="map">
 	select 
 	 <include refid="Base_Column_List" />
 	from t_layout_detail 
 		where 1=1 
-		<if test="boxId != null">
-        box_id = #{boxId,jdbcType=VARCHAR},
+		<if test="boxId != null and boxId!=''">
+        and box_id like CONCAT(CONCAT('%', #{boxId,jdbcType=VARCHAR}),'%')
 	      </if>
-	      <if test="boxLength != null">
-	       and box_length = #{boxLength,jdbcType=DOUBLE},
+	      <if test="boxLength != null and boxLength != ''">
+	       and box_length = #{boxLength,jdbcType=DOUBLE}
 	      </if>
-	      <if test="boxWidth != null">
-	        and box_width = #{boxWidth,jdbcType=DOUBLE},
+	      <if test="boxWidth != null and boxWidth != ''">
+	        and box_width = #{boxWidth,jdbcType=DOUBLE}
 	      </if>
-	      <if test="boxHighth != null">
-	       and box_highth = #{boxHighth,jdbcType=DOUBLE},
+	      <if test="boxHighth != null and boxHighth != ''">
+	       and box_highth = #{boxHighth,jdbcType=DOUBLE}
 	      </if>
-	      <if test="boxUnit != null">
-	       and box_unit = #{boxUnit,jdbcType=INTEGER},
+	      <if test="boxUnit != null and boxUnit != ''">
+	       and box_unit = #{boxUnit,jdbcType=INTEGER}
 	      </if>
-	      <if test="paperLength != null">
-	       and paper_length = #{paperLength,jdbcType=DOUBLE},
+	      <if test="paperLength != null and paperLength != ''">
+	       and paper_length = #{paperLength,jdbcType=DOUBLE}
 	      </if>
-	      <if test="paperWidth != null">
-	       and paper_width = #{paperWidth,jdbcType=DOUBLE},
+	      <if test="paperWidth != null and paperWidth != ''">
+	       and paper_width = #{paperWidth,jdbcType=DOUBLE}
 	      </if>
-	      <if test="paperUnit != null">
-	       and paper_unit = #{paperUnit,jdbcType=INTEGER},
+	      <if test="paperUnit != null and paperUnit != ''">
+	       and paper_unit = #{paperUnit,jdbcType=INTEGER}
 	      </if>
-	      <if test="paperXId != null">
-	       and paper_X_id = #{paperXId,jdbcType=VARCHAR},
+	      <if test="paperXId != null and paperXId != ''">
+	       and paper_X_id like CONCAT(CONCAT('%',  #{paperXId,jdbcType=VARCHAR}),'%')
 	      </if>
-	      <if test="xnumber != null">
-	       and xnumber = #{xnumber,jdbcType=INTEGER},
+	      <if test="xnumber != null and xnumber != ''">
+	       and xnumber = #{xnumber,jdbcType=INTEGER}
 	      </if>
-	      <if test="ynumber != null">
-	       and ynumber = #{ynumber,jdbcType=INTEGER},
+	      <if test="ynumber != null and ynumber != ''">
+	       and ynumber = #{ynumber,jdbcType=INTEGER}
 	      </if>
 	      <if test="pictureAddress != null">
-	        picture_address = #{pictureAddress,jdbcType=VARCHAR},
+	        picture_address like CONCAT(CONCAT('%', #{pictureAddress,jdbcType=VARCHAR}),'%')
 	      </if>
 	      <if test="dxfAddress != null">
-	       and dxf_address = #{dxfAddress,jdbcType=VARCHAR},
-	      </if>
-	      <if test="createby != null">
-	       and createby = #{createby,jdbcType=VARCHAR},
-	      </if>
-	      <if test="createtime != null">
-	       and createtime = #{createtime,jdbcType=TIMESTAMP},
+	       and dxf_address like CONCAT(CONCAT('%',  #{dxfAddress,jdbcType=VARCHAR}),'%')
 	      </if>
 	 </select>
 </mapper>

@@ -121,12 +121,12 @@ public class UserContoller {
 	     */
 	    @RequestMapping(method = RequestMethod.GET, value = "/adminList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> adminUserList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+	   	protected List<Map<String,Object>> adminUserList(@Param(value = "params") String params){
+	    	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-	   			map.put("loginname", jsonObj.getString("search-loginname"));
+	   			map.put("loginName", jsonObj.getString("search-loginName"));
 		    	map.put("phone", jsonObj.getString("search-phone"));
 		    	map.put("name", jsonObj.getString("search-name"));
 		    	map.put("status", jsonObj.getString("search-status"));
@@ -147,12 +147,12 @@ public class UserContoller {
 	     */
 	    @RequestMapping(method = RequestMethod.GET, value = "/webUserList")
 	   	@ResponseBody
-		protected List<Map<String,Object>> webUserList(@Param(value = "params") String searchparams){
-	    	JSONObject jsonObj = JSONObject.parseObject(searchparams);
+		protected List<Map<String,Object>> webUserList(@Param(value = "params") String params){
+	    	JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-		    	map.put("loginname", jsonObj.getString("search-loginname"));
+		    	map.put("loginName", jsonObj.getString("search-loginName"));
 		    	map.put("phone", jsonObj.getString("search-phone"));
 		    	map.put("name", jsonObj.getString("search-name"));
 		    	map.put("status", jsonObj.getString("search-status"));
@@ -178,7 +178,7 @@ public class UserContoller {
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-	   			map.put("loginname", jsonObj.getString("search-loginname"));
+	   			map.put("loginName", jsonObj.getString("search-loginName"));
 		    	map.put("phone", jsonObj.getString("search-phone"));
 		    	map.put("name", jsonObj.getString("search-name"));
 		    	map.put("status", jsonObj.getString("search-status"));

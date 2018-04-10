@@ -117,7 +117,7 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 	 */
 	 
 	@Override
-	public List<Map<String, Object>> getRatelist(Map<String, Object> map) {
+	public List<Map<String, Object>> getRateList(Map<String, Object> map) {
 		
 		// TODO Auto-generated method stub
 		return shoppingRateMapper.getRateList(map);

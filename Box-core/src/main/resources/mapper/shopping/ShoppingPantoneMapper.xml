@@ -108,20 +108,16 @@
 	 <include refid="Base_Column_List" />
 	from t_shopping_pantone 
 		where 1=1 
-		  <if test="tid != null">
-	       and tid = #{tid,jdbcType=VARCHAR},
+		  <if test="tid != null and tid!=''">
+	       and tid like CONCAT(CONCAT('%', #{tid,jdbcType=VARCHAR}),'%')   
 	      </if>
-	      <if test="colorNum != null">
-	       and color_num = #{colorNum,jdbcType=VARCHAR},
+	      <if test="colorNum != null and colorNum!=''">
+	       and color_num = #{colorNum,jdbcType=VARCHAR}
 	      </if>
-	      <if test="attr1 != null">
-	       and attr1 = #{attr1,jdbcType=VARCHAR},
-	      </if>
-	      <if test="attr2 != null">
-	       and attr2 = #{attr2,jdbcType=VARCHAR},
-	      </if>
-	      <if test="attr3 != null">
-	       and attr3 = #{attr3,jdbcType=VARCHAR},
+	      <if test="attr1 != null and attr1!=''">
+	       and (attr1 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')   
+	       or attr2 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')
+	 	   or attr3 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%'))
 	      </if>
 	 </select>
 	 <delete id="batchDeleteByIds" >
