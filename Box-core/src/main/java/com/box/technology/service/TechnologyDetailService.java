@@ -30,13 +30,15 @@ public interface TechnologyDetailService extends BaseService<TechnologyDetail, S
 
 	boolean checkTechnologyDetailNameExists(String name);
 
-	List<Map<String, Object>> TechnologyDetailSearchList(Map<String, Object> map);
+	List<Map<String, Object>> technologyDetailSearchList(Map<String, Object> map);
 
 	List<TechnologyDetail> getTechnologyByLevel(String level);
 
 	List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map);
 
 	TechnologyDetail getTechnologyByParentid(String groupid);
+
+	List<Map<String, Object>> getAllTechnologyList();
 
 }
 

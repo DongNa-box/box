@@ -67,10 +67,9 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 
 	@Override
 	public boolean batchDeleteById(List<String> records) {
-
-		// TODO Auto-generated method stub
-		return false;
-
+		
+		int row=technologyDetailMapper.batchDeleteByIds(records);
+		return row>0?true:false;
 	}
 
 	@Override
@@ -122,26 +121,25 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 	}
 
 	@Override
-	public List<Map<String, Object>> TechnologyDetailSearchList(Map<String, Object> map) {
+	public List<Map<String, Object>> technologyDetailSearchList(Map<String, Object> map) {
 		
-		// TODO Auto-generated method stub
-		return null;
+		List<Map<String, Object>> list=technologyDetailMapper.technologyDetailSearchList(map);
+		return list;	
 		
 	}
 
 	@Override
-	public List<TechnologyDetail> getTechnologyByLevel(String level) {
+	public List<TechnologyDetail> getTechnologyByLevel(String level) {	
 		
-		// TODO Auto-generated method stub
-		return null;
-		
+		List<TechnologyDetail> list=technologyDetailMapper.getTechnologyByLevel(level);
+		return list;		
 	}
 
 	@Override
 	public List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map) {
 		
-		// TODO Auto-generated method stub
-		return null;
+		List<TechnologyDetail> list=technologyDetailMapper.getTechnologyByParentLevel(map);
+		return list;
 		
 	}
 
@@ -150,6 +148,14 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 		
 		// TODO Auto-generated method stub
 		return null;
+		
+	}
+
+	@Override
+	public List<Map<String,Object>> getAllTechnologyList() {
+		
+		List<Map<String,Object>> list=technologyDetailMapper.getAllTechnologyList();
+		return list;
 		
 	}
 

@@ -235,11 +235,17 @@
     where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 
   </select>
   
-  <select id="getUserForLogin" parameterType="java.lang.String" resultMap="userResultMap">
+  <select id="getUserForLogin" parameterType="map" resultMap="userResultMap">
     select 
     <include refid="userColumList" />
     from t_uums_user
-    where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 and type=1
+    where status = 1
+    <if test="loginName != null and loginName!=''">
+       and login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+     <if test="type != null and type!=''">
+       and type = #{type,jdbcType=INTEGER}
+      </if>
   </select>
   
   <update id="updateStatusById" parameterType="java.util.Map">

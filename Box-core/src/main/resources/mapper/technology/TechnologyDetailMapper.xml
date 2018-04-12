@@ -3,7 +3,7 @@
 <mapper namespace="com.box.technology.dao.TechnologyDetailMapper">
   <resultMap id="TechnologyDetailResultMap" type="com.box.technology.model.TechnologyDetail">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="parentId" jdbcType="VARCHAR" property="parentId" />
     <result column="cname" jdbcType="INTEGER" property="cname" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="level" jdbcType="INTEGER" property="level" />
@@ -13,7 +13,7 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="TechnologyDetail_Column_List">
-    id, parent_id, cname, name, level, enabled, description, createby, createtime
+    id, parentId, cname, name, level, enabled, description, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TechnologyDetailResultMap">
     select 
@@ -29,12 +29,59 @@
     where name = #{name,jdbcType=VARCHAR}
   </select>
   
+   <select id="getTechnologyByLevel" parameterType="java.lang.String" resultMap="TechnologyDetailResultMap">
+    select 
+    <include refid="TechnologyDetail_Column_List" />
+    from t_technology_detail
+    where level = #{level,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="getTechnologyByParentLevel" parameterType="java.util.Map" resultMap="TechnologyDetailResultMap">
+    select 
+    <include refid="TechnologyDetail_Column_List" />
+    from t_technology_detail
+    where parentId= #{map.groupid,jdbcType=VARCHAR} and level = #{map.level,jdbcType=VARCHAR} 
+  </select>
+  
+    
+   <select id="getAllTechnologyList" resultType="map">
+    SELECT a.*,b.name as parentName from t_technology_detail a
+    left join t_technology_detail b
+    on a.parentId=b.id
+    order by a.cname
+   </select>
+  
+   <select id="technologyDetailSearchList" parameterType="java.util.Map" resultType="map">
+      select 
+      <include refid="TechnologyDetail_Column_List" />
+      from t_technology_detail
+      <where>
+       name LIKE CONCAT(CONCAT('%', #{map.name}),'%')
+         <if test="map.parentId != null and map.parentId!= '' ">
+           and parentId=#{map.parentId}
+         </if>
+         <if test="map.cname != null and map.cname != '' ">
+           and cname=#{map.cname }
+         </if>
+      </where>
+
+   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_technology_detail
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  
+  <delete id="batchDeleteByIds" parameterType="java.lang.String">
+    delete from t_technology_detail
+     where id in
+     <foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+  
   <insert id="insert" parameterType="com.box.technology.model.TechnologyDetail">
-    insert into t_technology_detail (id, parent_id, cname, 
+    insert into t_technology_detail (id, parentId, cname, 
       name, level, enabled, 
       description, createby, createtime
       )
@@ -50,7 +97,7 @@
         id,
       </if>
       <if test="parentId != null">
-        parent_id,
+        parentId,
       </if>
       <if test="cname != null">
         cname,
@@ -108,7 +155,7 @@
     update t_technology_detail
     <set>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=VARCHAR},
+        parentId = #{parentId,jdbcType=VARCHAR},
       </if>
       <if test="cname != null">
         cname = #{cname,jdbcType=INTEGER},
@@ -136,14 +183,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.box.technology.model.TechnologyDetail">
     update t_technology_detail
-    set parent_id = #{parentId,jdbcType=VARCHAR},
+    set parentId = #{parentId,jdbcType=VARCHAR},
       cname = #{cname,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       enabled = #{enabled,jdbcType=INTEGER},
-      description = #{description,jdbcType=VARCHAR},
-      createby = #{createby,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

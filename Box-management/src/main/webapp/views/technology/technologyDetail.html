@@ -27,7 +27,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label">类型</label>
 						<div class="col-sm-8">
-						    <select name="cname" id="cname" class="form-control"> 
+						    <select name="search-cname" id="search-cname" class="form-control"> 
 							  <option value="">--请选择--</option>
 							  <option value="1">纸张</option>
 							  <option value="2">工艺</option>
@@ -62,7 +62,7 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="name" data-sortable="true">工艺名称</th>
-								<th data-align="center" data-field="cname" data-sortable="true" >工艺类型</th>
+								<th data-align="center" data-field="cname" data-sortable="true" data-formatter="formatterCname">工艺类型</th>
 								<th data-align="center" data-field="description" data-sortable="true">工艺描述</th>
 								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
@@ -113,14 +113,14 @@
 					<div class="form-group"  id="divgroupid1" style="display:none">
 						<label class="col-sm-5 control-label">工艺类型第0级<span style="color: red;">*</span></label>
 						<div class="col-sm-7">
-							<select  id="groupid1" class="form-control" > </select>
+							<select  id="groupid1"  class="form-control" > </select>
 						</div>
 					</div>
 					
 					<div class="form-group"  id="divgroupid2" style="display:none">
 						<label class="col-sm-5 control-label">工艺类型第1级<span style="color: red;">*</span></label>
 						<div class="col-sm-7">
-							<select id="groupid2" class="form-control"> </select>
+							<select id="groupid2"  class="form-control"> </select>
 						</div>
 					</div>
 					
@@ -170,7 +170,7 @@
 $(function(){
 	technologyDetailForm = $("#technologyDetail-form").form();
 	technologyDetailSearchForm = $("#technologyDetail-search-form").form();
-
+    setSelect('search-type',null,"0",null);
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		var selected = $('#technologyDetail-table').bootstrapTable('getSelections');
@@ -183,6 +183,9 @@ $(function(){
 			$('#modal-technologyDetail').modal('toggle');
 			$('#level').val('0');
 			$('#enabled').val('1');
+			$("#divgroupid1").hide();
+		    $("#divgroupid2").hide();
+		    $('#saveBtn').show();
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -191,9 +194,13 @@ $(function(){
 			}
 			resetForm();
 			$("#flag").val("2");
+			$("#divgroupid1").hide();
+	    	$("#divgroupid2").hide();
 			$("#modalTechnologyDetailLabel").text("编辑工艺类型");
 			$("#modal-technologyDetail").modal("toggle");
 			technologyDetailForm.initFormData(selected[0]);
+			setScanSelect(selected[0]);
+			$('#saveBtn').show();
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -202,9 +209,13 @@ $(function(){
 			}
 			resetForm();
 			$("#flag").val("2");
+			$("#divgroupid1").hide();
+	    	$("#divgroupid2").hide();
 			$("#modalTechnologyDetailLabel").text("查看");
 			$("#modal-technologyDetail").modal("toggle");
 			technologyDetailForm.initFormData(selected[0]);
+			setScanSelect(selected[0]);
+			$('#saveBtn').hide();
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -279,19 +290,20 @@ $(function(){
 						message : '请输入工艺描述'
 					}
 				}
-			},
-			unit : {
-				validators : {
-					notEmpty : {
-						message : '请选择单位'
-					}
-				}
 			}
 		},
 
         submitHandler: function (validator, form, submitButton) {
          	var formParams = form.serializeJSON();
-        	ajaxPostFile(basePath + "/technology/editTechnologyDetail", {
+         	var groupid1=$('#groupid1').val();
+        	var groupid2=$('#groupid2').val();
+        	if(groupid2!=null){
+        		formParams.parentId=groupid2;
+        	}else{
+        		formParams.parentId=groupid1;
+        	}
+        	//alert(JSON.stringify(formParams));
+        	ajaxPost(basePath + "/technology/editTechnologyDetail", {
         		params:JSON.stringify(formParams)
 			},  function(data){
 				$('#modal-technologyDetail').modal('hide');
@@ -305,7 +317,7 @@ $(function(){
 	});
 	//-------------Validator from end----------------
 	
-	 $("#classId").change(function(){
+	 $("#level").change(function(){
 		 var selected=$(this).children('option:selected').val()
 		   if(selected=="0"){
 	    	   $("#divgroupid1").hide();
@@ -321,6 +333,15 @@ $(function(){
 		 	   $("#divgroupid2").show();
 	       }
 	   });
+	
+	 $("#groupid1").change(function(){
+	       var selected=$(this).children('option:selected').val()
+	       var level=$('#level').val();
+	       if(selected!="" && level=="2"){
+	        setSelect('groupid2',selected,"1",null);
+	        $("#divgroupid2").show();
+	       }
+	 });
 });
 
 	
@@ -373,12 +394,12 @@ $(function(){
 	 function setScanSelect(selected){
 		if(selected.level==1){
 			$("#divgroupid1").show();
-			setSelect('groupid1',null,"0",selected.groupid);
+			setSelect('groupid1',null,"0",selected.parentId);
 		}else if(selected.level==2){
 			$("#divgroupid1").show();
 			$("#divgroupid2").show();
 			//通过1级id查0级id
-			ajaxPost(basePath + "/boxmanage/getBoxClassifByGroupid", {
+			ajaxPost(basePath + "/technology/getBoxClassifByGroupid", {
 	        	params:JSON.stringify(selected.groupid)
 			},  function(data){
 				setSelect('groupid1',null,"0",data.id);
@@ -387,5 +408,23 @@ $(function(){
 		}
 	 }
 	 
+	 /**
+	  * 类型
+	  * @param value
+	  * @param row
+	  * @param index
+	  * @returns
+	  */
+	 function formatterCname(value){
+	 	if (value != undefined && value != null && $.trim(value) != '') {
+	 		if(value==1){
+	 			return "纸张";
+	 		}else if(value==2){
+	 			return "工艺";
+	 		}
+	 	}else{
+	 		return value;
+	 	}	
+	 } 
 
 </script>

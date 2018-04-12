@@ -79,8 +79,8 @@ public class TechnologyDetailController {
 	  */
 	    @RequestMapping(method = RequestMethod.GET, value = "/technologyDetailList")
 	   	@ResponseBody
-	   	protected List<TechnologyDetail> technologyDetailList(){
-			List<TechnologyDetail> list = technologyDetailService.getAllList();
+	   	protected List<Map<String,Object>> technologyDetailList(){
+	    	List<Map<String,Object>> list = technologyDetailService.getAllTechnologyList();
 	   		return list;
 	   	}
 	    
@@ -102,7 +102,8 @@ public class TechnologyDetailController {
 	    	boolean result;
 				switch(flag){
 				   //盒型新增
-				   case "1":
+				   case "1": 
+					     technologyDetail.setId(Sequence.nextId());
 					     technologyDetail.setCreatetime(new Date());
 					     technologyDetail.setCreateby(SecurityUtil.getUser().getId());
 						 result = technologyDetailService.save(technologyDetail);
@@ -169,12 +170,14 @@ public class TechnologyDetailController {
 		 @ResponseBody
 		 private List<Map<String,Object>> TechnologyDetailSearchList(@RequestParam String params) {
 		     JSONObject jsonObj = JSONObject.parseObject(params);
-		     String name= jsonObj.getString("search-boxName");
-		     String classId=jsonObj.getString("search-type");
+		     String name= jsonObj.getString("search-technologyName");
+		     String parentId=jsonObj.getString("search-type");
+		     String cname=jsonObj.getString("search-cname");
 		     Map<String,Object> map=new HashMap<String,Object>();
 		     map.put("name", name);
-		     map.put("classId", classId);
-		     List<Map<String,Object>> list= technologyDetailService.TechnologyDetailSearchList(map);
+		     map.put("parentId",parentId);
+		     map.put("cname",cname);
+		     List<Map<String,Object>> list= technologyDetailService.technologyDetailSearchList(map);
 			 return list;
 		  
 		  }
