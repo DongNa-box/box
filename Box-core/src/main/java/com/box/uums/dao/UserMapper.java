@@ -7,7 +7,7 @@ import com.box.framework.base.dao.BaseMapper;
 import com.box.uums.model.User;
 
 public interface UserMapper extends BaseMapper<User, String> {
-	User getUserForLogin(String username);
+	User getUserForLogin(Map<String,Object> map);
 	
 	List<Map<String,Object>> getAdminSearchlist(Map<String,Object> map);
 	

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="keywords" content="PDoneCI">
-  <meta name="description" content="宝堂智慧社区后台管理系统">
-  <title>宝堂智慧社区</title>
+  <meta name="description" content="东纳纸盒排版计价平台">
+  <title>东纳纸盒排版计价平台</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="shortcut icon" type="image/x-icon" href="${basePath}/assets/common/favicon.ico"/>
   <!-- Bootstrap -->
@@ -49,9 +49,9 @@
     <!-- Logo -->
     <a href="${basePath}/main" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>P</b>Done</span>
+      <span class="logo-mini"><b>东纳</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>宝堂</b>智慧社区</span>
+      <span class="logo-lg"><b>东纳纸盒排版计价平台</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -175,74 +175,9 @@
               </div>
             </a>
           </li>
-          <!--  
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">定时任务</h4>
-
-                <p>5秒执行一次</p>
-              </div>
-            </a>
-          </li>
-          -->
+         
         </ul>
-        <!-- /.control-sidebar-menu -->
-		<!--  
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Laravel Integration
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Back End Framework
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        -->
+       
         <!-- /.control-sidebar-menu -->
 
       </div>
@@ -252,73 +187,7 @@
       <div class="tab-pane" id="control-sidebar-settings-tab">
         <form method="post">
           <h3 class="control-sidebar-heading">常规设置</h3>
-		  <!--  
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          -->
-          <!-- /.form-group -->
-		  <!-- 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          -->
-          <!-- /.form-group -->
-		  <!--
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Allow the user to show his name in blog posts
-            </p>
-          </div>
-          -->
-          <!-- /.form-group -->
-		  <!--
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          -->
-          <!-- /.form-group -->
-		  <!--
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          -->
-          <!-- /.form-group -->
-		  <!--
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          -->
+		 
           <!-- /.form-group -->
         </form>
       </div>
@@ -379,8 +248,9 @@ var softwareVersionUrl="${softwareVersionUrl}";
 <!-- 加入页面的的脚本 -->
 <script>
    //加载菜单
-	ajaxPost(basePath+"/uums/menuTree",null,function(data){
+	ajaxPost(basePath+"/web/boxTree",null,function(data){
 	  var $li,$menu_f_ul;
+	  var $li1.$menu_f_ul1;
 	  $.each(data,function(index,item){
 		  if(item.levelCode==0){	
 			  $li=$('<li class="treeview"></li>');
@@ -394,14 +264,32 @@ var softwareVersionUrl="${softwareVersionUrl}";
 			  $li.append($menu_f_ul);
 			  $("ul.sidebar-menu").append($li); 
 			  if(item.nodes != null){
+				  
 				  $.each(item.nodes,function(index,childItem){
-					  $menu_s=$('<li><a href="#" data-url="${basePath}'+childItem.url+'"><i class="'+childItem.icon+'"></i>'+childItem.text+'</a></li>');
-					  $menu_f_ul.append($menu_s); 
+					  if(childItem.levelCode==1){
+						  $li1=$('<li></li>');
+						  var $menu_f1=$('<a href="#">\n'+
+						           '<i class="'+childItem.icon+'"></i> <span>'+childItem.text+'</span>\n'+
+	                                ' <span class="pull-right-container">\n'+
+						           '<i class="fa fa-angle-left pull-right"></i>\n'+
+					            '</span></a>');
+						  $li1.append($menu_f1);
+						  $menu_f_ul1=$('<ul class="treeview-menu"></ul>');
+						  $li1.append($menu_f_ul1);
+						  $li.append($li1);
+						  if(childItem.nodes != null){
+							  $.each(childItem.nodes,function(index,childItem){
+							  $menu_s=$('<li><a href="#" data-url="${basePath}'+childItem.url+'"><i class="'+childItem.icon+'"></i>'+childItem.text+'</a></li>');
+							  $menu_f_ul1.append($menu_s);
+							  }); 
+							  }
+						  }
+					 
 				  });
 			  }
 		  } 
 	  });
-	  $($.parseHTML($menu_f_ul, document, true)).appendTo("body");
+	  $($.parseHTML($menu_f_ul1, document, true)).appendTo("body");
    });
    
    $(function(){ 

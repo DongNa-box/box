@@ -21,24 +21,25 @@
   	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/iCheck/square/blue.css">
   	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/css/bootstrap-validator.css"/>
     <style type="text/css">
-		.loginBg{width: 100%;height: 88%;background: url("${basePath}/assets/common/images/bg.png") no-repeat;background-size: cover;padding-top: 80px;padding-bottom: 25px;}
+		.loginBg{width: 100%;height: 88%;background: url("${basePath}/assets/common/images/background1.jpg") no-repeat;background-size: cover;padding-top: 80px;padding-bottom: 25px;}
+		<!--.title{color:white;font-size:16px;}-->
     </style>
+	
 </head>
-<!--  
+<!--  .title{color:white;font-size:16px;}
 <body class="hold-transition login-page">
 -->
 <body>
 <div class="loginBg">
 
+ 
 <div class="login-box">
-	<!--  
-    <div class="login-logo">
-        <a href="#">朋鼎智慧社区</a>
-    </div>
-    -->
     <!-- /.login-logo -->
+	 <div class="login-logo">
+		<p style="color:white;font-size:35px;"><b>东纳纸盒排版计价平台</b></p>
+	</div>
     <div class="login-box-body">
-    	<p class="login-box-msg"><b>用&nbsp;&nbsp;户&nbsp;&nbsp;登&nbsp;&nbsp;录</b></p>
+    	<p class="login-box-msg" style="color:blue;font-size:20px;"><b>用&nbsp;&nbsp;户&nbsp;&nbsp;登&nbsp;&nbsp;录</b></p>
         <form action="${basePath}/login" method="post" id="login-form">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" name="userName" placeholder="请输入用户名">
@@ -74,12 +75,11 @@
                 </div>
                 <div class="col-xs-6">
                     <div class="checkbox pull-right">
-                        <!-- <a href="#">忘记密码</a> -->
+                        <!-- <a href="#">忘记密码</a> javascript:void(0);onclick="tologin()"-->
                         <b>忘记密码</b>
-                        <!--  
                         <span>&nbsp;/&nbsp;</span>
-                        <a href="#" class="text-center">注册</a>
-                        -->
+                        <a href="javascript:void(0);" onclick="tologin()" id="register" class="text-center">注册</a>
+                        
                     </div>
                 </div>
                 <!-- /.col -->
@@ -119,6 +119,10 @@
             $(".jcaptcha-btn").click(function(){
                 $(".jcaptcha-img").attr("src",'${basePath}/jcaptcha.jpg?'+new Date().getTime());
             });
+            //$("#register").click(function(){
+            //    console.log("点击");
+            //    window.location.href="toRegister";
+            //});
 
             fillbackLoginForm();
             $("#login-form").bootstrapValidator({
@@ -190,6 +194,11 @@
                 $("input[name='rememberMe']").iCheck('update');
             }
         }
+
+        function tologin(){
+           
+        	window.location.href = '${basePath}/toRegister';
+            }
     </script>
 </body>
 </html>

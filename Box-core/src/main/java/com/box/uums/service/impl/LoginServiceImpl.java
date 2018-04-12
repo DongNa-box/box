@@ -31,14 +31,14 @@ public class LoginServiceImpl implements LoginService {
 	LoginMapper loginMapper; 
 	@Override
 	public boolean save(Login record) {
-		// TODO Auto-generated method stub
-		return false;
+		int res = loginMapper.insert(record);
+		return res>0?true:false;
 	}
 
 	@Override
 	public boolean update(Login record) {
-		// TODO Auto-generated method stub
-		return false;
+		int res = loginMapper.updateByPrimaryKeySelective(record);
+		return res>0?true:false;
 	}
 
 	@Override

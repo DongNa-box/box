@@ -19,7 +19,7 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.box.web.uums.controller.LoginController;
+import com.box.web.controller.LoginController;
 
 /**
  * ClassName:PdoneFormAuthenticationFilter

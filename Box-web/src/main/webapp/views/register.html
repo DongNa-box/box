@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="PdoneCI">
+    <meta property="wb:webmaster" content="4f7a2b4a630250fe" />
+    <title>东纳包装盒 | 注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/x-icon" href="${basePath}/assets/common/favicon.ico"/>
+  	<!-- Bootstrap -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/bootstrap/css/bootstrap.min.css">
+  	<!-- Font Awesome --> 
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/font-awesome-master/css/font-awesome.min.css">
+    <!-- Ionicons-->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/AdminLTE.css">
+    <!-- iCheck -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/iCheck/square/blue.css">
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/css/bootstrap-validator.css"/>
+    <style type="text/css">
+		.loginBg{width: 100%;height: 88%;background: url("${basePath}/assets/common/images/background1.jpg") no-repeat;background-size: cover;padding-top: 80px;padding-bottom: 25px;}
+    </style>
+	
+</head>
+<!--  .title{color:white;font-size:16px;}
+<body class="hold-transition login-page">
+-->
+<body>
+<div class="loginBg">
+
+ 
+<div class="login-box">
+    <!-- /.login-logo -->
+	 <div class="login-logo">
+		<p style="color:white;font-size:35px;"><b>东纳纸盒排版计价平台</b></p>
+	</div>
+    <div class="login-box-body">
+    	<p class="login-box-msg" style="color:blue;font-size:20px"><b>用&nbsp;&nbsp;户&nbsp;&nbsp;注&nbsp;&nbsp;册</b></p>
+        <form action="${basePath}/register" method="post" id="register-form">
+            <div class="form-group has-feedback">
+				<input type="text" class="form-control" name="userName" placeholder="请输入用户名">
+				<span class="glyphicon glyphicon-user form-control-feedback"></span>
+			  </div>
+			  <div class="form-group has-feedback">
+				<input type="text" class="form-control" name="phone" placeholder="请输入手机号">
+				<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+			  </div>
+			  <div class="form-group has-feedback">
+				<input type="password" class="form-control" name="password" placeholder="请输入密码">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			  </div>
+			  <div class="form-group has-feedback">
+				<input type="password" class="form-control" name="repassword" placeholder="请再次输入密码">
+				<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+            <div class="row">
+            	<div class="col-xs-7">
+            		<input type="text" class="form-control" name="jcaptchaCode" placeholder="请输入验证码">
+            	</div>
+            	<div class="col-xs-5">
+            		<img class="jcaptcha-btn jcaptcha-img" src="${basePath}/jcaptcha.jpg" title="点击更换验证码"/>
+            	</div>
+            	 
+            	<div class="col-xs-3" style="margin-bottom: -2px;">
+            		<a class="jcaptcha-btn" href="#">换一张</a>
+            	</div>
+            	
+            </div>
+           
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+                </div>
+            </div>
+        </form>
+		<a href="${basePath}/toLogin" class="text-center"><b><--返回登录</b></a>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+</div>
+
+</div>
+    <!-- jQuery 2.2.3 -->
+    <script src="${basePath}/assets/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="${basePath}/assets/adminlte/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="${basePath}/assets/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-validator-->
+	<script src="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/js/bootstrap-validator.js"></script>
+    <!--login.js-->
+    <script src="${basePath}/assets/common/js/login.js"></script>
+    
+    <script>
+        $(function () {
+        	$('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            
+            $(".jcaptcha-btn").click(function(){
+                $(".jcaptcha-img").attr("src",'${basePath}/jcaptcha.jpg?'+new Date().getTime());
+            });
+            $("#toLogin").click(function(){
+            	window.location.href="toLogin";	
+            });
+    
+            $("#register-form").bootstrapValidator({
+                message:'请输入用户名/密码',
+                submitHandler:function (valiadtor,loginForm,submitButton) {
+                    valiadtor.defaultSubmit();
+                },
+                fields:{
+                    userName:{
+                        validators:{
+                            notEmpty:{
+                                message:'用户名不能为空'
+                            }
+                        }
+                    },
+					phone:{
+                        validators:{
+                            notEmpty:{
+                                message:'手机号不能为空'
+                            },
+							stringlength:{
+							   min:11,
+							   max:11,
+							   message:'请输入11位手机号码'
+							  },
+							  regexp:{
+							   regexp:/^1[3|5|8]{1}[0-9]{9}$/,
+							   message:'请输入正确的手机号码'
+							  }
+                        }
+                    },
+                    password:{
+                        validators:{
+                            notEmpty:{
+                                message:'密码不能为空'
+                            }
+							
+                        }
+                    },
+					repassword:{
+                        validators:{
+                            notEmpty:{
+                                message:'密码不能为空'
+                            },
+							identical:{
+						   field:'password',
+						   message:'两次密码输入不一致'
+						  }
+                        }
+                    },
+                    jcaptchaCode:{
+                        validators:{
+                            notEmpty:{
+                                message:'验证码不能为空'
+                            },
+							stringlength:{
+							   min:4,
+							   max:4,
+							   message:'请输入4位验证码'
+							  }
+                        }
+                    }
+                }
+            });
+
+            <#if message??>
+                new LoginValidator({
+                    code:"${message.code?default('-1')}",
+                    message:"${message.message?default('')}",
+                    userName:'userName',
+					phone:'phone',
+                    password:'password',
+					repassword:'repassword',
+                    jcaptchaCode:'jcaptchaCode'
+                });
+            </#if>
+        });
+    </script>
+</body>
+</html>

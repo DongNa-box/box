@@ -1,5 +1,6 @@
-package com.box.web.uums.controller;
+package com.box.web.controller;
 
+import java.io.IOException;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -20,10 +21,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.box.framework.pojo.ResultCode;
 import com.box.framework.security.util.SecurityUtil;
+import com.box.framework.utils.DateUtil;
+import com.box.framework.utils.NetworkUtil;
 import com.box.framework.utils.StrUtil;
+import com.box.uums.model.Login;
+import com.box.uums.model.User;
+import com.box.uums.service.LoginService;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
 
@@ -34,6 +42,7 @@ public class LoginController {
 	    private final static String MAIN_PAGE = "redirect:/main";
 	    private final static String LOGIN_PAGE = "login";
 	    private final static String LOGOUT_PAGE = "redirect:/login";
+	    private final static String REGISTER_PAGE = "register";
 	    private final static String ERROR_PAGE = "error";
 	    private final static String KICKOUT = "1";
 	    
@@ -43,9 +52,16 @@ public class LoginController {
 	    @Resource
 	    private UserService userService;
 	    
-	   // @Resource
-	  //  private LoginLogService loginLogService;
+	    @Resource
+	    private LoginService loginService;
 	    
+	    @RequestMapping("/toRegister")
+	    protected ModelAndView toRegister(HttpServletRequest request, Model model) {
+	    	ModelAndView retMap = new ModelAndView();  //返回新的ModelAndView
+            retMap.setViewName("redirect:/register");
+            return retMap;
+	    	
+		}
 	    @RequestMapping(value = "/login")
 	    private String doLogin(HttpServletRequest request, Model model) {
 	    	String kickout = request.getParameter("kickout");
@@ -56,20 +72,26 @@ public class LoginController {
 	        //已经登录过，直接进入主页
 	        Subject subject = SecurityUtils.getSubject();
 	        if (subject != null && subject.isAuthenticated()) {
-	        	/**
-	        	LoginLog loginLog = new LoginLog();
-	        	loginLog.setSessionId(subject.getSession().getId().toString());
-	        	loginLog.setUserId(SecurityUtil.getUser().getId());
-	        	loginLog.setLoginTime(DateUtil.getCurrDate());
+	        	
+	        	subject.getSession().setAttribute("user", SecurityUtil.getUser());
+	        	User user1 = userService.get(SecurityUtil.getUser().getId());
+                user1.setLoginCount(user1.getLoginCount()+1);
+                user1.setLastLoginTime(DateUtil.getCurrDate());
+                if (userService.update(user1)) {
+	        	Login login = new Login();
+	        	login.setLoginId(subject.getSession().getId().toString());
+	        	login.setUserId(SecurityUtil.getUser().getId());
+	        	login.setLoginTime(DateUtil.getCurrDate());
 	        	try {
-					loginLog.setLoginIp(NetworkUtil.getIpAddress(request));
+					login.setLoginIp(NetworkUtil.getIpAddress(request));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-	        	loginLogService.save(loginLog);
-	        	*/
-	    		subject.getSession().setAttribute("user", SecurityUtil.getUser());
-	            return MAIN_PAGE;
+	        	loginService.save(login);
+	        	return MAIN_PAGE;
+                }else {
+               	 return LOGIN_PAGE;
+				}
 	        }
 	        String userName = request.getParameter("userName");
 	        
@@ -98,7 +120,24 @@ public class LoginController {
 	                Set<String> roles = roleService.getRoleCodeSet(userName);
 	                if (!roles.isEmpty()) {
 	                    subject.getSession().setAttribute("user", SecurityUtil.getUser());
-	                    return MAIN_PAGE;
+	                    User user = userService.get(SecurityUtil.getUser().getId());
+	                    user.setLoginCount(user.getLoginCount()+1);
+	                    user.setLastLoginTime(DateUtil.getCurrDate());
+	                    if (userService.update(user)) {
+	                    	Login login = new Login();
+	        	        	login.setLoginId(subject.getSession().getId().toString());
+	        	        	login.setUserId(SecurityUtil.getUser().getId());
+	        	        	login.setLoginTime(DateUtil.getCurrDate());
+	        	        	try {
+	        					login.setLoginIp(NetworkUtil.getIpAddress(request));
+	        				} catch (IOException e) {
+	        					e.printStackTrace();
+	        				}
+	        	        	loginService.save(login);
+	        	        	return MAIN_PAGE;
+						}else {
+							return LOGIN_PAGE;
+						}
 	                } else {//没有授权
 	                    msg = "您没有得到相应的授权！";
 	                    model.addAttribute("message", new ResultCode("1", msg));
@@ -141,15 +180,15 @@ public class LoginController {
 	        }
 	        return LOGIN_PAGE;
 	    }
-//	    
-//	    @RequestMapping(value = "/logout")
-//	    private String doLogout(Model model) {
-//	        Subject subject = SecurityUtils.getSubject();
-//	        LoginLog loginLog = new LoginLog();
-//	        loginLog.setSessionId(subject.getSession().getId().toString());
-//	        loginLog.setLoginoutTime(DateUtil.getCurrDate());
-//	        loginLogService.update(loginLog);
-//	        subject.logout();
-//	        return LOGOUT_PAGE;
-//	    }
+	    
+	    @RequestMapping(value = "/logout")
+	    private String doLogout(Model model) {
+	        Subject subject = SecurityUtils.getSubject();
+	        Login login = new Login();
+	        login.setLoginId(subject.getSession().getId().toString());
+	        login.setLoginoutTime(DateUtil.getCurrDate());
+	        loginService.update(login);
+	        subject.logout();
+	        return LOGOUT_PAGE;
+	    }
 }

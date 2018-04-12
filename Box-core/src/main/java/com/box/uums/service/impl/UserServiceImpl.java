@@ -95,9 +95,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserForLogin(String username) {
+	public User getUserForLogin(Map<String,Object> map) {
 		
-		return userMapper.getUserForLogin(username);
+		return userMapper.getUserForLogin(map);
 	}
 
 	@Override

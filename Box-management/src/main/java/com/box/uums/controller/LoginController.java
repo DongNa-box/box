@@ -4,6 +4,7 @@
  */
 package com.box.uums.controller;
 
+import java.io.IOException;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -28,8 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.box.framework.pojo.ResultCode;
 import com.box.framework.security.util.SecurityUtil;
 import com.box.framework.utils.DateUtil;
+import com.box.framework.utils.NetworkUtil;
+import com.box.framework.utils.Sequence;
 import com.box.framework.utils.StrUtil;
 import com.box.uums.model.Login;
+import com.box.uums.model.User;
 import com.box.uums.service.LoginService;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
@@ -73,20 +77,28 @@ public class LoginController {
 	        //已经登录过，直接进入主页
 	        Subject subject = SecurityUtils.getSubject();
 	        if (subject != null && subject.isAuthenticated()) {
-	        	/**
-	        	LoginLog loginLog = new LoginLog();
-	        	loginLog.setSessionId(subject.getSession().getId().toString());
-	        	loginLog.setUserId(SecurityUtil.getUser().getId());
-	        	loginLog.setLoginTime(DateUtil.getCurrDate());
+	        	
+	        	subject.getSession().setAttribute("user", SecurityUtil.getUser());
+	        	 User user1 = userService.get(SecurityUtil.getUser().getId());
+                 user1.setLoginCount(user1.getLoginCount()+1);
+                 user1.setLastLoginTime(DateUtil.getCurrDate());
+                 if (userService.update(user1)) {
+	        	Login login = new Login();
+	        	login.setLoginId(subject.getSession().getId().toString());
+	        	login.setUserId(SecurityUtil.getUser().getId());
+	        	login.setLoginTime(DateUtil.getCurrDate());
 	        	try {
-					loginLog.setLoginIp(NetworkUtil.getIpAddress(request));
+					login.setLoginIp(NetworkUtil.getIpAddress(request));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-	        	loginLogService.save(loginLog);
-	        	*/
-	    		subject.getSession().setAttribute("user", SecurityUtil.getUser());
-	            return MAIN_PAGE;
+	        	loginService.save(login);
+	        	return MAIN_PAGE;
+                 }else {
+                	 return LOGIN_PAGE;
+				}
+	    		
+	            
 	        }
 	        String userName = request.getParameter("userName");
 	        System.out.println("用户名："+userName);
@@ -95,7 +107,7 @@ public class LoginController {
 	            return LOGIN_PAGE;
 	        }
 	        String password = request.getParameter("password");
-	        System.out.println("密码："+userName);
+	        System.out.println("密码："+password);
 	        //密码加密+加盐
 	        //password = EncryptUtil.getPassword(password, userName);
 	        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
@@ -116,7 +128,25 @@ public class LoginController {
 	                Set<String> roles = roleService.getRoleCodeSet(userName);
 	                if (!roles.isEmpty()) {
 	                    subject.getSession().setAttribute("user", SecurityUtil.getUser());
-	                    return MAIN_PAGE;
+	                    User user = userService.get(SecurityUtil.getUser().getId());
+	                    user.setLoginCount(user.getLoginCount()+1);
+	                    user.setLastLoginTime(DateUtil.getCurrDate());
+	                    if (userService.update(user)) {
+	                    	Login login = new Login();
+	        	        	login.setLoginId(subject.getSession().getId().toString());
+	        	        	login.setUserId(SecurityUtil.getUser().getId());
+	        	        	login.setLoginTime(DateUtil.getCurrDate());
+	        	        	try {
+	        					login.setLoginIp(NetworkUtil.getIpAddress(request));
+	        				} catch (IOException e) {
+	        					e.printStackTrace();
+	        				}
+	        	        	loginService.save(login);
+	        	        	return MAIN_PAGE;
+						}else {
+							return LOGIN_PAGE;
+						}
+	                    
 	                } else {//没有授权
 	                    msg = "您没有得到相应的授权！";
 	                    model.addAttribute("message", new ResultCode("1", msg));

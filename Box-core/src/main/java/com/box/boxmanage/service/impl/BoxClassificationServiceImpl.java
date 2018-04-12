@@ -10,6 +10,8 @@
 
 package com.box.boxmanage.service.impl;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,11 @@ import org.springframework.stereotype.Service;
 import com.box.boxmanage.dao.BoxClassificationMapper;
 import com.box.boxmanage.model.BoxClassification;
 import com.box.boxmanage.service.BoxClassficationService;
+import com.box.framework.pojo.TreeNode;
+import com.box.framework.utils.TreeUtil;
+import com.box.uums.dao.UserMapper;
+import com.box.uums.model.Function;
+import com.box.uums.service.impl.UserServiceImpl;
 
 /**
  * ClassName:BoxClassficationServiceImpl
@@ -139,6 +146,31 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 		List<BoxClassification> boxCl=boxClassficationMapper.boxClassificationSearchList(name);
 		return boxCl;
 
+	}
+
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.boxmanage.service.BoxClassficationService#getWebTree()
+	 */
+	 
+	@Override
+	public List<TreeNode> getWebTree() {
+		
+		List<BoxClassification> list = boxClassficationMapper.selectAll();
+		Map<String, TreeNode> nodelist = new LinkedHashMap<String, TreeNode>();
+		for (BoxClassification func : list) {
+            TreeNode node = new TreeNode();
+            node.setText(func.getName());
+            node.setId(func.getId());
+            node.setParentId(func.getGroupid());
+            node.setLevelCode(String.valueOf(func.getLevel()));
+            node.setIcon("fa fa-circle-o");
+            node.setUrl("/web/boxType");
+            nodelist.put(node.getId(), node);
+        }
+		return TreeUtil.getNodeList(nodelist);
+		
 	}
 
 }

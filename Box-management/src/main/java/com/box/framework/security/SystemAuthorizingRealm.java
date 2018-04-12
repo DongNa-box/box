@@ -10,6 +10,8 @@
 
 package com.box.framework.security;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -67,7 +69,10 @@ public class SystemAuthorizingRealm extends AuthorizingRealm{
         // 校验用户名密码
         LOGGER.info("======Username======"+token.getUsername());
         String password=String.copyValueOf(token.getPassword());
-        User user= userService.getUserForLogin(token.getUsername());
+        Map<String, Object> map = new HashMap<>();
+        map.put("loginName", token.getUsername());
+        map.put("type", 1);
+        User user= userService.getUserForLogin(map);
         if (user!=null) {
             if(!EncryptUtil.encodeByMD5(password).equals(user.getPassword())&& isNeedPassword()){
                 throw new IncorrectCredentialsException();

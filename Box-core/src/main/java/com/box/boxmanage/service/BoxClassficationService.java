@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.box.boxmanage.model.BoxClassification;
 import com.box.framework.base.service.BaseService;
+import com.box.framework.pojo.TreeNode;
 
 /**
  * ClassName:BoxClassficationService
@@ -35,6 +36,8 @@ public interface BoxClassficationService extends BaseService<BoxClassification, 
 	BoxClassification getBoxClassificaionByGroupid(String groupid);
 
 	List<BoxClassification> boxClassificationSearchList(String name);
+	
+	List<TreeNode> getWebTree();
 
 }
 

@@ -241,6 +241,9 @@ public class UserContoller {
 	    			}
 	    			user.setId(Sequence.nextId());
 	    	    	user.setPassword(EncryptUtil.encodeByMD5(DEFAULT_PASSWORD));
+	    	    	user.setCreateTime(DateUtil.getCurrDate());
+	    	    	user.setLoginCount(0);
+	    	    	
 	    	    	if (flag.equals("01")) {
 	    	    		user.setType(1);
 					}else if (flag.equals("02")) {

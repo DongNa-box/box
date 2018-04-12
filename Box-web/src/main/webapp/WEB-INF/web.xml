@@ -41,6 +41,16 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<!-- 验证码 -->
+    <filter>
+        <filter-name>JCaptchaFilter</filter-name>
+        <filter-class>com.box.framework.captcha.JCaptchaFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>JCaptchaFilter</filter-name>
+        <url-pattern>/jcaptcha.jpg</url-pattern>
+    </filter-mapping>
 	
 	<!-- 统一过滤器 -->
 	<filter>

@@ -10,6 +10,8 @@
 
 package com.box.framework.security;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -31,10 +33,10 @@ import org.slf4j.LoggerFactory;
 
 import com.box.framework.utils.EncryptUtil;
 import com.box.framework.utils.PropertiesUtil;
-import com.box.web.uums.controller.LoginController;
 import com.box.uums.model.User;
 import com.box.uums.service.RoleService;
 import com.box.uums.service.UserService;
+import com.box.web.controller.LoginController;
 
 
 /**
@@ -66,7 +68,10 @@ public class SystemAuthorizingRealm extends AuthorizingRealm{
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
         // 校验用户名密码
         String password=String.copyValueOf(token.getPassword());
-        User user= userService.getUserForLogin(token.getUsername());
+        Map<String, Object> map = new HashMap<>();
+        map.put("loginName", token.getUsername());
+        map.put("type", 2);
+        User user= userService.getUserForLogin(map);
         if (user!=null) {
             if(!EncryptUtil.encodeByMD5(password).equals(user.getPassword())&& isNeedPassword()){
                 throw new IncorrectCredentialsException();

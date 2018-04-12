@@ -21,7 +21,7 @@ import com.box.uums.model.User;
  * @see
  */
 public interface UserService extends BaseService<User, String> {
-	User getUserForLogin(String username);
+	User getUserForLogin(Map<String,Object> map);
 	
 	List<Map<String,Object>> getAdminSearchlist(Map<String,Object> map);
 	
