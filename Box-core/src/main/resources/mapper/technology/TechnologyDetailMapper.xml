@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.technology.dao.TechnologyDetailMapper">
+  <resultMap id="TechnologyDetailResultMap" type="com.box.technology.model.TechnologyDetail">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="cname" jdbcType="INTEGER" property="cname" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="TechnologyDetail_Column_List">
+    id, parent_id, cname, name, level, enabled, description, createby, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TechnologyDetailResultMap">
+    select 
+    <include refid="TechnologyDetail_Column_List" />
+    from t_technology_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="checkTechnologyDetailNameExists" parameterType="java.lang.String" resultMap="TechnologyDetailResultMap">
+    select 
+    <include refid="TechnologyDetail_Column_List" />
+    from t_technology_detail
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_technology_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.technology.model.TechnologyDetail">
+    insert into t_technology_detail (id, parent_id, cname, 
+      name, level, enabled, 
+      description, createby, createtime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{cname,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.technology.model.TechnologyDetail">
+    insert into t_technology_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.technology.model.TechnologyDetail">
+    update t_technology_detail
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.technology.model.TechnologyDetail">
+    update t_technology_detail
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

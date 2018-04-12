@@ -22,8 +22,6 @@ import org.springframework.stereotype.Service;
 import com.box.boxmanage.dao.BoxClassificationMapper;
 import com.box.boxmanage.model.BoxClassification;
 import com.box.boxmanage.service.BoxClassficationService;
-import com.box.uums.dao.UserMapper;
-import com.box.uums.service.impl.UserServiceImpl;
 
 /**
  * ClassName:BoxClassficationServiceImpl

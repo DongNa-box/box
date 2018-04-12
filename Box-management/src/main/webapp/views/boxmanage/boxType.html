@@ -50,8 +50,9 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="name" data-sortable="true">纸盒名称</th>
-								<th data-align="center" data-field="classification" data-sortable="true">纸盒类型</th>
-								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
+								<th data-align="center" data-field="className" data-sortable="true" >纸盒类型</th>
+								<th data-align="center" data-field="description" data-sortable="true">纸盒描述</th>
+								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
 						</thead>
 					</table>
@@ -62,19 +63,20 @@
 </section>
 
 <!-- 新增弹窗 -->
-<div class="modal fade" id="modal-boxType" aria-labelledby="modalBoxTypeLabel" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade col-xs-12" id="modal-boxType" aria-labelledby="modalBoxTypeLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:800px">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="boxType-form" method="post">
+			<form class="form-horizontal" action="" id="boxType-form"  enctype="multipart/form-data" method="post">
 				<input type="hidden" id="flag" name="flag">
-				<input type="hidden" id="id" name="id">
+				<input type="hidden" id="boxid" name="boxId">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h4 class="modal-title" id="modalBoxTypeLabel"></h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
+                  <div class="col-sm-6">
+                    <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="name" name="name" type="text" class="form-control"
@@ -117,59 +119,88 @@
 								placeholder="请输入纸盒类型名称">
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的长度最小值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input  name="lmin" type="text" class="form-control"
-								placeholder="请输入纸盒的长度最小值" maxlength="5">
-							<span>mm</span>
-						</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+						<label class="col-sm-4 control-label">纸盒长度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group"> 
+						     <input  name="lmin" type="text" class="form-control"
+								placeholder="请输入纸盒长度最小值" maxlength="5"><span>mm</span>
+						 </div>
 						
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的长度最大值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-4 control-label">纸盒长度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group">
 							<input name="lmax" type="text" class="form-control"
-								placeholder="请输入纸盒的长度最大值"><span>mm</span>
+								placeholder="请输入纸盒长度最大值"><span>mm</span>	
 						</div>
 					</div>
 					
                     <div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的宽度最小值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-4 control-label">纸盒宽度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group">
 							<input name="wmin" type="text" class="form-control"
-								placeholder="请输入纸盒的宽度最小值"> <span>mm</span>
+								placeholder="请输入纸盒宽度最小值"><span>mm</span>
 						</div>
 					</div>
 
                     <div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的宽度最大值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<label class="col-sm-4 control-label">纸盒宽度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group">
 							<input name="wmax" type="text" class="form-control"
-								placeholder="请输入纸盒的宽度最大值"> <span>mm</span>
+								placeholder="请输入纸盒宽度最大值"><span>mm</span>
 						</div>
 					</div>
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的高度最小值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒高度最小值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group">
 							<input name="hmin" type="text" class="form-control"
-								placeholder="请输入纸盒的高度最小值"><span>mm</span>
+								placeholder="请输入纸盒高度最小值"><span>mm</span>
 						</div>
 					</div>
-					   <div class="form-group">
-						<label class="col-sm-4 control-label">纸盒的高度最大值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">纸盒高度最大值<span style="color: red;">*</span></label>
+						<div class="col-sm-8 form-group">
 							<input name="hmax" type="text" class="form-control"
-								placeholder="请输入纸盒的高度最大值"><span>mm</span>
+								placeholder="请输入纸盒高度最大值"><span>mm</span>
 						</div>
-                   </div>
+                    </div>
+                  </div>
+                  <div class="row">
+		                   <label for="" class="col-sm-4 control-label"  >立体图</label>
+				  </div>
+	              <div class="row">
+	                  <div class="form-group">
+	                         <input id="file-1" type="file" name="file-1"  class="file" data-overwrite-initial="false" data-min-file-count="1">
+	                  </div>
+				  </div>
 
-					<div class="modal-footer">
+				  <div class="row">
+					   <div class="form-group">
+		                     <label for="" class="col-sm-4 control-label">实物图</label>
+					   </div>
+			      </div>
+                  <div class="row">
+					    <div class="form-group">
+	                         <input id="file-2" type="file" name="file-2"  class="file" data-overwrite-initial="false" data-min-file-count="1" >
+	                    </div>
+				  </div>
+
+				  <div class="row">
+		                <label for="" class="col-sm-4 control-label"  >平面展开图</label>
+
+				  </div>
+	              <div class="row">
+	                  <div class="form-group" >
+	                       <input id="file-3" type="file" name="file-3" class="file" data-overwrite-initial="false" data-min-file-count="1" >
+	                  </div>
+				  </div>
+				  <div class="modal-footer">
 						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
-					</div>
+				  </div>
 				</div>
 			</form>
 		</div>
@@ -180,10 +211,12 @@
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="${basePath}/assets/common/js/base.js"></script>
 
+
 <script type="text/javascript">
 $(function(){
 	boxTypeForm = $("#boxType-form").form();
 	boxTypeSearchForm = $("#boxType-search-form").form();
+	setDetailIdSelect('search-type',null,"0");
 	setDetailIdSelect('classId',null,"0");
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
@@ -195,6 +228,10 @@ $(function(){
 			$("#flag").val("1");
 			$("#modalBoxTypeLabel").text("新增纸盒类型");
 			$('#modal-boxType').modal('toggle');
+			setFileStyle('file-1');
+			setFileStyle('file-2');
+			setFileStyle('file-3');
+			$('#saveBtn').show();
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -205,7 +242,8 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxTypeLabel").text("编辑纸盒类型");
 			$("#modal-boxType").modal("toggle");
-			boxTypeForm.initFormData(selected[0]);
+			$('#saveBtn').show();
+			formEdit(selected[0],'1');
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -216,9 +254,8 @@ $(function(){
 			$("#flag").val("2");
 			$("#modalBoxTypeLabel").text("查看");
 			$("#modal-boxType").modal("toggle");
-			boxTypeForm.initFormData(selected[0]);
-			$("#loginName").attr("disabled","disabled");//��loginName inputԪ������Ϊdisabled 
-			$("#phone").attr("disabled","disabled");//��phone inputԪ������Ϊdisabled 
+			$('#saveBtn').hide();//隐藏保存按钮
+		    formEdit(selected[0],'2');
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -227,21 +264,21 @@ $(function(){
 			}
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
-				ajaxPost(basePath + "/uums/deleteAdmin", {
-					uids:JSON.stringify(rowIds)
+				ajaxPost(basePath + "/boxmanage/deleteBoxType", {
+					boxIds:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 				});
-					$('#boxType-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+					$('#boxType-table').bootstrapTable('remove', { field: 'boxId', values: rowIds});
 				});
 				return true;
 			})
 			break;
 		case 'search':
 			var formParams = $("#boxType-search-form").serializeJSON();
-			ajaxGet(basePath + "/uums/adminList", {
+			ajaxGet(basePath + "/boxmanage/boxTypeSearchList", {
 				params:JSON.stringify(formParams)
 			}, function(data) {
 				$('#boxType-table').bootstrapTable('load',data);
@@ -273,21 +310,115 @@ $(function(){
 					},
 					threshold : 10,
 					remote : {
-						url : basePath + "/uums/checkLoginNameExists",
+						url : basePath + "/boxmanage/checkBoxTypeNameExists",
 						message : '纸盒名称已存在',
 						delay : 2000,
 						type : 'POST'
+					}
+				}
+			},
+			classId : {
+				validators : {
+					notEmpty : {
+						message : '请选择纸盒类型'
+					}
+				}
+			},
+			detail1 : {
+				validators : {
+					notEmpty : {
+						message : '请选择纸盒局部细节'
+					}
+				}
+			},
+			description : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒描述'
+					}
+				}
+			},
+			lmax: {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒长度最大值'
+					}
+				}
+			},
+			lmin : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒长度最小值'
+					}
+				}
+			},
+			wmax : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒宽度最大值'
+					}
+				}
+			},
+			wmin : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒宽度最小值'
+					}
+				}
+			},
+			hmax: {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒高度最大值'
+					}
+				}
+			},
+			hmin : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒高度最小值'
+					}
+				}
+			},
+			dime : {
+				validators : {
+					notEmpty : {
+						message : '请选择纸盒的立体图'
+					}
+				}
+			},
+			plan : {
+				validators : {
+					notEmpty : {
+						message : '请选择纸盒的平面展开图'
+					}
+				}
+			},
+			phy : {
+				validators : {
+					notEmpty : {
+						message : '请输入纸盒的实物图'
+					}
+				}
+			},
+			unit : {
+				validators : {
+					notEmpty : {
+						message : '请选择单位'
 					}
 				}
 			}
 		},
 
         submitHandler: function (validator, form, submitButton) {
-        	var formParams = form.serializeJSON();
-        	ajaxPost(basePath + "/uums/editboxType", {
-        		params:JSON.stringify(formParams)
-			},  function(data){
-				$('#modal-admin').modal('hide');
+        	var myForm = document.getElementById('boxType-form');
+        	formData = new FormData(myForm);
+        	for(var pair of formData.entries()) {
+        		   console.log(pair[0]+ ', '+ pair[1]); 
+        	}
+        
+        	ajaxPostFile(basePath + "/boxmanage/editBoxType", formData,  function(data){
+				$('#modal-boxType').modal('hide');
 				layer.msg(data.code, {
 					icon : 1,
 					time : 1500,
@@ -299,7 +430,8 @@ $(function(){
 	//-------------Validator from end----------------
 	
 	 $("#classId").change(function(){
-	       var selected=$(this).children('option:selected').val()
+		 var selected=$(this).children('option:selected').val()
+			
 	       if(selected!=""){
 		 	   setXijieSelect(selected,"1");  
 	       }else{
@@ -321,36 +453,10 @@ $(function(){
 	 */
 	function getIdSelections() {
 		return $.map($('#boxType-table').bootstrapTable('getSelections'),function(row) {
-				return row.id;
+				return row.boxId;
 		});
 	}
 	
-	 /**
-	  * 设置类型级别为0级的下拉列表
-	  * @param selectid
-	  * @returns
-	  */
-	 function setClassIdSelect(selectid,level){
-	 	ajaxPost("boxmanage/getBoxClassLevelList", {
-	 		params : level
-	 	}, function(data) {
-	 		var $select = $('#'+selectid); 
-	 		$select.empty();
-	 		if(data.length==0){
-	 			 $select.val("");
-	 		}
-	 		if(data.length>0){
-	 			 $select.append('<option value="">请选择...</option>'); 
-	 		}
-	 		for(var i=0, len = data.length;i<len;i++){ 
-	 		  var b=data[i];
-	 		  var bid=b.id;
-	 		  var bname=b.name;
-	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
-	 		} 
-	 	});
-	 }
-	 
 	 /**
 	  * 设置类型级别为0级的下拉列表
 	  * @param selectid
@@ -360,7 +466,6 @@ $(function(){
 		var p=new Object();
 		p.groupid=groupid;
 		p.level=level;
-		alert(JSON.stringify(p)); 
 	 	ajaxPost("boxmanage/getBoxClassLevelList", {
 	 		params : JSON.stringify(p)
 	 	}, function(data) {
@@ -380,6 +485,9 @@ $(function(){
 	 		} 
 	 	});
 	 }
+	 /**
+	 * 设置联动下拉效果
+	 */
 	 function  setXijieSelect(groupid,level){
 			var p=new Object();
 			p.groupid=groupid;
@@ -387,7 +495,6 @@ $(function(){
 		 	ajaxPost("boxmanage/getBoxClassLevelList", {
 		 		params :  JSON.stringify(p)
 		 	}, function(data) {
-		 		alert(JSON.stringify(data));
 		 	    if(data.length<=0){
 		 	    	$("#xijie1").hide(); 
 		 	    	$("#xijie2").hide(); 
@@ -413,12 +520,129 @@ $(function(){
 		 	    	$("#detail1-label").html(data[0].name+'<span style="color: red;">*</span>');
 		 		    $("#detail2-label").html(data[1].name+'<span style="color: red;">*</span>');
 		 		    $("#detail3-label").html(data[2].name+'<span style="color: red;">*</span>');
-		 		    alert("data.id+"+data[0].id);
 		 		    setDetailIdSelect('detail1',data[0].id,"2");
 		 		    setDetailIdSelect('detail2',data[1].id,"2");
 		 		    setDetailIdSelect('detail3',data[2].id,"2");
 		 	    }
 		 	});
 		 }
-	
+	 /**
+	 * 设置文件上传控件的效果
+	 */
+	function setFileStyle(fileId){
+		$('#'+fileId).fileinput({
+			language: 'zh', //设置语言
+		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    //allowedFileTypes : [ 'image','video','flash','audio'],
+		    allowedFileExtensions: ['jpg', 'png','jpeg', 'svg','gif','mpeg'],
+		    overwriteInitial: false,
+		    showUpload:false,
+		    //mainClass: "input-group-lg",
+		    dropZoneEnabled: false,//是否显示拖拽区域
+		   // dropZoneTitle:'拖放文件到这里',
+		    maxFileCount: 1,
+		    layoutTemplates:{
+		    	//actionDelete:'',
+		    	actionUpload:'',
+		    },
+		    slugCallback: function (filename) {
+		        return filename.replace('(', '_').replace(']', '_');
+		    },
+		 });
+	}
+	 
+	//修改纸盒时回传数据
+	function formEdit(data,operate) {
+		setXijieSelect(data.classId,"1");
+	    boxTypeForm.initFormData(data);
+	    console.log(data);
+	    dime=data.dime;
+	    plan=data.plan;
+	    phy=data.phy;
+
+		orlist=new Array();//图片地址集合
+		titlelist=new Array();//图片名称集合
+		var t=new Object();
+		t.width="120px";
+    	t.key=0;
+		    if(operate=='1'){
+		    	console.log(window.document.location.href);
+		    	var pa="images/BoxType";
+		    	console.log(pa);
+		    	    var path="images/BoxType/"+data.boxId;
+		    	    orlist[0]=path+"/dime/"+dime;
+		        	t.caption=dime;
+		            titlelist[0]=t;	
+		            setEditFileStyle('file-1',orlist,titlelist,dime);
+		            orlist[0]=path+"/phy/"+phy;
+		        	t.caption=phy;
+		            titlelist[0]=t;	
+		            setEditFileStyle('file-2',orlist,titlelist,phy);
+		            orlist[0]=path+"/plan/"+plan;
+		        	t.caption=plan;
+		            titlelist[0]=t;	
+		            setEditFileStyle('file-3',orlist,titlelist,plan);
+		    	 
+		    }else if(operate=='2'){
+		    	    var path="images/BoxType/"+data.boxId;
+		    	    orlist[0]=path+"/dime/"+dime;
+		        	t.caption=dime;
+		            titlelist[0]=t;	
+		            setScanFileStyle('file-1',orlist,titlelist,dime);
+		            orlist[0]=path+"/phy/"+phy;
+		        	t.caption=phy;
+		            titlelist[0]=t;	
+		            setScanFileStyle('file-2',orlist,titlelist,phy);
+		            orlist[0]=path+"/plan/"+plan;
+		        	t.caption=plan;
+		            titlelist[0]=t;	
+		            setScanFileStyle('file-3',orlist,titlelist,plan);
+		    	 
+		    }
+
+	}
+	function setEditFileStyle(fileId,orlist,titlelist,filename){
+	    $("#"+fileId).fileinput({
+			language: 'zh', //设置语言
+		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    showRemove: true,
+		    overwriteInitial: false,
+		    showUpload:false,
+		    dropZoneEnabled: false,//是否显示拖拽区域
+		    //dropZoneTitle:'拖放文件到这里',
+		    maxFileCount: 1,
+		    layoutTemplates:{
+		    	actionDelete:'',
+		    	actionUpload:'',
+		    },
+		    initialPreview:orlist,
+		    initialPreviewAsData: true,
+	        initialPreviewConfig: titlelist,
+		    slugCallback: function (filename) {
+		        return filename.replace('(', '_').replace(']', '_');
+		    },
+		});
+	}
+	function setScanFileStyle(fileId,orlist,titlelist,filename){
+	    $("#"+fileId).fileinput({
+			language: 'zh', //设置语言
+		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    showRemove: true,
+		    overwriteInitial: false,
+		    showBrowse:false,
+		    showUpload:false,
+		    dropZoneTitle:'拖放文件到这里',
+		    maxFileCount: 1,
+		    layoutTemplates:{
+		    	actionDelete:'',
+		    	actionUpload:'',
+		    },
+		    initialPreview:orlist,
+		    initialPreviewAsData: true,
+	        initialPreviewConfig: titlelist,
+		    slugCallback: function (filename) {
+		        return filename.replace('(', '_').replace(']', '_');
+		    },
+		});
+	}
 </script>

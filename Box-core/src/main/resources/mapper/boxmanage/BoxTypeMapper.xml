@@ -9,7 +9,7 @@
     <result column="plan" jdbcType="VARCHAR" property="plan" />
     <result column="phy" jdbcType="VARCHAR" property="phy" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="calssId" jdbcType="VARCHAR" property="calssid" />
+    <result column="classId" jdbcType="VARCHAR" property="classid" />
     <result column="detail1" jdbcType="VARCHAR" property="detail1" />
     <result column="detail2" jdbcType="VARCHAR" property="detail2" />
     <result column="detail3" jdbcType="VARCHAR" property="detail3" />
@@ -17,15 +17,15 @@
     <result column="hmin" jdbcType="DOUBLE" property="hmin" />
     <result column="lmin" jdbcType="DOUBLE" property="lmin" />
     <result column="wmax" jdbcType="DOUBLE" property="wmax" />
-    <result column="hwax" jdbcType="DOUBLE" property="hwax" />
-    <result column="lwax" jdbcType="DOUBLE" property="lwax" />
+    <result column="hmax" jdbcType="DOUBLE" property="hmax" />
+    <result column="lmax" jdbcType="DOUBLE" property="lmax" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="createby" jdbcType="VARCHAR" property="createby" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="BoxType_Column_List">
-    boxId, name, dime, pla, plan, phy, description, calssId, detail1, detail2, detail3, 
-    wmin, hmin, lmin, wmax, hwax, lwax, unit, createby, createtime
+    boxId, name, dime, pla, plan, phy, description, classId, detail1, detail2, detail3, 
+    wmin, hmin, lmin, wmax, hmax, lmax, unit, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BoxTypeResultMap">
     select 
@@ -34,29 +34,71 @@
     where boxId = #{boxid,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectAll" resultMap="BoxTypeResultMap">
-      select 
+  <select id="getAllBoxTypeList" resultType="map">
+  SELECT a.*,b.name as className,c.`name` as detail1Name,d.`name` as detail2Name,e.`name`as detail3Name from t_box_type a
+  left JOIN t_box_classification b
+  on a.classId=b.id
+  left JOIN t_box_classification c
+  on a.detail1=c.id
+  left JOIN t_box_classification d
+  on a.detail2=d.id
+  left JOIN t_box_classification e
+  on a.detail3=e.id
+  </select>
+  
+    
+  <select id="boxTypeSearchList" resultType="map">
+  SELECT a.*,b.name as className,c.`name` as detail1Name,d.`name` as detail2Name,e.`name`as detail3Name from t_box_type a
+  left JOIN t_box_classification b
+  on a.classId=b.id
+  left JOIN t_box_classification c
+  on a.detail1=c.id
+  left JOIN t_box_classification d
+  on a.detail2=d.id
+  left JOIN t_box_classification e
+  on a.detail3=e.id
+  <where>
+   a.name LIKE CONCAT(CONCAT('%', #{name}),'%') 
+   <if test="classId != null and classId != '' ">
+    and a.classId=#{classId}
+   </if>
+  </where>
+  </select>
+  
+   <select id="checkBoxTypeNameExists" parameterType="java.lang.String" resultMap="BoxTypeResultMap">
+    select 
     <include refid="BoxType_Column_List" />
     from t_box_type
+    where name = #{name,jdbcType=VARCHAR}
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_box_type
     where boxId = #{boxid,jdbcType=VARCHAR}
   </delete>
+  
+
+  <delete id="batchDeleteByIds" parameterType="java.lang.String">
+    delete from t_box_type
+     where boxId in
+     <foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+  
   <insert id="insert" parameterType="com.box.boxmanage.model.BoxType">
     insert into t_box_type (boxId, name, dime, 
       pla, plan, phy, description, 
-      calssId, detail1, detail2, 
+      classId, detail1, detail2, 
       detail3, wmin, hmin, 
-      lmin, wmax, hwax, lwax, 
+      lmin, wmax, hmax, lmax, 
       unit, createby, createtime
       )
     values (#{boxid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dime,jdbcType=VARCHAR}, 
       #{pla,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{phy,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{calssid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
+      #{classid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
       #{detail3,jdbcType=VARCHAR}, #{wmin,jdbcType=DOUBLE}, #{hmin,jdbcType=DOUBLE}, 
-      #{lmin,jdbcType=DOUBLE}, #{wmax,jdbcType=DOUBLE}, #{hwax,jdbcType=DOUBLE}, #{lwax,jdbcType=DOUBLE}, 
+      #{lmin,jdbcType=DOUBLE}, #{wmax,jdbcType=DOUBLE}, #{hmax,jdbcType=DOUBLE}, #{lmax,jdbcType=DOUBLE}, 
       #{unit,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -84,8 +126,8 @@
       <if test="description != null">
         description,
       </if>
-      <if test="calssid != null">
-        calssId,
+      <if test="classid != null">
+        classId,
       </if>
       <if test="detail1 != null">
         detail1,
@@ -108,11 +150,11 @@
       <if test="wmax != null">
         wmax,
       </if>
-      <if test="hwax != null">
-        hwax,
+      <if test="hmax != null">
+        hmax,
       </if>
-      <if test="lwax != null">
-        lwax,
+      <if test="lmax != null">
+        lmax,
       </if>
       <if test="unit != null">
         unit,
@@ -146,8 +188,8 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="calssid != null">
-        #{calssid,jdbcType=VARCHAR},
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
       </if>
       <if test="detail1 != null">
         #{detail1,jdbcType=VARCHAR},
@@ -170,11 +212,11 @@
       <if test="wmax != null">
         #{wmax,jdbcType=DOUBLE},
       </if>
-      <if test="hwax != null">
-        #{hwax,jdbcType=DOUBLE},
+      <if test="hmax != null">
+        #{hmax,jdbcType=DOUBLE},
       </if>
-      <if test="lwax != null">
-        #{lwax,jdbcType=DOUBLE},
+      <if test="lmax != null">
+        #{lmax,jdbcType=DOUBLE},
       </if>
       <if test="unit != null">
         #{unit,jdbcType=INTEGER},
@@ -232,11 +274,11 @@
       <if test="wmax != null">
         wmax = #{wmax,jdbcType=DOUBLE},
       </if>
-      <if test="hwax != null">
-        hwax = #{hwax,jdbcType=DOUBLE},
+      <if test="hmax != null">
+        hmax = #{hmax,jdbcType=DOUBLE},
       </if>
-      <if test="lwax != null">
-        lwax = #{lwax,jdbcType=DOUBLE},
+      <if test="lmax != null">
+        lmax = #{lmax,jdbcType=DOUBLE},
       </if>
       <if test="unit != null">
         unit = #{unit,jdbcType=INTEGER},
@@ -266,8 +308,8 @@
       hmin = #{hmin,jdbcType=DOUBLE},
       lmin = #{lmin,jdbcType=DOUBLE},
       wmax = #{wmax,jdbcType=DOUBLE},
-      hwax = #{hwax,jdbcType=DOUBLE},
-      lwax = #{lwax,jdbcType=DOUBLE},
+      hmax = #{hmax,jdbcType=DOUBLE},
+      lmax = #{lmax,jdbcType=DOUBLE},
       unit = #{unit,jdbcType=INTEGER},
     where boxId = #{boxid,jdbcType=VARCHAR}
   </update>

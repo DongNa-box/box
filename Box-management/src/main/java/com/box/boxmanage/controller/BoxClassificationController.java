@@ -60,7 +60,7 @@ public class BoxClassificationController {
 	   
 	 /**
 	  * 查找纸盒类型列表
-	  * boxTypeList:(这里用一句话描述这个方法的作用).
+	  * boxClassificationList:(这里用一句话描述这个方法的作用).
 	  *
 	  * @author cheng
 	  * @param searchparams
@@ -69,11 +69,11 @@ public class BoxClassificationController {
 	  */
 	    @RequestMapping(method = RequestMethod.GET, value = "/boxClassificationList")
 	   	@ResponseBody
-	   	protected List<BoxClassification> boxTypeList(){
+	   	protected List<BoxClassification> boxClassificationList(){
 			List<BoxClassification> list = boxClassificationService.getAllList();
 	   		return list;
 	   	}	
-	    
+	
        /**
         * 对纸盒类型进行新增和修改操作
         * editBoxClassification:(这里用一句话描述这个方法的作用).
@@ -178,7 +178,15 @@ public class BoxClassificationController {
 		     return boxClassification;
 		 }
 		
-		 
+		 /**
+		  * 通过groupId获取纸盒类型
+		  * getBoxClassifByGroupid:(这里用一句话描述这个方法的作用).
+		  *
+		  * @author cheng
+		  * @param params
+		  * @return
+		  * @since JDK 1.8
+		  */
 		 @RequestMapping(method = RequestMethod.POST, value = "/getBoxClassifByGroupid")
 		 @ResponseBody
 		 private Object  getBoxClassifByGroupid(@Param(value = "params") String params) {

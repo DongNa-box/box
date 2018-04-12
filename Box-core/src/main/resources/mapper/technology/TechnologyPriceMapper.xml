@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.box.technology.dao.TechnologyPriceMapper">
+  <resultMap id="TechnologyPriceResultMap" type="com.box.technology.model.TechnologyPrice">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="color_num" jdbcType="INTEGER" property="colorNum" />
+    <result column="style" jdbcType="VARCHAR" property="style" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="TechnologyPrice_Column_List">
+    id, tid, pid, color_num, style, price, unit, createby, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TechnologyPriceResultMap">
+    select 
+    <include refid="TechnologyPrice_Column_List" />
+    from t_technology_price
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_technology_price
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.box.technology.model.TechnologyPrice">
+    insert into t_technology_price (id, tid, pid, 
+      color_num, style, price, 
+      unit, createby, createtime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{colorNum,jdbcType=INTEGER}, #{style,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{unit,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.box.technology.model.TechnologyPrice">
+    insert into t_technology_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="colorNum != null">
+        color_num,
+      </if>
+      <if test="style != null">
+        style,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="createby != null">
+        createby,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNum != null">
+        #{colorNum,jdbcType=INTEGER},
+      </if>
+      <if test="style != null">
+        #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.box.technology.model.TechnologyPrice">
+    update t_technology_price
+    <set>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNum != null">
+        color_num = #{colorNum,jdbcType=INTEGER},
+      </if>
+      <if test="style != null">
+        style = #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null">
+        createby = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.box.technology.model.TechnologyPrice">
+    update t_technology_price
+    set tid = #{tid,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      color_num = #{colorNum,jdbcType=INTEGER},
+      style = #{style,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      unit = #{unit,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

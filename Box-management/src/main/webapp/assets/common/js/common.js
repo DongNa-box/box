@@ -123,10 +123,11 @@
             } catch (e) {
                 value = null;
             }
-            if (value != undefined && value != null && $.trim(value) != '') {
+            if (value != undefined && value != null && value != NaN && $.trim(value) != '') {
                 var is_radio = elem.type == 'radio', is_ckbox = elem.type == 'checkbox';
                 var is_date = $(elem).data("flag") == "datepicker" || $(elem).data("flag") == "today";
                 var date_format = $(elem).data("format") || "yyyy-MM-dd";
+                var is_file=elem.type=='file';
                 if (is_date)
                     value = formatDate(value, date_format);
                 if (is_radio) {
@@ -151,7 +152,9 @@
                     elem.innerText = value;
                 }else if(elem.tagName.toUpperCase()=='SELECT'){
                     $(elem).val(value);
-                } else {
+                } else if(is_file){
+                	
+                } else{
                     elem.value = value;
                 }
             }

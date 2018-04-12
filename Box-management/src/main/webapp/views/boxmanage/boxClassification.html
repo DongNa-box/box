@@ -220,16 +220,16 @@ $(function(){
 				validators : {
 					notEmpty : {
 						message : '请输入纸盒类型名称'
-					},
-					threshold : 10
-					//remote : {
-					//	url : basePath + "/boxmanage/checkBoxClassNameExists",
-					//	message : '该纸盒类型名已存在',
-					//	delay : 2000,
-					//	type : 'POST'
-					//}
+					}
 				}
-			}
+			},
+			level: {
+				validators : {
+					notEmpty : {
+						message : '请选择纸盒类型级别'
+					}
+				}
+			},
 		},
 
         submitHandler: function (validator, form, submitButton) {
@@ -241,7 +241,6 @@ $(function(){
         	}else{
         		formParams.groupid=groupid1;
         	}
-        	alert(JSON.stringify(formParams));
         	ajaxPost(basePath + "/boxmanage/editBoxClassification", {
         		params:JSON.stringify(formParams)
 			},  function(data){
@@ -262,8 +261,8 @@ $(function(){
 	    	   $("#divgroupid1").hide();
 		       $("#divgroupid2").hide();
 	       }else if(selected=="1"){
+	    	   $("#divgroupid1").show();
 	    	   $("#divgroupid2").hide();
-	           $("#divgroupid1").show();
 	           setSelect('groupid1',null,"0",null);
 	       }else if(selected=="2"){
 	    	   setSelect('groupid1',null,"0",null);
@@ -307,7 +306,6 @@ $(function(){
 		var p=new Object();
 		p.groupid=groupid;
 		p.level=level;
-		alert(JSON.stringify(p));
 	 	ajaxPost("boxmanage/getBoxClassLevelList", {
 	 		params :JSON.stringify(p)
 	 	}, function(data) {
@@ -349,7 +347,7 @@ $(function(){
 	 }
 	 
 	 /**
-	  * 日期格式化处理 yyyy-MM-dd HH:mm:ss
+	  * 纸盒类型级别
 	  * @param value
 	  * @param row
 	  * @param index

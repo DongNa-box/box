@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.box.boxmanage.dao.BoxClassificationMapper;
+
 import com.box.boxmanage.dao.BoxTypeMapper;
 import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
@@ -105,9 +105,36 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 	@Override
 	public List<BoxType> getAllList() {
 
-		List<BoxType> list=boxTypeMapper.selectAll();
+		return null;
+
+	}
+
+	@Override
+	public boolean checkBoxTypeNameExists(String name) {
+		
+		BoxType b=boxTypeMapper.checkBoxTypeNameExists(name);
+		return b==null?false:true;
+
+		
+	}
+
+	@Override
+	public List<Map<String,Object>> boxTypeSearchList(Map<String, Object> map) {
+		
+		
+		List<Map<String,Object>> list=boxTypeMapper.boxTypeSearchList(map);
 		return list;
 
+		
+	}
+
+	@Override
+	public List<Map<String,Object>> getAllBoxTypeList() {
+		
+		List<Map<String,Object>> list=boxTypeMapper.getAllBoxTypeList();
+		return list;
+
+		
 	}
 
 

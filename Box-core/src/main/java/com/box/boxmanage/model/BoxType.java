@@ -18,7 +18,7 @@ public class BoxType implements Serializable {
 
     private String description;
 
-    private String calssid;
+    private String classid;
 
     private String detail1;
 
@@ -34,9 +34,9 @@ public class BoxType implements Serializable {
 
     private Double wmax;
 
-    private Double hwax;
+    private Double hmax;
 
-    private Double lwax;
+    private Double lmax;
 
     private Integer unit;
 
@@ -102,12 +102,12 @@ public class BoxType implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getCalssid() {
-        return calssid;
+    public String getClassid() {
+        return classid;
     }
 
-    public void setCalssid(String calssid) {
-        this.calssid = calssid == null ? null : calssid.trim();
+    public void setClassid(String classid) {
+        this.classid = classid == null ? null : classid.trim();
     }
 
     public String getDetail1() {
@@ -166,20 +166,20 @@ public class BoxType implements Serializable {
         this.wmax = wmax;
     }
 
-    public Double getHwax() {
-        return hwax;
+    public Double getHmax() {
+        return hmax;
     }
 
-    public void setHwax(Double hwax) {
-        this.hwax = hwax;
+    public void setHmax(Double hmax) {
+        this.hmax = hmax;
     }
 
-    public Double getLwax() {
-        return lwax;
+    public Double getLmax() {
+        return lmax;
     }
 
-    public void setLwax(Double lwax) {
-        this.lwax = lwax;
+    public void setLmax(Double lmax) {
+        this.lmax = lmax;
     }
 
     public Integer getUnit() {
@@ -225,7 +225,7 @@ public class BoxType implements Serializable {
             && (this.getPlan() == null ? other.getPlan() == null : this.getPlan().equals(other.getPlan()))
             && (this.getPhy() == null ? other.getPhy() == null : this.getPhy().equals(other.getPhy()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getCalssid() == null ? other.getCalssid() == null : this.getCalssid().equals(other.getCalssid()))
+            && (this.getClassid() == null ? other.getClassid() == null : this.getClassid().equals(other.getClassid()))
             && (this.getDetail1() == null ? other.getDetail1() == null : this.getDetail1().equals(other.getDetail1()))
             && (this.getDetail2() == null ? other.getDetail2() == null : this.getDetail2().equals(other.getDetail2()))
             && (this.getDetail3() == null ? other.getDetail3() == null : this.getDetail3().equals(other.getDetail3()))
@@ -233,8 +233,8 @@ public class BoxType implements Serializable {
             && (this.getHmin() == null ? other.getHmin() == null : this.getHmin().equals(other.getHmin()))
             && (this.getLmin() == null ? other.getLmin() == null : this.getLmin().equals(other.getLmin()))
             && (this.getWmax() == null ? other.getWmax() == null : this.getWmax().equals(other.getWmax()))
-            && (this.getHwax() == null ? other.getHwax() == null : this.getHwax().equals(other.getHwax()))
-            && (this.getLwax() == null ? other.getLwax() == null : this.getLwax().equals(other.getLwax()))
+            && (this.getHmax() == null ? other.getHmax() == null : this.getHmax().equals(other.getHmax()))
+            && (this.getLmax() == null ? other.getLmax() == null : this.getLmax().equals(other.getLmax()))
             && (this.getUnit() == null ? other.getUnit() == null : this.getUnit().equals(other.getUnit()))
             && (this.getCreateby() == null ? other.getCreateby() == null : this.getCreateby().equals(other.getCreateby()))
             && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
@@ -251,7 +251,7 @@ public class BoxType implements Serializable {
         result = prime * result + ((getPlan() == null) ? 0 : getPlan().hashCode());
         result = prime * result + ((getPhy() == null) ? 0 : getPhy().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
-        result = prime * result + ((getCalssid() == null) ? 0 : getCalssid().hashCode());
+        result = prime * result + ((getClassid() == null) ? 0 : getClassid().hashCode());
         result = prime * result + ((getDetail1() == null) ? 0 : getDetail1().hashCode());
         result = prime * result + ((getDetail2() == null) ? 0 : getDetail2().hashCode());
         result = prime * result + ((getDetail3() == null) ? 0 : getDetail3().hashCode());
@@ -259,8 +259,8 @@ public class BoxType implements Serializable {
         result = prime * result + ((getHmin() == null) ? 0 : getHmin().hashCode());
         result = prime * result + ((getLmin() == null) ? 0 : getLmin().hashCode());
         result = prime * result + ((getWmax() == null) ? 0 : getWmax().hashCode());
-        result = prime * result + ((getHwax() == null) ? 0 : getHwax().hashCode());
-        result = prime * result + ((getLwax() == null) ? 0 : getLwax().hashCode());
+        result = prime * result + ((getHmax() == null) ? 0 : getHmax().hashCode());
+        result = prime * result + ((getLmax() == null) ? 0 : getLmax().hashCode());
         result = prime * result + ((getUnit() == null) ? 0 : getUnit().hashCode());
         result = prime * result + ((getCreateby() == null) ? 0 : getCreateby().hashCode());
         result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
@@ -280,16 +280,16 @@ public class BoxType implements Serializable {
         sb.append(", plan=").append(plan);
         sb.append(", phy=").append(phy);
         sb.append(", description=").append(description);
-        sb.append(", calssid=").append(calssid);
+        sb.append(", calssid=").append(classid);
         sb.append(", detail1=").append(detail1);
         sb.append(", detail2=").append(detail2);
         sb.append(", detail3=").append(detail3);
-        sb.append(", wmin=").append(wmin);
+        sb.append(", mmin=").append(wmin);
         sb.append(", hmin=").append(hmin);
         sb.append(", lmin=").append(lmin);
-        sb.append(", wmax=").append(wmax);
-        sb.append(", hwax=").append(hwax);
-        sb.append(", lwax=").append(lwax);
+        sb.append(", mmax=").append(wmax);
+        sb.append(", hmax=").append(hmax);
+        sb.append(", lmax=").append(lmax);
         sb.append(", unit=").append(unit);
         sb.append(", createby=").append(createby);
         sb.append(", createtime=").append(createtime);

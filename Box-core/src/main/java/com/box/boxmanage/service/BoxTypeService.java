@@ -13,6 +13,7 @@ package com.box.boxmanage.service;
 import java.util.List;
 import java.util.Map;
 
+
 import com.box.boxmanage.model.BoxType;
 import com.box.framework.base.service.BaseService;
 
@@ -27,6 +28,12 @@ import com.box.framework.base.service.BaseService;
  * @see 	 
  */
 public interface BoxTypeService extends BaseService<BoxType, String> {
+
+	boolean checkBoxTypeNameExists(String name);
+
+	List<Map<String, Object>> boxTypeSearchList(Map<String, Object> map);
+
+	List<Map<String,Object>> getAllBoxTypeList();
 
 
 }
