@@ -80,8 +80,7 @@ public class LayoutDetailServiceImpl implements LayoutDetailService {
 	@Override
 	public LayoutDetail get(String id) {
 
-		// TODO Auto-generated method stub
-		return null;
+		return layoutDetailMapper.selectByPrimaryKey(id);
 
 	}
 

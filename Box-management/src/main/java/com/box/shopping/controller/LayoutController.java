@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.box.boxmanage.model.BoxType;
+import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.pojo.Result;
 import com.box.framework.security.util.SecurityUtil;
 import com.box.framework.utils.DateUtil;
@@ -40,6 +42,7 @@ import com.box.uums.controller.FunctionController;
 import com.box.uums.model.Role;
 import com.box.uums.model.User;
 import com.box.uums.model.UserRole;
+import com.box.uums.service.UserService;
 
 /**
  * ClassName:LayoutController
@@ -60,6 +63,10 @@ public class LayoutController {
 	 LayoutSizeService layoutSizeService;
 	 @Resource
 	 LayoutDetailService layoutDetailService;
+	 @Resource
+	 UserService userService;
+	 @Resource
+	 BoxTypeService boxTypeService;
 	 @RequestMapping(method = RequestMethod.GET, value = "/detail")
 	    private String detail() {
 	        return "layout/detail";
@@ -89,6 +96,13 @@ public class LayoutController {
 		    	map.put("type", jsonObj.getString("search-type"));
 			}
 	   		list = layoutSizeService.getLayoutSizelist(map);
+	   		for (int i = 0; i < list.size(); i++) {
+	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
+	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
+					list.get(i).put("createby", user.getLoginName());
+					
+				}
+	   		}
 	   		return list;
 	   	}
 	 /**
@@ -167,6 +181,21 @@ public class LayoutController {
 				map.put("ynumber", Integer.valueOf(jsonObj.getString("search-ynumber")));
 	       	}
 	   		list = layoutDetailService.getLayoutDetailList(map);
+	   		for (int i = 0; i < list.size(); i++) {
+	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
+	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
+					list.get(i).put("createby", user.getLoginName());
+					list.get(i).put("userId", user.getLoginName());
+				}
+	   			if (list.get(i).get("boxId")!=null&list.get(i).get("boxId")!="") {
+	   				BoxType boxType = boxTypeService.get(String.valueOf(list.get(i).get("boxId")));
+					list.get(i).put("boxId", boxType.getName());
+				}
+	   			if (list.get(i).get("paperXId")!=null&list.get(i).get("paperXId")!="") {
+	   				LayoutSize size = layoutSizeService.get(String.valueOf(list.get(i).get("boxId")));
+					list.get(i).put("boxId", size.getSize());
+				}
+	   		}
 	   		return list;
 	 }
 }

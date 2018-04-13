@@ -17,6 +17,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,18 +29,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.box.boxmanage.model.BoxType;
+import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.pojo.Result;
 import com.box.framework.security.util.SecurityUtil;
 import com.box.framework.utils.DateUtil;
 import com.box.framework.utils.Sequence;
+import com.box.framework.utils.StrUtil;
 import com.box.shopping.model.LayoutSize;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.model.ShoppingPantone;
 import com.box.shopping.model.ShoppingRate;
 import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingOrderService;
 import com.box.shopping.service.ShoppingPantoneService;
 import com.box.shopping.service.ShoppingRateService;
+import com.box.technology.model.TechnologyDetail;
+import com.box.technology.service.TechnologyDetailService;
 import com.box.uums.controller.FunctionController;
+import com.box.uums.model.User;
+import com.box.uums.service.UserService;
 
 /**
  * ClassName:ShoppingController
@@ -61,6 +71,14 @@ public class ShoppingController {
 	 ShoppingDeatilService shoppingDeatilService;
 	 @Resource
 	 ShoppingPantoneService shoppingPantoneService;
+	 @Resource
+	 UserService userService;
+	 @Resource
+	 BoxTypeService boxTypeService;
+	 @Resource
+	 TechnologyDetailService technologyDetailService;
+	 @Resource
+	 ShoppingOrderService shoppingOrderService;
 	 @RequestMapping(method = RequestMethod.GET, value = "/detail")
 	    private String detail() {
 	        return "shopping/detail";
@@ -95,6 +113,14 @@ public class ShoppingController {
 		    	
 	       	}
 	   		list = shoppingRateService.getRateList(map);
+	   		
+	   		for (int i = 0; i < list.size(); i++) {
+	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
+	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
+					list.get(i).put("createby", user.getLoginName());
+				}
+				
+			}
 	   		return list;
 	   	}
 	 /**
@@ -167,6 +193,13 @@ public class ShoppingController {
 		    	map.put("attr1", jsonObj.getString("search-attr1"));
 	       	}
 	   		list = shoppingPantoneService.getPantoneList(map);
+	   		for (int i = 0; i < list.size(); i++) {
+	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
+	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
+					list.get(i).put("createby", user.getLoginName());
+				}
+				
+			}
 	   		return list;
 	   	}
 	 /**
@@ -227,7 +260,7 @@ public class ShoppingController {
 	  */
 	 @RequestMapping(method = RequestMethod.GET, value = "/detailList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> detailList(@RequestParam String params){
+	   	protected List<Map<String,Object>> detailList(@Param(value = "params") String params){
 		 JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
@@ -247,7 +280,78 @@ public class ShoppingController {
 				
 	   		}
 	   		list = shoppingDeatilService.getShoppingDetailList(map);
+	   		for (int i = 0; i < list.size(); i++) {
+	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
+	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
+					list.get(i).put("createby", user.getLoginName());
+					list.get(i).put("userId", user.getLoginName());
+				}
+	   			if (list.get(i).get("boxId")!=null&list.get(i).get("boxId")!="") {
+	   				BoxType boxType = boxTypeService.get(String.valueOf(list.get(i).get("boxId")));
+					list.get(i).put("boxId", boxType.getName());
+				}
+	   			if (list.get(i).get("pricePaperId")!=null&list.get(i).get("pricePaperId")!="") {
+	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("pricePaperId")));
+					list.get(i).put("pricePaperId", te.getName());
+				}
+	   			if (list.get(i).get("paperGramsId")!=null&list.get(i).get("paperGramsId")!="") {
+	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("paperGramsId")));
+					list.get(i).put("paperGramsId", te.getName());
+				}
+	   			if (list.get(i).get("printColorId")!=null&list.get(i).get("printColorId")!="") {
+	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("printColorId")));
+					list.get(i).put("printColorId", te.getName());
+				}
+	   			if (list.get(i).get("surfaceTreatmentId")!=null&list.get(i).get("surfaceTreatmentId")!="") {
+	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("surfaceTreatmentId")));
+					list.get(i).put("surfaceTreatmentId", te.getName());
+				}
+	   			if (list.get(i).get("receiveAreaId")!=null&list.get(i).get("receiveAreaId")!="") {
+	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("receiveAreaId")));
+					list.get(i).put("receiveAreaId", te.getName());
+				}
+				
+			}
 	   		return list;
+	 }
+	 /**
+	  * 查询订单列表
+	  * orderList:(这里用一句话描述这个方法的作用).
+	  *
+	  * @author luowen
+	  * @param params
+	  * @return
+	  * @since JDK 1.8
+	  */
+	 @RequestMapping(method = RequestMethod.GET, value = "/orderList")
+	   	@ResponseBody
+	   	protected List<Map<String,Object>> orderList(@Param(value = "params") String params){
+		 JSONObject jsonObj = JSONObject.parseObject(params);
+	   		Map<String,Object> map = new HashMap<String,Object>();
+	   		List<Map<String,Object>> list = null;
+	   		if(jsonObj!=null ){
+	   			map.put("shoppingId", jsonObj.getString("search-shoppingId"));
+		    	map.put("orderStatus", jsonObj.getString("search-orderStatus"));
+	   		}
+	   		list = shoppingOrderService.getShoppingOrderList(map);
+	   		return list;
+	 }
+	 /**
+	  * 删除订单
+	  * deleteOrder:(这里用一句话描述这个方法的作用).
+	  *
+	  * @author luowen
+	  * @param ids
+	  * @return
+	  * @since JDK 1.8
+	  */
+	 @RequestMapping(method = RequestMethod.POST, value = "/deleteOrder")
+	    @ResponseBody
+	    private Result deleteOrder(@Param(value = "ids")String ids) {
+		 List<String> list = JSON.parseArray(ids, String.class);
+	    	boolean result = shoppingOrderService.batchDeleteById(list);
+	    	return result ? new Result(true,"删除成功") : new Result(false,"删除失败");
+	    
 	 }
 }
 

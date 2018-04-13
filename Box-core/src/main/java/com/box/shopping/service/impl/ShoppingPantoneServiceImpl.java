@@ -81,7 +81,7 @@ public class ShoppingPantoneServiceImpl implements ShoppingPantoneService {
 	public ShoppingPantone get(String id) {
 
 		// TODO Auto-generated method stub
-		return null;
+		return shoppingPantoneMapper.selectByPrimaryKey(id);
 
 	}
 

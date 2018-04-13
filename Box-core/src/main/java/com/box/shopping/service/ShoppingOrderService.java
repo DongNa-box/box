@@ -10,6 +10,9 @@
 
 package com.box.shopping.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.box.framework.base.service.BaseService;
 import com.box.shopping.model.ShoppingOrder;
 
@@ -24,6 +27,8 @@ import com.box.shopping.model.ShoppingOrder;
  * @see 	 
  */
 public interface ShoppingOrderService extends BaseService<ShoppingOrder, String> {
+
+	List<Map<String, Object>> getShoppingOrderList(Map<String, Object> map);
 
 }
 

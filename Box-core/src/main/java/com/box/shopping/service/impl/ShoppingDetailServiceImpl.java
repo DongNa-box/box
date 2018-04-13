@@ -122,7 +122,7 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	public ShoppingDetail get(String id) {
 
 		// TODO Auto-generated method stub
-		return null;
+		return shoppingDetailMapper.selectByPrimaryKey(id);
 
 	}
 

@@ -82,7 +82,7 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 	public ShoppingRate get(String id) {
 
 		// TODO Auto-generated method stub
-		return null;
+		return shoppingRateMapper.selectByPrimaryKey(id);
 
 	}
 

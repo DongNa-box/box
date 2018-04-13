@@ -83,7 +83,7 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 	public LayoutSize get(String id) {
 
 		// TODO Auto-generated method stub
-		return null;
+		return layoutSizeMapper.selectByPrimaryKey(id);
 
 	}
 
