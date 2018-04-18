@@ -283,5 +283,4 @@ function jsGetAge(strBirthday) {
 	return nbDay.getTime()<=nDay.getTime()?age:--age;
 }
 
-
-}	
+}
