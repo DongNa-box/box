@@ -15,16 +15,37 @@
   <sql id="TechnologyPrice_Column_List">
     id, tid, pid, color_num, style, price, unit, createby, createtime
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TechnologyPriceResultMap">
     select 
     <include refid="TechnologyPrice_Column_List" />
     from t_technology_price
     where id = #{id,jdbcType=VARCHAR}
   </select>
+ 
+   <select id="getAllPriceList" parameterType="java.lang.String" resultType="map">
+   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname  from t_technology_price a
+   left join t_technology_detail b
+   on a.tid=b.id
+   left join t_technology_detail c
+   on a.pid=c.id
+   left join t_technology_detail d
+   on a.style=d.id
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_technology_price
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  
+  <delete id="batchDeleteByIds" parameterType="java.lang.String">
+    delete from t_technology_price
+     where id in
+     <foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  </delete>
+   
   <insert id="insert" parameterType="com.box.technology.model.TechnologyPrice">
     insert into t_technology_price (id, tid, pid, 
       color_num, style, price, 
@@ -134,8 +155,6 @@
       style = #{style,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       unit = #{unit,jdbcType=VARCHAR},
-      createby = #{createby,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

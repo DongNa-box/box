@@ -32,11 +32,7 @@ public interface TechnologyDetailService extends BaseService<TechnologyDetail, S
 
 	List<Map<String, Object>> technologyDetailSearchList(Map<String, Object> map);
 
-	List<TechnologyDetail> getTechnologyByLevel(String level);
-
 	List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map);
-
-	TechnologyDetail getTechnologyByParentid(String groupid);
 
 	List<Map<String, Object>> getAllTechnologyList();
 

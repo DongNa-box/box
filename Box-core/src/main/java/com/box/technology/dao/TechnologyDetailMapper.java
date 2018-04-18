@@ -12,8 +12,6 @@ public interface TechnologyDetailMapper extends BaseMapper<TechnologyDetail,Stri
 
 	TechnologyDetail checkTechnologyDetailNameExists(String name);
 
-	List<TechnologyDetail> getTechnologyByLevel(String level);
-
 	List<TechnologyDetail> getTechnologyByParentLevel(@Param("map") Map<String, Object> map);
 
 	List<Map<String,Object>> getAllTechnologyList();

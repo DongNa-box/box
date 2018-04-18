@@ -11,6 +11,7 @@
 package com.box.technology.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -64,8 +65,8 @@ public class TechnologyPriceServiceImpl implements TechnologyPriceService {
 	@Override
 	public boolean batchDeleteById(List<String> records) {
 
-		// TODO Auto-generated method stub
-		return false;
+		int row=technologyPriceMapper.batchDeleteByIds(records);
+		return row>0?true:false;
 
 	}
 
@@ -107,6 +108,21 @@ public class TechnologyPriceServiceImpl implements TechnologyPriceService {
 		// TODO Auto-generated method stub
 		return null;
 
+	}
+
+	@Override
+	public List<Map<String, Object>> technologyPriceSearchList(Map<String, Object> map) {
+		
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllPriceList() {
+
+		List<Map<String, Object>> list=technologyPriceMapper.getAllPriceList();
+		return list;
 	}
 
 }

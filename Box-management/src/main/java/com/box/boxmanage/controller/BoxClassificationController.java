@@ -54,7 +54,7 @@ public class BoxClassificationController {
 	 BoxClassficationService boxClassificationService;
 	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/boxClassification")
-	 protected String user() {
+	 protected String boxClassification() {
 	     return "boxmanage/boxClassification";
      }
 	   

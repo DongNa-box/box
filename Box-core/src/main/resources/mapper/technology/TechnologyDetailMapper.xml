@@ -29,18 +29,21 @@
     where name = #{name,jdbcType=VARCHAR}
   </select>
   
-   <select id="getTechnologyByLevel" parameterType="java.lang.String" resultMap="TechnologyDetailResultMap">
-    select 
-    <include refid="TechnologyDetail_Column_List" />
-    from t_technology_detail
-    where level = #{level,jdbcType=VARCHAR}
-  </select>
   
    <select id="getTechnologyByParentLevel" parameterType="java.util.Map" resultMap="TechnologyDetailResultMap">
     select 
     <include refid="TechnologyDetail_Column_List" />
     from t_technology_detail
-    where parentId= #{map.groupid,jdbcType=VARCHAR} and level = #{map.level,jdbcType=VARCHAR} 
+    <where>
+    level = #{map.level,jdbcType=VARCHAR} 
+     <if test="map.cname !=null and map.cname !=''">
+      and cname= #{map.cname,jdbcType=VARCHAR}
+    </if>
+    <if test="map.groupid !=null and map.groupid !=''">
+      and parentId= #{map.groupid,jdbcType=VARCHAR}
+    </if>
+    </where>
+      
   </select>
   
     

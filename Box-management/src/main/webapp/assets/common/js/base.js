@@ -215,98 +215,7 @@ function operateFormatter(value, row, index) {
 	}	
 }
 
-/**
- * 显示格式化
- * @param value
- * @param row
- * @param index
- * @returns
- */
-function adStatusFormatter(value, row, index) {
-	if (value != undefined && value != null && $.trim(value) != '') {
-		if(value == '1'){
-			return "待上传";
-		}else if(value=='2'){
-			return "待审核";
-		}else if(value=='3'){
-			return "待上线";
-		}else if(value=='4'){
-			return "已上线";
-		}else if(value=='5'){
-			return "已下线";
-		}
-	}else{
-		return value;
-	}	
-}
 
-/**
- *  门口机类型格式化
- * @param value
- * @param row
- * @param index
- * @returns
- */
-function entranceTypeFormatter(value, row, index){
-	if(value != undefined && value != null && $.trim(value) != ''){	
-	   if(value=="1"){
-			return "单元机";
-		}	
-       if(value=="2"){
-			return "围墙机";
-		}
-	}else{
-		return value;
-	}			
-}
-
-/**
- * 显示格式化
- * @param value
- * @param row
- * @param index
- * @returns
- */
-function configStatusFormatter(value, row, index) {
-	if (value != undefined && value != null && $.trim(value) != '') {
-		if(value == '1'){
-			return "未执行";
-		}else if(value=='2'){
-			return "执行中";
-		}else if(value=='3'){
-			return "执行完成";
-		}else if(value=='4'){
-			return "成功";
-		}else if(value=='5'){
-			return "失败";
-		}
-	}else{
-		return value;
-	}	
-}
-
-/**
- *  门类型格式化
- * @param value
- * @param row
- * @param index
- * @returns
- */
-function DoorTypeFormatter(value, row, index){
-	if(value != undefined && value != null && $.trim(value) != ''){	
-	   if(value=="1"){
-			return "社区门";
-		}	
-       if(value=="2"){
-				return "单元门";
-		}
-       if(value=="3"){
-			return "电梯门";
-		}
-	}else{
-		return value;
-	}			
-}
 
 /*
  * 性别格式化
@@ -323,22 +232,6 @@ function sexFormatter(value, row, index) {
 	}	
 }
 
-/*
- * 状态格式化
- */
-/**
-function statusFormatter(value, row, index) {
-	if (value != undefined && value != null && $.trim(value) != '') {
-		if(value == '1'){
-			return '启用';
-		}else{
-			return '禁用';
-		}
-	}else{
-		return value;
-	}	
-}
-*/
 /*
  * 格式化表格时间
  */
@@ -379,8 +272,7 @@ function userTypeFormatter(value, row, index) {
 		return value;
 	}	
 }
-
-	
+ 
 
 function jsGetAge(strBirthday) {
 	var bDay = new Date(strBirthday),
@@ -391,147 +283,5 @@ function jsGetAge(strBirthday) {
 	return nbDay.getTime()<=nDay.getTime()?age:--age;
 }
 
-/**
- * 设置子社区下拉列表
- * @param selectid
- * @returns
- */
-function setSelect(selectid,communityid){
-	ajaxPost("cams/getChildSelectList", {
-		params : communityid
-	}, function(data) {
-		var $select = $('#'+selectid);  
-		$select.empty();
-		if(data.length==0){
-			 $select.val("");
-		}
-		if(data.length>0){
-			 $select.append('<option value="">请选择...</option>'); 
-		}
-		for(var i=0, len = data.length;i<len;i++){ 
-		  var c=data[i];
-		  var cid=c.communityId;
-		  var cname=c.communityName;
-		   $select.append('<option value="'+cid+'">'+cname+'</option>');  
-		} 
-	});
-}
-/**
- * 设置楼栋下拉列表
- * @param selectid
- * @returns
- */
-function setBanSelect(selectid,communityid){
-	ajaxPost("cams/getBanSelectList", {
-		params : communityid
-	}, function(data) {
-		var $select = $('#'+selectid); 
-		$select.empty();
-		if(data.length>0){
-			 $select.append('<option value="">请选择...</option>'); 
-		}
-		for(var i=0, len = data.length;i<len;i++){ 
-		  var c=data[i];
-		  var cname=c.banName;
-		   $select.append('<option value="'+cname+'">'+cname+'</option>');
-		}  
-	});
-}
-/**
- * 设置单元下来列表
- * @param selectid
- * @returns
- */
-function setCellSelect(selectid,communityid){
-	ajaxPost("cams/getCellSelectList", {
-		params : communityid
-	}, function(data) {
-		var $select = $('#'+selectid); 
-		$select.empty();
-		if(data.length>0){
-			 $select.append('<option value="">请选择...</option>'); 
-		}
-		for(var i=0, len = data.length;i<len;i++){ 
-		  var c=data[i];
-		  var cname=c.cellName;
-		   $select.append('<option value="'+cname+'">'+cname+'</option>');  
-		}  
-	});
-}
-	
-	/**
-	 * 设置门下拉列表
-	 * @param selectid
-	 * @returns
-	 */
-	function setDoorSelect(selectid,communityid){
-		ajaxPost("cams/getDoorSelectList", {
-			params : communityid
-		}, function(data) {
-			var $select = $('#'+selectid); 
-			$select.empty();
-			if(data.length>0){
-				 $select.append('<option value="">请选择...</option>'); 
-			}
-			for(var i=0, len = data.length;i<len;i++){ 
-			  var c=data[i];
-			  var dname=c.doorName;
-			   $select.append('<option value="'+dname+'">'+dname+'</option>');  
-			}  
-		});
-    }
-	
-	/**
-	 * 省市区街道的初始加载
-	 * @param selectid
-	 * @param selectname
-	 * @returns
-	 */
-	function loadcitys(id,areaid,townid){
-		var $town=$("#"+townid);
-		var townFormat = function(info) {
-			$town.empty();
-			$town.append('<option value="">请选择...</option>');
-			/**
-			if(info.code==0){
-				//$town.empty();
-			    $town.append('<option value="">请选择...</option>');
-			}*/
-			/**
-			var code=$("#"+areaid).find("option:selected").val();
-			var area=$("#"+areaid).find("option:selected").text();
-			alert(code);
-		    if(code!='' && typeof(code)!="undefined"){
-		    	info.code=code;
-		    	info.area=area;
-		    }
-		    */
-			if (info['code'] % 1e4 && info['code'] < 7e6) { //是否为“区”且不是港澳台地区
-				$.ajax({
-					url : basePath + '/assets/common/json/citys/town/'
-							+ info['code'] + '.json',
-					dataType : 'json',
-					success : function(town) {
-						//$town.empty();
-						$town.show();
-						//$town.append('<option value="">请选择...</option>');
-						for (i in town) {
-							$town.append('<option value="'+i+'">' + town[i] + '</option>');
-						}
-					}
-				});
-			}
-		};
-		$('#'+id).citys({
-			required:false,
-			nodata:'disabled',
-			onChange : function(info) {
-				townFormat(info);
-			}
-		}, function(api) {
-			var info = api.getInfo();
-			townFormat(info);
-		});
-	}
-	
+
 }	
