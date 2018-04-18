@@ -13,7 +13,6 @@ package com.box.boxmanage.controller;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +62,7 @@ public class BoxTypeController {
 	   BoxTypeService boxTypeService;
 	 
 	   @RequestMapping(method = RequestMethod.GET, value = "/boxType")
-	   protected String user() {
+	   protected String boxType() {
 	     return "boxmanage/boxType";
        }
 	   

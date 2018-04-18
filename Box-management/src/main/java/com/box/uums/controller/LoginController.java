@@ -79,27 +79,29 @@ public class LoginController {
 	        if (subject != null && subject.isAuthenticated()) {
 	        	
 	        	subject.getSession().setAttribute("user", SecurityUtil.getUser());
-	        	 User user1 = userService.get(SecurityUtil.getUser().getId());
-                 user1.setLoginCount(user1.getLoginCount()+1);
-                 user1.setLastLoginTime(DateUtil.getCurrDate());
-                 if (userService.update(user1)) {
-	        	Login login = new Login();
-	        	login.setLoginId(subject.getSession().getId().toString());
-	        	login.setUserId(SecurityUtil.getUser().getId());
-	        	login.setLoginTime(DateUtil.getCurrDate());
-	        	try {
-					login.setLoginIp(NetworkUtil.getIpAddress(request));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	        	loginService.save(login);
+//	        	 User user1 = userService.get(SecurityUtil.getUser().getId());
+//                 user1.setLoginCount(user1.getLoginCount()+1);
+//                 user1.setLastLoginTime(DateUtil.getCurrDate());
+//                 if (userService.update(user1)) {
+//                	 //查询loginid是否和sessionid相同，相同则只进行更新，不同的就插入
+//	        	Login login = new Login();
+//	        	login.setLoginId(subject.getSession().getId().toString());
+//	        	login.setUserId(SecurityUtil.getUser().getId());
+//	        	login.setLoginTime(DateUtil.getCurrDate());
+//	        	try {
+//					login.setLoginIp(NetworkUtil.getIpAddress(request));
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//	        	loginService.save(login);
 	        	return MAIN_PAGE;
-                 }else {
-                	 return LOGIN_PAGE;
-				}
+	        }
+//                 }else {
+//                	 return LOGIN_PAGE;
+//				}
 	    		
 	            
-	        }
+	       // }
 	        String userName = request.getParameter("userName");
 	        System.out.println("用户名："+userName);
 	        //默认首页，第一次进来
@@ -194,7 +196,7 @@ public class LoginController {
 	    private String doLogout(Model model) {
 	        Subject subject = SecurityUtils.getSubject();
 	        Login login = new Login();
-	        login.setLoginId(subject.getSession().getId().toString());
+	        login.setLoginId(subject.getSession().getId().toString()); 
 	        login.setLoginoutTime(DateUtil.getCurrDate());
 	        loginService.update(login);
 	        subject.logout();

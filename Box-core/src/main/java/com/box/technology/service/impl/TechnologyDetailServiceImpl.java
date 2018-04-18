@@ -83,8 +83,8 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 	@Override
 	public TechnologyDetail get(String id) {
 
-		// TODO Auto-generated method stub
-		return null;
+		TechnologyDetail b=technologyDetailMapper.selectByPrimaryKey(id);
+		return b;
 
 	}
 
@@ -129,25 +129,10 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 	}
 
 	@Override
-	public List<TechnologyDetail> getTechnologyByLevel(String level) {	
-		
-		List<TechnologyDetail> list=technologyDetailMapper.getTechnologyByLevel(level);
-		return list;		
-	}
-
-	@Override
 	public List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map) {
 		
 		List<TechnologyDetail> list=technologyDetailMapper.getTechnologyByParentLevel(map);
 		return list;
-		
-	}
-
-	@Override
-	public TechnologyDetail getTechnologyByParentid(String groupid) {
-		
-		// TODO Auto-generated method stub
-		return null;
 		
 	}
 

@@ -2,7 +2,7 @@
 <section class="content">
 
 		<div class="box box-primary">
-	        <form id="technologyDetail-search-form" action="" class="form-horizontal" method="post">
+	        <form id="technologyPrice-search-form" action="" class="form-horizontal" method="post">
 	        <div class="box-body">
 	          	<div class="col-sm-4">
 		          	<div class="form-group">
@@ -41,7 +41,7 @@
 	        <!-- /.box-body -->
 	        <div class="box-footer">
 	        	<div class="row">
-	          	<div id="technologyDetailbar" class="btn-toolbar">
+	          	<div id="technologyPricebar" class="btn-toolbar">
 					<div class="btn-group pull-left">
 						<button type="button" data-btn-type="add" class="btn btn-success"><i class="fa fa-plus"></i>新增</button>
 						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>编辑</button>
@@ -56,14 +56,16 @@
 				</div>
 				</div>
 				<div class="row">
-					<table id="technologyDetail-table" data-toggle="table" data-url="technology/technologyDetailList" data-toolbar="#technologyDetailbar" data-pagination="true" data-search="false"
+					<table id="technologyPrice-table" data-toggle="table" data-url="technology/technologyPriceList" data-toolbar="#technologyPricebar" data-pagination="true" data-search="false"
 						data-striped="true" data-show-export="true" data-page-size="10" data-click-to-select="true">
 						<thead>
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
-								<th data-align="center" data-field="name" data-sortable="true">工艺名称</th>
-								<th data-align="center" data-field="cname" data-sortable="true" data-formatter="formatterCname">工艺类型</th>
-								<th data-align="center" data-field="description" data-sortable="true">工艺描述</th>
+								<th data-align="center" data-field="tname" data-sortable="true">工艺名称</th>
+								<th data-align="center" data-field="pname" data-sortable="true">工艺类型</th>
+								<th data-align="center" data-field="sname" data-sortable="true">纸质</th>
+								<th data-align="center" data-field="price" data-sortable="true">工艺价格</th>
+								<th data-align="center" data-field="unit" data-sortable="true">单位</th>
 								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
 						</thead>
@@ -75,16 +77,16 @@
 </section>
 
 <!-- 新增弹窗 -->
-<div class="modal fade col-xs-12" id="modal-technologyDetail" aria-labelledby="modalTechnologyDetailLabel" aria-hidden="true">
+<div class="modal fade col-xs-12" id="modal-technologyPrice" aria-labelledby="modaltechnologyPriceLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="technologyDetail-form" method="post">
+			<form class="form-horizontal" action="" id="technologyPrice-form" method="post">
 				<input type="hidden" id="flag" name="flag">
 				<input type="hidden" id="id" name="id">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="modalTechnologyDetailLabel"></h4>
+					<h4 class="modal-title" id="modaltechnologyPriceLabel"></h4>
 				</div>
 				<div class="modal-body">
 				
@@ -98,18 +100,7 @@
 							</select>
 						</div>
 					</div>
-					
-				   <div class="form-group">
-						<label class="col-sm-4 control-label">工艺级别<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="level" id="level" class="form-control">
-								<option value="0" selected="selected">第0级</option>
-								<option value="1">第1级</option>
-								<option value="2">第2级</option>
-							</select>
-						</div>
-					</div>
-					
+
 					<div class="form-group"  id="divgroupid1" style="display:none">
 						<label class="col-sm-5 control-label">工艺类型第0级<span style="color: red;">*</span></label>
 						<div class="col-sm-7">
@@ -123,34 +114,42 @@
 							<select id="groupid2"  class="form-control"> </select>
 						</div>
 					</div>
+						
+					<div class="form-group"  id="divgroupid3" style="display:none">
+						<label class="col-sm-5 control-label">工艺类型第2级<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
+							<select id="groupid3"  class="form-control"> </select>
+						</div>
+					</div>
 					
+					<div class="form-group"  id="divgroupid4" style="display:none">
+						<label class="col-sm-5 control-label">工艺类型第3级<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
+							<select id="style"  name="style" class="form-control"> </select>
+						</div>
+					</div>
                     <div class="form-group">
-						<label class="col-sm-4 control-label">工艺名称<span style="color: red;">*</span></label>
+						<label class="col-sm-4 control-label">工艺价格<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="name" name="name" type="text" class="form-control"
-								placeholder="请输入工艺名称">
+							<input id="price" name="price" type="text" class="form-control"
+								placeholder="请输入工艺价格">
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-4 control-label">工艺描述<span style="color: red;">*</span></label>
+						<label class="col-sm-4 control-label">单位<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="description" name="description" type="text" class="form-control"
-								placeholder="请输入工艺类型名称">
-						</div>
-					</div>
-            					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">是否有效<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="enabled" id="enabled" class="form-control"> 
-							  <option value="1" selected="selected">有效</option>
-							  <option value="0">无效</option>
+						    <select name="unit" id="unit" class="form-control"> 
+							  <option value="">--请选择--</option>
+							  <option value="元">元</option>
+							  <option value="元/吨">元/吨</option>
+							  <option value="元/令">元/令</option>
+							  <option value="元/色令">元/色令</option>
+							  <option value="元/平方米">元/平方米</option>
 							</select>
 						</div>
 					</div>
-					
-					
+
             	  <div class="modal-footer">
 						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
@@ -163,26 +162,32 @@
 
 
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
+
 
 <script type="text/javascript">
 $(function(){
-	technologyDetailForm = $("#technologyDetail-form").form();
-	technologyDetailSearchForm = $("#technologyDetail-search-form").form();
+	technologyPriceForm = $("#technologyPrice-form").form();
+	technologyPriceSearchForm = $("#technologyPrice-search-form").form();
 	setSelect('search-type',null,"0",null);
+	
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
-		var selected = $('#technologyDetail-table').bootstrapTable('getSelections');
+		var selected = $('#technologyPrice-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		case 'add':
 			resetForm();
 			$("#flag").val("1");
-			$("#modalTechnologyDetailLabel").text("新增工艺类型");
-			$('#modal-technologyDetail').modal('toggle');
+			$("#modaltechnologyPriceLabel").text("新增工艺类型");
+			$('#modal-technologyPrice').modal('toggle');
 			$('#level').val('0');
 			$('#enabled').val('1');
 			$("#divgroupid1").hide();
 		    $("#divgroupid2").hide();
+		    $("#divgroupid3").hide();
+		    $('#divgroupid4').hide();
+		    $("#groupid3").empty();
 		    $('#saveBtn').show();
 			break;
 		case 'edit':
@@ -194,9 +199,12 @@ $(function(){
 			$("#flag").val("2");
 			$("#divgroupid1").hide();
 	    	$("#divgroupid2").hide();
-			$("#modalTechnologyDetailLabel").text("编辑工艺类型");
-			$("#modal-technologyDetail").modal("toggle");
-			technologyDetailForm.initFormData(selected[0]);
+	    	$("#divgroupid3").hide();
+	    	$('#divgroupid4').hide();
+	        $("#groupid3").empty();
+			$("#modaltechnologyPriceLabel").text("编辑工艺类型");
+			$("#modal-technologyPrice").modal("toggle");
+			technologyPriceForm.initFormData(selected[0]);
 			setScanSelect(selected[0]);
 			$('#saveBtn').show();
 		   	break;
@@ -209,9 +217,12 @@ $(function(){
 			$("#flag").val("2");
 			$("#divgroupid1").hide();
 	    	$("#divgroupid2").hide();
-			$("#modalTechnologyDetailLabel").text("查看");
-			$("#modal-technologyDetail").modal("toggle");
-			technologyDetailForm.initFormData(selected[0]);
+	    	$("#divgroupid3").hide();
+	    	$('#divgroupid4').hide();
+	        $("#groupid3").empty();
+			$("#modaltechnologyPriceLabel").text("查看");
+			$("#modal-technologyPrice").modal("toggle");
+			technologyPriceForm.initFormData(selected[0]);
 			setScanSelect(selected[0]);
 			$('#saveBtn').hide();
 		   	break;
@@ -222,29 +233,29 @@ $(function(){
 			}
 			layer.confirm("是否要删除该行数据？",function(){
 				var rowIds = getIdSelections();
-				ajaxPost(basePath + "/technology/deleteTechnologyDetail", {
+				ajaxPost(basePath + "/technology/deleteTechnologyPrice", {
 					techIds:JSON.stringify(rowIds)
 				}, function(data){
 					layer.msg(data.code, {
 						icon : 1,
 						time : 1500,
 				});
-					$('#technologyDetail-table').bootstrapTable('remove', { field: 'id', values: rowIds});
+					$('#technologyPrice-table').bootstrapTable('remove', { field: 'id', values: rowIds});
 				});
 				return true;
 			})
 			break;
 		case 'search':
-			var formParams = $("#technologyDetail-search-form").serializeJSON();
-			ajaxGet(basePath + "/technology/technologyDetailSearchList", {
+			var formParams = $("#technologyPrice-search-form").serializeJSON();
+			ajaxGet(basePath + "/technology/technologyPriceSearchList", {
 				params:JSON.stringify(formParams)
 			}, function(data) {
-				$('#technologyDetail-table').bootstrapTable('load',data);
+				$('#technologyPrice-table').bootstrapTable('load',data);
 			});	
 			break;
 		case 'reset':
-			technologyDetailSearchForm.clearForm();
-			$('#technologyDetail-table').bootstrapTable('refresh');
+			technologyPriceSearchForm.clearForm();
+			$('#technologyPrice-table').bootstrapTable('refresh');
 			break;
 
 		}
@@ -253,7 +264,7 @@ $(function(){
 	//-------------button event end----------------
 	
 	//-------------Validator from begin----------------
-	$("#technologyDetail-form").bootstrapValidator({
+	$("#technologyPrice-form").bootstrapValidator({
 		message : '请输入有效值',
 		feedbackIcons : {
 			valid : 'glyphicon glyphicon-ok',
@@ -261,20 +272,6 @@ $(function(){
 			validating : 'glyphicon glyphicon-refresh'
 		},
 		fields : {
-			name : {
-				validators : {
-					notEmpty : {
-						message : '请输入工艺类型名称'
-					},
-					threshold : 10,
-					//remote : {
-					//	url : basePath + "/technology/checkTechnologyDetailNameExists",
-					//	message : '工艺名称已存在',
-					//	delay : 2000,
-					//	type : 'POST'
-					//}
-				}
-			},
 			cname : {
 				validators : {
 					notEmpty : {
@@ -295,94 +292,105 @@ $(function(){
          	var formParams = form.serializeJSON();
          	var groupid1=$('#groupid1').val();
         	var groupid2=$('#groupid2').val();
-        	if(groupid2!=null&& groupid2!=""){
-        		formParams.parentId=groupid2;
+        	var groupid3=$('#groupid3').val();
+        	if(groupid3!=null && groupid3!=""){
+        		formParams.pid=groupid2;
+        		formParams.tid=groupid3;
         	}else{
-        		formParams.parentId=groupid1;
+        		formParams.pid=groupid1;
+        		formParams.tid=groupid2;
         	}
-        	ajaxPost(basePath + "/technology/editTechnologyDetail", {
+            //console.log(JSON.stringify(formParams));
+        	ajaxPost(basePath + "/technology/editTechnologyPrice", {
         		params:JSON.stringify(formParams)
 			},  function(data){
-				$('#modal-technologyDetail').modal('hide');
+				$('#modal-technologyPrice').modal('hide');
 				layer.msg(data.code, {
 					icon : 1,
 					time : 1500,
 				});
-				$('#technologyDetail-table').bootstrapTable('refresh');
+				$('#technologyPrice-table').bootstrapTable('refresh');
         	});
         }
 	});
 	//-------------Validator from end----------------
 
-	 $("#level").change(function(){
-		 var selected=$(this).children('option:selected').val()
-		   if(selected=="0"){
-	    	   $("#divgroupid1").hide();
-		       $("#divgroupid2").hide();
-	       }else if(selected=="1"){   
+	 $("#cname").change(function(){
+		 var selected=$(this).children('option:selected').val();
+           if(selected!=""){ 
+        	   //纸质
 	           $("#divgroupid1").show();
-	           $("#divgroupid2").hide();
-	           setSelect('groupid1',null,"0",null);
-	       }else if(selected=="2"){
-	    	   setSelect('groupid1',null,"0",null);
-	    	   $("#divgroupid1").show();
-		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null);
-		 	   $("#divgroupid2").show();
-	       }
+	           $("#divgroupid2").show();
+	           setSelect('groupid1',null,"0",null,null);
+	           setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null,null);//再加一个cname的参数
+           }
 	   });
 	
 	 $("#groupid1").change(function(){
-	       var selected=$(this).children('option:selected').val()
-	       var level=$('#level').val();
-	       if(selected!="" && level=="2"){
-	        setSelect('groupid2',selected,"1",null);
+	       var selected=$(this).children('option:selected').val();
+	       var name=$(this).children('option:selected').text();//groupid1的值     
+	       if(selected!=""){
+	    	$("#divgroupid3").hide();
+	        $("#divgroupid4").hide();
+	        setSelect('groupid2',selected,"1",null,null);
 	        $("#divgroupid2").show();
 	       }
 	 });
-
+	 $("#groupid2").change(function(){
+	       var selected=$(this).children('option:selected').val();
+	       var name=$("#groupid1").children('option:selected').text();//groupid1的值
+	       var cname=$("#cname").val();
+	       if(selected!=""&&name=="印刷颜色"){
+	        setSelect('groupid3',selected,"2",cname,null);
+	        setSelect('style',null,"1","1",null);
+	        $('#divgroupid4').show();
+	       }
+	 });
+	
 });
 
-   
+    
+    
 	function resetForm(){
-		technologyDetailForm.clearForm();
-		$("#technologyDetail-form").data('bootstrapValidator').resetForm();
+		technologyPriceForm.clearForm();
+		$("#technologyPrice-form").data('bootstrapValidator').resetForm();
 	}
 	
 	/*
 	 * 得到所有选中行
 	 */
 	function getIdSelections() {
-		return $.map($('#technologyDetail-table').bootstrapTable('getSelections'),function(row) {
+		return $.map($('#technologyPrice-table').bootstrapTable('getSelections'),function(row) {
 				return row.id;
 		});
 	}
-
+	 
 	 function setScanSelect(selected){
-		if(selected.level==1){
+		 console.log(selected);
+		//if(selected.cname==1){
 			$("#divgroupid1").show();
-			setSelect('groupid1',null,"0",selected.parentId);
-		}else if(selected.level==2){
-			$("#divgroupid1").show();
-			$("#divgroupid2").show();
+			setSelect('groupid1',null,"0",null,selected.pid);
+	        $("#divgroupid2").show();
+	        setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null,selected.tid);
 			//通过1级id查0级id
-			ajaxPost(basePath + "/technology/getTechnologyByParentid", {
-	        	params:JSON.stringify(selected.parentId)
-			},  function(data){
-				setSelect('groupid1',null,"0",data.parentId);
-				setSelect('groupid2',data.parentId,"1",selected.parentId);
-	        });
-		}
+			//ajaxPost(basePath + "/technology/getBoxClassifByGroupid", {
+	       // 	params:JSON.stringify(selected.groupid)
+			//},  function(data){
+			//	setSelect('groupid1',null,"0",data.id);
+			//	setSelect('groupid2',data.id,"1",selected.groupid);
+	       // });
+		//}
 	 }
 	 /**
 	  * 设置类型级别为0级的下拉列表
 	  * @param selectid
 	  * @returns
 	  */
-	 function setSelect(selectid,groupid,level,value){
+	 function setSelect(selectid,groupid,level,cname,value){
 	 	var p=new Object();
 	 	p.groupid=groupid;
 	 	p.level=level;
-	 	
+	 	p.cname=cname;
 	 	ajaxPost("technology/getTechonolgyLevelList", {
 	 		params :JSON.stringify(p)
 	 	}, function(data) {
@@ -390,9 +398,10 @@ $(function(){
 	 		$select.empty();
 	 		if(data.length==0){
 	 			 $select.val("");
+	 			$("#divgroupid3").hide();
 	 		}
 	 		if(data.length>0){
-	 			 $select.append('<option value="" >--请选择--</option>'); 
+	 			 $select.append('<option value="">请选择...</option>'); 
 	 		}
 	 		for(var i=0, len = data.length;i<len;i++){ 
 	 		  var b=data[i];
@@ -400,29 +409,13 @@ $(function(){
 	 		  var bname=b.name;
 	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
 	 		} 
+	 		var val=$("#groupid3").val();
+	 		if(val!=null){
+	 			$("#divgroupid3").show();
+	 		}
 	 		if(value!=null){
-	 			$select.val(value);
+	 			 $select.val(value);
 	 		}
-
 	 	});
-	 }	 
-	 /**
-	  * 工艺类型格式化
-	  * @param value
-	  * @param row
-	  * @param index
-	  * @returns
-	  */
-	 function formatterCname(value){
-	 	if (value != undefined && value != null && $.trim(value) != '') {
-	 		if(value=='1'){
-	 			return "纸张";
-	 		}else if(value=='2'){
-	 			return "工艺";
-	 		}
-	 	}else{
-	 		return value;
-	 	}	
-	 } 
-
+	 }
 </script>

@@ -10,11 +10,6 @@
 
 package com.box.technology.controller;
 
-import java.awt.Rectangle;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -32,15 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.box.boxmanage.model.BoxClassification;
 import com.box.framework.pojo.Result;
 import com.box.framework.security.util.SecurityUtil;
-import com.box.framework.utils.FileUtil;
 import com.box.framework.utils.Sequence;
 import com.box.technology.model.TechnologyDetail;
 import com.box.technology.service.TechnologyDetailService;
@@ -65,13 +55,13 @@ public class TechnologyDetailController {
 	   TechnologyDetailService technologyDetailService;
 	 
 	   @RequestMapping(method = RequestMethod.GET, value = "/technologyDetail")
-	   protected String user() {
+	   protected String technologyDetail() {
 	     return "technology/technologyDetail";
        }
 	   
 	 /**
 	  * 获取全部工艺列表
-	  * TechnologyDetailList:(这里用一句话描述这个方法的作用).
+	  * technologyDetailList:(这里用一句话描述这个方法的作用).
 	  *
 	  * @author cheng
 	  * @return
@@ -197,17 +187,17 @@ public class TechnologyDetailController {
 		     JSONObject jsonObj = JSONObject.parseObject(params);
 			 String level=jsonObj.getString("level");
 		     List<TechnologyDetail> technologyDetail=new ArrayList<TechnologyDetail>();
-		     if(level.equals("0")){
-		    	 technologyDetail = technologyDetailService.getTechnologyByLevel(level);
-		     }else{
-		       	 Map<String,Object> map=new HashMap<String,Object>();	
-		         if(jsonObj.getString("groupid")!=null){
-			    	   String groupid= jsonObj.getString("groupid");
-			    	   map.put("groupid", groupid);
-			     }
-		    	 map.put("level", level);
-		    	 technologyDetail = technologyDetailService.getTechnologyByParentLevel(map);
+		     Map<String,Object> map=new HashMap<String,Object>();	
+	         if(jsonObj.getString("groupid")!=null){
+		    	   String groupid= jsonObj.getString("groupid");
+		    	   map.put("groupid", groupid);
 		     }
+	         if(jsonObj.getString("cname")!=null){
+		    	   String cname= jsonObj.getString("cname");
+		    	   map.put("cname", cname);
+		     }
+	    	 map.put("level", level);
+		     technologyDetail = technologyDetailService.getTechnologyByParentLevel(map);
 		     return technologyDetail;
 		 }
 		
@@ -223,8 +213,8 @@ public class TechnologyDetailController {
 		 @RequestMapping(method = RequestMethod.POST, value = "/getTechnologyByParentid")
 		 @ResponseBody
 		 private Object  getTechnologyByParentid(@Param(value = "params") String params) {
-		     String groupid=params.replaceAll("\"","").replace("[", "").replace("]", "");
-		     TechnologyDetail boxClassification= technologyDetailService.getTechnologyByParentid(groupid);
+		     String id=params.replaceAll("\"","").replace("[", "").replace("]", "");
+		     TechnologyDetail boxClassification= technologyDetailService.get(id);
 		     return boxClassification;
 		 }
 	
