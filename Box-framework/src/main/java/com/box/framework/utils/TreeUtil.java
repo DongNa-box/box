@@ -24,10 +24,13 @@ public class TreeUtil {
             if (StrUtil.isEmpty(node.getParentId())) {
                 tnlist.add(node);
             } else {
-                if(nodelist.get(node.getParentId()).getNodes() == null){
-                    nodelist.get(node.getParentId()).setNodes(new ArrayList<TreeNode>());
-                }
-                nodelist.get(node.getParentId()).getNodes().add(node);
+            	TreeNode parentNode=nodelist.get(node.getParentId());
+            	if(parentNode!=null){
+	                if(parentNode.getNodes()==null){
+	                	parentNode.setNodes(new ArrayList<TreeNode>());
+	                }
+	                parentNode.getNodes().add(node);
+            	}
             }
         }
         return tnlist;
