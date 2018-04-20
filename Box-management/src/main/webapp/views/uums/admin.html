@@ -80,14 +80,14 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<!--  <th data-align="center" data-field="id" data-sortable="true">用户ID</th>-->
-								<th data-align="center" data-field="login_name" data-sortable="true">用户名</th>
+								<th data-align="center" data-field="loginName" data-sortable="true">用户名</th>
 								<th data-align="center" data-field="name" data-sortable="true">真实姓名</th>
 								<th data-align="center" data-field="phone" data-sortable="true">手机号码</th>
 								<th data-align="center" data-field="sex" data-sortable="true" data-formatter="sexFormatter">性别</th>
 								<th data-align="center" data-field="birthday" data-sortable="true" data-formatter="formatteryyyyMMdd">出生日期</th>
-								<th data-align="center" data-field="create_time" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
-								<th data-align="center" data-field="last_login_time" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">最近登陆时间</th>
-								<th data-align="center" data-field="login_count" data-sortable="true">登陆次数</th>
+								<th data-align="center" data-field="createTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
+								<th data-align="center" data-field="lastLoginTime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">最近登陆时间</th>
+								<th data-align="center" data-field="loginCount" data-sortable="true">登陆次数</th>
 								<th data-align="center" data-field="type" data-sortable="true" data-formatter="userTypeFormatter">用户类别</th>
 								<th data-align="center" data-field="status" data-sortable="true" data-formatter="operateFormatter">是否启用</th>
 							</tr>
@@ -223,7 +223,7 @@ $(function(){
 			}
 			resetForm();
 			$("#modalAdminLabel").text("查看用户信息");
-			$("#model-admin").modal("toggle");
+			$("#modal-admin").modal("toggle");
 			$("#saveBtn").hide();
 			$('#admin-user-form').find('input,textarea,select').attr('readonly',true);
 			userForm.initFormData(selected[0]);
@@ -264,10 +264,9 @@ $(function(){
 			break;
 		case 'admin-search':
 			var formParams = $("#admin-search-form").serializeJSON();
-			
+			console.log(formParams);
 			ajaxGet(basePath + "/uums/adminList", {
 				params:JSON.stringify(formParams)
-				
 			}, function(data) {
 				$('#admin-table').bootstrapTable('load',data);
 			});	

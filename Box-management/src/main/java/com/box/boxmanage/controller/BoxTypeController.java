@@ -110,7 +110,7 @@ public class BoxTypeController {
 	    	box.setHmax(Double.parseDouble(request.getParameter("hmax")));
 	    	box.setHmin(Double.parseDouble(request.getParameter("hmin")));
 	    	//设置单位,默认mm
-	    	box.setUnit(0);
+	    	box.setUnit(Integer.parseInt(request.getParameter("unit")));
 	    	if(box.getBoxid()==null || box.getBoxid().equals("")){
 	    		box.setBoxid(Sequence.nextId());
 	    	}

@@ -207,6 +207,7 @@ $(function(){
 		    $('#divgroupid4').hide();
 		    $("#groupid3").empty();
 		    $('#saveBtn').show();
+			$('#technologyPrice-form').find('input,textarea,select').attr('readonly',false);
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -225,6 +226,7 @@ $(function(){
 			technologyPriceForm.initFormData(selected[0]);
 			setScanSelect(selected[0]);
 			$('#saveBtn').show();
+			$('#technologyPrice-form').find('input,textarea,select').attr('readonly',false);
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -243,6 +245,7 @@ $(function(){
 			technologyPriceForm.initFormData(selected[0]);
 			setScanSelect(selected[0]);
 			$('#saveBtn').hide();
+			$('#technologyPrice-form').find('input,textarea,select').attr('readonly',true);
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -384,20 +387,10 @@ $(function(){
 	}
 	 
 	 function setScanSelect(selected){
-		 console.log(selected);
-		//if(selected.cname==1){
 			$("#divgroupid1").show();
 			setSelect('groupid1',null,"0",null,selected.pid);
 	        $("#divgroupid2").show();
-	        setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null,selected.tid);
-			//通过1级id查0级id
-			//ajaxPost(basePath + "/technology/getBoxClassifByGroupid", {
-	       // 	params:JSON.stringify(selected.groupid)
-			//},  function(data){
-			//	setSelect('groupid1',null,"0",data.id);
-			//	setSelect('groupid2',data.id,"1",selected.groupid);
-	       // });
-		//}
+	        setSelect('groupid2',$('#groupid1').val(),"1",null,selected.tid);
 	 }
 	 /**
 	  * 设置类型级别为0级的下拉列表

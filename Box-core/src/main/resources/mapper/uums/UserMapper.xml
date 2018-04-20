@@ -153,14 +153,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.box.uums.model.User">
     update t_uums_user
     <set>
-      <if test="loginName != null">
-        login_name = #{loginName,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
@@ -173,9 +167,6 @@
       </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastLoginTime != null">
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -259,17 +250,18 @@
   </delete>
    <select id="getAdminSearchlist"  resultType="map">
 	select 
-	<include refid="userColumList" />
+	id, login_name as loginName, password, phone, nick_name as nickName, name, sex, birthday, create_time as createTime, last_login_time as lastLoginTime, 
+    login_count as loginCount, status, code, user_image as userImage, email, type
 	from t_uums_user 
 	where 1=1
 	<if test="type!=null and type!=''">
 	 and type=#{type,jdbcType=INTEGER}
 	</if>
-	<if test="loginname!=null and loginname!='' ">
-       AND login_name=#{loginName,jdbcType=VARCHAR}
+	<if test="loginName!=null and loginName!='' ">
+       AND login_name LIKE CONCAT(CONCAT('%', #{loginName}),'%') 
        </if>
         <if test="name!=null and name!='' ">
-       AND name=#{name,jdbcType=VARCHAR}
+        and name LIKE CONCAT(CONCAT('%', #{name}),'%') 
        </if>
        <if test="phone!=null and phone!='' ">
        AND phone=#{phone,jdbcType=VARCHAR}

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -198,4 +199,21 @@ public class LayoutController {
 	   		}
 	   		return list;
 	 }
+	    /**
+	     * 名称去重
+	     * checkNameExists:(这里用一句话描述这个方法的作用).
+	     *
+	     * @author Administrator
+	     * @param loginName
+	     * @return
+	     * @since JDK 1.8
+	     */
+	   @RequestMapping(method = RequestMethod.POST, value = "/checkNameExists")
+	    @ResponseBody
+	    private JSONObject checkNameExists(@RequestParam String name){
+		   boolean result = layoutSizeService.checkNameExists(name);
+	    	JSONObject jsonObj = new JSONObject();
+	    	jsonObj.put("valid", (!result));
+			return jsonObj;
+	    }
 }

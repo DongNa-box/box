@@ -23,6 +23,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.box.shopping.dao.LayoutSizeMapper;
 import com.box.shopping.model.LayoutSize;
 import com.box.shopping.service.LayoutSizeService;
+import com.box.uums.model.User;
 import com.box.uums.service.impl.UserServiceImpl;
 
 /**
@@ -123,6 +124,12 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 		// TODO Auto-generated method stub
 		return layoutSizeMapper.getLayoutSizelist(map);
 		
+	}
+
+	@Override
+	public boolean checkNameExists(String name) {
+		LayoutSize layoutSize = layoutSizeMapper.getSizeByName(name);
+		return layoutSize == null?false : true;
 	}
 
 

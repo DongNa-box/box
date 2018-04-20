@@ -11,4 +11,6 @@ public interface LayoutSizeMapper extends BaseMapper<LayoutSize, String>{
 	
 	int updateByPrimaryKeySelective(LayoutSize layoutSize);
 
+	LayoutSize getSizeByName(String name);
+
 }

@@ -43,19 +43,6 @@
 								placeholder="请输入尺寸大小">
 						</div>
 					</div>
-					</div>
-					<!-- <div class="form-group">
-						<label class="col-sm-4 control-label">尺寸单位</label>
-						<div class="col-sm-8">
-							<select name="search-unit" id="search-unit" class="form-control">
-								<option value="">请选择...</option>
-								<option value="0">mm</option>
-								<option value="1">cm</option>
-								<option value="2">dm</option>
-								<option value="3">m</option>
-							</select>
-						</div>
-					</div>		 -->	
 	
 	        </div>
 	        </form>
@@ -69,12 +56,7 @@
 						<button type="button" data-btn-type="scan" class="btn btn-info"><i class="fa fa-search-plus"></i>查看</button>
 						<button type="button" data-btn-type="edit" class="btn btn-warning"><i class="fa fa-edit"></i>修改</button>
 						<button type="button" data-btn-type="delete" class="btn btn-danger"><i class="fa fa-remove"></i>删除</button>
-					</div>
-
-					<!-- <div class="btn-group pull-left">
-						<button type="button" data-btn-type="enable" class="btn btn-success"><i class="fa fa-check-circle-o"></i>启用</button>
-						<button type="button" data-btn-type="disable" class="btn btn-danger"><i class="fa fa-ban"></i>禁用</button>
-					</div> -->					
+					</div>			
 					<div class="btn-group pull-right">
 						<button type="button" data-btn-type="search" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
 						<button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
@@ -87,9 +69,7 @@
 						<thead>
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
-<!-- 								<th data-align="center" data-field="id" data-sortable="true">尺寸ID</th>
- -->																
-								<th data-align="center" data-field="type" data-sortable="true" data-formatter="sizeTypeFormatter">尺寸类型</th>
+  							    <th data-align="center" data-field="type" data-sortable="true" data-formatter="sizeTypeFormatter">尺寸类型</th>
 								<th data-align="center" data-field="name" data-sortable="true">尺寸名称</th>
 								<th data-align="center" data-field="size" data-sortable="true">尺寸大小</th>
 								<th data-align="center" data-field="unit" data-sortable="true" data-formatter="unitFormatter">单位</th>
@@ -183,7 +163,6 @@
 			$("#flag").val("1");
 			$("#modalSizeLabel").text("新增尺寸");
 			$('#model-size').modal('toggle');
-			
 			$("#saveBtn").show();
 			$('#size-form').find('input,textarea,select').attr('readonly',false);
 			break;
@@ -211,6 +190,8 @@
 			$("#saveBtn").show();
 			$('#size-form').find('input,textarea,select').attr('readonly',false);
 			sizeForm.initFormData(selected[0]);
+			$("#type").attr("disabled","disabled");//将类型 input元素设置为disabled
+			$("#name").attr("disabled","disabled");//将名字 input元素设置为disabled 
 		   break;
 		case 'delete':
 			if(selected.length < 1){
@@ -268,6 +249,13 @@
 				validators : {
 					notEmpty : {
 						message : '请输入尺寸名称'
+					},
+					threshold : 10,
+					remote : {
+						url : basePath + "/layout/checkNameExists",
+						message : '尺寸名称已存在',
+						delay : 2000,
+						type : 'POST'
 					}
 				}
 			},

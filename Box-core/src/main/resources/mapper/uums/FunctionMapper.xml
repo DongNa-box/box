@@ -182,6 +182,7 @@
     select 
     <include refid="FunctionColumnList" />
     from t_uums_function 
+    order by sort
   </select>
   <delete id="batchDeleteByIds">
   	delete from t_uums_function where id in

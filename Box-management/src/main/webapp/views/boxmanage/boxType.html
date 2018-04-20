@@ -143,7 +143,13 @@
 						<label class="col-sm-4 control-label">纸盒长度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group"> 
 						     <input  name="lmin" type="text" class="form-control"
-								placeholder="请输入纸盒长度最小值" maxlength="5"><span>mm</span>
+								placeholder="请输入纸盒长度最小值" maxlength="5">
+							 <select id="lminUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						 </div>
 						
 					</div>
@@ -152,7 +158,13 @@
 						<label class="col-sm-4 control-label">纸盒长度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group">
 							<input name="lmax" type="text" class="form-control"
-								placeholder="请输入纸盒长度最大值"><span>mm</span>	
+								placeholder="请输入纸盒长度最大值">
+						    <select id="lmaxUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						</div>
 					</div>
 					
@@ -160,7 +172,13 @@
 						<label class="col-sm-4 control-label">纸盒宽度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group">
 							<input name="wmin" type="text" class="form-control"
-								placeholder="请输入纸盒宽度最小值"><span>mm</span>
+								placeholder="请输入纸盒宽度最小值">
+							 <select id="wminUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						</div>
 					</div>
 
@@ -168,21 +186,39 @@
 						<label class="col-sm-4 control-label">纸盒宽度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group">
 							<input name="wmax" type="text" class="form-control"
-								placeholder="请输入纸盒宽度最大值"><span>mm</span>
+								placeholder="请输入纸盒宽度最大值">
+							 <select id="wmaxUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒高度最小值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group">
 							<input name="hmin" type="text" class="form-control"
-								placeholder="请输入纸盒高度最小值"><span>mm</span>
+								placeholder="请输入纸盒高度最小值">
+							 <select id="hminUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸盒高度最大值<span style="color: red;">*</span></label>
 						<div class="col-sm-8 form-group">
 							<input name="hmax" type="text" class="form-control"
-								placeholder="请输入纸盒高度最大值"><span>mm</span>
+								placeholder="请输入纸盒高度最大值">
+							 <select id="hmaxUnit" class="form-control">
+							   <option value="0"> mm</option>
+							   <option value="1"> cm</option>
+							   <option value="2"> dm</option>
+							   <option value="3"> m</option>
+							 </select>
 						</div>
                     </div>
                   </div>
@@ -248,7 +284,14 @@ $(function(){
 			setFileStyle('file-1');
 			setFileStyle('file-2');
 			setFileStyle('file-3');
+			$('#lmaxUnit').val(0);
+			$('#lminUnit').val(0);
+			$('#wmaxUnit').val(0);
+			$('#wminUnit').val(0);
+			$('#hmaxUnit').val(0);
+			$('#hminUnit').val(0);
 			$('#saveBtn').show();
+			$('#boxType-form').find('input,textarea,select').attr('readonly',false);
 			break;
 		case 'edit':
 			if(selected.length != 1){
@@ -261,6 +304,7 @@ $(function(){
 			$("#modal-boxType").modal("toggle");
 			$('#saveBtn').show();
 			formEdit(selected[0],'1');
+			$('#boxType-form').find('input,textarea,select').attr('readonly',false);
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -273,6 +317,7 @@ $(function(){
 			$("#modal-boxType").modal("toggle");
 			$('#saveBtn').hide();//隐藏保存按钮
 		    formEdit(selected[0],'2');
+			$('#boxType-form').find('input,textarea,select').attr('readonly',true);
 		   	break;
 		case 'delete':
 			if(selected.length < 1){
@@ -433,7 +478,8 @@ $(function(){
         	for(var pair of formData.entries()) {
         		   console.log(pair[0]+ ', '+ pair[1]); 
         	}
-        
+        	unit=$("#wminUnit").val();
+        	formData.append("unit",unit);
         	ajaxPostFile(basePath + "/boxmanage/editBoxType", formData,  function(data){
 				$('#modal-boxType').modal('hide');
 				layer.msg(data.code, {
@@ -457,6 +503,35 @@ $(function(){
 	 	    	$("#xijie3").hide(); 
 	       }
 	   });
+	
+		$('#lminUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+	        setUnit(selected);
+		});
+		$('#lmaxUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
+		$('#wminUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
+		$('#wmaxUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
+		$('#hminUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
+		$('#hmaxUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
+		$('#lminUnit').change(function(){
+			var selected=$(this).children('option:selected').val()
+			setUnit(selected);
+		});
 });
 
 	
@@ -576,7 +651,12 @@ $(function(){
 	    dime=data.dime;
 	    plan=data.plan;
 	    phy=data.phy;
-
+	    $('#lmaxUnit').val(data.unit);
+		$('#lminUnit').val(data.unit);
+		$('#wmaxUnit').val(data.unit);
+		$('#wminUnit').val(data.unit);
+		$('#hmaxUnit').val(data.unit);
+		$('#hminUnit').val(data.unit);
 		orlist=new Array();//图片地址集合
 		titlelist=new Array();//图片名称集合
 		var t=new Object();
@@ -661,5 +741,13 @@ $(function(){
 		        return filename.replace('(', '_').replace(']', '_');
 		    },
 		});
+	}
+	function setUnit(selected){
+		$('#lminUnit').val(selected);
+		$('#lmaxUnit').val(selected);
+		$('#wmaxUnit').val(selected);
+		$('#wminUnit').val(selected);
+		$('#hmaxUnit').val(selected);
+		$('#hminUnit').val(selected);
 	}
 </script>

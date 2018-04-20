@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.box.shopping.dao.LayoutSizeMapper">
-  <resultMap id="BaseResultMap" type="com.box.shopping.model.LayoutSize">
+  <resultMap id="layoutSizeResultMap" type="com.box.shopping.model.LayoutSize">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="size" jdbcType="VARCHAR" property="size" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
@@ -10,15 +10,23 @@
     <result column="createby" jdbcType="VARCHAR" property="createby" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="layoutSize_Column_List">
     id, size, unit, name, type, createby, createtime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="layoutSizeResultMap">
     select 
-    <include refid="Base_Column_List" />
+    <include refid="layoutSize_Column_List" />
     from t_layout_size
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+    <select id="getSizeByName" parameterType="java.lang.String" resultMap="layoutSizeResultMap">
+    select 
+    <include refid="layoutSize_Column_List" />
+    from t_layout_size
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_layout_size
     where id = #{id,jdbcType=VARCHAR}
@@ -116,14 +124,11 @@
   </update>
    <select id="getLayoutSizelist"  resultType="map">
 	select 
-	 <include refid="Base_Column_List" />
+	 <include refid="layoutSize_Column_List" />
 	from t_layout_size
 		where 1=1 
 		 <if test="size != null and size!=''">
 	       and size like CONCAT(CONCAT('%', #{size,jdbcType=VARCHAR}),'%') 
-	      </if>
-	      <if test="unit != null and unit !=''">
-	       and unit = #{unit,jdbcType=INTEGER}
 	      </if>
 	      <if test="name != null and name!=''">
 	       and name  like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR}),'%') 
