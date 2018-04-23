@@ -1,0 +1,513 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		我的工作台<small>Control panel</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+		<li class="active">我的工作台</li>
+	</ol>
+</section>
+<br/>
+<!-- Main content -->
+<section class="content">
+	<div class="box">
+        <div class="box-header">
+              <h3 class="box-title">盒型选择</h3>
+        </div>
+		<div class="box box-primary">
+
+		   <div class="box-body">
+	        <form id="picture-form" action="" class="form-horizontal" method="post">
+           
+			  <div class="row">
+	          	<div class="col-sm-3">
+	          		<div class="form-group">
+						<label class="col-sm-4 control-label">盒型选择：</label>
+						<div class="col-sm-8">
+							<select name="search-box" id="search-box" class="form-control">
+							</select>
+						</div>
+					</div>
+			    </div>
+		          <div class="col-sm-3">
+		       		<div class="form-group" id="divgroupid0" style="display:none">
+						<label class="col-sm-4 control-label" id="detail0"></label>
+						<div class="col-sm-8">
+							<select name="search-detail1" id="search-detail1" class="form-control">
+								</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group" id="divgroupid1" style="display:none">
+						<label class="col-sm-4 control-label" id="detail1"></label>
+						<div class="col-sm-8">
+							<select name="search-detail2" id="search-detail2" class="form-control">
+							</select>
+						</div>
+					</div>
+				</div> 
+	           <div class="col-sm-3">
+	         	<div class="form-group" id="divgroupid2" style="display:none">
+					<label class="col-sm-4 control-label" id="detail2"></label>
+					<div class="col-sm-8">
+						<select name="search-detail3" id="search-detail3" class="form-control">
+						</select>
+					</div>
+				</div>
+	           </div>
+			</div>
+			<div class="row">
+	           <button type="button" data-btn-type="search" class="btn btn-warning"><i class="fa fa-search"></i>查询</button>  
+			   <button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+			</div>
+ 		</form>
+		</div>
+		<div class="row">	
+          <div class="col-xs-6 col-sm-3 col-md-3" id="box0" style="display:none">
+			<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName0"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<img src="${basePath}/assets/common/images/1.jpg" id="img0" alt="First slide" class="img-thumbnail"> 
+		
+				</a>
+		 </div>
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box1" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName1"></h3>
+			</div>
+			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img1" alt="First slide" class="img-thumbnail"> 
+			</a>
+		</div>
+
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box2" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName2"></h3>
+			</div>
+			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img2" alt="First slide" class="img-thumbnail"> 
+			</a> 
+		</div>
+
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box3" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName3"></h3>
+			</div>
+			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img3" alt="First slide" class="img-thumbnail"> 
+			</a>
+		</div>
+      </div>
+     </div>
+   
+		<div class="row">	
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box4" style="display:none">
+				<div class="box-header with-border">
+					  <h3 class="box-title" id="boxName4"></h3>
+					</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img4" id="img" alt="First slide" class="img-thumbnail"> 
+				</a>
+		 	</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box5" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName5"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img5" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box6" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName6"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img6" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box7" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName7"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img7" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			</div>
+			<div class="row">	
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box8" style="display:none">
+				<div class="box-header with-border">
+					  <h3 class="box-title" id="boxName8"></h3>
+					</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img8" alt="First slide" class="img-thumbnail"> 
+				</a>
+		 	</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box9" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName9"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img9" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box10" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName10"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img10" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box11" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName11"></h3>
+				</div>
+				<a href="${basePath}/web/xiadan" class="thumbnail">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img11" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			</div>
+     </div>
+     </div>
+	 <ul class="pagination pagination-right">
+<!-- 	    <li><a href="#">&laquo;</a></li>
+ -->	    <li><a href="#" class="active" >首页</a></li>
+	    
+	    
+	    <li><a href="#" >下一页</a></li>
+	    <li><a href="#" >上一页</a></li>
+	    <li><a href="#" >末页</a></li>
+     </ul>
+	
+</section>
+
+<!-- 新增用户的弹窗 -->
+<div class="modal fade" id="modal-admin" aria-labelledby="modalAdminLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" action="" id="picture-form" method="post">
+				<input type="hidden" id="flag" name="flag">
+				<input type="hidden" id="id" name="id">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="modalAdminLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">用户名<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="loginName" name="loginName" type="text" class="form-control"
+								placeholder="请输入用户名">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">手机号码<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="phone" name="phone" type="text" class="form-control"
+								placeholder="请输入手机号码" maxlength="11">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">真实姓名<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<input id="name" name="name" type="text" class="form-control"
+								placeholder="请输入真实姓名">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">出生日期<span style="color: red;">*</span></label>
+						<div class="input-group date col-sm-8">
+							<div class="input-group-addon">
+	                        	<i class="fa fa-calendar"></i>
+	                        </div>
+							<input id="birthday" name="birthday" type="text" class="form-control" id="birthday" data-flag="datepicker" data-format="yyyy-MM-dd"
+								placeholder="请选择出生日期">
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">性别<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="sex" id="sex" class="form-control">
+								<option value="">请选择...</option>
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- <div class="form-group">
+						<label class="col-sm-4 control-label">用户类别<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<select name="type" id="type" class="form-control">
+								<option value="">请选择...</option>
+								<option value="2">后台管理员</option>
+								<option value="3">后台业务员</option>
+							</select>
+						</div>
+					</div> -->
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">状态<span style="color: red;">*</span></label>
+						<div class="col-sm-8">
+							<label class="control-label"> <input type="radio"
+								name="status" data-flag="icheck" value="1" checked="checked">
+								启用
+							</label> &nbsp; <label class="control-label"> <input type="radio"
+								name="status" data-flag="icheck" value="0">
+								禁用
+							</label>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="${basePath}/assets/common/js/base.js"></script>
+
+<script type="text/javascript">
+
+$(function(){
+	//查询默认所有列表
+	var page=1;
+	pictureList(page);
+	setBox("search-box");
+	pictureForm = $("#picture-form").form();
+	userSearchForm = $("#admin-search-form").form();
+	//-------------button event begin----------------
+	$('button[data-btn-type]').click(function() {
+		//var selected = $('#admin-table').bootstrapTable('getSelections');
+		var action = $(this).attr('data-btn-type');
+		switch (action) {
+		
+		case 'admin-search':
+			//var formParams = $("#picture-form").serializeJSON();
+			var classid = $("#search-box option:selected").val();
+			var detail1 = $("#search-detail1 option:selected").val();
+			var detail2 = $("#search-detail2 option:selected").val();
+			var detail3 = $("#search-detail3 option:selected").val();
+			var params={"search-box":classId,"search-detail1":detail1,"search-detail2":detail2,
+					"search-detail3":detail3,"page":page}
+			alert(JSON.stringify(params));
+			ajaxPost(basePath + "/web/pictureList", {
+				params:JSON.stringify(params)
+				
+			}, function(data) {
+				alert(JSON.stringify(data));
+				for(var i=0, len = data.length;i<len;i++){
+				$("#box"+i).show();
+				$("#box"+i).val(data[i].id);
+				$("#boxName"+i).val(data[i].name);
+				$("#img"+i).attr("src",data[i].pla);
+				
+				}
+			});	
+			break;
+		case 'admin-reset':
+			userSearchForm.clearForm();
+			//重置按钮重新加载页面
+		    pictureList(page);
+			break;
+	}
+
+	});
+	//-------------button event end----------------
+	
+	//-------------Validator from begin----------------
+	//查询表单box下拉改变事件
+	$("#search-box").change(function(){
+		 var boxId=$("#search-box").val();
+		/* var v = $("#search-detail1");
+		v.empty();
+		$("#search-detail2").empty();
+		$("#search-detail3").empty();  */
+		setBoxType("search-detail1","search-detail2","search-detail3",boxId); 
+	});
+	//-------------Validator from end----------------
+	//查询detail1下拉改变事件
+	$("#search-detail1").change(function(){
+		var detail1=$("#detail1").val();
+		setBoxTypeDetail("search-detail1",detail1); 
+	});
+	//查询detail1下拉改变事件
+	$("#search-detail2").change(function(){
+		var detail2=$("#detail2").val();
+		setBoxTypeDetail("search-detail2",detail2); 
+	});
+	//查询detail1下拉改变事件
+	$("#search-detail3").change(function(){
+		var detail3=$("#detail3").val();
+		setBoxTypeDetail
+		("search-detail3",detail3); 
+	});
+});
+/**
+ * 默认查询所有列表
+ */
+ function pictureList(page){
+	 var params={"page":page}
+	//查询全部图表列表
+		ajaxPost(basePath + "/web/pictureList", {
+			params:JSON.stringify(params)
+			}, function(data) {
+				alert(JSON.stringify(data));
+				if(data.length<=12){
+					//当前页面显示1
+					}else{
+					//页面显示数1,2,3
+						}
+			for(var i=0, len = data.length;i<len;i++){
+				$("#box"+i).show();
+				$("#box"+i).val(data[i].id);
+				$("#boxName"+i).val(data[i].name);
+				$("#img"+i).attr("src",data[i].pla);
+				}
+					
+				});	
+	 }
+/**
+ * 设置纸盒选择下拉类型
+ * @param selectid
+ * @param 
+ * @returns
+ */
+function setBox(selectid){
+	//alert(JSON.stringify(universityId));
+	ajaxPost(basePath+"/web/boxTree", null, function(data) {
+		alert("查询下拉列表"+JSON.stringify(data));
+		var $select = $('#'+selectid);  
+		$select.empty();
+		if(data.length==0){
+			 $select.val("");
+		}
+		if(data.length>0){
+			 $select.append('<option value="">请选择...</option>'); 
+		}
+		for(var i=0,len = data.length;i<len;i++){
+			var c=data[i]; 
+		 	var cid=c.id
+		 	var ctext=c.text;
+		   	$select.append('<option value="'+cid+'">'+ctext+'</option>'); 
+				
+		} 
+	});
+}
+/**
+ * 根据纸盒类型
+ */
+function setBoxType(selectdetail1,selectdetail2,selectdetail3,boxId){
+	//alert(JSON.stringify(universityId));
+	ajaxPost(basePath+"/web/boxTree", null, function(data) {
+		var $select0 = $('#'+selectdetail1);
+		var $select1 = $('#'+selectdetail2); 
+		var $select2 = $('#'+selectdetail3);
+		$select0.empty();
+		$select1.empty();
+		$select2.empty();
+		
+		for(var i=0,len = data.length;i<len;i++){
+			var c=data[i]; 
+			 var cid=c.id
+			  var ctext=c.text;
+			   if(ctext==boxId&&c.nodes.length>0){
+				   alert(JSON.stringify(c.nodes));
+				   var a = c.nodes;
+				   if(a.length==0){
+						 $select+i.val("");
+					}
+					if(a.length>0){
+						 $select+i.append('<option value="">请选择...</option>'); 
+					}
+				   for(var j=0,len = a.length;j<len;j++){
+					   var d=a[j]; 
+					   var did=d.id
+					   var dtext=d.text;
+					   $("#divgroupid"+j).show();
+					   $("#detail"+j).val(d.text);
+					   alert(JSON.stringify(d.nodes));
+					   if(d.nodes.length>0){
+						   alert(JSON.stringify(c.nodes));
+						   var e = d.nodes;
+						   for(var k=0,len = d.length;k<len;j++){
+							   var eid=e.id
+							   var etext=e.text;
+							   $select+j.append('<option value="'+eid+'">'+etext+'</option>');
+							}
+					 
+						}
+						  
+					   }
+					}
+				} 
+	});
+}
+/**
+ * DETAIL下拉
+ */
+function setBoxTypeDetail(selectid,detail){
+	//alert(JSON.stringify(universityId));
+	ajaxPost(basePath+"/web/boxTree", null, function(data) {
+		var $select = $('#'+selectid);  
+		$select.empty();
+		
+		for(var i=0,len = data.length;i<len;i++){
+			var c=data[i]; 
+		  	if(c.nodes.length>0){
+				var a=c.nodes
+				if(a.text==detail){
+					if(a.nodes.length==0){
+						 $select.val("");
+					}
+					if(a.nodes.length>0){
+						 $select.append('<option value="">请选择..</option>'); 
+					}
+					
+					var b=a.nodes;
+					for(var i=0,len = b.length;i<len;i++){
+						$select.append('<option value="'+b[i].id+'">'+b[i].text+'</option>');
+						}
+						
+					}
+			  	}
+		} 
+	});
+}
+	function resetForm(){
+		userForm.clearForm();
+		$("#admin-user-form").data('bootstrapValidator').resetForm();
+	}
+	
+	/*
+	 * 得到所有选中行
+	 */
+	function getIdSelections() {
+		return $.map($('#admin-table').bootstrapTable('getSelections'),function(row) {
+				return row.id;
+		});
+	}
+</script>

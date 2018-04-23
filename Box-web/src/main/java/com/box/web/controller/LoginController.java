@@ -42,7 +42,7 @@ public class LoginController {
 	    private final static String MAIN_PAGE = "redirect:/main";
 	    private final static String LOGIN_PAGE = "login";
 	    private final static String LOGOUT_PAGE = "redirect:/login";
-	    private final static String REGISTER_PAGE = "register";
+	    
 	    private final static String ERROR_PAGE = "error";
 	    private final static String KICKOUT = "1";
 	    
@@ -55,13 +55,7 @@ public class LoginController {
 	    @Resource
 	    private LoginService loginService;
 	    
-	    @RequestMapping("/toRegister")
-	    protected ModelAndView toRegister(HttpServletRequest request, Model model) {
-	    	ModelAndView retMap = new ModelAndView();  //返回新的ModelAndView
-            retMap.setViewName("redirect:/register");
-            return retMap;
-	    	
-		}
+	 
 	    @RequestMapping(value = "/login")
 	    private String doLogin(HttpServletRequest request, Model model) {
 	    	String kickout = request.getParameter("kickout");

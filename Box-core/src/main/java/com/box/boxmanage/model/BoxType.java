@@ -280,7 +280,7 @@ public class BoxType implements Serializable {
         sb.append(", plan=").append(plan);
         sb.append(", phy=").append(phy);
         sb.append(", description=").append(description);
-        sb.append(", calssid=").append(classid);
+        sb.append(", classid=").append(classid);
         sb.append(", detail1=").append(detail1);
         sb.append(", detail2=").append(detail2);
         sb.append(", detail3=").append(detail3);

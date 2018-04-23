@@ -49,10 +49,7 @@ public class RegisterContoller {
 	 @Resource
 	 UserService userService;
 	 
-	 @RequestMapping(value = "/toLogin")
-	    protected String toLogin() {
-	        return "/login";
-		}
+	
 	 @RequestMapping(value = "/register")
 	    private String doRegister(HttpServletRequest request, Model model) {
 		 String userName = request.getParameter("userName");

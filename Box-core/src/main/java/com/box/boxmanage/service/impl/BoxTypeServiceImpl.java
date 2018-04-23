@@ -82,7 +82,7 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 	public BoxType get(String id) {
 
 		// TODO Auto-generated method stub
-		return null;
+		return boxTypeMapper.selectByPrimaryKey(id);
 
 	}
 
@@ -136,6 +136,15 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> getWebBoxTypeList(Map<String, Object> map) {
+		
+		return boxTypeMapper. getWebBoxTypeList(map);
+		
+	}
+
+	
 
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.box.framework.base.service.BaseService;
+import com.box.framework.pojo.TreeNode;
 import com.box.technology.model.TechnologyDetail;
 
 /**
@@ -35,6 +36,8 @@ public interface TechnologyDetailService extends BaseService<TechnologyDetail, S
 	List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map);
 
 	List<Map<String, Object>> getAllTechnologyList();
+	
+	List<TreeNode> getTechnologyTree();
 
 }
 

@@ -41,9 +41,9 @@ public class MainController {
 	 private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
 	
-	 @RequestMapping(method = RequestMethod.GET, value = "/")
+	 @RequestMapping(method = RequestMethod.GET, value = "/login")
 	    public String index(HttpServletRequest request) {
-	        return "redirect:/login";
+	        return "login";
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/toRegister")

@@ -24,12 +24,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.bouncycastle.crypto.io.MacOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.box.shopping.dao.LayoutDetailMapper;
 import com.box.shopping.dao.ShoppingDetailMapper;
+import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
+import com.box.shopping.service.LayoutDetailService;
 import com.box.shopping.service.ShoppingDeatilService;
 
 /**
@@ -47,6 +52,10 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingDetailServiceImpl.class);
 	@Resource
 	ShoppingDetailMapper shoppingDetailMapper;
+	@Resource
+	LayoutDetailService layoutDetailService;
+	@Resource
+	ShoppingDeatilService shoppingDeatilService;
 	/**
 	* TODO 简单描述该方法的实现功能（可选）.
 	* @see com.box.framework.base.service.BaseService#save(java.lang.Object)
@@ -176,6 +185,30 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 		
 		// TODO Auto-generated method stub
 		return shoppingDetailMapper.getShoppingDetailList(map);
+		
+	}
+
+	
+	 /**
+	 * TODO 生成排版信息，订单信息，
+	 * @see com.box.shopping.service.ShoppingDeatilService#createLayoutAndShopping(java.util.Map)
+	 */
+	 
+	@Override
+	public boolean createLayoutAndShopping(Map<String, Object> map) {
+		
+		LayoutDetail layoutDetail=(LayoutDetail)map.get("layoutDetail");
+		ShoppingDetail shoppingDetail=(ShoppingDetail)map.get("shoppongDetail");
+		try {
+			boolean result1 = layoutDetailService.save(layoutDetail);
+			boolean result2 = shoppingDeatilService.save(shoppingDetail);
+			return result1&result2?true:false;
+			
+		} catch (Exception e) {
+			logger.error("batchOperateCommunity失败，错误信息为："+e.getMessage().toString());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return false;
+		}
 		
 	}
 

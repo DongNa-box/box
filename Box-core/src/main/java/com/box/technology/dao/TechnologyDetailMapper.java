@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.box.framework.base.dao.BaseMapper;
+import com.box.framework.pojo.TreeNode;
 import com.box.technology.model.TechnologyDetail;
 
 public interface TechnologyDetailMapper extends BaseMapper<TechnologyDetail,String>{
@@ -17,4 +18,6 @@ public interface TechnologyDetailMapper extends BaseMapper<TechnologyDetail,Stri
 	List<Map<String,Object>> getAllTechnologyList();
 
 	List<Map<String, Object>> technologyDetailSearchList(@Param("map") Map<String, Object> map);
+	 
+	List<TreeNode> getTechnologyTree();
 }

@@ -40,46 +40,39 @@
 收缩左边菜单栏
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue layout-top-nav">
 <a name="main"></a>
 <div class="wrapper">
 
   <header class="main-header">
 
-    <!-- Logo -->
-    <a href="${basePath}/main" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>东纳</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>东纳纸盒排版计价平台</b></span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+     <a href="${basePath}/main" class="logo">
+   
+      <span class="logo-mini"><b>东纳</b></span>
+     
+      <span class="logo-lg"><b>东纳纸盒排版计价平台</b></span>
+    </a>  
+      
+      <a href="${basePath}/main" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-
-      <!-- Navbar Right Menu -->
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-          <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="user-image" alt="User Image">
               <span class="hidden-xs">${user.name}</span>
             </a>
             <ul class="dropdown-menu">
-              <!-- User image -->
               <li class="user-header">
 				<img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="img-circle" alt="User Image">
                 <p>
                   ${user.name}
                 </p>
               </li>
-              <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
                   <a href="${basePath}/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -87,7 +80,7 @@
               </li>
             </ul>
           </li>
-          <!-- Control Sidebar Toggle Button -->
+        
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
@@ -95,117 +88,230 @@
       </div>
 
     </nav>
+   
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>${user.name}</p>
-          <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
-          <label><i class="fa fa-circle text-success"></i>Online</label>
-        </div>
-      </div>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- Content Wrapper. Contains page content -->
+  
   <div class="content-wrapper" id="mainDiv">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		我的工作台<small>Control panel</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="${basePath}/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+		<li class="active">我的工作台</li>
+	</ol>
+</section>
+<br/>
+<!-- Main content -->
+<section class="content">
+	<div class="box">
+        <div class="box-header">
+              <h3 class="box-title">盒型选择</h3>
+        </div>
+		<div class="box box-primary">
+
+		   <div class="box-body">
+	        <form id="picture-form" action="" class="form-horizontal" method="post">
+           
+			  <div class="row">
+	          	<div class="col-sm-3">
+	          		<div class="form-group">
+						<label class="col-sm-4 control-label">盒型选择：</label>
+						<div class="col-sm-8">
+							<select name="search-box" id="search-box" class="form-control">
+							</select>
+						</div>
+					</div>
+			    </div>
+		          <div class="col-sm-3">
+		       		<div class="form-group" id="divgroupid0" style="display:none">
+						<label class="col-sm-4 control-label" id="detail0"></label>
+						<div class="col-sm-8">
+							<select name="search-detail0" id="search-detail0" class="form-control">
+								</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group" id="divgroupid1" style="display:none">
+						<label class="col-sm-4 control-label" id="detail1"></label>
+						<div class="col-sm-8">
+							<select name="search-detail1" id="search-detail1" class="form-control">
+							</select>
+						</div>
+					</div>
+				</div> 
+	           <div class="col-sm-3">
+	         	<div class="form-group" id="divgroupid2" style="display:none">
+					<label class="col-sm-4 control-label" id="detail2"></label>
+					<div class="col-sm-8">
+						<select name="search-detail2" id="search-detail2" class="form-control">
+						</select>
+					</div>
+				</div>
+	           </div>
+			</div>
+			<div class="row">
+	           <button type="button" data-btn-type="search" class="btn btn-warning"><i class="fa fa-search"></i>查询</button>  
+			   <button type="button" data-btn-type="reset" class="btn btn-default"><i class="fa fa-reply"></i>重置</button>
+			</div>
+ 		</form>
+		</div>
+		<div class="row">
+		 <div class="alert alert-warning alert-dismissible" id="alert" style="display:none">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> 提示!</h4>
+               		 查询不到任何信息，请重新搜索！
+              </div>
+        </div>
+		<div class="row">	
+          <div class="col-xs-6 col-sm-3 col-md-3" id="box0" value="" style="display:none">
+			<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName0"></h3>
+				</div>
+				<a href="#a-href0" class="thumbnail" onclick="xiadan(0)">
+				<img src="${basePath}/assets/common/images/1.jpg" id="img0" alt="First slide" class="img-thumbnail"> 
+		
+				</a>
+		 </div>
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box1" value="" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName1"></h3>
+			</div>
+			<a href="#a-href1" class="thumbnail" onclick="xiadan(1)">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img1" alt="First slide" class="img-thumbnail"> 
+			</a>
+		</div>
+
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box2" value="" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName2"></h3>
+			</div>
+			<a href="#a-href2" class="thumbnail" onclick="xiadan(2)">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img2" alt="First slide" class="img-thumbnail"> 
+			</a> 
+		</div>
+
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box3" value="" style="display:none">
+			<div class="box-header with-border">
+			  <h3 class="box-title" id="boxName3"></h3>
+			</div>
+			<a href="#a-href3" class="thumbnail" onclick="xiadan(box3)">
+			<img src="${basePath}/assets/common/images/1.jpg" id="img3" alt="First slide" class="img-thumbnail"> 
+			</a>
+		</div>
+      </div>
+     </div>
+   
+		<div class="row">	
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box4" value="" style="display:none">
+				<div class="box-header with-border">
+					  <h3 class="box-title" id="boxName4"></h3>
+					</div>
+				<a href="#a-href4" class="thumbnail" onclick="xiadan(box4)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img4" id="img" alt="First slide" class="img-thumbnail"> 
+				</a>
+		 	</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box5" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName5"></h3>
+				</div>
+				<a href="#a-href5" class="thumbnail" value="" onclick="xiadan(box5)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img5" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box6" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName6"></h3>
+				</div>
+				<a href="#a-href6" class="thumbnail" onclick="xiadan(box6)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img6" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box7" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName7"></h3>
+				</div>
+				<a href="#a-href7" class="thumbnail" onclick="xiadan(box7)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img7" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			</div>
+			<div class="row">	
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box8" value="" style="display:none">
+				<div class="box-header with-border">
+					  <h3 class="box-title" id="boxName8"></h3>
+					</div>
+				<a href="#a-href8" class="thumbnail" onclick="xiadan(box8)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img8" alt="First slide" class="img-thumbnail"> 
+				</a>
+		 	</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box9" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName9"></h3>
+				</div>
+				<a href="#a-href9" class="thumbnail" onclick="xiadan(box9)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img9" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box10" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName10"></h3>
+				</div>
+				<a href="#a-href10;" class="thumbnail" onclick="xiadan(box10)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img10" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box11" value="" style="display:none">
+				<div class="box-header with-border">
+				  <h3 class="box-title" id="boxName11"></h3>
+				</div>
+				<a href="#a-href11" class="thumbnail" onclick="xiadan(box11)">
+					<img src="${basePath}/assets/common/images/1.jpg" id="img11" alt="First slide" class="img-thumbnail"> 
+				</a>
+			</div>
+
+			</div>
+     </div>
+     </div>
+	 <ul class="pagination pagination-right">
+<!-- 	    <li><a href="#">&laquo;</a></li>
+ -->	    <li><a href="#" class="active" >首页</a></li>
+	    <li><a href="#" >下一页</a></li>
+	    <li><a href="#" >上一页</a></li>
+	    <li><a href="#" >末页</a></li>
+     </ul>
+	
+</section>
     
   </div>
-  <!-- /.content-wrapper -->
+ 
 
   <footer class="main-footer text-center">
 
+	<div class="pull-right hidden-xs">
+			  <b>Version</b> 1.0.0
+			</div>
+			<strong>Copyright &copy; 2018-2019 <a href="http://almsaeedstudio.com">东纳</a>.</strong>版权所有 
   </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">最近活动</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">智慧社区V1.0上线日期</h4>
-
-                <p>2017/12/01</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">客户支持热线</h4>
-
-                <p>Tel:027-5111653</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">邮箱地址</h4>
-
-                <p>1982841291@qq.com</p>
-              </div>
-            </a>
-          </li>
-         
-        </ul>
-       
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">常规设置</h3>
-		 
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
+  
   <div class="control-sidebar-bg"></div> 
   
 </div>
 <!-- ./wrapper -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var basePath="${basePath}";//给外部js文件传递路径参数
 var apiHost="${apiHost}";
 var softwareVersionUrl="${softwareVersionUrl}";
-</script>
+</script> -->
 <!-- jQuery 2.2.3 -->
 <script src="${basePath}/assets/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!--JSON2-->
@@ -236,7 +342,7 @@ var softwareVersionUrl="${softwareVersionUrl}";
 <!-- treeview -->
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-treeview/bootstrap-treeview.min.js"></script>
 <!-- echarts -->
-<script src="${basePath}/assets/adminlte/plugins/echarts/echarts.js"></script>
+<!-- <script src="${basePath}/assets/adminlte/plugins/echarts/echarts.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="${basePath}/assets/adminlte/dist/js/demo.js"></script>
 <!-- layer -->
@@ -246,11 +352,216 @@ var softwareVersionUrl="${softwareVersionUrl}";
 <script type="text/javascript" src="${basePath}/assets/common/js/common.js"></script>
 <script type="text/javascript" src="${basePath}/assets/common/js/constant.js"></script>
 <!-- 加入页面的的脚本 -->
-<script>
+<script type="text/javascript">
+$(function(){
+	var basePath="${basePath}";//给外部js文件传递路径参数
+	var apiHost="${apiHost}";
+	var softwareVersionUrl="${softwareVersionUrl}";
+	//查询默认所有列表
+	var page=1;
+	pictureList(page);
+	setBox("search-box");
+	$("#alert").hide();
+	pictureForm = $("#picture-form").form();
+	//userSearchForm = $("#admin-search-form").form();
+	//-------------button event begin----------------
+	$('button[data-btn-type]').click(function() {
+		//var selected = $('#admin-table').bootstrapTable('getSelections');
+		var action = $(this).attr('data-btn-type');
+		switch (action) {
+		
+		case 'search':
+			//var formParams = $("#picture-form").serializeJSON();
+			var classid = $("#search-box option:selected").val();
+			var detail0 = $("#search-detail0 option:selected").val();
+			var detail1 = $("#search-detail1 option:selected").val();
+			var detail2 = $("#search-detail2 option:selected").val();
+			var params={"search-box":classid,"search-detail0":detail0,"search-detail1":detail1,
+					"search-detail2":detail2,"page":page}
+			alert(JSON.stringify(params));
+			ajaxPost(basePath + "/web/pictureList", {
+				params:JSON.stringify(params)
+				
+			}, function(data) {
+				alert(JSON.stringify(data));
+				if(data==null||data.length==0){
+					$("#alert").show();
+					for(var i=0;i<11;i++){
+						$("#box"+i).hide();
+					}
+					}else{
+						$("#alert").hide();
+						for(var i=0, len = data.length;i<len;i++){
+							$("#box"+i).show();
+							$("#box"+i).val(data[i].boxId);
+							$("#boxName"+i).html(data[i].name);
+							$("#img"+i).attr("src",data[i].pla);
+							
+							}
+						}
+			});	
+			break;
+		case 'reset':
+			pictureForm.clearForm();
+			//重置按钮重新加载页面
+		    pictureList(page);
+			break;
+	}
+
+	});
+	//-------------button event end----------------
+	
+	//-------------Validator from begin----------------
+	//查询表单box下拉改变事件
+	$("#search-box").change(function(){
+		 var boxId=$("#search-box").val();
+		 $("#divgroupid0").hide();
+		 $("#divgroupid1").hide();
+		 $("#divgroupid2").hide();
+		
+		$("#search-detail0").empty();
+		$("#search-detail1").empty();  
+		$("#search-detail2").empty(); 
+		setBoxType(boxId); 
+	});
+	//-------------Validator from end----------------
+	
+});
+/**
+ * 默认查询所有列表
+ */
+ function pictureList(page){
+	 var basePath="${basePath}";
+	 var params={"page":page}
+	//查询全部图表列表
+		ajaxPost(basePath + "/web/pictureList", {
+			params:JSON.stringify(params)
+			}, function(data) {
+				alert(JSON.stringify(data));
+				if(data==null||data.length==0){
+					$("#alert").show();
+					for(var i=0;i<11;i++){
+						$("#box"+i).hide();
+					}
+					}else{
+						$("#alert").hide();
+			for(var i=0, len = data.length;i<len;i++){
+				$("#box"+i).show();
+				$("#box"+i).val(data[i].boxId);
+				$("#boxName"+i).text(data[i].name);
+				$("#img"+i).attr("src",data[i].pla);
+				}
+					}	
+				});	
+	 }
+/**
+ * 设置纸盒选择下拉类型
+ * @param selectid
+ * @param 
+ * @returns
+ */
+function setBox(selectid){
+	var basePath="${basePath}";
+	//alert(JSON.stringify(universityId));
+	ajaxPost(basePath+"/web/boxTree", null, function(data) {
+		alert("查询下拉列表"+JSON.stringify(data));
+		var $select = $('#'+selectid);  
+		$select.empty();
+		if(data.length==0){
+			 $select.val("");
+		}
+		if(data.length>0){
+			 $select.append('<option value="">请选择...</option>'); 
+		}
+		for(var i=0,len = data.length;i<len;i++){
+			var c=data[i]; 
+		 	var cid=c.id
+		 	var ctext=c.text;
+		   	$select.append('<option value="'+cid+'">'+ctext+'</option>'); 
+				
+		} 
+	});
+}
+/**
+ * 根据纸盒类型
+ */
+function setBoxType(boxId){
+	//alert(JSON.stringify(universityId));
+	var basePath="${basePath}";
+	ajaxPost(basePath+"/web/boxTree", null, function(data) {
+		
+		$('#search-detail0').empty();
+		$('#search-detail1').empty();
+		$('#search-detail2').empty();
+		
+		for(var i=0,len = data.length;i<len;i++){
+			var c=data[i]; 
+			 var a = c.nodes;
+			   if(c.id==boxId){
+				   alert(JSON.stringify(a));
+				   
+				   for(var j=0,len = a.length;j<len;j++){
+					   if(a.length==0){
+						   $("#search-detail"+j).val("");
+						
+						}
+						if(a.length>0){
+							$("#search-detail"+j).append('<option value="">请选择...</option>'); 
+						}
+					   var d=a[j]; 
+					   var dtext=d.text;
+					   $("#divgroupid"+j).show();
+					   $("#detail"+j).text(dtext);
+					   if(d.nodes!=null&&d.nodes.length>0){
+						   alert(JSON.stringify(d.nodes));
+						   var e = d.nodes;
+						   for(var k=0,len = e.length;k<len;k++){
+							   var f=e[k];
+							   var fid=f.id;
+							   var ftext=f.text;
+							   $("#search-detail"+j).append('<option value="'+fid+'">'+ftext+'</option>');
+							}
+					 
+						}
+						  
+					   }
+					}
+				} 
+	});
+}
+
+	function resetForm(){
+		userForm.clearForm();
+		
+	}
+	
+	/*
+	 * 得到所有选中行
+	 */
+	function xiadan(n) {
+		var basePath="${basePath}";
+		var boxId = $("#box"+n).val();
+		var params={"boxId":boxId}
+		var boxid = sessionStorage.setItem("boxId",boxId);
+		showTabs("a-href"+n,"${basePath}/web/xiadan");
+	}
+	/**
+	 * tab页面加载
+	 * @param tabsId
+	 * @param url
+	 * @returns
+	 */
+	function showTabs(tabsId,url) {
+	    $("a[href='#"+tabsId+"']").tab('show');
+	    var $tabContent = $('#'+tabsId);
+	    if($tabContent.length < 100) {
+	        $tabContent.load(url);
+	    }
+	}
    //加载菜单
-	ajaxPost(basePath+"/web/boxTree",null,function(data){
+	/* ajaxPost(basePath+"/web/boxTree",null,function(data){
 	  var $li,$menu_f_ul;
-	  var $li1.$menu_f_ul1;
+	  var $li1,$menu_f_ul1;
 	  $.each(data,function(index,item){
 		  if(item.levelCode==0){	
 			  $li=$('<li class="treeview"></li>');
@@ -291,16 +602,16 @@ var softwareVersionUrl="${softwareVersionUrl}";
 	  });
 	  $($.parseHTML($menu_f_ul1, document, true)).appendTo("body");
    });
-   
-   $(function(){ 
+    */
+ /*   $(function(){ 
 	   //首页默认加载
-       loadPage(basePath+"/homePage");
+       loadPage(basePath+"/web/picture");
 	   $("a[data-url]").click(function(evt){
 		   loadPage($(this).data("url"));
-		   $("ul.treeview-menu li").removeClass("active");
-		   $(this).parent().addClass("active");
+		    $("ul.treeview-menu li").removeClass("active");
+		   $(this).parent().addClass("active"); 
 	   });
-   });
+   }); */
 </script>
 </body>
 

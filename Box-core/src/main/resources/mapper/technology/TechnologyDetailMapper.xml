@@ -194,4 +194,9 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectAll"  resultMap="TechnologyDetailResultMap">
+    select 
+    <include refid="TechnologyDetail_Column_List" />
+    from t_technology_detail
+  </select>
 </mapper>

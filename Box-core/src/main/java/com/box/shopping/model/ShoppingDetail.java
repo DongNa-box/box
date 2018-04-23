@@ -12,7 +12,7 @@ public class ShoppingDetail implements Serializable {
 
     private String layoutId;
 
-    private String pricePaperId;
+    private String printPaperId;
 
     private String paperGramsId;
 
@@ -120,12 +120,12 @@ public class ShoppingDetail implements Serializable {
         this.layoutId = layoutId == null ? null : layoutId.trim();
     }
 
-    public String getPricePaperId() {
-        return pricePaperId;
+    public String getPrintPaperId() {
+        return printPaperId;
     }
 
-    public void setPricePaperId(String pricePaperId) {
-        this.pricePaperId = pricePaperId == null ? null : pricePaperId.trim();
+    public void setPrintPaperId(String printPaperId) {
+        this.printPaperId = printPaperId == null ? null : printPaperId.trim();
     }
 
     public String getPaperGramsId() {
@@ -432,7 +432,7 @@ public class ShoppingDetail implements Serializable {
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getBoxId() == null ? other.getBoxId() == null : this.getBoxId().equals(other.getBoxId()))
             && (this.getLayoutId() == null ? other.getLayoutId() == null : this.getLayoutId().equals(other.getLayoutId()))
-            && (this.getPricePaperId() == null ? other.getPricePaperId() == null : this.getPricePaperId().equals(other.getPricePaperId()))
+            && (this.getPrintPaperId() == null ? other.getPrintPaperId() == null : this.getPrintPaperId().equals(other.getPrintPaperId()))
             && (this.getPaperGramsId() == null ? other.getPaperGramsId() == null : this.getPaperGramsId().equals(other.getPaperGramsId()))
             && (this.getPrintColorId() == null ? other.getPrintColorId() == null : this.getPrintColorId().equals(other.getPrintColorId()))
             && (this.getPantoneId() == null ? other.getPantoneId() == null : this.getPantoneId().equals(other.getPantoneId()))
@@ -479,7 +479,7 @@ public class ShoppingDetail implements Serializable {
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getBoxId() == null) ? 0 : getBoxId().hashCode());
         result = prime * result + ((getLayoutId() == null) ? 0 : getLayoutId().hashCode());
-        result = prime * result + ((getPricePaperId() == null) ? 0 : getPricePaperId().hashCode());
+        result = prime * result + ((getPrintPaperId() == null) ? 0 : getPrintPaperId().hashCode());
         result = prime * result + ((getPaperGramsId() == null) ? 0 : getPaperGramsId().hashCode());
         result = prime * result + ((getPrintColorId() == null) ? 0 : getPrintColorId().hashCode());
         result = prime * result + ((getPantoneId() == null) ? 0 : getPantoneId().hashCode());
@@ -529,7 +529,7 @@ public class ShoppingDetail implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", boxId=").append(boxId);
         sb.append(", layoutId=").append(layoutId);
-        sb.append(", pricePaperId=").append(pricePaperId);
+        sb.append(", printPaperId=").append(printPaperId);
         sb.append(", paperGramsId=").append(paperGramsId);
         sb.append(", printColorId=").append(printColorId);
         sb.append(", pantoneId=").append(pantoneId);

@@ -6,7 +6,7 @@
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="box_id" jdbcType="VARCHAR" property="boxId" />
     <result column="layout_id" jdbcType="VARCHAR" property="layoutId" />
-    <result column="price_paper_id" jdbcType="VARCHAR" property="pricePaperId" />
+    <result column="print_paper_id" jdbcType="VARCHAR" property="printPaperId" />
     <result column="paper_grams_id" jdbcType="VARCHAR" property="paperGramsId" />
     <result column="print_color_id" jdbcType="VARCHAR" property="printColorId" />
     <result column="pantone_id" jdbcType="VARCHAR" property="pantoneId" />
@@ -45,7 +45,7 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    shopping_id, user_id, box_id, layout_id, price_paper_id, paper_grams_id, print_color_id, 
+    shopping_id, user_id, box_id, layout_id, print_paper_id, paper_grams_id, print_color_id, 
     pantone_id, surface_treatment_id, is_bronzing, bronzing_length, bronzing_width, bronzing_unit, 
     is_convex, convex_length, convex_width, convex_unit, is_UV, UV_length, UV_width, 
     UV_unit, is_PVC, PVC_length, PVC_width, PVC_unit, receive_area_id, paper_price, color_price, 
@@ -64,7 +64,7 @@
   </delete>
   <insert id="insert" parameterType="com.box.shopping.model.ShoppingDetail">
     insert into t_shopping_detail (shopping_id, user_id, box_id, 
-      layout_id, price_paper_id, paper_grams_id, 
+      layout_id, print_paper_id, paper_grams_id, 
       print_color_id, pantone_id, surface_treatment_id, 
       is_bronzing, bronzing_length, bronzing_width, 
       bronzing_unit, is_convex, convex_length, 
@@ -78,7 +78,7 @@
       transport_price, total_price, unit_price, 
       createby, createtime)
     values (#{shoppingId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, 
-      #{layoutId,jdbcType=VARCHAR}, #{pricePaperId,jdbcType=VARCHAR}, #{paperGramsId,jdbcType=VARCHAR}, 
+      #{layoutId,jdbcType=VARCHAR}, #{printPaperId,jdbcType=VARCHAR}, #{paperGramsId,jdbcType=VARCHAR}, 
       #{printColorId,jdbcType=VARCHAR}, #{pantoneId,jdbcType=VARCHAR}, #{surfaceTreatmentId,jdbcType=VARCHAR}, 
       #{isBronzing,jdbcType=INTEGER}, #{bronzingLength,jdbcType=DOUBLE}, #{bronzingWidth,jdbcType=DOUBLE}, 
       #{bronzingUnit,jdbcType=INTEGER}, #{isConvex,jdbcType=INTEGER}, #{convexLength,jdbcType=DOUBLE}, 
@@ -107,8 +107,8 @@
       <if test="layoutId != null">
         layout_id,
       </if>
-      <if test="pricePaperId != null">
-        price_paper_id,
+      <if test="printPaperId != null">
+        print_paper_id,
       </if>
       <if test="paperGramsId != null">
         paper_grams_id,
@@ -232,8 +232,8 @@
       <if test="layoutId != null">
         #{layoutId,jdbcType=VARCHAR},
       </if>
-      <if test="pricePaperId != null">
-        #{pricePaperId,jdbcType=VARCHAR},
+      <if test="printPaperId != null">
+        #{printPaperId,jdbcType=VARCHAR},
       </if>
       <if test="paperGramsId != null">
         #{paperGramsId,jdbcType=VARCHAR},
@@ -357,8 +357,8 @@
       <if test="layoutId != null">
         layout_id = #{layoutId,jdbcType=VARCHAR},
       </if>
-      <if test="pricePaperId != null">
-        price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      <if test="printPaperId != null">
+        print_paper_id = #{printPaperId,jdbcType=VARCHAR},
       </if>
       <if test="paperGramsId != null">
         paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
@@ -476,7 +476,7 @@
     set user_id = #{userId,jdbcType=VARCHAR},
       box_id = #{boxId,jdbcType=VARCHAR},
       layout_id = #{layoutId,jdbcType=VARCHAR},
-      price_paper_id = #{pricePaperId,jdbcType=VARCHAR},
+      print_paper_id = #{printPaperId,jdbcType=VARCHAR},
       paper_grams_id = #{paperGramsId,jdbcType=VARCHAR},
       print_color_id = #{printColorId,jdbcType=VARCHAR},
       pantone_id = #{pantoneId,jdbcType=VARCHAR},
@@ -529,8 +529,8 @@
       <if test="layoutId != null and layoutId!=''">
        and layout_id like CONCAT(CONCAT('%',#{layoutId,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="pricePaperId != null and pricePaperId !=''">
-       and price_paper_id like CONCAT(CONCAT('%',#{pricePaperId,jdbcType=VARCHAR}),'%')   
+      <if test="printPaperId != null and printPaperId !=''">
+       and print_paper_id like CONCAT(CONCAT('%',#{printPaperId,jdbcType=VARCHAR}),'%')   
       </if>
       <if test="paperGramsId != null and paperGramsId != ''">
        and paper_grams_id like CONCAT(CONCAT('%',#{paperGramsId,jdbcType=VARCHAR}),'%')  

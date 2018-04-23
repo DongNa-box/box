@@ -250,8 +250,8 @@
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="calssid != null">
-        calssId = #{calssid,jdbcType=VARCHAR},
+      <if test="classid != null">
+        classId = #{classid,jdbcType=VARCHAR},
       </if>
       <if test="detail1 != null">
         detail1 = #{detail1,jdbcType=VARCHAR},
@@ -300,7 +300,7 @@
       plan = #{plan,jdbcType=VARCHAR},
       phy = #{phy,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      calssId = #{calssid,jdbcType=VARCHAR},
+      classId = #{classid,jdbcType=VARCHAR},
       detail1 = #{detail1,jdbcType=VARCHAR},
       detail2 = #{detail2,jdbcType=VARCHAR},
       detail3 = #{detail3,jdbcType=VARCHAR},
@@ -313,4 +313,30 @@
       unit = #{unit,jdbcType=INTEGER},
     where boxId = #{boxid,jdbcType=VARCHAR}
   </update>
+  <select id="getWebBoxTypeList" resultType="map">
+   SELECT a.* from t_box_type a
+  left JOIN t_box_classification b
+  on a.classId=b.id
+  left JOIN t_box_classification c
+  on a.detail1=c.id
+  left JOIN t_box_classification d
+  on a.detail2=d.id
+  left JOIN t_box_classification e
+  on a.detail3=e.id
+  where 1=1 
+   
+   <if test="classid != null and classid != '' ">
+    and a.classId=#{classid}
+   </if>
+   <if test="detail1 != null and detail1 != '' ">
+    and a.detail1=#{detail1}
+    </if>
+    <if test="detail2 != null and detail2 != '' ">
+    and a.detail2=#{detail2}
+    </if>
+  <if test="detail3 != null and detail3 != '' ">
+    and a.detail3=#{detail3}
+    </if>
+  LIMIT #{page,jdbcType=INTEGER},12
+  </select>
 </mapper>

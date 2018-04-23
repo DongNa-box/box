@@ -29,6 +29,10 @@ import com.box.shopping.model.ShoppingDetail;
 public interface ShoppingDeatilService extends BaseService<ShoppingDetail, String>{
 
 	List<Map<String, Object>> getShoppingDetailList(Map<String, Object> map);
+	 
+	boolean createLayoutAndShopping(Map<String, Object> map);
+	 
+	
 
 }
 

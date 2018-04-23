@@ -10,6 +10,7 @@
 
 package com.box.technology.service.impl;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.box.boxmanage.model.BoxType;
+import com.box.framework.pojo.TreeNode;
+import com.box.framework.utils.TreeUtil;
 import com.box.technology.dao.TechnologyDetailMapper;
 import com.box.technology.model.TechnologyDetail;
 import com.box.technology.service.TechnologyDetailService;
+
 
 /**
  * ClassName:TechnologyDetailServiceImpl
@@ -142,6 +146,27 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 		List<Map<String,Object>> list=technologyDetailMapper.getAllTechnologyList();
 		return list;
 		
+	}
+
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.technology.service.TechnologyDetailService#getTechnologyTree()
+	 */
+	 
+	@Override
+	public List<TreeNode> getTechnologyTree() {
+		List<TechnologyDetail> list = technologyDetailMapper.selectAll();
+		Map<String, TreeNode> nodelist = new LinkedHashMap<String, TreeNode>();
+		for (TechnologyDetail func : list) {
+            TreeNode node = new TreeNode();
+            node.setText(func.getName());
+            node.setId(func.getId());
+            node.setParentId(func.getParentId());
+            node.setLevelCode(String.valueOf(func.getLevel()));
+            nodelist.put(node.getId(), node);
+        }
+		return TreeUtil.getNodeList(nodelist);
 	}
 
 }
