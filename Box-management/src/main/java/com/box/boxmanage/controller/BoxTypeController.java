@@ -12,6 +12,8 @@ package com.box.boxmanage.controller;
 
 import java.awt.Rectangle;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,9 +39,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
+import com.box.framework.FileUtil;
 import com.box.framework.pojo.Result;
 import com.box.framework.security.util.SecurityUtil;
-import com.box.framework.utils.FileUtil;
 import com.box.framework.utils.Sequence;
 
 
@@ -95,6 +97,8 @@ public class BoxTypeController {
 	    private Result editBoxType(HttpServletRequest httpRequest) {
 	    	MultipartHttpServletRequest request = (MultipartHttpServletRequest) httpRequest;
 	    	String uploadPath = request.getSession().getServletContext().getRealPath("/images/BoxType");  
+	    	//String uploadPath=System.getProperty("catalina.home")+File.separator+"images"+File.separator+"BoxType";
+	    	System.out.println("上传路:"+uploadPath);
 	    	BoxType box =new BoxType();
 	    	box.setBoxid(request.getParameter("boxid"));
 	    	box.setClassid(request.getParameter("classId"));
@@ -130,13 +134,23 @@ public class BoxTypeController {
 	            f=file.get("file-3");
 	            fileName=setFileName(f,box.getBoxid(),uploadPath,"plan");	
 	            box.setPlan(fileName);
-	            //将平面展开图透明化处理
+	            //文件存储路径
 				String filePath=uploadPath+File.separator+box.getBoxid()+File.separator+"plan"+File.separator+fileName;
-	            String outFilePath=uploadPath+File.separator+box.getBoxid()+File.separator+"pla";
-				int[] r=FileUtil.getSize(filePath);
-				FileUtil.cutImage(new File(filePath),new File(outFilePath),new Rectangle(r[0],r[1],r[2],r[3]));
+	            //目标路径
+				String outFilePath=uploadPath+File.separator+box.getBoxid()+File.separator+"pla";
+	            //将平面展开图透明化处理
+	            int[] r=FileUtil.getSize(filePath);
+				try {
+					//裁剪图片
+					FileUtil.cutImage(new File(filePath),new FileOutputStream(outFilePath),new Rectangle(r[0],r[1],r[2],r[3]));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//缩放图片
 				FileUtil.thumbnailImage(new File(outFilePath), new File(outFilePath),150, 100);
-				FileUtil.transferAlpha(outFilePath,outFilePath); 
+				//图片透明化处理
+				FileUtil.transferAlpha(outFilePath); 
 				box.setPla(fileName);
 				switch(flag){
 				   //盒型新增

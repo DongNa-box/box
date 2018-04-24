@@ -63,7 +63,7 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
                             	<th data-align="center" data-field="type" data-sortable="true" data-formatter="rateTypeFormatter">利率类型</th>
-								<th data-align="center" data-field="value" data-sortable="true">利率值</th>
+								<th data-align="center" data-field="value" data-sortable="true">利率值/%</th>
 								<th data-align="center" data-field="createby" data-sortable="true" >创建人</th>
 								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">注册时间</th>
 							</tr>
@@ -101,9 +101,12 @@
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">利率值<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
+						<div class="col-sm-6">
 							<input id="value" name="value" type="text" class="form-control"
 								placeholder="请输入利率值" maxlength="11"/>
+						</div>
+						<div class="col-sm-2">
+						<span>%</span>
 						</div>
 					</div>
 					<div class="modal-footer">
