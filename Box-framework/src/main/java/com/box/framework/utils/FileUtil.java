@@ -8,7 +8,7 @@
  *
 */
 
-package com.box.framework;
+package com.box.framework.utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -199,10 +199,7 @@ public class FileUtil {
   	    }
 
   	    g2D.drawImage(bufferedImage, 0, 0, imageIcon.getImageObserver());
-  	   // String path3="E:"+File.separator+"apache-tomcat-8.5.23"+File.separator+finalUrl;
-		//System.out.println("-->"+path3);	
-  	    //String path2=File.separator+"home"+File.separator+"ubuntu"+File.separator+"tomcat"+File.separator+finalUrl;
-		File file1 = new File(url);
+  	    File file1 = new File(url);
 		if (!file1.exists()) {
 			file.mkdirs();
 		}
@@ -225,8 +222,9 @@ public class FileUtil {
 	     * @param prevfix    生成缩略图的前缀
 	     * @param force        是否强制按照宽高生成缩略图(如果为false，则生成最佳比例缩略图)
 	     */
-	    public static void thumbnailImage(File srcImg, File output, int w, int h){
+	    public static void thumbnailImage(File srcImg, String output, int w, int h){
 	        if(srcImg.exists()){
+	        	System.out.println(srcImg.getName());
 	            try {
 	                // ImageIO 支持的图片类型 : [BMP, bmp, jpg, JPG, wbmp, jpeg, png, PNG, JPEG, WBMP, GIF, gif]
 	                String types = Arrays.toString(ImageIO.getReaderFormatNames()).replace("]", ",");
@@ -261,8 +259,14 @@ public class FileUtil {
 	                Graphics g = bi.getGraphics();
 	                g.drawImage(img, 0, 0, w, h, Color.white, null);
 	                g.dispose();
+	                File file = new File(output);
+	      		    if (!file.exists()) {
+	      			file.mkdirs();
+	      		    }
 	                // 将图片保存在原目录并加上前缀
-	                ImageIO.write(bi, suffix, output);
+	                ImageIO.write(bi, suffix, file);
+	                // 将图片保存在原目录并加上前缀
+	                //ImageIO.write(bi, suffix, new File(output));
 	            } catch (IOException e) {
 	              // log.error("generate thumbnail image failed.",e);
 	            }
@@ -289,7 +293,7 @@ public class FileUtil {
 	      	 BufferedImage bi=ImageIO.read(is);
 	   	    Image image=(Image)bi;
 	   	    ImageIcon imageIcon = new ImageIcon(image);
-	   	    System.out.println("图片的宽度："+imageIcon.getIconWidth()+"-->"+imageIcon.getIconHeight());
+	   	    //System.out.println("图片的宽度："+imageIcon.getIconWidth()+"-->"+imageIcon.getIconHeight());
 	   	    BufferedImage bufferedImage = new BufferedImage(imageIcon.getIconWidth(), imageIcon.getIconHeight(),
 	   	      BufferedImage.TYPE_4BYTE_ABGR);
 	   	    Graphics2D g2D = (Graphics2D) bufferedImage.getGraphics();
@@ -320,7 +324,7 @@ public class FileUtil {
 	   	    int beginY=y[0];
 	   	    int endY=y[k-1];
 	   	    int height=endY-beginY;//图片的高度
-	   	    System.out.println("Y的开始"+beginY+","+endY+","+height);
+	   	    //System.out.println("Y的开始"+beginY+","+endY+","+height);
 	   	    //获取x的最小值是起始点的横坐标
 	   	    int min=x[0];
 	   	    for(int i=0;i<j;i++){
@@ -329,7 +333,6 @@ public class FileUtil {
 	   	    	}
 	   	    }
 	   	    int beginX=min;
-	   	    System.out.println(min);
 	   	    //找到第一个点的横坐标的值为min值
 	   	    int key=0;
 	   	    for (int j1 =0; j1 <bufferedImage.getHeight(); j1++) {
@@ -355,7 +358,6 @@ public class FileUtil {
 	       	   }
 	   	    //center数组中的最后一个值是宽度的最大值
 	   	    int width=center[n-1]-min;
-	   	    System.out.println("width:"+width);
 	   	    result[0]=beginX;
 	   	    result[1]=beginY;
 	   	    result[2]=width;
@@ -375,7 +377,7 @@ public class FileUtil {
 	     * @param output    图片输出流
 	     * @param rect      需要截取部分的坐标和大小
 	     */
-	    public static void cutImage(File srcImg, OutputStream output,Rectangle rect){
+	    public static void cutImage(File srcImg, String outputPath,Rectangle rect){
 	        if(srcImg.exists()){
 	            java.io.FileInputStream fis = null;
 	            ImageInputStream iis = null;
@@ -386,12 +388,9 @@ public class FileUtil {
 	                String suffix = null;
 	                // 获取图片后缀
 	                if(srcImg.getName().indexOf(".") > -1) {
-	                	System.out.println(srcImg.getName());
-	                	System.out.println(srcImg.getName().lastIndexOf("."));
 	                    suffix = srcImg.getName().substring(srcImg.getName().lastIndexOf(".") + 1);
 	                }// 类型和图片后缀全部小写，然后判断后缀是否合法
 	                if(suffix == null || types.toLowerCase().indexOf(suffix.toLowerCase()+",") < 0){
-	                    //log.error("Sorry, the image suffix is illegal. the standard image suffix is {}." + types);
 	                    System.out.println("Sorry, the image suffix is illegal. the standard image suffix is {}." + types);
 	                    return ;
 	                }
@@ -403,7 +402,11 @@ public class FileUtil {
 	                ImageReadParam param = reader.getDefaultReadParam();
 	                param.setSourceRegion(rect);
 	                BufferedImage bi = reader.read(0, param);
-	                ImageIO.write(bi, suffix, output);
+	                File file = new File(outputPath);
+	      		    if (!file.exists()) {
+	      			file.mkdirs();
+	      		    }
+	                ImageIO.write(bi, suffix, file);
 	            } catch (FileNotFoundException e) {
 	                e.printStackTrace();
 	            } catch (IOException e) {

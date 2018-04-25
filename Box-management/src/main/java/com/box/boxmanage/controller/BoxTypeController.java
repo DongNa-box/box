@@ -12,8 +12,6 @@ package com.box.boxmanage.controller;
 
 import java.awt.Rectangle;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,9 +37,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
-import com.box.framework.FileUtil;
 import com.box.framework.pojo.Result;
 import com.box.framework.security.util.SecurityUtil;
+import com.box.framework.utils.FileUtil;
 import com.box.framework.utils.Sequence;
 
 
@@ -98,7 +96,7 @@ public class BoxTypeController {
 	    	MultipartHttpServletRequest request = (MultipartHttpServletRequest) httpRequest;
 	    	String uploadPath = request.getSession().getServletContext().getRealPath("/images/BoxType");  
 	    	//String uploadPath=System.getProperty("catalina.home")+File.separator+"images"+File.separator+"BoxType";
-	    	System.out.println("上传路:"+uploadPath);
+	    	System.out.println("上传路径:"+uploadPath);
 	    	BoxType box =new BoxType();
 	    	box.setBoxid(request.getParameter("boxid"));
 	    	box.setClassid(request.getParameter("classId"));
@@ -123,8 +121,7 @@ public class BoxTypeController {
 	    	String flag = request.getParameter("flag");
 	    	boolean result;
 			String contentType = request.getContentType();
-			if (contentType.indexOf("multipart/form-data") >= 0) {
-				
+			if (contentType.indexOf("multipart/form-data") >= 0) {	
 		    	MultipartFile f=file.get("file-1");
 	            String fileName=setFileName(f,box.getBoxid(),uploadPath,"dime");	
 	            box.setDime(fileName);
@@ -136,22 +133,22 @@ public class BoxTypeController {
 	            box.setPlan(fileName);
 	            //文件存储路径
 				String filePath=uploadPath+File.separator+box.getBoxid()+File.separator+"plan"+File.separator+fileName;
-	            //目标路径
-				String outFilePath=uploadPath+File.separator+box.getBoxid()+File.separator+"pla";
-	            //将平面展开图透明化处理
-	            int[] r=FileUtil.getSize(filePath);
-				try {
-					//裁剪图片
-					FileUtil.cutImage(new File(filePath),new FileOutputStream(outFilePath),new Rectangle(r[0],r[1],r[2],r[3]));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//目标路径
+				String outFilePath=uploadPath+File.separator+box.getBoxid()+File.separator+"pla"+File.separator+fileName;
+		        //将平面展开图透明化处理
+				//获取有效的尺寸
+		        int[] r=FileUtil.getSize(filePath);
+				//裁剪图片,获取图片的有效部分
+				FileUtil.cutImage(new File(filePath),outFilePath,new Rectangle(r[0],r[1],r[2],r[3]));
 				//缩放图片
-				FileUtil.thumbnailImage(new File(outFilePath), new File(outFilePath),150, 100);
+				FileUtil.thumbnailImage(new File(outFilePath), outFilePath,150, 100);		
 				//图片透明化处理
 				FileUtil.transferAlpha(outFilePath); 
 				box.setPla(fileName);
+				//排版原始文件
+				f=file.get("file-4");
+				fileName=setFileName(f,box.getBoxid(),uploadPath,"dxf");
+				box.setDxf(fileName);
 				switch(flag){
 				   //盒型新增
 				   case "1":
@@ -186,6 +183,8 @@ public class BoxTypeController {
 		 @ResponseBody
 		 private Result deleteBoxType(@Param(value = "boxCids") String boxIds) {
 			  List<String> list = JSON.parseArray(boxIds, String.class);
+			  //删除图片和数据
+			  
 			  boolean result=boxTypeService.batchDeleteById(list);
 			    if(result){
 			    	return new Result(true,"删除成功！");

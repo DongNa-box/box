@@ -97,7 +97,7 @@
                     <div class="form-group">
 						<label class="col-sm-4 control-label">纸盒名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="name" name="name" type="text" class="form-control"
+							<input id="boxName" name="name" type="text" class="form-control"
 								placeholder="请输入纸盒类型名称">
 						</div>
 					</div>
@@ -251,6 +251,15 @@
 	                       <input id="file-3" type="file" name="file-3" class="file" data-overwrite-initial="false" data-min-file-count="1" >
 	                  </div>
 				  </div>
+				    <div class="row">
+		                <label for="" class="col-sm-4 control-label"  >DXF原始文件</label>
+
+				  </div>
+	              <div class="row">
+	                  <div class="form-group" >
+	                       <input id="file-4" type="file" name="file-4" class="file" data-overwrite-initial="false" data-min-file-count="1" >
+	                  </div>
+				  </div>
 				  <div class="modal-footer">
 						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
@@ -284,6 +293,7 @@ $(function(){
 			setFileStyle('file-1');
 			setFileStyle('file-2');
 			setFileStyle('file-3');
+			setDxfFileStyle('file-4');
 			$('#lmaxUnit').val(0);
 			$('#lminUnit').val(0);
 			$('#wmaxUnit').val(0);
@@ -305,6 +315,7 @@ $(function(){
 			$('#saveBtn').show();
 			formEdit(selected[0],'1');
 			$('#boxType-form').find('input,textarea,select').attr('readonly',false);
+		  $("#boxName").attr("disabled","disabled");//将boxName input元素设置为disabled 
 		   	break;
 		case 'scan':
 			if(selected.length != 1){
@@ -549,6 +560,14 @@ $(function(){
 		});
 	}
 	
+	function setUnit(selected){
+		$('#lminUnit').val(selected);
+		$('#lmaxUnit').val(selected);
+		$('#wmaxUnit').val(selected);
+		$('#wminUnit').val(selected);
+		$('#hmaxUnit').val(selected);
+		$('#hminUnit').val(selected);
+	}
 	 /**
 	  * 设置类型级别为0级的下拉列表
 	  * @param selectid
@@ -626,13 +645,16 @@ $(function(){
 			language: 'zh', //设置语言
 		    uploadUrl: '#', // you must set a valid URL here else you will get an error
 		    //allowedFileTypes : [ 'image','video','flash','audio'],
-		    allowedFileExtensions: ['jpg', 'png','jpeg', 'svg','gif','mpeg'],
+		    //allowedFileExtensions: ['jpg', 'png','jpeg', 'svg','gif','mpeg'],
 		    overwriteInitial: false,
 		    showUpload:false,
+		    showRemove:true,
+		    showBrowse:true,
 		    //mainClass: "input-group-lg",
 		    dropZoneEnabled: false,//是否显示拖拽区域
 		   // dropZoneTitle:'拖放文件到这里',
 		    maxFileCount: 1,
+		    minFileCount: 1,
 		    layoutTemplates:{
 		    	//actionDelete:'',
 		    	actionUpload:'',
@@ -642,7 +664,34 @@ $(function(){
 		    },
 		 });
 	}
-	 
+	 /**
+	 * 设置文件上传控件的效果
+	 */
+	function setDxfFileStyle(fileId){
+		$('#'+fileId).fileinput({
+			language: 'zh', //设置语言
+		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    //allowedFileTypes : [ 'image','video','flash','audio'],
+		    //allowedFileExtensions: ['jpg', 'png','jpeg', 'svg','gif','mpeg'],
+		    overwriteInitial: false,
+		    showPreview:false,
+		    showUpload:false,
+		    showRemove:true,
+		    showBrowse:true,
+		    //mainClass: "input-group-lg",
+		    dropZoneEnabled: false,//是否显示拖拽区域
+		   // dropZoneTitle:'拖放文件到这里',
+		    maxFileCount: 1,
+		    minFileCount: 1,
+		    layoutTemplates:{
+		    	//actionDelete:'',
+		    	actionUpload:'',
+		    },
+		    slugCallback: function (filename) {
+		        return filename.replace('(', '_').replace(']', '_');
+		    },
+		 });
+	}
 	//修改纸盒时回传数据
 	function formEdit(data,operate) {
 		setXijieSelect(data.classId,"1");
@@ -651,6 +700,7 @@ $(function(){
 	    dime=data.dime;
 	    plan=data.plan;
 	    phy=data.phy;
+	    dxf=data.dxf;
 	    $('#lmaxUnit').val(data.unit);
 		$('#lminUnit').val(data.unit);
 		$('#wmaxUnit').val(data.unit);
@@ -663,7 +713,7 @@ $(function(){
 		t.width="120px";
     	t.key=0;
 		    if(operate=='1'){
-		    	    var path="/BoxType/"+data.boxId;
+		    	    var path="images/BoxType/"+data.boxId;
 		    	    orlist[0]=path+"/dime/"+dime;
 		        	t.caption=dime;
 		            titlelist[0]=t;	
@@ -676,6 +726,30 @@ $(function(){
 		        	t.caption=plan;
 		            titlelist[0]=t;	
 		            setEditFileStyle('file-3',orlist,titlelist,plan);
+		            orlist[0]=path+"/dxf/"+dxf;
+		        	t.caption=dxf;
+		            titlelist[0]=t;	
+		            $("#file-4").fileinput({
+		    			language: 'zh', //设置语言
+		    		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    		    showRemove: true,
+		    		    overwriteInitial: false,
+		    		    showUpload:false,
+		    		    showPreview:false,
+		    		    dropZoneEnabled: false,//是否显示拖拽区域
+		    		    maxFileCount: 1,
+		    		    minFileCount: 1,
+		    		    layoutTemplates:{
+		    		    	actionDelete:'',
+		    		    	actionUpload:'',
+		    		    },
+		    		    initialPreview:orlist,
+		    		    initialPreviewAsData: true,
+		    	        initialPreviewConfig: titlelist,
+		    		    slugCallback: function (dxf) {
+		    		        return dxf.replace('(', '_').replace(']', '_');
+		    		    },
+		    		});
 		    	 
 		    }else if(operate=='2'){
 		    	    var path="images/BoxType/"+data.boxId;
@@ -691,6 +765,32 @@ $(function(){
 		        	t.caption=plan;
 		            titlelist[0]=t;	
 		            setScanFileStyle('file-3',orlist,titlelist,plan);
+		            orlist[0]=path+"/dxf/"+dxf;
+		        	t.caption=dxf;
+		            titlelist[0]=t;	
+		            $("#file-4").fileinput({
+		    			language: 'zh', //设置语言
+		    		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    		    showRemove: false,
+		    		    showBrowse:false,
+		    		    overwriteInitial: false,
+		    		    showUpload:false,
+		    		    showPreview:false,
+		    		    dropZoneEnabled: false,//是否显示拖拽区域
+		    		    maxFileCount: 1,
+		    		    minFileCount: 1,
+		    		    layoutTemplates:{
+		    		    	actionDelete:'',
+		    		    	actionUpload:'',
+		    		    },
+		    		    initialPreview:orlist,
+		    		    initialPreviewAsData: true,
+		    	        initialPreviewConfig: titlelist,
+		    		    slugCallback: function (dxf) {
+		    		        return dxf.replace('(', '_').replace(']', '_');
+		    		    },
+		    		});
+		         
 		    	 
 		    }
 
@@ -700,11 +800,13 @@ $(function(){
 			language: 'zh', //设置语言
 		    uploadUrl: '#', // you must set a valid URL here else you will get an error
 		    showRemove: true,
+		    showBrowse:true,
 		    overwriteInitial: false,
 		    showUpload:false,
 		    dropZoneEnabled: false,//是否显示拖拽区域
 		    //dropZoneTitle:'拖放文件到这里',
 		    maxFileCount: 1,
+		    minFileCount: 1,
 		    layoutTemplates:{
 		    	actionDelete:'',
 		    	actionUpload:'',
@@ -721,12 +823,12 @@ $(function(){
 	    $("#"+fileId).fileinput({
 			language: 'zh', //设置语言
 		    uploadUrl: '#', // you must set a valid URL here else you will get an error
-		    showRemove: true,
+		    showRemove: false,
 		    overwriteInitial: false,
 		    showBrowse:false,
 		    showUpload:false,
-		    dropZoneTitle:'拖放文件到这里',
 		    maxFileCount: 1,
+		    minFileCount: 1,
 		    layoutTemplates:{
 		    	actionDelete:'',
 		    	actionUpload:'',
@@ -739,12 +841,5 @@ $(function(){
 		    },
 		});
 	}
-	function setUnit(selected){
-		$('#lminUnit').val(selected);
-		$('#lmaxUnit').val(selected);
-		$('#wmaxUnit').val(selected);
-		$('#wminUnit').val(selected);
-		$('#hmaxUnit').val(selected);
-		$('#hminUnit').val(selected);
-	}
+
 </script>

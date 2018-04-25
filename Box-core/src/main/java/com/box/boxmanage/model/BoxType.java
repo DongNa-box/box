@@ -16,6 +16,8 @@ public class BoxType implements Serializable {
 
     private String phy;
 
+    private String dxf;
+    
     private String description;
 
     private String classid;
@@ -206,95 +208,167 @@ public class BoxType implements Serializable {
         this.createtime = createtime;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        BoxType other = (BoxType) that;
-        return (this.getBoxid() == null ? other.getBoxid() == null : this.getBoxid().equals(other.getBoxid()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDime() == null ? other.getDime() == null : this.getDime().equals(other.getDime()))
-            && (this.getPla() == null ? other.getPla() == null : this.getPla().equals(other.getPla()))
-            && (this.getPlan() == null ? other.getPlan() == null : this.getPlan().equals(other.getPlan()))
-            && (this.getPhy() == null ? other.getPhy() == null : this.getPhy().equals(other.getPhy()))
-            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getClassid() == null ? other.getClassid() == null : this.getClassid().equals(other.getClassid()))
-            && (this.getDetail1() == null ? other.getDetail1() == null : this.getDetail1().equals(other.getDetail1()))
-            && (this.getDetail2() == null ? other.getDetail2() == null : this.getDetail2().equals(other.getDetail2()))
-            && (this.getDetail3() == null ? other.getDetail3() == null : this.getDetail3().equals(other.getDetail3()))
-            && (this.getWmin() == null ? other.getWmin() == null : this.getWmin().equals(other.getWmin()))
-            && (this.getHmin() == null ? other.getHmin() == null : this.getHmin().equals(other.getHmin()))
-            && (this.getLmin() == null ? other.getLmin() == null : this.getLmin().equals(other.getLmin()))
-            && (this.getWmax() == null ? other.getWmax() == null : this.getWmax().equals(other.getWmax()))
-            && (this.getHmax() == null ? other.getHmax() == null : this.getHmax().equals(other.getHmax()))
-            && (this.getLmax() == null ? other.getLmax() == null : this.getLmax().equals(other.getLmax()))
-            && (this.getUnit() == null ? other.getUnit() == null : this.getUnit().equals(other.getUnit()))
-            && (this.getCreateby() == null ? other.getCreateby() == null : this.getCreateby().equals(other.getCreateby()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
-    }
+	public String getDxf() {
+		return dxf;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getBoxid() == null) ? 0 : getBoxid().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getDime() == null) ? 0 : getDime().hashCode());
-        result = prime * result + ((getPla() == null) ? 0 : getPla().hashCode());
-        result = prime * result + ((getPlan() == null) ? 0 : getPlan().hashCode());
-        result = prime * result + ((getPhy() == null) ? 0 : getPhy().hashCode());
-        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
-        result = prime * result + ((getClassid() == null) ? 0 : getClassid().hashCode());
-        result = prime * result + ((getDetail1() == null) ? 0 : getDetail1().hashCode());
-        result = prime * result + ((getDetail2() == null) ? 0 : getDetail2().hashCode());
-        result = prime * result + ((getDetail3() == null) ? 0 : getDetail3().hashCode());
-        result = prime * result + ((getWmin() == null) ? 0 : getWmin().hashCode());
-        result = prime * result + ((getHmin() == null) ? 0 : getHmin().hashCode());
-        result = prime * result + ((getLmin() == null) ? 0 : getLmin().hashCode());
-        result = prime * result + ((getWmax() == null) ? 0 : getWmax().hashCode());
-        result = prime * result + ((getHmax() == null) ? 0 : getHmax().hashCode());
-        result = prime * result + ((getLmax() == null) ? 0 : getLmax().hashCode());
-        result = prime * result + ((getUnit() == null) ? 0 : getUnit().hashCode());
-        result = prime * result + ((getCreateby() == null) ? 0 : getCreateby().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
-        return result;
-    }
+	public void setDxf(String dxf) {
+		this.dxf = dxf;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", boxid=").append(boxid);
-        sb.append(", name=").append(name);
-        sb.append(", dime=").append(dime);
-        sb.append(", pla=").append(pla);
-        sb.append(", plan=").append(plan);
-        sb.append(", phy=").append(phy);
-        sb.append(", description=").append(description);
-        sb.append(", classid=").append(classid);
-        sb.append(", detail1=").append(detail1);
-        sb.append(", detail2=").append(detail2);
-        sb.append(", detail3=").append(detail3);
-        sb.append(", mmin=").append(wmin);
-        sb.append(", hmin=").append(hmin);
-        sb.append(", lmin=").append(lmin);
-        sb.append(", mmax=").append(wmax);
-        sb.append(", hmax=").append(hmax);
-        sb.append(", lmax=").append(lmax);
-        sb.append(", unit=").append(unit);
-        sb.append(", createby=").append(createby);
-        sb.append(", createtime=").append(createtime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		return "BoxType [boxid=" + boxid + ", name=" + name + ", dime=" + dime + ", pla=" + pla + ", plan=" + plan
+				+ ", phy=" + phy + ", dxf=" + dxf + ", description=" + description + ", classid=" + classid
+				+ ", detail1=" + detail1 + ", detail2=" + detail2 + ", detail3=" + detail3 + ", wmin=" + wmin
+				+ ", hmin=" + hmin + ", lmin=" + lmin + ", wmax=" + wmax + ", hmax=" + hmax + ", lmax=" + lmax
+				+ ", unit=" + unit + ", createby=" + createby + ", createtime=" + createtime + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((boxid == null) ? 0 : boxid.hashCode());
+		result = prime * result + ((classid == null) ? 0 : classid.hashCode());
+		result = prime * result + ((createby == null) ? 0 : createby.hashCode());
+		result = prime * result + ((createtime == null) ? 0 : createtime.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((detail1 == null) ? 0 : detail1.hashCode());
+		result = prime * result + ((detail2 == null) ? 0 : detail2.hashCode());
+		result = prime * result + ((detail3 == null) ? 0 : detail3.hashCode());
+		result = prime * result + ((dime == null) ? 0 : dime.hashCode());
+		result = prime * result + ((dxf == null) ? 0 : dxf.hashCode());
+		result = prime * result + ((hmax == null) ? 0 : hmax.hashCode());
+		result = prime * result + ((hmin == null) ? 0 : hmin.hashCode());
+		result = prime * result + ((lmax == null) ? 0 : lmax.hashCode());
+		result = prime * result + ((lmin == null) ? 0 : lmin.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((phy == null) ? 0 : phy.hashCode());
+		result = prime * result + ((pla == null) ? 0 : pla.hashCode());
+		result = prime * result + ((plan == null) ? 0 : plan.hashCode());
+		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+		result = prime * result + ((wmax == null) ? 0 : wmax.hashCode());
+		result = prime * result + ((wmin == null) ? 0 : wmin.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BoxType other = (BoxType) obj;
+		if (boxid == null) {
+			if (other.boxid != null)
+				return false;
+		} else if (!boxid.equals(other.boxid))
+			return false;
+		if (classid == null) {
+			if (other.classid != null)
+				return false;
+		} else if (!classid.equals(other.classid))
+			return false;
+		if (createby == null) {
+			if (other.createby != null)
+				return false;
+		} else if (!createby.equals(other.createby))
+			return false;
+		if (createtime == null) {
+			if (other.createtime != null)
+				return false;
+		} else if (!createtime.equals(other.createtime))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (detail1 == null) {
+			if (other.detail1 != null)
+				return false;
+		} else if (!detail1.equals(other.detail1))
+			return false;
+		if (detail2 == null) {
+			if (other.detail2 != null)
+				return false;
+		} else if (!detail2.equals(other.detail2))
+			return false;
+		if (detail3 == null) {
+			if (other.detail3 != null)
+				return false;
+		} else if (!detail3.equals(other.detail3))
+			return false;
+		if (dime == null) {
+			if (other.dime != null)
+				return false;
+		} else if (!dime.equals(other.dime))
+			return false;
+		if (dxf == null) {
+			if (other.dxf != null)
+				return false;
+		} else if (!dxf.equals(other.dxf))
+			return false;
+		if (hmax == null) {
+			if (other.hmax != null)
+				return false;
+		} else if (!hmax.equals(other.hmax))
+			return false;
+		if (hmin == null) {
+			if (other.hmin != null)
+				return false;
+		} else if (!hmin.equals(other.hmin))
+			return false;
+		if (lmax == null) {
+			if (other.lmax != null)
+				return false;
+		} else if (!lmax.equals(other.lmax))
+			return false;
+		if (lmin == null) {
+			if (other.lmin != null)
+				return false;
+		} else if (!lmin.equals(other.lmin))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (phy == null) {
+			if (other.phy != null)
+				return false;
+		} else if (!phy.equals(other.phy))
+			return false;
+		if (pla == null) {
+			if (other.pla != null)
+				return false;
+		} else if (!pla.equals(other.pla))
+			return false;
+		if (plan == null) {
+			if (other.plan != null)
+				return false;
+		} else if (!plan.equals(other.plan))
+			return false;
+		if (unit == null) {
+			if (other.unit != null)
+				return false;
+		} else if (!unit.equals(other.unit))
+			return false;
+		if (wmax == null) {
+			if (other.wmax != null)
+				return false;
+		} else if (!wmax.equals(other.wmax))
+			return false;
+		if (wmin == null) {
+			if (other.wmin != null)
+				return false;
+		} else if (!wmin.equals(other.wmin))
+			return false;
+		return true;
+	}
+
+   
 }

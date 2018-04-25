@@ -8,6 +8,7 @@
     <result column="pla" jdbcType="VARCHAR" property="pla" />
     <result column="plan" jdbcType="VARCHAR" property="plan" />
     <result column="phy" jdbcType="VARCHAR" property="phy" />
+    <result column="dxf" jdbcType="VARCHAR" property="dxf" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="classId" jdbcType="VARCHAR" property="classid" />
     <result column="detail1" jdbcType="VARCHAR" property="detail1" />
@@ -24,7 +25,7 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="BoxType_Column_List">
-    boxId, name, dime, pla, plan, phy, description, classId, detail1, detail2, detail3, 
+    boxId, name, dime, pla, plan, phy,dxf, description, classId, detail1, detail2, detail3, 
     wmin, hmin, lmin, wmax, hmax, lmax, unit, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BoxTypeResultMap">
@@ -88,15 +89,15 @@
   
   <insert id="insert" parameterType="com.box.boxmanage.model.BoxType">
     insert into t_box_type (boxId, name, dime, 
-      pla, plan, phy, description, 
+      pla, plan, phy, dxf,description, 
       classId, detail1, detail2, 
       detail3, wmin, hmin, 
       lmin, wmax, hmax, lmax, 
       unit, createby, createtime
       )
     values (#{boxid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dime,jdbcType=VARCHAR}, 
-      #{pla,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{phy,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{classid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
+      #{pla,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{phy,jdbcType=VARCHAR},  #{dxf,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
       #{detail3,jdbcType=VARCHAR}, #{wmin,jdbcType=DOUBLE}, #{hmin,jdbcType=DOUBLE}, 
       #{lmin,jdbcType=DOUBLE}, #{wmax,jdbcType=DOUBLE}, #{hmax,jdbcType=DOUBLE}, #{lmax,jdbcType=DOUBLE}, 
       #{unit,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
@@ -122,6 +123,9 @@
       </if>
       <if test="phy != null">
         phy,
+      </if>
+      <if test="dxf != null">
+        dxf,
       </if>
       <if test="description != null">
         description,
@@ -185,6 +189,9 @@
       <if test="phy != null">
         #{phy,jdbcType=VARCHAR},
       </if>
+       <if test="dxf != null">
+        #{dxf,jdbcType=VARCHAR},
+      </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
@@ -247,6 +254,9 @@
       <if test="phy != null">
         phy = #{phy,jdbcType=VARCHAR},
       </if>
+      <if test="dxf != null">
+        dxf = #{dxf,jdbcType=VARCHAR},
+      </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
@@ -299,6 +309,7 @@
       pla = #{pla,jdbcType=VARCHAR},
       plan = #{plan,jdbcType=VARCHAR},
       phy = #{phy,jdbcType=VARCHAR},
+      dxf = #{dxf,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       classId = #{classid,jdbcType=VARCHAR},
       detail1 = #{detail1,jdbcType=VARCHAR},
