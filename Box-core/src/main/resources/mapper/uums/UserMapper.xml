@@ -239,6 +239,18 @@
       </if>
   </select>
   
+  <select id="getUserByAccount" parameterType="map" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    where
+    <if test="loginName != null and loginName!=''">
+       and login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+     <if test="password != null and password!=''">
+       and password = #{password,jdbcType=INTEGER}
+      </if>
+  </select>
   <update id="updateStatusById" parameterType="java.util.Map">
   	update t_uums_user set status = #{status,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR}
   </update>

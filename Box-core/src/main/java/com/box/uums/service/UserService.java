@@ -36,4 +36,8 @@ public interface UserService extends BaseService<User, String> {
 	boolean batchDeleteAdmin(List<String> list);
 	
 	List<User> getSearchUser(User user);
+
+	User getUserByAccount(Map<String, String> map);
+
+	User getUserByEmail(String email);
 }

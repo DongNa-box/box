@@ -94,8 +94,8 @@ public class BoxTypeController {
 	    @ResponseBody
 	    private Result editBoxType(HttpServletRequest httpRequest) {
 	    	MultipartHttpServletRequest request = (MultipartHttpServletRequest) httpRequest;
-	    	String uploadPath = request.getSession().getServletContext().getRealPath("/images/BoxType");  
-	    	//String uploadPath=System.getProperty("catalina.home")+File.separator+"images"+File.separator+"BoxType";
+	    	//String uploadPath = request.getSession().getServletContext().getRealPath("/images/BoxType");  
+	    	String uploadPath=System.getProperty("catalina.home")+File.separator+"images"+File.separator+"BoxType";
 	    	System.out.println("上传路径:"+uploadPath);
 	    	BoxType box =new BoxType();
 	    	box.setBoxid(request.getParameter("boxid"));

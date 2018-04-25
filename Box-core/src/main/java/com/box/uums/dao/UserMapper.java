@@ -25,4 +25,6 @@ public interface UserMapper extends BaseMapper<User, String> {
 	 
 	int updateByPrimaryKeySelective(User record);
 
+	User getUserByAccount(Map<String, String> map);
+
 }
