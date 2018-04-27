@@ -1,29 +1,37 @@
 package com.box.framework.utils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDataFormatter;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.web.multipart.MultipartFile;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 
 /**
  * ClassName:ExcelUtil Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
@@ -35,188 +43,281 @@ import org.springframework.web.multipart.MultipartFile;
  * @see
  */
 public class ExcelUtil {
-	public static List<Map> readExcel(MultipartFile file) throws Exception {
-		List<Map> valueList = new ArrayList<Map>();
-		String fileName = file.getOriginalFilename();
-		String ExtensionName = getExtensionName(fileName);
-		if (ExtensionName.equalsIgnoreCase("xls")) {
-			valueList = readExcel2003(file);
-		} else if (ExtensionName.equalsIgnoreCase("xlsx")) {
-			valueList = readExcel2007(file);
-		}
-		return valueList;
-	}
+	 private final static ExcelUtil jxlTable = new ExcelUtil();
 
-	@SuppressWarnings("rawtypes")
-	public static List<Map> readExcel2003(MultipartFile file) throws IOException {
-		List<Map> valueList = new ArrayList<Map>();
-		InputStream fis = null;
-		try {
-			fis = file.getInputStream();
-			HSSFWorkbook wookbook = new HSSFWorkbook(fis);
-			HSSFSheet sheet = wookbook.getSheetAt(0);
-			int rows = sheet.getPhysicalNumberOfRows();
-			Map<Integer, String> keys = new HashMap<Integer, String>();
-			int cells = 0;
-			HSSFRow firstRow = sheet.getRow(0);
-			if (firstRow != null) {
-				cells = firstRow.getPhysicalNumberOfCells();
-				for (int j = 0; j < cells; j++) {
-					try {
-						HSSFCell cell = firstRow.getCell(j);
-						String cellValue = getCellValue(cell);
-						keys.put(j, cellValue);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
+	    public static ExcelUtil getInstance() {
+	        return jxlTable;
+	    }
 
-			for (int i = 1; i < rows; i++) {
-				HSSFRow row = sheet.getRow(i);
-				if (row != null) {
-					Map<String, Object> val = new HashMap<String, Object>();
-					boolean isValidRow = false;
-					for (int j = 0; j < cells; j++) {
-						try {
-							HSSFCell cell = row.getCell(j);
-							String cellValue = getCellValue(cell);
-							val.put(keys.get(j), cellValue);
-							if (!isValidRow && cellValue != null && cellValue.trim().length() > 0) {
-								isValidRow = true;
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
+	    public ExcelUtil() {
+	    }
+	    /**
+	     * 读取Excel的内容，第一维数组存储的是一行中格列的值，二维数组存储的是多少个行
+	     * @param file 读取数据的源Excel
+	     * @param ignoreRows 读取数据忽略的行数，比喻行头不需要读入 忽略的行数为1
+	     * @return 读出的Excel中数据的内容
+	     * @throws FileNotFoundException
+	     * @throws IOException
+	     */
+	    @SuppressWarnings("deprecation")
+		public static String[][] getData(File file, int ignoreRows)
+	           throws FileNotFoundException, IOException {
+	       List<String[]> result = new ArrayList<String[]>();
+	       int rowSize = 0;
+	       BufferedInputStream in = new BufferedInputStream(new FileInputStream(
+	              file));
+	       // 打开HSSFWorkbook
+	       POIFSFileSystem fs = new POIFSFileSystem(in);
+	       HSSFWorkbook wb = new HSSFWorkbook(fs);
+	       HSSFCell cell = null;
+	       for (int sheetIndex = 0; sheetIndex < wb.getNumberOfSheets(); sheetIndex++) {
+	           HSSFSheet st = wb.getSheetAt(sheetIndex);
+	           // 第一行为标题，不取
+	           for (int rowIndex = ignoreRows; rowIndex <= st.getLastRowNum(); rowIndex++) {
+	              HSSFRow row = st.getRow(rowIndex);
+	              if (row == null) {
+	                  continue;
+	              }
+	              int tempRowSize = row.getLastCellNum() + 1;
+	              if (tempRowSize > rowSize) {
+	                  rowSize = tempRowSize;
+	              }
+	              String[] values = new String[rowSize];
+	              Arrays.fill(values, "");
+	              boolean hasValue = false;
+	              for (short columnIndex = 0; columnIndex <= row.getLastCellNum(); columnIndex++) {
+	                  String value = "";
+	                  cell = row.getCell(columnIndex);
+	                  if (cell != null) {
+	                     // 注意：一定要设成这个，否则可能会出现乱码
+	                    // ((Object) cell).setEncoding(HSSFCell.ENCODING_UTF_16);
+	                     switch (cell.getCellType()) {
+	                     case HSSFCell.CELL_TYPE_STRING:
+	                         value = cell.getStringCellValue();
+	                         break;
+	                     case HSSFCell.CELL_TYPE_NUMERIC:
+	                         if (HSSFDateUtil.isCellDateFormatted(cell)) {
+	                            Date date = cell.getDateCellValue();
+	                            if (date != null) {
+	                                value = new SimpleDateFormat("yyyy-MM-dd")
+	                                       .format(date);
+	                            } else {
+	                                value = "";
+	                            }
+	                         } else {
+	                            value = new DecimalFormat("0").format(cell
+	                                   .getNumericCellValue());
+	                         }
+	                         break;
+	                     case HSSFCell.CELL_TYPE_FORMULA:
+	                         // 导入时如果为公式生成的数据则无值
+	                         if (!cell.equals("")) {
+	                        	 cell.setCellType(Cell.CELL_TYPE_STRING);
+	                            value = cell.getStringCellValue();
+	                         } else {
+	                        	 cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+	                            value = cell.getNumericCellValue() + "";
+	                         }
+	                         break;
+	                     case HSSFCell.CELL_TYPE_BLANK:
+	                         break;
+	                     case HSSFCell.CELL_TYPE_ERROR:
+	                         value = "";
+	                         break;
+	                     case HSSFCell.CELL_TYPE_BOOLEAN:
+	                         value = (cell.getBooleanCellValue() == true ? "Y"
+	                                : "N");
+	                         break;
+	                     default:
+	                         value = "";
+	                     }
+	                  }
+	                  if (columnIndex == 0 && value.trim().equals("")) {
+	                     break;
+	                  }
+	                  values[columnIndex] = rightTrim(value);
+	                  hasValue = true;
+	              }
+
+	              if (hasValue) {
+	                  result.add(values);
+	              }
+	           }
+	       }
+	       in.close();
+	       String[][] returnArray = new String[result.size()][rowSize];
+	       for (int i = 0; i < returnArray.length; i++) {
+	           returnArray[i] = (String[]) result.get(i);
+	       }
+	       return returnArray;
+	    }
+
+	    /**
+	     * 去掉字符串右边的空格
+	     * @param str 要处理的字符串
+	     * @return 处理后的字符串
+	     */
+	     public static String rightTrim(String str) {
+	       if (str == null) {
+	           return "";
+	       }
+	       int length = str.length();
+	       for (int i = length - 1; i >= 0; i--) {
+	           if (str.charAt(i) != 0x20) {
+	              break;
+	           }
+	           length--;
+	       }
+	       return str.substring(0, length);
+	    }
+	     
+	   
+
+	     public boolean createTable(String[][] body, String filePath,int rowLength) {
+	         boolean createFlag = true;
+	         WritableWorkbook book;
+	         try {
+	             // 根据路径生成excel文件
+	             book = Workbook.createWorkbook(new File(filePath));
+	             // 创建一个sheet名为"表格"
+	             WritableSheet sheet = book.createSheet("内部格式", 0);
+	             WritableSheet sheet1 = book.createSheet("在线格式", 1);
+	         
+	             // 设置NO列宽度
+	             sheet.setColumnView(1, 5);
+	             // 去掉整个sheet中的网格线
+	             sheet.getSettings().setShowGridLines(false);
+	             Label tempLabel = null;
+	             
+	             // 表体输出
+	             int bodyLen = body.length; 
+	             String[][] bodyTempArr = body ;
+	             // 循环写入表体内容
+	             for(int i=0;i<rowLength;i++) {
+	                   for(int j=0;j<body[i].length;j++) {
+	                	   if (i<=20) {
+	                		   WritableCellFormat tempCellFormat = null;
+	                           tempCellFormat = getBlueCellStyle();
+	                           WritableCellFormat rwritableCellFormat = null;
+	                           rwritableCellFormat=getRedCellStyle();
+	                           WritableCellFormat writableCellFormat = null;
+	                           writableCellFormat=getBodyCellStyle();
+	                           if (tempCellFormat != null) {
+	                               if (j == 0 || j == (bodyTempArr.length - 1)) {
+	                                   tempCellFormat.setAlignment(Alignment.CENTRE);
+	                               }
+	                           }
+	                           if((j==0)||(i==3)){
+	                        	   tempLabel = new Label(1 + j, 2 + i, bodyTempArr[i][j],
+	                        			   writableCellFormat);
+	                           }else if (j==6&i!=3) {
+	                        	   tempLabel = new Label(1 + j, 2 + i, bodyTempArr[i][j],
+	                        			   rwritableCellFormat);
+	                           }else {
+	                        	   tempLabel = new Label(1 + j, 2 + i, bodyTempArr[i][j],
+	                        			   tempCellFormat);
+							   }
+	                           
+	                           sheet.addCell(tempLabel);
+	                           /*sheet.mergeCells(6,5,6,6);
+		                       sheet.mergeCells(2,3,4,3);*/
+						}else {
+							 WritableCellFormat tempCellFormat = null;
+	                         tempCellFormat = getBlueCellStyle();
+	                         WritableCellFormat rwritableCellFormat = null;
+	                         rwritableCellFormat=getRedCellStyle();
+	                         WritableCellFormat writableCellFormat = null;
+	                         writableCellFormat=getBodyCellStyle();
+	                         if (tempCellFormat != null) {
+	                             if (j == 0 || j == (bodyTempArr.length - 1)) {
+	                                 tempCellFormat.setAlignment(Alignment.CENTRE);
+	                             }
+	                         }
+	                         if((j==0)||(i==24)){
+	                      	   tempLabel = new Label(1 + j, 2 + i-20, bodyTempArr[i][j],
+	                      			 writableCellFormat);
+	                         }else if (j==6&i!=24) {
+	                      	   tempLabel = new Label(1 + j, 2 + i-20, bodyTempArr[i][j],
+	                      			   rwritableCellFormat);
+	                         }else {
+	                      	   tempLabel = new Label(1 + j, 2 + i-20, bodyTempArr[i][j],
+	                      			 tempCellFormat);
+							   }
+	                        
+	                         sheet1.addCell(tempLabel);
+	                        /* sheet.mergeCells(6,5,6,6);
+	                         sheet.mergeCells(2,3,4,3);*/
 						}
-					}
-					if (isValidRow) {
-						valueList.add(val);
-					}
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			fis.close();
-		}
-		return valueList;
-	}
+	                     
+	                 }
+	             }
+	             book.write();
+	             book.close();
+	         } catch (IOException e) {
+	             createFlag = false;
+	             System.out.println("EXCEL创建失败！");
+	             e.printStackTrace();
+	         } catch (RowsExceededException e) {
+	             createFlag = false;
+	             System.out.println("EXCEL单元设置创建失败！");
+	             e.printStackTrace();
+	         } catch (WriteException e) {
+	             createFlag = false;
+	             System.out.println("EXCEL写入失败！");
+	             e.printStackTrace();
+	         }
 
-	@SuppressWarnings("rawtypes")
-	public static List<Map> readExcel2007(MultipartFile file) throws IOException {
-		List<Map> valueList = new ArrayList<Map>();
-		InputStream fis = null;
-		try {
-			fis = file.getInputStream();
-			XSSFWorkbook xwb = new XSSFWorkbook(fis);
-			XSSFSheet sheet = xwb.getSheetAt(0);
-			XSSFRow row;
-			Map<Integer, String> keys = new HashMap<Integer, String>();
-			row = sheet.getRow(0);
-			if (row != null) {
+	         return createFlag;
+	     }
 
-				for (int j = row.getFirstCellNum(); j <= row.getPhysicalNumberOfCells(); j++) {
+	     public WritableCellFormat getBlueCellStyle() {
+	         WritableFont font = new WritableFont(WritableFont.createFont("宋体"), 10,
+	                 WritableFont.BOLD, false, UnderlineStyle.NO_UNDERLINE,Colour.BLUE);
+	         WritableCellFormat bodyFormat = new WritableCellFormat(font);
+	         try {
+	             // 设置单元格背景色：表体为白色
+	             bodyFormat.setBackground(Colour.WHITE);
+	             // 设置表头表格边框样式
+	             // 整个表格线为细线、黑色
+	             bodyFormat
+	                     .setBorder(Border.ALL, BorderLineStyle.THIN, Colour.GRAY_50);
+	         } catch (WriteException e) {
+	             System.out.println("表体单元格样式设置失败！");
+	         }
+	         return bodyFormat;
+	     }
 
-					if (row.getCell(j) != null) {
-						if (!row.getCell(j).toString().isEmpty()) {
-							keys.put(j, row.getCell(j).toString());
-						}
-					} else {
-						keys.put(j, "K-R1C" + j + "E");
-					}
-				}
-			}
-
-			for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getPhysicalNumberOfRows(); i++) {
-				row = sheet.getRow(i);
-				if (row != null) {
-					boolean isValidRow = false;
-					Map<String, Object> val = new HashMap<String, Object>();
-					for (int j = row.getFirstCellNum(); j <= row.getPhysicalNumberOfCells(); j++) {
-						XSSFCell cell = row.getCell(j);
-						if (cell != null) {
-							String cellValue = null;
-							if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-								if (DateUtil.isCellDateFormatted(cell)) {
-									cellValue = new DataFormatter().formatRawCellContents(cell.getNumericCellValue(), 0,
-											"yyyy-MM-ddHH:mm:ss");
-								} else {
-									DecimalFormat df = new DecimalFormat("0");    
-									cellValue = df.format(cell.getNumericCellValue()); 
-									//cellValue = String.valueOf(cell.getNumericCellValue());
-								}
-							} else {
-								cellValue = cell.toString();
-							}
-							if (cellValue != null && cellValue.trim().length() <= 0) {
-								cellValue = null;
-							}
-							val.put(keys.get(j), cellValue);
-							if (!isValidRow && cellValue != null && cellValue.trim().length() > 0) {
-								isValidRow = true;
-							}
-						}
-					}
-
-					if (isValidRow) {
-						valueList.add(val);
-					}
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			fis.close();
-		}
-
-		return valueList;
-	}
-
-	public static String getExtensionName(String filename) {
-		if ((filename != null) && (filename.length() > 0)) {
-			int dot = filename.lastIndexOf('.');
-			if ((dot > -1) && (dot < (filename.length() - 1))) {
-				return filename.substring(dot + 1);
-			}
-		}
-		return filename;
-	}
-
-	
-	@SuppressWarnings("deprecation")
-	private static String getCellValue(HSSFCell cell) {
-		DecimalFormat df = new DecimalFormat("#");
-		String cellValue = null;
-		if (cell == null)
-			return null;
-		switch (cell.getCellType()) {
-		case HSSFCell.CELL_TYPE_NUMERIC:
-			if (HSSFDateUtil.isCellDateFormatted(cell)) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-				cellValue = sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue()));
-				break;
-			}
-			cellValue = df.format((int)cell.getNumericCellValue()); 
-			break;
-		case HSSFCell.CELL_TYPE_STRING:
-			cellValue = String.valueOf(cell.getStringCellValue());
-			break;
-		case HSSFCell.CELL_TYPE_FORMULA:
-			cellValue = String.valueOf(cell.getCellFormula());
-			break;
-		case HSSFCell.CELL_TYPE_BLANK:
-			cellValue = null;
-			break;
-		case HSSFCell.CELL_TYPE_BOOLEAN:
-			cellValue = String.valueOf(cell.getBooleanCellValue());
-			break;
-		case HSSFCell.CELL_TYPE_ERROR:
-			cellValue = String.valueOf(cell.getErrorCellValue());
-			break;
-		}
-		if (cellValue != null && cellValue.trim().length() <= 0) {
-			cellValue = null;
-		}
-		return cellValue;
-	}
+	     public WritableCellFormat getRedCellStyle() {
+	         WritableFont font = new WritableFont(WritableFont.createFont("宋体"), 10,
+	                 WritableFont.BOLD, false, UnderlineStyle.NO_UNDERLINE,Colour.RED);
+	         WritableCellFormat bodyFormat = new WritableCellFormat(font);
+	         try {
+	             // 设置单元格背景色：表体为白色
+	             bodyFormat.setBackground(Colour.WHITE);
+	             // 设置表头表格边框样式
+	             // 整个表格线为细线、黑色
+	             bodyFormat
+	                     .setBorder(Border.ALL, BorderLineStyle.THIN, Colour.GRAY_25);
+	         } catch (WriteException e) {
+	             System.out.println("表体单元格样式设置失败！");
+	         }
+	         return bodyFormat;
+	     }
+	     public WritableCellFormat getBodyCellStyle() {
+	         WritableFont font = new WritableFont(WritableFont.createFont("宋体"), 10,
+	                 WritableFont.BOLD, false, UnderlineStyle.NO_UNDERLINE);
+	         WritableCellFormat bodyFormat = new WritableCellFormat(font);
+	         try {
+	             // 设置单元格背景色：表体为白色
+	             bodyFormat.setBackground(Colour.WHITE);
+	             // 设置表头表格边框样式
+	             // 整个表格线为细线、黑色
+	             bodyFormat
+	                     .setBorder(Border.ALL, BorderLineStyle.THIN, Colour.GRAY_25);
+	         } catch (WriteException e) {
+	             System.out.println("表体单元格样式设置失败！");
+	         }
+	         return bodyFormat;
+	     }
+	    
 }

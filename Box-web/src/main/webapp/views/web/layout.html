@@ -1,99 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="keywords" content="PDoneCI">
-  <meta name="description" content="东纳纸盒排版计价平台">
-  <title>东纳纸盒排版计价平台</title>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="shortcut icon" type="image/x-icon" href="${basePath}/assets/common/favicon.ico"/>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome --> 
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/font-awesome-master/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/ionicons/css/ionicons.min.css">
-  <!-- Bootstrap Validator -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/css/bootstrap-validator.css"/>
-  <!-- iCheck -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/iCheck/square/blue.css">
-  <!-- Datepicker -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/datepicker/datepicker3.css">
-  <!-- Bootstrap Table -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.min.css">
-  <!-- select2 -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/select2/css/select2.min.css">
-  <!-- treeview -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-treeview/bootstrap-treeview.min.css" />
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-select/css/bootstrap-select.min.css">
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/css/fileinput.css">
- 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/AdminLTE.css">
-  <link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/skins/_all-skins.css">
-  <link rel="stylesheet" href="${basePath}/assets/common/css/index.css">
-  <link rel="stylesheet" href="${basePath}/assets/common/css/body.css">
-  <!-- radio -->
-  <link rel="stylesheet" href="${basePath}/assets/common/css/jquery-labelauty.css">
-  
-</head>
-<!--
-收缩左边菜单栏
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
--->
-<body class="hold-transition skin-blue layout-top-nav">
-<a name="main"></a>
-<div class="wrapper">
-
-  <header class="main-header">
-
-    <nav class="navbar navbar-static-top" role="navigation">
-     <a href="${basePath}/main" class="logo">
-   
-      <span class="logo-mini"><b>东纳</b></span>
-     
-      <span class="logo-lg"><b>东纳纸盒排版计价平台</b></span>
-    </a>  
-      
-      <a href="${basePath}/main" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">${user.name}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-header">
-				<img src="${basePath}/assets/common/images/avatar${user.sex}.png" class="img-circle" alt="User Image">
-                <p>
-                  ${user.name}
-                </p>
-              </li>
-              <li class="user-footer">
-                <div class="pull-right">
-                  <a href="${basePath}/logout" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
-        </ul>
-      </div>
-
-    </nav>
-   
-  </header>
-  
-  <div class="content-wrapper" id="mainDiv">
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
@@ -112,9 +16,9 @@
             <div class="box-header with-border">
               <h3 class="box-title"><b>排版效果展示图</b></h3>
 			 <div class="btn-group pull-right">
-						<button type="button" data-btn-type="search" class="btn btn-warning"><i class="glyphicon glyphicon-arrow-down"></i>在线打印</button>
-						<button type="button" data-btn-type="search" class="btn btn-default"><i class="glyphicon glyphicon-arrow-down"></i>订单详情（excel）</button>
-						<button type="button" data-btn-type="reset" class="btn btn-warning"><i class="glyphicon glyphicon-arrow-down"></i>排版图（dxf）</button>
+				<a href="" id="excelAddress" class="btn btn-default"><i class="fa fa-download"></i>订单详情（excel）</a>
+				<a href="" id="dxfAddress" class="btn btn-warning"><i class="fa fa-download"></i>排版图（dxf）</a>
+						
 					</div>
 			  </div>
 
@@ -123,7 +27,7 @@
 	 <div class="row">
         <div class="col-md-6 col-xs-6">
           <!-- AREA CHART -->
-			  <img src="${basePath}/assets/common/images/1.jpg" alt="First slide"> 
+			  <img src="${basePath}/assets/common/images/1.jpg" id="pictureAddress" onclick="showphoto(pictureAddress)" alt="First slide"> 
 
 			</div>
 
@@ -131,7 +35,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >纸质价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="paperPrice" name="paperPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -139,7 +43,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >颜色价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="colorPrice" name="colorPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -147,7 +51,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >表面处理价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="surfacePrice" name="surfacePrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -155,7 +59,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >烫金价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="bronzingPrice" name="bronzingPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -163,7 +67,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >击凸价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="convexPrice" name="convexPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -171,7 +75,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >PVC价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="pvcPrice" name="pvcPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -179,7 +83,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >UV价格：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="uvPrice" name="uvPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -187,35 +91,42 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >运输费：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="transportPrice" name="transportPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >税费：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="taxPrice" name="taxPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >管理费：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="managementPrice" name="managementPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >单价：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="unitPrice" name="unitPrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >单价：</label>
+				<div class="col-sm-6">
+					<input id="printNumber" name="printNumber" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >总价：</label>
 				<div class="col-sm-6">
-					<input id="loginName" name="loginName" type="text" class="form-control" >
+					<input id="totalPrice" name="totalPrice" readonly type="text" class="form-control" >
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
@@ -227,164 +138,29 @@
 	
 	
 </section>
-</div>
- 
 
-  <footer class="main-footer text-center">
-
-	<div class="pull-right hidden-xs">
-			  <b>Version</b> 1.0.0
-			</div>
-			<strong>Copyright &copy; 2018-2019 <a href="http://almsaeedstudio.com">东纳</a>.</strong>版权所有 
-  </footer>
-  
-  <div class="control-sidebar-bg"></div> 
-  
-</div>
-<!-- ./wrapper -->
-<!-- <script type="text/javascript">
-var basePath="${basePath}";//给外部js文件传递路径参数
-var apiHost="${apiHost}";
-var softwareVersionUrl="${softwareVersionUrl}";
-</script> -->
-<!-- jQuery 2.2.3 -->
-<script src="${basePath}/assets/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/jQuery/jquery.form.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/jQuery/jquery.webcam.js"></script>
-<!--JSON2-->
-<script src="${basePath}/assets/common/js/json2.js"></script>
-<!-- Bootstrap -->
-<script src="${basePath}/assets/adminlte/bootstrap/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="${basePath}/assets/adminlte/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="${basePath}/assets/adminlte/dist/js/app.min.js"></script>
-<!-- Bootstrap Table -->
-<!--  
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-table/tableExport/tableExport.min.js"></script>
--->
-<!-- fileinput -->
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/fileinput.js"></script> 
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/plugins/sortable.js"></script> 
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-fileinput/js/locales/zh.js"></script> 
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
-<!-- select2 -->
-<script src="${basePath}/assets/adminlte/plugins/select2/js/select2.full.min.js"></script>
-<!-- form -->
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/js/bootstrap-validator.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/iCheck/icheck.min.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="${basePath}/assets/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-<!-- treeview -->
-<script src="${basePath}/assets/adminlte/plugins/bootstrap-treeview/bootstrap-treeview.min.js"></script>
-<!-- echarts -->
-<!-- <script src="${basePath}/assets/adminlte/plugins/echarts/echarts.js"></script> -->
-<!-- AdminLTE for demo purposes -->
-<script src="${basePath}/assets/adminlte/dist/js/demo.js"></script>
-<!-- layer -->
-<script src="${basePath}/assets/adminlte/plugins/layer/layer.js"></script>
-<!-- Custom Js -->
-<script type="text/javascript" src="${basePath}/assets/common/js/base.js"></script>
-<script type="text/javascript" src="${basePath}/assets/common/js/common.js"></script>
-<script type="text/javascript" src="${basePath}/assets/common/js/constant.js"></script>
-<!-- radio -->
-<!-- <script src="${basePath}/assets/common/js/jquery-1.8.3.min.js"></script> -->
-<script src="${basePath}/assets/common/js/jquery-labelauty.js"></script>
-
-<!-- 新增用户的弹窗 -->
-<div class="modal fade" id="modal-admin" aria-labelledby="modalAdminLabel" aria-hidden="true">
+<!-- 查看图片的弹窗 -->
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="" id="picture-form" method="post">
-				<input type="hidden" id="flag" name="flag">
-				<input type="hidden" id="id" name="id">
+			<form class="form-horizontal" action="" id="form" method="post">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="modalAdminLabel"></h4>
+					<h4 class="modal-title" id="modalPhotoLabel">查看图片</h4>
 				</div>
+				
 				<div class="modal-body">
-					<div class="form-group">
-						<label class="col-sm-4 control-label">用户名<span style="color: red;">*</span></label>
+					<div class="form-group" id="userImage">
+						
 						<div class="col-sm-8">
-							<input id="loginName" name="loginName" type="text" class="form-control"
-								placeholder="请输入用户名">
+							<img id="imageId" src="" height="300" width="300" >
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-4 control-label">手机号码<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input id="phone" name="phone" type="text" class="form-control"
-								placeholder="请输入手机号码" maxlength="11">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label">真实姓名<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<input id="name" name="name" type="text" class="form-control"
-								placeholder="请输入真实姓名">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-4 control-label">出生日期<span style="color: red;">*</span></label>
-						<div class="input-group date col-sm-8">
-							<div class="input-group-addon">
-	                        	<i class="fa fa-calendar"></i>
-	                        </div>
-							<input id="birthday" name="birthday" type="text" class="form-control" id="birthday" data-flag="datepicker" data-format="yyyy-MM-dd"
-								placeholder="请选择出生日期">
-
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-4 control-label">性别<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="sex" id="sex" class="form-control">
-								<option value="">请选择...</option>
-								<option value="1">男</option>
-								<option value="2">女</option>
-							</select>
-						</div>
-					</div>
-
-					<!-- <div class="form-group">
-						<label class="col-sm-4 control-label">用户类别<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<select name="type" id="type" class="form-control">
-								<option value="">请选择...</option>
-								<option value="2">后台管理员</option>
-								<option value="3">后台业务员</option>
-							</select>
-						</div>
-					</div> -->
-
-					<div class="form-group">
-						<label class="col-sm-4 control-label">状态<span style="color: red;">*</span></label>
-						<div class="col-sm-8">
-							<label class="control-label"> <input type="radio"
-								name="status" data-flag="icheck" value="1" checked="checked">
-								启用
-							</label> &nbsp; <label class="control-label"> <input type="radio"
-								name="status" data-flag="icheck" value="0">
-								禁用
-							</label>
-						</div>
-					</div>
-					
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
-					</div>
-				</div>
+			   	</div>			
 			</form>
 		</div>
 	</div>
 </div>
-
 
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="${basePath}/assets/common/js/base.js"></script>
@@ -396,9 +172,51 @@ $(function(){
 	ajaxPost(basePath+"/web/getShopping", {
 		params:JSON.stringify(params)
 		}, function(data) {
-			
+			if(data!=null){
+				$("#paperPrice").val(data.paperPrice);
+				$("#colorPrice").val(data.colorPrice);
+				$("#surfacePrice").val(data.surfacePrice);
+				$("#bronzingPrice").val(data.bronzingPrice);
+				$("#convexPrice").val(data.convexPrice);
+				$("#uvPrice").val(data.uvPrice);
+				$("#pvcPrice").val(data.pvcPrice);
+				$("#taxPrice").val(data.taxPrice);
+				$("#managementPrice").val(data.managementPrice);
+				$("#transportPrice").val(data.transportPrice);
+				$("#totalPrice").val(data.totalPrice);
+				$("#printNumber").val(data.printNumber);
+				$("#unitPrice").val(data.unitPrice);
+				sessionStorage.setItem("layoutId",data.layoutId);
+				$("#excelAddress").attr("href","${basePath}/res/excel/"+data.shoppingId+"/"+data.excelAddress);
+				}
 			});
+	ajaxPost(basePath+"/web/getLayout", {
+		params:JSON.stringify(params)
+		}, function(data) {
+			if(data!=null){
+			$("#pictureAddress").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.id+"/"+data.pictureAddress);
+			$("#dxfAddress").attr("href","${basePath}/res/dxf/"+data.id+"/"+data.dxfAddress);
+				}
+		});
 });
+/**
+ * tab页面加载
+ * @param tabsId
+ * @param url
+ * @returns
+ */
+function showTabs(tabsId,url) {
+    $("a[href='#"+tabsId+"']").tab('show');
+    var $tabContent = $('#'+tabsId);
+    if($tabContent.length < 100) {
+        $tabContent.load(url);
+    }
+}
+function showphoto(urlId){
+	 var imagePath = $("#"+urlId).src;
+	 $("#imageId").attr('src',imagePath);
+	 $('#modal-image').modal('toggle');
+} 
 
 </script>
 </body>

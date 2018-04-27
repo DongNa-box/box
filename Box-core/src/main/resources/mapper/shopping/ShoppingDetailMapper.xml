@@ -41,7 +41,8 @@
     <result column="transport_price" jdbcType="DOUBLE" property="transportPrice" />
     <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
     <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
-    <result column="createby" jdbcType="DOUBLE" property="createby" />
+    <result column="excel_address" jdbcType="VARCHAR" property="excelAddress" />
+    <result column="createby" jdbcType="VARCHAR" property="createby" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -50,7 +51,7 @@
     is_convex, convex_length, convex_width, convex_unit, is_UV, UV_length, UV_width, 
     UV_unit, is_PVC, PVC_length, PVC_width, PVC_unit, receive_area_id, paper_price, color_price, 
     surface_price, bronzing_price, convex_price, print_number, UV_price, PVC_price, tax_price, 
-    management_price, transport_price, total_price, unit_price, createby, createtime
+    management_price, transport_price, total_price, unit_price,excel_address, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -76,7 +77,7 @@
       convex_price, print_number, UV_price, 
       PVC_price, tax_price, management_price, 
       transport_price, total_price, unit_price, 
-      createby, createtime)
+      excel_address,createby, createtime)
     values (#{shoppingId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, 
       #{layoutId,jdbcType=VARCHAR}, #{printPaperId,jdbcType=VARCHAR}, #{paperGramsId,jdbcType=VARCHAR}, 
       #{printColorId,jdbcType=VARCHAR}, #{pantoneId,jdbcType=VARCHAR}, #{surfaceTreatmentId,jdbcType=VARCHAR}, 
@@ -90,7 +91,7 @@
       #{convexPrice,jdbcType=DOUBLE}, #{printNumber,jdbcType=INTEGER}, #{uvPrice,jdbcType=DOUBLE}, 
       #{pvcPrice,jdbcType=DOUBLE}, #{taxPrice,jdbcType=DOUBLE}, #{managementPrice,jdbcType=DOUBLE}, 
       #{transportPrice,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE}, #{unitPrice,jdbcType=DOUBLE}, 
-      #{createby,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP})
+      #{excelAddress,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.box.shopping.model.ShoppingDetail">
     insert into t_shopping_detail
@@ -211,6 +212,9 @@
       </if>
       <if test="unitPrice != null">
         unit_price,
+      </if>
+      <if test="excelAddress != null">
+        excel_address,
       </if>
       <if test="createby != null">
         createby,
@@ -337,8 +341,11 @@
       <if test="unitPrice != null">
         #{unitPrice,jdbcType=DOUBLE},
       </if>
+      <if test="excelAddress != null">
+        #{excelAddress,jdbcType=VARCHAR},
+      </if>
       <if test="createby != null">
-        #{createby,jdbcType=DOUBLE},
+        #{createby,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
@@ -462,8 +469,11 @@
       <if test="unitPrice != null">
         unit_price = #{unitPrice,jdbcType=DOUBLE},
       </if>
+       <if test="excelAddress != null">
+        excel_address = #{excelAddress,jdbcType=VARCHAR},
+      </if>
       <if test="createby != null">
-        createby = #{createby,jdbcType=DOUBLE},
+        createby = #{createby,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -511,7 +521,8 @@
       transport_price = #{transportPrice,jdbcType=DOUBLE},
       total_price = #{totalPrice,jdbcType=DOUBLE},
       unit_price = #{unitPrice,jdbcType=DOUBLE},
-      createby = #{createby,jdbcType=DOUBLE},
+      excel_address = #{excelAddress,jdbcType=VARCHAR},
+      createby = #{createby,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where shopping_id = #{shoppingId,jdbcType=VARCHAR}
   </update>

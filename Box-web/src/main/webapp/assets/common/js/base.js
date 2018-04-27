@@ -17,6 +17,25 @@ function loadPage(url){
 		}
 	});
 }
+/**
+ * 加载登录页面
+ */
+function loadLogin(url){
+	$("#loginDiv").load(url,function(response,status,xhr){
+		if(status=="success"){
+			if(response){
+				try{
+					var result = jQuery.parseJSON(response);
+					if(result.code==100){ 
+						$("#loginDiv").html("");
+					}
+				}catch(e){
+					return response;
+				}
+			}
+		}
+	});
+}
 
 
 function ajaxPost(url, params, callback) {

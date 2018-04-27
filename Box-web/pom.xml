@@ -129,6 +129,12 @@
      		<groupId>com.octo.captcha</groupId>
      		<artifactId>jcaptcha-integration-simple-servlet</artifactId>
    		</dependency>
+   		
+   		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency>
 
 	</dependencies>
 	<build>

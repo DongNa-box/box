@@ -13,6 +13,7 @@ package com.box.shopping.service;
 import java.util.List;
 import java.util.Map;
 
+import com.box.boxmanage.model.BoxType;
 import com.box.framework.base.service.BaseService;
 import com.box.shopping.model.ShoppingRate;
 
@@ -28,6 +29,8 @@ import com.box.shopping.model.ShoppingRate;
  */
 public interface ShoppingRateService extends BaseService<ShoppingRate, String> {
 	List<Map<String,Object>> getRateList(Map<String, Object> map);
+ 
+	ShoppingRate getByType(int type);
 
 }
 

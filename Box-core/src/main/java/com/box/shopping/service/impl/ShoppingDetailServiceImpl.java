@@ -19,8 +19,14 @@
  
 
 package com.box.shopping.service.impl;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
@@ -29,13 +35,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.box.framework.utils.ExcelUtil;
+import com.box.framework.utils.PropertiesUtil;
 import com.box.shopping.dao.LayoutDetailMapper;
 import com.box.shopping.dao.ShoppingDetailMapper;
 import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.service.LayoutDetailService;
 import com.box.shopping.service.ShoppingDeatilService;
+
 
 /**
  * ClassName: ShoppingDetailServiceImpl
@@ -198,7 +208,8 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	public boolean createLayoutAndShopping(Map<String, Object> map) {
 		
 		LayoutDetail layoutDetail=(LayoutDetail)map.get("layoutDetail");
-		ShoppingDetail shoppingDetail=(ShoppingDetail)map.get("shoppongDetail");
+		ShoppingDetail shoppingDetail=(ShoppingDetail)map.get("shoppingDetail");
+		
 		try {
 			boolean result1 = layoutDetailService.save(layoutDetail);
 			boolean result2 = shoppingDeatilService.save(shoppingDetail);

@@ -26,6 +26,7 @@ public class SystemFilter implements Filter {
 
 	private static Logger logger = Logger.getLogger(SystemFilter.class);
 	private final static String apiHost  = PropertiesUtil.getValue("apiHost");
+	private final static String imagesUrl  = PropertiesUtil.getValue("imagesUrl");
 	private final static String softwareVersionUrl  = PropertiesUtil.getValue("softwareVersionUrl");
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException,ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -33,6 +34,7 @@ public class SystemFilter implements Filter {
         String basePath = request.getContextPath();
        
         request.setAttribute("basePath", basePath);
+        request.setAttribute("imagesUrl", imagesUrl);
         request.setAttribute("apiHost", apiHost);
         request.setAttribute("softwareVersionUrl", softwareVersionUrl);
         filterChain.doFilter(request, servletResponse);

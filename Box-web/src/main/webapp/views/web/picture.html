@@ -34,7 +34,7 @@
 		       		<div class="form-group" id="divgroupid0" style="display:none">
 						<label class="col-sm-4 control-label" id="detail0"></label>
 						<div class="col-sm-8">
-							<select name="search-detail1" id="search-detail1" class="form-control">
+							<select name="search-detail0" id="search-detail0" class="form-control">
 								</select>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 					<div class="form-group" id="divgroupid1" style="display:none">
 						<label class="col-sm-4 control-label" id="detail1"></label>
 						<div class="col-sm-8">
-							<select name="search-detail2" id="search-detail2" class="form-control">
+							<select name="search-detail1" id="search-detail1" class="form-control">
 							</select>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 	         	<div class="form-group" id="divgroupid2" style="display:none">
 					<label class="col-sm-4 control-label" id="detail2"></label>
 					<div class="col-sm-8">
-						<select name="search-detail3" id="search-detail3" class="form-control">
+						<select name="search-detail2" id="search-detail2" class="form-control">
 						</select>
 					</div>
 				</div>
@@ -64,39 +64,46 @@
 			</div>
  		</form>
 		</div>
+		<div class="row">
+		 <div class="alert alert-warning alert-dismissible" id="alert" style="display:none">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> 提示!</h4>
+               		 查询不到任何信息，请重新搜索！
+              </div>
+        </div>
 		<div class="row">	
-          <div class="col-xs-6 col-sm-3 col-md-3" id="box0" style="display:none">
+          <div class="col-xs-6 col-sm-3 col-md-3" id="box0" value="" style="display:none">
 			<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName0"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href0" class="thumbnail" onclick="xiadan(0)">
 				<img src="${basePath}/assets/common/images/1.jpg" id="img0" alt="First slide" class="img-thumbnail"> 
 		
 				</a>
 		 </div>
-		<div class="col-xs-6 col-sm-3 col-md-3" id="box1" style="display:none">
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box1" value="" style="display:none">
 			<div class="box-header with-border">
 			  <h3 class="box-title" id="boxName1"></h3>
 			</div>
-			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<a href="#a-href1" class="thumbnail" onclick="xiadan(1)">
 			<img src="${basePath}/assets/common/images/1.jpg" id="img1" alt="First slide" class="img-thumbnail"> 
 			</a>
 		</div>
 
-		<div class="col-xs-6 col-sm-3 col-md-3" id="box2" style="display:none">
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box2" value="" style="display:none">
 			<div class="box-header with-border">
 			  <h3 class="box-title" id="boxName2"></h3>
 			</div>
-			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<a href="#a-href2" class="thumbnail" onclick="xiadan(2)">
 			<img src="${basePath}/assets/common/images/1.jpg" id="img2" alt="First slide" class="img-thumbnail"> 
 			</a> 
 		</div>
 
-		<div class="col-xs-6 col-sm-3 col-md-3" id="box3" style="display:none">
+		<div class="col-xs-6 col-sm-3 col-md-3" id="box3" value="" style="display:none">
 			<div class="box-header with-border">
 			  <h3 class="box-title" id="boxName3"></h3>
 			</div>
-			<a href="${basePath}/web/xiadan" class="thumbnail">
+			<a href="#a-href3" class="thumbnail" onclick="xiadan(box3)">
 			<img src="${basePath}/assets/common/images/1.jpg" id="img3" alt="First slide" class="img-thumbnail"> 
 			</a>
 		</div>
@@ -104,76 +111,76 @@
      </div>
    
 		<div class="row">	
-         	<div class="col-xs-6 col-sm-3 col-md-3" id="box4" style="display:none">
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box4" value="" style="display:none">
 				<div class="box-header with-border">
 					  <h3 class="box-title" id="boxName4"></h3>
 					</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href4" class="thumbnail" onclick="xiadan(box4)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img4" id="img" alt="First slide" class="img-thumbnail"> 
 				</a>
 		 	</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box5" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box5" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName5"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href5" class="thumbnail" value="" onclick="xiadan(box5)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img5" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box6" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box6" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName6"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href6" class="thumbnail" onclick="xiadan(box6)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img6" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box7" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box7" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName7"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href7" class="thumbnail" onclick="xiadan(box7)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img7" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
 
 			</div>
 			<div class="row">	
-         	<div class="col-xs-6 col-sm-3 col-md-3" id="box8" style="display:none">
+         	<div class="col-xs-6 col-sm-3 col-md-3" id="box8" value="" style="display:none">
 				<div class="box-header with-border">
 					  <h3 class="box-title" id="boxName8"></h3>
 					</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href8" class="thumbnail" onclick="xiadan(box8)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img8" alt="First slide" class="img-thumbnail"> 
 				</a>
 		 	</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box9" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box9" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName9"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href9" class="thumbnail" onclick="xiadan(box9)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img9" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box10" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box10" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName10"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href10;" class="thumbnail" onclick="xiadan(box10)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img10" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
 
-			<div class="col-xs-6 col-sm-3 col-md-3" id="box11" style="display:none">
+			<div class="col-xs-6 col-sm-3 col-md-3" id="box11" value="" style="display:none">
 				<div class="box-header with-border">
 				  <h3 class="box-title" id="boxName11"></h3>
 				</div>
-				<a href="${basePath}/web/xiadan" class="thumbnail">
+				<a href="#a-href11" class="thumbnail" onclick="xiadan(box11)">
 					<img src="${basePath}/assets/common/images/1.jpg" id="img11" alt="First slide" class="img-thumbnail"> 
 				</a>
 			</div>
@@ -184,15 +191,12 @@
 	 <ul class="pagination pagination-right">
 <!-- 	    <li><a href="#">&laquo;</a></li>
  -->	    <li><a href="#" class="active" >首页</a></li>
-	    
-	    
 	    <li><a href="#" >下一页</a></li>
 	    <li><a href="#" >上一页</a></li>
 	    <li><a href="#" >末页</a></li>
      </ul>
 	
 </section>
-
 <!-- 新增用户的弹窗 -->
 <div class="modal fade" id="modal-admin" aria-labelledby="modalAdminLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -290,46 +294,57 @@
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="${basePath}/assets/common/js/base.js"></script>
 
+<!-- 加入页面的的脚本 -->
 <script type="text/javascript">
-
 $(function(){
 	//查询默认所有列表
 	var page=1;
 	pictureList(page);
 	setBox("search-box");
+	$("#alert").hide();
 	pictureForm = $("#picture-form").form();
-	userSearchForm = $("#admin-search-form").form();
+	//userSearchForm = $("#admin-search-form").form();
 	//-------------button event begin----------------
 	$('button[data-btn-type]').click(function() {
 		//var selected = $('#admin-table').bootstrapTable('getSelections');
 		var action = $(this).attr('data-btn-type');
 		switch (action) {
 		
-		case 'admin-search':
+		case 'search':
 			//var formParams = $("#picture-form").serializeJSON();
 			var classid = $("#search-box option:selected").val();
+			var detail0 = $("#search-detail0 option:selected").val();
 			var detail1 = $("#search-detail1 option:selected").val();
 			var detail2 = $("#search-detail2 option:selected").val();
-			var detail3 = $("#search-detail3 option:selected").val();
-			var params={"search-box":classId,"search-detail1":detail1,"search-detail2":detail2,
-					"search-detail3":detail3,"page":page}
-			alert(JSON.stringify(params));
+			var params={"search-box":classid,"search-detail0":detail0,"search-detail1":detail1,
+					"search-detail2":detail2,"page":page}
+			console.log(JSON.stringify(params));
 			ajaxPost(basePath + "/web/pictureList", {
 				params:JSON.stringify(params)
 				
 			}, function(data) {
-				alert(JSON.stringify(data));
-				for(var i=0, len = data.length;i<len;i++){
-				$("#box"+i).show();
-				$("#box"+i).val(data[i].id);
-				$("#boxName"+i).val(data[i].name);
-				$("#img"+i).attr("src",data[i].pla);
-				
-				}
+				console.log(JSON.stringify(data));
+				if(data==null||data.length==0){
+					$("#alert").show();
+					for(var i=0;i<11;i++){
+						$("#box"+i).hide();
+					}
+					}else{
+						$("#alert").hide();
+						for(var i=0, len = data.length;i<len;i++){
+							$("#box"+i).show();
+							$("#box"+i).val(data[i].boxId);
+							$("#boxName"+i).html(data[i].name);
+							var imgUrl="http://139.199.159.121:8080/images/BoxType/"+data[i].boxId+"/plan/"+data[i].plan;
+							console.log(imgUrl);
+							$("#img"+i).attr("src",imgUrl);
+							/* $("#img"+i).attr("src",data[i].pla); */
+							}
+						}
 			});	
 			break;
-		case 'admin-reset':
-			userSearchForm.clearForm();
+		case 'reset':
+			pictureForm.clearForm();
 			//重置按钮重新加载页面
 		    pictureList(page);
 			break;
@@ -342,52 +357,46 @@ $(function(){
 	//查询表单box下拉改变事件
 	$("#search-box").change(function(){
 		 var boxId=$("#search-box").val();
-		/* var v = $("#search-detail1");
-		v.empty();
-		$("#search-detail2").empty();
-		$("#search-detail3").empty();  */
-		setBoxType("search-detail1","search-detail2","search-detail3",boxId); 
+		 $("#divgroupid0").hide();
+		 $("#divgroupid1").hide();
+		 $("#divgroupid2").hide();
+		
+		$("#search-detail0").empty();
+		$("#search-detail1").empty();  
+		$("#search-detail2").empty(); 
+		setBoxType(boxId); 
 	});
 	//-------------Validator from end----------------
-	//查询detail1下拉改变事件
-	$("#search-detail1").change(function(){
-		var detail1=$("#detail1").val();
-		setBoxTypeDetail("search-detail1",detail1); 
-	});
-	//查询detail1下拉改变事件
-	$("#search-detail2").change(function(){
-		var detail2=$("#detail2").val();
-		setBoxTypeDetail("search-detail2",detail2); 
-	});
-	//查询detail1下拉改变事件
-	$("#search-detail3").change(function(){
-		var detail3=$("#detail3").val();
-		setBoxTypeDetail
-		("search-detail3",detail3); 
-	});
+	
 });
 /**
  * 默认查询所有列表
  */
  function pictureList(page){
+	 
 	 var params={"page":page}
 	//查询全部图表列表
 		ajaxPost(basePath + "/web/pictureList", {
 			params:JSON.stringify(params)
 			}, function(data) {
-				alert(JSON.stringify(data));
-				if(data.length<=12){
-					//当前页面显示1
+				console.log(JSON.stringify(data));
+				if(data==null||data.length==0){
+					$("#alert").show();
+					for(var i=0;i<11;i++){
+						$("#box"+i).hide();
+					}
 					}else{
-					//页面显示数1,2,3
-						}
+						$("#alert").hide();
 			for(var i=0, len = data.length;i<len;i++){
 				$("#box"+i).show();
-				$("#box"+i).val(data[i].id);
-				$("#boxName"+i).val(data[i].name);
-				$("#img"+i).attr("src",data[i].pla);
+				$("#box"+i).val(data[i].boxId);
+				$("#boxName"+i).text(data[i].name);
+				var imgUrl = "http://139.199.159.121:8080/images/BoxType/"
+				+data[i].boxId+"/plan/"+data[i].plan;
+				$("#img"+i).attr("src",imgUrl);
+				//$("#img"+i).attr("src",data[i].pla);
 				}
-					
+					}	
 				});	
 	 }
 /**
@@ -397,9 +406,8 @@ $(function(){
  * @returns
  */
 function setBox(selectid){
-	//alert(JSON.stringify(universityId));
 	ajaxPost(basePath+"/web/boxTree", null, function(data) {
-		alert("查询下拉列表"+JSON.stringify(data));
+		console.log("查询下拉列表"+JSON.stringify(data));
 		var $select = $('#'+selectid);  
 		$select.empty();
 		if(data.length==0){
@@ -420,43 +428,40 @@ function setBox(selectid){
 /**
  * 根据纸盒类型
  */
-function setBoxType(selectdetail1,selectdetail2,selectdetail3,boxId){
+function setBoxType(boxId){
 	//alert(JSON.stringify(universityId));
 	ajaxPost(basePath+"/web/boxTree", null, function(data) {
-		var $select0 = $('#'+selectdetail1);
-		var $select1 = $('#'+selectdetail2); 
-		var $select2 = $('#'+selectdetail3);
-		$select0.empty();
-		$select1.empty();
-		$select2.empty();
+		
+		$('#search-detail0').empty();
+		$('#search-detail1').empty();
+		$('#search-detail2').empty();
 		
 		for(var i=0,len = data.length;i<len;i++){
 			var c=data[i]; 
-			 var cid=c.id
-			  var ctext=c.text;
-			   if(ctext==boxId&&c.nodes.length>0){
-				   alert(JSON.stringify(c.nodes));
-				   var a = c.nodes;
-				   if(a.length==0){
-						 $select+i.val("");
-					}
-					if(a.length>0){
-						 $select+i.append('<option value="">请选择...</option>'); 
-					}
+			 var a = c.nodes;
+			   if(c.id==boxId){
+				   console.log(JSON.stringify(a));
+				   
 				   for(var j=0,len = a.length;j<len;j++){
+					   if(a.length==0){
+						   $("#search-detail"+j).val("");
+						
+						}
+						if(a.length>0){
+							$("#search-detail"+j).append('<option value="">请选择...</option>'); 
+						}
 					   var d=a[j]; 
-					   var did=d.id
 					   var dtext=d.text;
 					   $("#divgroupid"+j).show();
-					   $("#detail"+j).val(d.text);
-					   alert(JSON.stringify(d.nodes));
-					   if(d.nodes.length>0){
-						   alert(JSON.stringify(c.nodes));
+					   $("#detail"+j).text(dtext);
+					   if(d.nodes!=null&&d.nodes.length>0){
+						   console.log(JSON.stringify(d.nodes));
 						   var e = d.nodes;
-						   for(var k=0,len = d.length;k<len;j++){
-							   var eid=e.id
-							   var etext=e.text;
-							   $select+j.append('<option value="'+eid+'">'+etext+'</option>');
+						   for(var k=0,len = e.length;k<len;k++){
+							   var f=e[k];
+							   var fid=f.id;
+							   var ftext=f.text;
+							   $("#search-detail"+j).append('<option value="'+fid+'">'+ftext+'</option>');
 							}
 					 
 						}
@@ -466,48 +471,33 @@ function setBoxType(selectdetail1,selectdetail2,selectdetail3,boxId){
 				} 
 	});
 }
-/**
- * DETAIL下拉
- */
-function setBoxTypeDetail(selectid,detail){
-	//alert(JSON.stringify(universityId));
-	ajaxPost(basePath+"/web/boxTree", null, function(data) {
-		var $select = $('#'+selectid);  
-		$select.empty();
-		
-		for(var i=0,len = data.length;i<len;i++){
-			var c=data[i]; 
-		  	if(c.nodes.length>0){
-				var a=c.nodes
-				if(a.text==detail){
-					if(a.nodes.length==0){
-						 $select.val("");
-					}
-					if(a.nodes.length>0){
-						 $select.append('<option value="">请选择..</option>'); 
-					}
-					
-					var b=a.nodes;
-					for(var i=0,len = b.length;i<len;i++){
-						$select.append('<option value="'+b[i].id+'">'+b[i].text+'</option>');
-						}
-						
-					}
-			  	}
-		} 
-	});
-}
+
 	function resetForm(){
 		userForm.clearForm();
-		$("#admin-user-form").data('bootstrapValidator').resetForm();
+		
 	}
 	
 	/*
 	 * 得到所有选中行
 	 */
-	function getIdSelections() {
-		return $.map($('#admin-table').bootstrapTable('getSelections'),function(row) {
-				return row.id;
-		});
+	function xiadan(n) {
+		var boxId = $("#box"+n).val();
+		var params={"boxId":boxId}
+		console.log(boxId);
+		var boxid = sessionStorage.setItem("boxId",boxId);
+		 loadPage(basePath+"/web/xiadan");
+	}
+	/**
+	 * tab页面加载
+	 * @param tabsId
+	 * @param url
+	 * @returns
+	 */
+	function showTabs(tabsId,url) {
+	    $("a[href='#"+tabsId+"']").tab('show');
+	    var $tabContent = $('#'+tabsId);
+	    if($tabContent.length < 100) {
+	        $tabContent.load(url);
+	    }
 	}
 </script>

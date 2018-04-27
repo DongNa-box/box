@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.box.boxmanage.model.BoxType;
 import com.box.shopping.dao.ShoppingRateMapper;
 import com.box.shopping.model.ShoppingRate;
 import com.box.shopping.service.ShoppingRateService;
@@ -121,6 +122,20 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 		
 		// TODO Auto-generated method stub
 		return shoppingRateMapper.getRateList(map);
+		
+	}
+
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.shopping.service.ShoppingRateService#getByType(int)
+	 */
+	 
+	@Override
+	public ShoppingRate getByType(int type) {
+		ShoppingRate shoppingRate = shoppingRateMapper.getByType(type); 
+		
+		return shoppingRate;
 		
 	}
 

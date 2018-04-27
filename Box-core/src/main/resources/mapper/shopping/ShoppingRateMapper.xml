@@ -114,4 +114,13 @@
   		#{id}
   	</foreach>
   </delete>
+  <select id="getByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select 
+	 <include refid="Base_Column_List" />
+	from t_shopping_rate 
+		where 1=1 
+		<if test="type != null and type!=''">
+	       and type = #{type,jdbcType=INTEGER}
+	      </if>
+  </select>
 </mapper>
