@@ -100,8 +100,9 @@ public class LayoutController {
 	   		for (int i = 0; i < list.size(); i++) {
 	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
 	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
-					list.get(i).put("createby", user.getLoginName());
-					
+					if (user!=null) {
+						list.get(i).put("createby", user.getLoginName());
+					}
 				}
 	   		}
 	   		return list;
@@ -171,31 +172,26 @@ public class LayoutController {
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-	   			map.put("boxId", jsonObj.getString("search-boxId"));
+	   			map.put("boxName", jsonObj.getString("search-boxName"));
 	   			map.put("boxLength", jsonObj.getString("search-boxLength"));
 			   	map.put("boxWidth", jsonObj.getString("search-boxWidth"));
 			    map.put("boxHighth", jsonObj.getString("search-boxHighth"));
 		    	map.put("paperLength",jsonObj.getString("search-paperLength"));
 		    	map.put("paperWidth", jsonObj.getString("search-paperWidth"));
-				map.put("paperXId", jsonObj.getString("search-paperXId"));
+				map.put("paperXValue", jsonObj.getString("search-paperXValue"));
 	    		map.put("xnumber", jsonObj.getString("search-xnumber"));
-				map.put("ynumber", Integer.valueOf(jsonObj.getString("search-ynumber")));
+				map.put("ynumber", jsonObj.getString("search-ynumber"));
 	       	}
 	   		list = layoutDetailService.getLayoutDetailList(map);
 	   		for (int i = 0; i < list.size(); i++) {
 	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
 	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
-					list.get(i).put("createby", user.getLoginName());
-					list.get(i).put("userId", user.getLoginName());
+	   				if (user!=null) {
+	   					list.get(i).put("createby", user.getLoginName());
+						list.get(i).put("userId", user.getLoginName());
+					}
 				}
-	   			if (list.get(i).get("boxId")!=null&list.get(i).get("boxId")!="") {
-	   				BoxType boxType = boxTypeService.get(String.valueOf(list.get(i).get("boxId")));
-					list.get(i).put("boxId", boxType.getName());
-				}
-	   			if (list.get(i).get("paperXId")!=null&list.get(i).get("paperXId")!="") {
-	   				LayoutSize size = layoutSizeService.get(String.valueOf(list.get(i).get("boxId")));
-					list.get(i).put("boxId", size.getSize());
-				}
+	   			
 	   		}
 	   		return list;
 	 }

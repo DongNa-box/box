@@ -105,19 +105,21 @@
   </update>
   <select id="getPantoneList"  resultType="map">
 	select 
-	 <include refid="Base_Column_List" />
-	from t_shopping_pantone 
+	  a.tid,b.name as technologyName,a.color_num as colorNum,a.attr1,a.attr2,a.attr3
+	from t_shopping_pantone a
+	left join t_technology_detail b
+	on a.tid=b.id
 		where 1=1 
-		  <if test="tid != null and tid!=''">
-	       and tid like CONCAT(CONCAT('%', #{tid,jdbcType=VARCHAR}),'%')   
+		  <if test="technologyName != null and technologyName!=''">
+	       and b.name like CONCAT(CONCAT('%',  #{technologyName,jdbcType=VARCHAR}),'%')  
 	      </if>
 	      <if test="colorNum != null and colorNum!=''">
-	       and color_num = #{colorNum,jdbcType=VARCHAR}
+	       and a.color_num = #{colorNum,jdbcType=VARCHAR}
 	      </if>
 	      <if test="attr1 != null and attr1!=''">
-	       and (attr1 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')   
-	       or attr2 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')
-	 	   or attr3 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%'))
+	       and (a.attr1 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')   
+	       or a.attr2 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%')
+	 	   or a.attr3 like CONCAT(CONCAT('%',  #{attr1,jdbcType=VARCHAR}),'%'))
 	      </if>
 	 </select>
 	 <delete id="batchDeleteByIds" >

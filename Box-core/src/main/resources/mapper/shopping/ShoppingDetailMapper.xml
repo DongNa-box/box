@@ -528,55 +528,83 @@
   </update>
   <select id="getShoppingDetailList"  resultType="map">
 	select 
-	 <include refid="Base_Column_List" />
-	from t_shopping_detail 
+	 b.login_name as loginName,a.box_id as BoxId,d.name as boxName,c.id as layoutId,a.print_paper_id as printPaperId,
+	 e.name as printPaperName,a.paper_grams_id as paperGramsId,f.name as paperGramsName,
+	 a.print_color_id as printColorId,g.name as printColorName,a.pantone_id as pantoneId,
+	 a.surface_treatment_id as surfaceTreatmentId,h.name as surfaceTreatmentName,
+	 a.is_bronzing as isBronzing, a.bronzing_length as bronzingLength,a.bronzing_width as bronzingWidth,
+     a.bronzing_unit as bronzingUnit,a.is_convex as isConvex,a.convex_length as convexLength,a.convex_width as convexWidth,
+      a.convex_unit as convexUnit,a.is_UV as isUv,a.UV_length as uvLength,a.UV_width as uvWidth,
+      a.UV_unit as uvUnit,a.is_PVC as isPvc,a.PVC_length as pvcLength,a.PVC_width as pvcWidth,
+      a.PVC_unit as pvcUnit,a.receive_area_id as receiveAreaId,i.name as receiveAreaName,a.paper_price as paperPrice,
+      a.color_price as colorPrice,a.surface_price as surfacePrice,a.bronzing_price as bronzingPrice,
+      a.convex_price as convexPrice,a.print_number as printNumber,a.UV_price as uvPrice,
+      a.PVC_price as pvcPrice,a.tax_price as taxPrice,a.management_price as managementPrice,
+      a.transport_price as transportPrice,a.total_price as totalPrice,a.unit_price as unitPrice,
+      a.excel_address as excelAddress,a.createby,a.createtime
+	from t_shopping_detail a 
+	left join t_uums_user b
+   on a.user_id=b.id
+   left join t_layout_detail c
+   on a.layout_id=c.id
+   left join t_box_type d
+   on a.box_id=d.boxId
+   left join t_technology_detail e
+   on a.print_paper_id = e.id
+   left join t_technology_detail f
+   on a.paper_grams_id = f.id
+   left join t_technology_detail g
+   on a.print_color_id = g.id
+   left join t_technology_detail h
+   on a.surface_treatment_id = h.id
+   left join t_technology_detail i
+   on a.receive_area_id = i.id
 		where 1=1 
-		 <if test="userId != null and userId!=''">
-        and user_id like CONCAT(CONCAT('%',#{userId,jdbcType=VARCHAR}),'%')  
+		 <if test="loginName != null and loginName!=''">
+        and b.login_name like CONCAT(CONCAT('%',#{loginName,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="boxId != null and boxId!=''">
-        and box_id like CONCAT(CONCAT('%',#{boxId,jdbcType=VARCHAR}),'%') 
+      <if test="boxName != null and boxName!=''">
+        and d.name like CONCAT(CONCAT('%',#{boxName,jdbcType=VARCHAR}),'%') 
       </if>
       <if test="layoutId != null and layoutId!=''">
-       and layout_id like CONCAT(CONCAT('%',#{layoutId,jdbcType=VARCHAR}),'%')  
+       and a.layout_id =#{layoutId,jdbcType=VARCHAR}  
       </if>
-      <if test="printPaperId != null and printPaperId !=''">
-       and print_paper_id like CONCAT(CONCAT('%',#{printPaperId,jdbcType=VARCHAR}),'%')   
+      <if test="printPaperName != null and printPaperName !=''">
+       and e.name like CONCAT(CONCAT('%',#{printPaperName,jdbcType=VARCHAR}),'%')  
       </if>
-      <if test="paperGramsId != null and paperGramsId != ''">
-       and paper_grams_id like CONCAT(CONCAT('%',#{paperGramsId,jdbcType=VARCHAR}),'%')  
+      <if test="paperGramsName != null and paperGramsName != ''">
+       and f.name like CONCAT(CONCAT('%',#{paperGramsName,jdbcType=VARCHAR}),'%')
       </if>
-      <if test="printColorId != null and printColorId != ''">
-       and print_color_id like CONCAT(CONCAT('%',#{printColorId,jdbcType=VARCHAR}),'%')   
+      <if test="printColorName != null and printColorName != ''">
+       and g.name like CONCAT(CONCAT('%',#{printColorName,jdbcType=VARCHAR}),'%')
       </if>
      
-      <if test="surfaceTreatmentId != null and surfaceTreatmentId != ''">
-       and surface_treatment_id like CONCAT(CONCAT('%',#{surfaceTreatmentId,jdbcType=VARCHAR}),'%')   
+      <if test="surfaceTreatmentName != null and surfaceTreatmentName != ''">
+       and h.name like CONCAT(CONCAT('%',#{surfaceTreatmentName,jdbcType=VARCHAR}),'%')
       </if>
-      <if test="isBronzing != null isBronzing != ''">
-        and is_bronzing = #{isBronzing,jdbcType=INTEGER}
+      <if test="isBronzing != null and isBronzing != ''">
+        and a.is_bronzing = #{isBronzing,jdbcType=INTEGER}
       </if>
       
       <if test="isConvex != null and isConvex != ''">
-       and is_convex = #{isConvex,jdbcType=INTEGER}
+       and a.is_convex = #{isConvex,jdbcType=INTEGER}
       </if>
      
       <if test="isUv != null and isUv != ''">
-       and is_UV = #{isUv,jdbcType=INTEGER}
+       and a.is_UV = #{isUv,jdbcType=INTEGER}
       </if>
       
       <if test="isPvc != null and isPvc != ''">
-       and is_PVC = #{isPvc,jdbcType=INTEGER}
+       and a.is_PVC = #{isPvc,jdbcType=INTEGER}
       </if>
       
-      <if test="receiveAreaId != null and receiveAreaId != ''">
-       and receive_area_id like CONCAT(CONCAT('%', #{receiveAreaId,jdbcType=VARCHAR}),'%')  
+      <if test="receiveAreaName != null and receiveAreaName != ''">
+       and i.name like CONCAT(CONCAT('%',#{receiveAreaName,jdbcType=VARCHAR}),'%') 
       </if>
       
       <if test="printNumber != null and printNumber != ''">
-       and print_number = #{printNumber,jdbcType=INTEGER}
+       and a.print_number = #{printNumber,jdbcType=INTEGER}
       </if>
       
 	 </select>
-  
 </mapper>

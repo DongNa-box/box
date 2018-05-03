@@ -16,10 +16,10 @@
 	        <div class="box-body">
 	          	<div class="col-sm-4">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">颜色工艺Id</label>
+						<label class="col-sm-4 control-label">颜色工艺名称</label>
 						<div class="col-sm-8">
-							<input id="search-tid" name="search-tid" type="text" class="form-control"
-								placeholder="请输入工艺id" maxlength="11"/>
+							<input id="search-technologyName" name="search-technologyName" type="text" class="form-control"
+								placeholder="请输入工艺名称" maxlength="11"/>
 						</div>
 					</div>
 					</div>
@@ -79,7 +79,7 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 <!-- 								<th data-align="center" data-field="id" data-sortable="true">pantoneID</th>
- -->								<th data-align="center" data-field="tid" data-sortable="true" >颜色工艺</th>
+ -->								<th data-align="center" data-field="technologyName" data-sortable="true" >颜色工艺</th>
 								<th data-align="center" data-field="colorNum" data-sortable="true" data-formatter="colorNumFormatter">专色数量</th>
 								<th data-align="center" data-field="attr1" data-sortable="true">属性值1</th>
 								<th data-align="center" data-field="attr2" data-sortable="true">属性值2</th>
@@ -107,10 +107,10 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">工艺id<span style="color: red;">*</span></label>
+						<label class="col-sm-4 control-label">工艺名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="tid" name="tid" type="text" class="form-control"
-								placeholder="请输入工艺id" maxlength="11">
+							<input id="technologyName" name="technologyName" type="text" class="form-control"
+								placeholder="请输入工艺名称" maxlength="11">
 						</div>
 					</div>
 					<div class="form-group">
@@ -252,10 +252,10 @@
 			validating : 'glyphicon glyphicon-refresh'
 		},
 		fields : {
-			tid : {
+			technologyName : {
 				validators : {
 					notEmpty : {
-						message : '请输入颜色工艺id'
+						message : '请输入颜色工艺名称'
 					}
 				}
 			},

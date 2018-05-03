@@ -109,7 +109,7 @@ public class ShoppingController {
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
 	   			map.put("value", jsonObj.getString("search-value"));
-		    	map.put("type", Integer.valueOf(jsonObj.getString("search-type")));
+		    	map.put("type", jsonObj.getString("search-type"));
 		    	
 	       	}
 	   		list = shoppingRateService.getRateList(map);
@@ -117,7 +117,10 @@ public class ShoppingController {
 	   		for (int i = 0; i < list.size(); i++) {
 	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
 	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
-					list.get(i).put("createby", user.getLoginName());
+					if (user!=null) {
+						list.get(i).put("createby", user.getLoginName());
+					}
+	   				
 				}
 				
 			}
@@ -188,7 +191,7 @@ public class ShoppingController {
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-	   			map.put("tid", jsonObj.getString("search-tid"));
+	   			map.put("technologyName", jsonObj.getString("search-technologyName"));
 	   			map.put("colorNum", jsonObj.getString("search-colorNum"));
 		    	map.put("attr1", jsonObj.getString("search-attr1"));
 	       	}
@@ -196,7 +199,15 @@ public class ShoppingController {
 	   		for (int i = 0; i < list.size(); i++) {
 	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
 	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
-					list.get(i).put("createby", user.getLoginName());
+					if (user!=null) {
+						list.get(i).put("createby", user.getLoginName());
+					}	
+				}
+	   			if (list.get(i).get("tid")!=null&list.get(i).get("tid")!="") {
+	   				TechnologyDetail technologyDetail = technologyDetailService.get(String.valueOf(list.get(i).get("tid")));
+					if (technologyDetail!=null) {
+						list.get(i).put("tid", technologyDetail.getName());
+					}	
 				}
 				
 			}
@@ -250,29 +261,31 @@ public class ShoppingController {
 		
 }
 	 /**
-	  * 购物车查询表
-	  * detailList:(这里用一句话描述这个方法的作用).
+	  * 全部购物车查询表
+	  * detailListAll:(这里用一句话描述这个方法的作用).
 	  *@Param(value = "params") String searchparams
 	  * @author luowen
 	  * @param searchparams
 	  * @return
 	  * @since JDK 1.8
 	  */
+	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/detailList")
 	   	@ResponseBody
-	   	protected List<Map<String,Object>> detailList(@Param(value = "params") String params){
+	   	protected List<Map<String,Object>> detailSearchList(@Param(value = "params") String params){
 		 JSONObject jsonObj = JSONObject.parseObject(params);
 	   		Map<String,Object> map = new HashMap<String,Object>();
 	   		List<Map<String,Object>> list = null;
 	   		if(jsonObj!=null ){
-	   			map.put("boxId", jsonObj.getString("search-boxId"));
-		    	map.put("userId", jsonObj.getString("search-userId"));
-		    	map.put("layoutId", jsonObj.getString("search-layoutId"));
-		    	map.put("pricePaperId", jsonObj.getString("search-pricePaperId"));
-		    	map.put("paperGramsId", jsonObj.getString("search-paperGramsId"));
-		    	map.put("printColorId", jsonObj.getString("search-printColorId"));
-		    	map.put("surfaceTreatmentId", jsonObj.getString("search-surfaceTreatmentId"));
-		    	map.put("receiveAreaId", jsonObj.getString("search-receiveAreaId"));
+	   			map.put("boxName", jsonObj.getString("search-boxName"));
+		    	map.put("loginName", jsonObj.getString("search-loginName"));
+		    	//map.put("layoutId", jsonObj.getString("search-layoutId"));
+		    	
+		    	map.put("printPaperName", jsonObj.getString("search-loginName"));
+		    	map.put("paperGramsName", jsonObj.getString("search-paperGramsName"));
+		    	map.put("printColorName", jsonObj.getString("search-printColorName"));
+		    	map.put("surfaceTreatmentName", jsonObj.getString("search-surfaceTreatmentName"));
+		    	map.put("receiveAreaName", jsonObj.getString("search-receiveAreaName"));
 			    map.put("isBronzing", jsonObj.getString("search-isBronzing"));
 		    	map.put("isConvex", jsonObj.getString("search-isConvex"));
 		    	map.put("isUv", jsonObj.getString("search-isUv"));
@@ -283,34 +296,12 @@ public class ShoppingController {
 	   		for (int i = 0; i < list.size(); i++) {
 	   			if (list.get(i).get("createby")!=null&list.get(i).get("createby")!="") {
 	   				User user = userService.get(String.valueOf(list.get(i).get("createby")));
-					list.get(i).put("createby", user.getLoginName());
-					list.get(i).put("userId", user.getLoginName());
+	   				if (user!=null) {
+	   					list.get(i).put("createby", user.getLoginName());
+						list.get(i).put("userId", user.getLoginName());
+					}
+					
 				}
-	   			if (list.get(i).get("boxId")!=null&list.get(i).get("boxId")!="") {
-	   				BoxType boxType = boxTypeService.get(String.valueOf(list.get(i).get("boxId")));
-					list.get(i).put("boxId", boxType.getName());
-				}
-	   			if (list.get(i).get("pricePaperId")!=null&list.get(i).get("pricePaperId")!="") {
-	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("pricePaperId")));
-					list.get(i).put("pricePaperId", te.getName());
-				}
-	   			if (list.get(i).get("paperGramsId")!=null&list.get(i).get("paperGramsId")!="") {
-	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("paperGramsId")));
-					list.get(i).put("paperGramsId", te.getName());
-				}
-	   			if (list.get(i).get("printColorId")!=null&list.get(i).get("printColorId")!="") {
-	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("printColorId")));
-					list.get(i).put("printColorId", te.getName());
-				}
-	   			if (list.get(i).get("surfaceTreatmentId")!=null&list.get(i).get("surfaceTreatmentId")!="") {
-	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("surfaceTreatmentId")));
-					list.get(i).put("surfaceTreatmentId", te.getName());
-				}
-	   			if (list.get(i).get("receiveAreaId")!=null&list.get(i).get("receiveAreaId")!="") {
-	   				TechnologyDetail te = technologyDetailService.get(String.valueOf(list.get(i).get("receiveAreaId")));
-					list.get(i).put("receiveAreaId", te.getName());
-				}
-				
 			}
 	   		return list;
 	 }

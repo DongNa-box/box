@@ -10,5 +10,6 @@ public interface ShoppingDetailMapper extends BaseMapper<ShoppingDetail, String>
 	List<Map<String, Object>> getShoppingDetailList(Map<String, Object> map);
 	 
 	int updateByPrimaryKeySelective(ShoppingDetail record);
+	 
   
 }
