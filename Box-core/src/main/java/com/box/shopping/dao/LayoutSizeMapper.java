@@ -13,4 +13,6 @@ public interface LayoutSizeMapper extends BaseMapper<LayoutSize, String>{
 
 	LayoutSize getSizeByName(String name);
 
+	List<Integer> getSizeByType();
+
 }

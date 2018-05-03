@@ -348,6 +348,6 @@
   <if test="detail3 != null and detail3 != '' ">
     and a.detail3=#{detail3}
     </if>
-  LIMIT #{page,jdbcType=INTEGER},12
+ <!--  LIMIT #{page,jdbcType=INTEGER},12 -->
   </select>
 </mapper>

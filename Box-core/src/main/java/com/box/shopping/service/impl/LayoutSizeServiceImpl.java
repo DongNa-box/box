@@ -132,6 +132,18 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 		return layoutSize == null?false : true;
 	}
 
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.shopping.service.LayoutSizeService#getSizeByType()
+	 */
+	 
+	@Override
+	public List<Integer> getSizeByType() {
+		return layoutSizeMapper.getSizeByType();
+		
+	}
+
 
 }
 

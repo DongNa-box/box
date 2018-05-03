@@ -42,6 +42,8 @@ public interface LayoutSizeService extends BaseService<LayoutSize, String> {
 	List<Map<String,Object>> getLayoutSizelist(Map<String, Object> map);
 
 	boolean checkNameExists(String name);
+	 
+	List<Integer> getSizeByType();
 
 }
 

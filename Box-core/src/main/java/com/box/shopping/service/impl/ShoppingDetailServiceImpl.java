@@ -63,9 +63,8 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	@Resource
 	ShoppingDetailMapper shoppingDetailMapper;
 	@Resource
-	LayoutDetailService layoutDetailService;
-	@Resource
-	ShoppingDeatilService shoppingDeatilService;
+	LayoutDetailMapper layoutDetailMapper;
+	
 	/**
 	* TODO 简单描述该方法的实现功能（可选）.
 	* @see com.box.framework.base.service.BaseService#save(java.lang.Object)
@@ -211,9 +210,9 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 		ShoppingDetail shoppingDetail=(ShoppingDetail)map.get("shoppingDetail");
 		
 		try {
-			boolean result1 = layoutDetailService.save(layoutDetail);
-			boolean result2 = shoppingDeatilService.save(shoppingDetail);
-			return result1&result2?true:false;
+			int result1 = layoutDetailMapper.insert(layoutDetail);
+			int result2 = shoppingDetailMapper.insert(shoppingDetail);
+			return (result1+result2)==2?true:false;
 			
 		} catch (Exception e) {
 			logger.error("batchOperateCommunity失败，错误信息为："+e.getMessage().toString());

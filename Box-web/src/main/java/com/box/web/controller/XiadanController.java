@@ -195,8 +195,11 @@ public class XiadanController {
 		Map<String, Object> map=new HashMap<String,Object>();
 		map.put("layoutDetail", layoutDetail);
 		map.put("shoppingDetail", shoppingDetail);
+		//生成订单记录和排版记录
 		boolean result=shoppingDeatilService.createLayoutAndShopping(map);
 		//排版（生成排版图片，dxf文件上传）
+		//1.读取dxf
+		
 		//计算价格
 		//生成excel：查询数据，写入数据，生成excel
 		String uploadPath = request.getSession().getServletContext().getRealPath("/res/excel/");

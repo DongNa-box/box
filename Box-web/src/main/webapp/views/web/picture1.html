@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/skins/_all-skins.css">
   <link rel="stylesheet" href="${basePath}/assets/common/css/index.css">
   <link rel="stylesheet" href="${basePath}/assets/common/css/body.css">
-  
+  <link rel="stylesheet" href="${basePath}/assets/common/css/fenye-style.css">
 </head>
 <!--
 收缩左边菜单栏
@@ -282,13 +282,17 @@
 			</div>
      </div>
      </div>
-	 <ul class="pagination pagination-right">
-<!-- 	    <li><a href="#">&laquo;</a></li>
- -->	    <li><a href="#" class="active" >首页</a></li>
+     <div class="fydiv">
+      <ul class="fenye">
+      </ul>
+    </div>
+	 <!-- <ul class="pagination pagination-right">
+	    <li><a href="#">&laquo;</a></li>
+	    <li><a href="#" class="active" >首页</a></li>
 	    <li><a href="#" >下一页</a></li>
 	    <li><a href="#" >上一页</a></li>
 	    <li><a href="#" >末页</a></li>
-     </ul>
+     </ul> -->
 	
 </section>
     
@@ -358,8 +362,10 @@ $(function(){
 	var apiHost="${apiHost}";
 	var softwareVersionUrl="${softwareVersionUrl}";
 	//查询默认所有列表
-	var page=1;
-	pictureList(page);
+	//var page=1;
+	var dataImg=null;
+	//查询全部图片
+	pictureList();
 	setBox("search-box");
 	$("#alert").hide();
 	pictureForm = $("#picture-form").form();
@@ -384,23 +390,8 @@ $(function(){
 				
 			}, function(data) {
 				console.log(JSON.stringify(data));
-				if(data==null||data.length==0){
-					$("#alert").show();
-					for(var i=0;i<11;i++){
-						$("#box"+i).hide();
-					}
-					}else{
-						$("#alert").hide();
-						for(var i=0, len = data.length;i<len;i++){
-							$("#box"+i).show();
-							$("#box"+i).val(data[i].boxId);
-							$("#boxName"+i).html(data[i].name);
-							var imgUrl="http://139.199.159.121:8080/images/BoxType/"+data[i].boxId+"/plan/"+data[i].plan;
-							console.log(imgUrl);
-							$("#img"+i).attr("src",imgUrl);
-							/* $("#img"+i).attr("src",data[i].pla); */
-							}
-						}
+				dataImg=data;
+				getPage(1);
 			});	
 			break;
 		case 'reset':
@@ -432,31 +423,17 @@ $(function(){
 /**
  * 默认查询所有列表
  */
- function pictureList(page){
+ function pictureList(){
 	 var basePath="${basePath}";
-	 var params={"page":page}
+	 //var params={"page":page}
+	  
 	//查询全部图表列表
 		ajaxPost(basePath + "/web/pictureList", {
 			params:JSON.stringify(params)
 			}, function(data) {
 				console.log(JSON.stringify(data));
-				if(data==null||data.length==0){
-					$("#alert").show();
-					for(var i=0;i<11;i++){
-						$("#box"+i).hide();
-					}
-					}else{
-						$("#alert").hide();
-			for(var i=0, len = data.length;i<len;i++){
-				$("#box"+i).show();
-				$("#box"+i).val(data[i].boxId);
-				$("#boxName"+i).text(data[i].name);
-				var imgUrl = "http://139.199.159.121:8080/images/BoxType/"
-				+data[i].boxId+"/plan/"+data[i].plan;
-				$("#img"+i).attr("src",imgUrl);
-				//$("#img"+i).attr("src",data[i].pla);
-				}
-					}	
+				dataImg=data;
+				getPage(1);
 				});	
 	 }
 /**
@@ -477,7 +454,7 @@ function setBox(selectid){
 		if(data.length>0){
 			 $select.append('<option value="">请选择...</option>'); 
 		}
-		for(var i=0,len = data.length;i<len;i++){
+		for(var i=0,len27 = data.length;i<len27;i++){
 			var c=data[i]; 
 		 	var cid=c.id
 		 	var ctext=c.text;
@@ -498,13 +475,13 @@ function setBoxType(boxId){
 		$('#search-detail1').empty();
 		$('#search-detail2').empty();
 		
-		for(var i=0,len = data.length;i<len;i++){
+		for(var i=0,len28 = data.length;i<len28;i++){
 			var c=data[i]; 
 			 var a = c.nodes;
 			   if(c.id==boxId){
 				   console.log(JSON.stringify(a));
 				   
-				   for(var j=0,len = a.length;j<len;j++){
+				   for(var j=0,len29 = a.length;j<len29;j++){
 					   if(a.length==0){
 						   $("#search-detail"+j).val("");
 						
@@ -519,7 +496,7 @@ function setBoxType(boxId){
 					   if(d.nodes!=null&&d.nodes.length>0){
 						   console.log(JSON.stringify(d.nodes));
 						   var e = d.nodes;
-						   for(var k=0,len = e.length;k<len;k++){
+						   for(var k=0,len30 = e.length;k<len30;k++){
 							   var f=e[k];
 							   var fid=f.id;
 							   var ftext=f.text;
@@ -549,73 +526,105 @@ function setBoxType(boxId){
 		var boxid = sessionStorage.setItem("boxId",boxId);
 		showTabs("a-href"+n,"${basePath}/web/xiadan");
 	}
-	/**
-	 * tab页面加载
-	 * @param tabsId
-	 * @param url
-	 * @returns
-	 */
-	function showTabs(tabsId,url) {
-	    $("a[href='#"+tabsId+"']").tab('show');
-	    var $tabContent = $('#'+tabsId);
-	    if($tabContent.length < 100) {
-	        $tabContent.load(url);
+	//绘制页码
+	  function paintPage(number,currNum)  //number 总页数,currNum 当前页  
+	  {
+	    var pageUl=$(".fenye");
+	    pageUl.empty();
+	    var ulDetail="";
+
+	    if(number==1){
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:void(0)\">上一页</a></li>"+
+	     "<li class=\"numb choose\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:void(0)\">下一页</a></li>";
+	   }else if(number==2){
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:getPage(1)\">上一页</a></li>"+
+	     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+	     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+	   }else if(number==3){
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+	     "<li class=\"numb"+choosele(currNum,1)+"\"><a href=\"javascript:getPage(1)\">1</a></li>"+
+	     "<li class=\"numb"+choosele(currNum,2)+"\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+	     "<li class=\"numb"+choosele(currNum,3)+"\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+	   }else if(number==currNum&&currNum>3){
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-2)+")\">"+parseInt(currNum-2)+"</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+	     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:getPage("+currNum+")\">下一页</a></li>";
+	   }else if(currNum==1&&number>3){
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:void(0)\">上一页</a></li>"+
+	     "<li class=\"numb choose\"><a href=\"javascript:void(0)\">1</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage(2)\">2</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage(3)\">3</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:getPage(2)\">下一页</a></li>";
+	   }else{
+	     ulDetail= "<li class=\"prev\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">上一页</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum-1)+")\">"+parseInt(currNum-1)+"</a></li>"+
+	     "<li class=\"numb choose\"><a href=\"javascript:getPage("+currNum+")\">"+currNum+"</a></li>"+
+	     "<li class=\"numb\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">"+parseInt(currNum+1)+"</a></li>"+
+	     "<li class=\"next\"><a href=\"javascript:getPage("+parseInt(currNum+1)+")\">下一页</a></li>";
+	   }
+
+	   $(".fenye").append(ulDetail);
+
+	 }
+	//翻页
+	  function getPage(pn){
+	    var dataCount=dataImg.length;//总数据条数
+	    var pageSize=12;//每页显示条数
+	    var pageCount= Math.ceil(dataCount / pageSize);//总页数
+	    if(pn==0||pn>pageCount){
+	      return;
 	    }
-	}
-   //加载菜单
-	/* ajaxPost(basePath+"/web/boxTree",null,function(data){
-	  var $li,$menu_f_ul;
-	  var $li1,$menu_f_ul1;
-	  $.each(data,function(index,item){
-		  if(item.levelCode==0){	
-			  $li=$('<li class="treeview"></li>');
-			  var $menu_f=$('<a href="#">\n'+
-					           '<i class="'+item.icon+'"></i> <span>'+item.text+'</span>\n'+
-                                ' <span class="pull-right-container">\n'+
-					           '<i class="fa fa-angle-left pull-right"></i>\n'+
-				            '</span></a>');
-			  $li.append($menu_f);
-			  $menu_f_ul=$('<ul class="treeview-menu"></ul>');
-			  $li.append($menu_f_ul);
-			  $("ul.sidebar-menu").append($li); 
-			  if(item.nodes != null){
-				  
-				  $.each(item.nodes,function(index,childItem){
-					  if(childItem.levelCode==1){
-						  $li1=$('<li></li>');
-						  var $menu_f1=$('<a href="#">\n'+
-						           '<i class="'+childItem.icon+'"></i> <span>'+childItem.text+'</span>\n'+
-	                                ' <span class="pull-right-container">\n'+
-						           '<i class="fa fa-angle-left pull-right"></i>\n'+
-					            '</span></a>');
-						  $li1.append($menu_f1);
-						  $menu_f_ul1=$('<ul class="treeview-menu"></ul>');
-						  $li1.append($menu_f_ul1);
-						  $li.append($li1);
-						  if(childItem.nodes != null){
-							  $.each(childItem.nodes,function(index,childItem){
-							  $menu_s=$('<li><a href="#" data-url="${basePath}'+childItem.url+'"><i class="'+childItem.icon+'"></i>'+childItem.text+'</a></li>');
-							  $menu_f_ul1.append($menu_s);
-							  }); 
-							  }
-						  }
-					 
-				  });
-			  }
-		  } 
-	  });
-	  $($.parseHTML($menu_f_ul1, document, true)).appendTo("body");
-   });
-    */
- /*   $(function(){ 
-	   //首页默认加载
-       loadPage(basePath+"/web/picture");
-	   $("a[data-url]").click(function(evt){
-		   loadPage($(this).data("url"));
-		    $("ul.treeview-menu li").removeClass("active");
-		   $(this).parent().addClass("active"); 
-	   });
-   }); */
+	    paintPage(pageCount,pn);   //绘制页码
+	    var page=(pn-1)*pageSize;
+	    if(dataImg==null||dataImg.length==0){
+			$("#alert").show();
+			for(var i=0;i<11;i++){
+				$("#box"+i).hide();
+			}
+			}else {
+				
+				$("#alert").hide();
+				if(pn==1&&data.length<12){
+					for(var i=0, len22 = data.length;i<len22;i++){
+						$("#box"+i).show();
+						$("#box"+i).val(dataImg[i].boxId);
+						$("#boxName"+i).html(dataImg[i].name);
+						var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i].boxId+"/plan/"+dataImg[i].plan;
+						console.log(imgUrl);
+						$("#img"+i).attr("src",imgUrl);
+						/* $("#img"+i).attr("src",data[i].pla); */
+						}
+					}else if(pn==pageCount&&(dataCount%pageSize)<12){
+						var a=dataCount%pageSize;
+						for(var i=0, len23 = a;i<len23;i++){
+							$("#box"+i).show();
+							$("#box"+i).val(dataImg[i+page].boxId);
+							$("#boxName"+i).html(dataImg[i+page].name);
+							var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
+							console.log(imgUrl);
+							$("#img"+i).attr("src",imgUrl);
+							/* $("#img"+i).attr("src",data[i].pla); */
+							}
+						}else{
+							for(var i=0, len24 = 12;i<len24;i++){
+								$("#box"+i).show();
+								$("#box"+i).val(dataImg[i+page].boxId);
+								$("#boxName"+i).html(dataImg[i+page].name);
+								var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
+								console.log(imgUrl);
+								$("#img"+i).attr("src",imgUrl);
+								/* $("#img"+i).attr("src",data[i].pla); */
+								}
+							}
+
+				}
+	   
+	  }
 </script>
 </body>
 

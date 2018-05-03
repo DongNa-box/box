@@ -88,9 +88,9 @@ public class PictureController {
 	    	map.put("detail3", jsonObj.getString("search-detail2"));
 	    	
 		}
-		int page=jsonObj.getInteger("page");
+		/*int page=jsonObj.getInteger("page");
 		page=(page-1)*12;
-		map.put("page", page);
+		map.put("page", page);*/
 		list = boxTypeService.getWebBoxTypeList(map);
 		return list;
 	}

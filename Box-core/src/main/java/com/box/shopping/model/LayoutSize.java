@@ -6,7 +6,7 @@ import java.util.Date;
 public class LayoutSize implements Serializable {
     private String id;
 
-    private String size;
+    private Integer size;
 
     private Integer unit;
 
@@ -28,12 +28,12 @@ public class LayoutSize implements Serializable {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
-        this.size = size == null ? null : size.trim();
+    public void setSize(Integer size) {
+        this.size = size ;
     }
 
     public Integer getUnit() {

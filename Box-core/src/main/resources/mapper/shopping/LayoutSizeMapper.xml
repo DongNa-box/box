@@ -3,7 +3,7 @@
 <mapper namespace="com.box.shopping.dao.LayoutSizeMapper">
   <resultMap id="layoutSizeResultMap" type="com.box.shopping.model.LayoutSize">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="size" jdbcType="INTEGER" property="size" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
@@ -18,6 +18,12 @@
     <include refid="layoutSize_Column_List" />
     from t_layout_size
     where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getSizeByType"  resultType="java.lang.Integer">
+    select 
+    size
+    from t_layout_size
+    where type = 0
   </select>
   
     <select id="getSizeByName" parameterType="java.lang.String" resultMap="layoutSizeResultMap">
@@ -35,7 +41,7 @@
     insert into t_layout_size (id, size, unit, 
       name, type, createby, 
       createtime)
-    values (#{id,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{unit,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP})
   </insert>
@@ -69,7 +75,7 @@
         #{id,jdbcType=VARCHAR},
       </if>
       <if test="size != null">
-        #{size,jdbcType=VARCHAR},
+        #{size,jdbcType=INTEGER},
       </if>
       <if test="unit != null">
         #{unit,jdbcType=INTEGER},
@@ -92,7 +98,7 @@
     update t_layout_size
     <set>
       <if test="size != null">
-        size = #{size,jdbcType=VARCHAR},
+        size = #{size,jdbcType=INTEGER},
       </if>
       <if test="unit != null">
         unit = #{unit,jdbcType=INTEGER},
@@ -114,7 +120,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.box.shopping.model.LayoutSize">
     update t_layout_size
-    set size = #{size,jdbcType=VARCHAR},
+    set size = #{size,jdbcType=INTEGER},
       unit = #{unit,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
@@ -128,7 +134,7 @@
 	from t_layout_size
 		where 1=1 
 		 <if test="size != null and size!=''">
-	       and size like CONCAT(CONCAT('%', #{size,jdbcType=VARCHAR}),'%') 
+	       and size = #{size,jdbcType=INTEGER} 
 	      </if>
 	      <if test="name != null and name!=''">
 	       and name  like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR}),'%') 
