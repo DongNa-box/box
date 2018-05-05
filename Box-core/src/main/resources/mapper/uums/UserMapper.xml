@@ -245,7 +245,7 @@
     from t_uums_user
     where
     <if test="loginName != null and loginName!=''">
-       and login_name = #{loginName,jdbcType=VARCHAR}
+        login_name = #{loginName,jdbcType=VARCHAR}
       </if>
      <if test="password != null and password!=''">
        and password = #{password,jdbcType=INTEGER}

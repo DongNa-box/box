@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.box.framework.pojo.Result;
 import com.box.framework.pojo.RspCode;
+import com.box.framework.utils.EncryptUtil;
 import com.box.framework.utils.Sequence;
 import com.box.token.JwtUtil;
 import com.box.uums.model.User;
@@ -73,7 +74,7 @@ public class AuthController {
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
     	String account = jsonObj.getString("account");
-    	String password = jsonObj.getString("password");
+    	String password = EncryptUtil.encodeByMD5(jsonObj.getString("password"));
     	Map<String,String> map=new HashMap<String,String>();
     	map.put("loginName",account);
     	map.put("password",password);
@@ -119,7 +120,7 @@ public class AuthController {
 		String account=jsonObj.getString("account");
 		String phoneNumber = jsonObj.getString("mobile");
 		String email = jsonObj.getString("email");
-		String password = jsonObj.getString("password");
+		String password = EncryptUtil.encodeByMD5(jsonObj.getString("password"));
 		User user = userService.getUserByEmail(email);
 		if(user == null){
 			User appUser = new User();
@@ -130,7 +131,7 @@ public class AuthController {
 			appUser.setPhone(phoneNumber);
 			appUser.setEmail(email);
 			appUser.setLoginCount(0);
-			appUser.setType(1);
+			appUser.setType(2);//APP用户
 			appUser.setStatus(1);
 			boolean saveResult1 = userService.save(appUser);
 			if(saveResult1){
@@ -180,16 +181,6 @@ public class AuthController {
 		String oldPassword = jsonObj.getString("oldPassword");
 		String newPassword = jsonObj.getString("newPassword");
 		User user = userService.get(userId);
-		/**
-	    if("".equals(userId)||userId==null){
-			return new Result(false,RspCode.R00000);
-		}
-		else if("".equals(oldPassword)||oldPassword==null){
-			return new Result(false,RspCode.R00000);
-		}
-		else if("".equals(newPassword)||newPassword==null){
-			return new Result(false,RspCode.R00000);
-		}*/
 						
 		if(!user.getPassword().equals(oldPassword)){
 			return new Result(false,RspCode.R10001);
@@ -218,6 +209,7 @@ public class AuthController {
 	public Result forgetPassword(@RequestHeader HttpHeaders headers){
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+		String loginName = jsonObj.getString("loginName");
 		String phoneNumber = jsonObj.getString("phoneNumber");
 		String newPassword = jsonObj.getString("newPassword");
 		User user = userService.getUserByEmail(phoneNumber);

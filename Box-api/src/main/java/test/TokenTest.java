@@ -16,8 +16,11 @@ public class TokenTest {
    public static void main(String[] s){
 	  JwtUtil jwt=new JwtUtil();
 	  Map<String,Object> map=new HashMap<String,Object>();
-	  map.put("account", "kate");
-	  map.put("password", "123456");
+	  map.put("userId", "1524974962453000");
+	  map.put("oldpassword", "123456");
+	  map.put("newpassword", "111111");
+	  //map.put("mobile", "15527698765");
+	  //map.put("email", "1416732092@qq.com");
 	  String subject = JwtUtil.generalSubject(map);
 	  System.out.println(jwt.genJwtForAndroid(subject));
    }
