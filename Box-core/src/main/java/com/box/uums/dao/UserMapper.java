@@ -27,4 +27,8 @@ public interface UserMapper extends BaseMapper<User, String> {
 
 	User getUserByAccount(Map<String, String> map);
 
+	User getUserByMsg(Map<String, String> map);
+
+	int updateUserByCode(String code);
+
 }

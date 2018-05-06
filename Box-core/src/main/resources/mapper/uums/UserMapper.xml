@@ -226,6 +226,22 @@
     where login_name = #{loginName,jdbcType=VARCHAR} and status = 1 
   </select>
   
+   <select id="getUserByMsg" parameterType="map" resultMap="userResultMap">
+    select 
+    <include refid="userColumList" />
+    from t_uums_user
+    <where>
+      <if test="email != null and email !=''">
+        email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="loginName != null and loginName !=''">
+      and login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  
+   
+  </select>
+  
   <select id="getUserForLogin" parameterType="map" resultMap="userResultMap">
     select 
     <include refid="userColumList" />
@@ -251,15 +267,22 @@
        and password = #{password,jdbcType=INTEGER}
       </if>
   </select>
+  
   <update id="updateStatusById" parameterType="java.util.Map">
   	update t_uums_user set status = #{status,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+    <update id="updateUserByCode" parameterType="java.util.Map">
+  	update t_uums_user set status =1 where code= #{code,jdbcType=VARCHAR}
+  </update>
+
   <delete id="batchDeleteByIds">
   	delete from t_uums_user where id in
   	<foreach collection="ids" item="id" open="(" separator="," close=")">
   		#{id}
   	</foreach>
   </delete>
+  
    <select id="getAdminSearchlist"  resultType="map">
 	select 
 	id, login_name as loginName, password, phone, nick_name as nickName, name, sex, birthday, create_time as createTime, last_login_time as lastLoginTime, 

@@ -164,9 +164,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByEmail(String email) {
+	public User getUserByMsg(Map<String,String> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.getUserByMsg(map);
+	}
+
+	@Override
+	public boolean updateUserByCode(String code) {
+		int result = userMapper.updateUserByCode(code);
+		return result>0?true:false;
 	}
 
 }

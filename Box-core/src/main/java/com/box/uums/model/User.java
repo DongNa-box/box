@@ -28,7 +28,7 @@ public class User implements Serializable {
 
     private Integer status;
 
-    private Integer code;
+    private String code;
 
     private String userImage;
 
@@ -134,15 +134,15 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Integer getCode() {
-        return code;
-    }
+    public String getCode() {
+		return code;
+	}
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getUserImage() {
+	public String getUserImage() {
         return userImage;
     }
 

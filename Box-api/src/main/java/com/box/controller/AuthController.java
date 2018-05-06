@@ -13,6 +13,7 @@ package com.box.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -20,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.box.framework.pojo.Result;
 import com.box.framework.pojo.RspCode;
-import com.box.framework.utils.EncryptUtil;
+import com.box.framework.utils.MailUtils;
 import com.box.framework.utils.Sequence;
 import com.box.token.JwtUtil;
 import com.box.uums.model.User;
@@ -74,17 +74,17 @@ public class AuthController {
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
     	String account = jsonObj.getString("account");
-    	String password = EncryptUtil.encodeByMD5(jsonObj.getString("password"));
+    	String password = jsonObj.getString("password");
     	Map<String,String> map=new HashMap<String,String>();
     	map.put("loginName",account);
     	map.put("password",password);
-		User user = userService.getUserByAccount(map);
+		User user = userService.getUserByAccount(map);//这个里面需要去查询验证码是否通过
 		if(user == null){
 			return new Result(false,RspCode.R10000);
 		}else if(!user.getPassword().equals(password)){
 			return new Result(false,RspCode.R10001);
 		}else if(user.getStatus()== 0){
-			return new Result(false,RspCode.R10000);
+			return new Result(false,RspCode.R10002);
 		}else{
 			user.setLastLoginTime(new Date());
 			if(user.getLoginCount()==null){
@@ -96,7 +96,9 @@ public class AuthController {
 			
 			boolean success = userService.update(user);
 			if(success){
-				return new Result(true);
+				Map<String,String> m=new HashMap<String,String>();
+				m.put("userId", user.getId());
+				return new Result(true,m);
 			}else{
 				return new Result(false,RspCode.R00000);
 			}
@@ -118,31 +120,36 @@ public class AuthController {
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
 		String account=jsonObj.getString("account");
-		String phoneNumber = jsonObj.getString("mobile");
 		String email = jsonObj.getString("email");
-		String password = EncryptUtil.encodeByMD5(jsonObj.getString("password"));
-		User user = userService.getUserByEmail(email);
-		if(user == null){
-			User appUser = new User();
-			appUser.setId(Sequence.nextId());
-			appUser.setLoginName(account);
-			appUser.setPassword(password);
-			appUser.setCreateTime(new Date());
-			appUser.setPhone(phoneNumber);
-			appUser.setEmail(email);
-			appUser.setLoginCount(0);
-			appUser.setType(2);//APP用户
-			appUser.setStatus(1);
-			boolean saveResult1 = userService.save(appUser);
-			if(saveResult1){
-				return new Result(true);
-			}else{
-				return new Result(false,RspCode.R00000);
+		String password = jsonObj.getString("password");
+		User appUser = new User();
+		appUser.setId(Sequence.nextId());
+		appUser.setLoginName(account);
+		appUser.setPassword(password);
+		appUser.setCreateTime(new Date());
+		appUser.setEmail(email);
+		appUser.setLoginCount(0);
+		appUser.setType(3);//APP用户
+		appUser.setStatus(0);//初始注册未激活，需要登录邮箱进行激活
+		appUser.setCode(UUID.randomUUID().toString());//添加验证码
+		boolean saveResult1 = userService.save(appUser);
+		if(saveResult1){
+			// 发送邮件:
+			//("发送邮件"+vo.getEmail());
+			//("发送邮件"+code);
+			try {
+			  MailUtils.sendMail(appUser.getEmail(), appUser.getCode());
+			} catch (Exception e) {
+			  e.printStackTrace();
 			}
+			return new Result(true);
 		}else{
-			return new Result(false,RspCode.R10003);
+			return new Result(false,RspCode.R00000);
 		}
+		
 	}
+
+
 	
 	/**
 	 * 
@@ -163,68 +170,6 @@ public class AuthController {
 		return new Result(true);
 	}
 
-	/**
-	 * 
-	 * changePassword:修改密码.
-	 *
-	 * @author Jay
-	 * @param headers
-	 * @return
-	 * @since JDK 1.8
-	 */
-	@RequestMapping(value = "/changePassword",method = RequestMethod.POST)
-	@ResponseBody
-	public Result changePassword(@RequestHeader HttpHeaders headers){
-		String token = headers.getFirst("token");
-		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
-		String userId = jsonObj.getString("userId");		
-		String oldPassword = jsonObj.getString("oldPassword");
-		String newPassword = jsonObj.getString("newPassword");
-		User user = userService.get(userId);
-						
-		if(!user.getPassword().equals(oldPassword)){
-			return new Result(false,RspCode.R10001);
-		}else{
-			user.setPassword(newPassword);
-			boolean updateResult = userService.update(user);
-			if(updateResult){
-				return new Result(true);
-			}else{
-				return new Result(false,RspCode.R00002);
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 * forgetPassword:忘记密码.
-	 *
-	 * @author Jay
-	 * @param headers
-	 * @return
-	 * @since JDK 1.8
-	 */
-	@RequestMapping(value = "/forgetPassword",method = RequestMethod.POST)
-	@ResponseBody
-	public Result forgetPassword(@RequestHeader HttpHeaders headers){
-		String token = headers.getFirst("token");
-		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
-		String loginName = jsonObj.getString("loginName");
-		String phoneNumber = jsonObj.getString("phoneNumber");
-		String newPassword = jsonObj.getString("newPassword");
-		User user = userService.getUserByEmail(phoneNumber);
-		if(user!=null){
-			user.setPassword(newPassword);
-			boolean updateResult = userService.update(user);
-			if(updateResult){
-				return new Result(true);
-			}else{
-				return new Result(false,RspCode.R00000);
-			}
-		}else{
-			return new Result(false,RspCode.R10000);
-		}
-	}
 	
 }
 

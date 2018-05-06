@@ -39,5 +39,8 @@ public interface UserService extends BaseService<User, String> {
 
 	User getUserByAccount(Map<String, String> map);
 
-	User getUserByEmail(String email);
+	User getUserByMsg(Map<String, String> map);
+
+	boolean updateUserByCode(String code);
+
 }
