@@ -14,6 +14,7 @@
     <result column="paper_X_id" jdbcType="VARCHAR" property="paperXId" />
     <result column="xnumber" jdbcType="INTEGER" property="xnumber" />
     <result column="ynumber" jdbcType="INTEGER" property="ynumber" />
+    <result column="utilizationRate" jdbcType="VARCHAR" property="utilizationRate" />
     <result column="picture_address" jdbcType="VARCHAR" property="pictureAddress" />
     <result column="dxf_address" jdbcType="VARCHAR" property="dxfAddress" />
     <result column="createby" jdbcType="VARCHAR" property="createby" />
@@ -21,7 +22,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, box_id, box_length, box_width, box_highth, box_unit, paper_length, paper_width, 
-    paper_unit, paper_X_id, xnumber, ynumber, picture_address, dxf_address, createby, 
+    paper_unit, paper_X_id, xnumber, ynumber, utilizationRate,picture_address, dxf_address, createby, 
     createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -38,14 +39,14 @@
     insert into t_layout_detail (id, box_id, box_length, 
       box_width, box_highth, box_unit, 
       paper_length, paper_width, paper_unit, 
-      paper_X_id, xnumber, ynumber, 
+      paper_X_id, xnumber, ynumber, utilizationRate,
       picture_address, dxf_address, createby, 
       createtime)
     values (#{id,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, #{boxLength,jdbcType=DOUBLE}, 
       #{boxWidth,jdbcType=DOUBLE}, #{boxHighth,jdbcType=DOUBLE}, #{boxUnit,jdbcType=INTEGER}, 
       #{paperLength,jdbcType=DOUBLE}, #{paperWidth,jdbcType=DOUBLE}, #{paperUnit,jdbcType=INTEGER}, 
       #{paperXId,jdbcType=VARCHAR}, #{xnumber,jdbcType=INTEGER}, #{ynumber,jdbcType=INTEGER}, 
-      #{pictureAddress,jdbcType=VARCHAR}, #{dxfAddress,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, 
+      #{utilizationRate,jdbcType=VARCHAR},  #{pictureAddress,jdbcType=VARCHAR}, #{dxfAddress,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.box.shopping.model.LayoutDetail">
@@ -86,6 +87,9 @@
       </if>
       <if test="ynumber != null">
         ynumber,
+      </if>
+       <if test="utilizationRate != null">
+        utilizationRate,
       </if>
       <if test="pictureAddress != null">
         picture_address,
@@ -137,6 +141,9 @@
       <if test="ynumber != null">
         #{ynumber,jdbcType=INTEGER},
       </if>
+      <if test="utilizationRate != null">
+        #{utilizationRate,jdbcType=VARCHAR},
+      </if>
       <if test="pictureAddress != null">
         #{pictureAddress,jdbcType=VARCHAR},
       </if>
@@ -187,6 +194,9 @@
       <if test="ynumber != null">
         ynumber = #{ynumber,jdbcType=INTEGER},
       </if>
+      <if test="utilizationRate != null">
+        utilizationRate = #{utilizationRate,jdbcType=VARCHAR},
+      </if>
       <if test="pictureAddress != null">
         picture_address = #{pictureAddress,jdbcType=VARCHAR},
       </if>
@@ -215,6 +225,7 @@
       paper_X_id = #{paperXId,jdbcType=VARCHAR},
       xnumber = #{xnumber,jdbcType=INTEGER},
       ynumber = #{ynumber,jdbcType=INTEGER},
+      utilizationRate = #{utilizationRate,jdbcType=VARCHAR},
       picture_address = #{pictureAddress,jdbcType=VARCHAR},
       dxf_address = #{dxfAddress,jdbcType=VARCHAR},
       createby = #{createby,jdbcType=VARCHAR},

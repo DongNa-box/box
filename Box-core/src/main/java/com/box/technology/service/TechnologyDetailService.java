@@ -39,5 +39,7 @@ public interface TechnologyDetailService extends BaseService<TechnologyDetail, S
 	
 	List<TreeNode> getTechnologyTree();
 
+	List<TechnologyDetail> getTechnologyByDetail(Map<String, Object> map);
+
 }
 

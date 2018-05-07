@@ -59,9 +59,14 @@
   left JOIN t_box_classification e
   on a.detail3=e.id
   <where>
-   a.name LIKE CONCAT(CONCAT('%', #{name}),'%') 
+   <if test="name!=null and name !=''">
+      a.name LIKE CONCAT(CONCAT('%', #{name}),'%') 
+   </if>
    <if test="classId != null and classId != '' ">
     and a.classId=#{classId}
+   </if>
+   <if test="boxId != null and boxId != '' ">
+    and a.boxId=#{boxId}
    </if>
   </where>
   </select>

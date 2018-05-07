@@ -27,6 +27,8 @@ public class LayoutDetail implements Serializable {
     private Integer xnumber;
 
     private Integer ynumber;
+    
+    private String utilizationRate;
 
     private String pictureAddress;
 
@@ -134,7 +136,16 @@ public class LayoutDetail implements Serializable {
         this.ynumber = ynumber;
     }
 
-    public String getPictureAddress() {
+    
+    public String getUtilizationRate() {
+		return utilizationRate;
+	}
+
+	public void setUtilizationRate(String utilizationRate) {
+		this.utilizationRate = utilizationRate;
+	}
+
+	public String getPictureAddress() {
         return pictureAddress;
     }
 
@@ -166,83 +177,135 @@ public class LayoutDetail implements Serializable {
         this.createtime = createtime;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        LayoutDetail other = (LayoutDetail) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getBoxId() == null ? other.getBoxId() == null : this.getBoxId().equals(other.getBoxId()))
-            && (this.getBoxLength() == null ? other.getBoxLength() == null : this.getBoxLength().equals(other.getBoxLength()))
-            && (this.getBoxWidth() == null ? other.getBoxWidth() == null : this.getBoxWidth().equals(other.getBoxWidth()))
-            && (this.getBoxHighth() == null ? other.getBoxHighth() == null : this.getBoxHighth().equals(other.getBoxHighth()))
-            && (this.getBoxUnit() == null ? other.getBoxUnit() == null : this.getBoxUnit().equals(other.getBoxUnit()))
-            && (this.getPaperLength() == null ? other.getPaperLength() == null : this.getPaperLength().equals(other.getPaperLength()))
-            && (this.getPaperWidth() == null ? other.getPaperWidth() == null : this.getPaperWidth().equals(other.getPaperWidth()))
-            && (this.getPaperUnit() == null ? other.getPaperUnit() == null : this.getPaperUnit().equals(other.getPaperUnit()))
-            && (this.getPaperXId() == null ? other.getPaperXId() == null : this.getPaperXId().equals(other.getPaperXId()))
-            && (this.getXnumber() == null ? other.getXnumber() == null : this.getXnumber().equals(other.getXnumber()))
-            && (this.getYnumber() == null ? other.getYnumber() == null : this.getYnumber().equals(other.getYnumber()))
-            && (this.getPictureAddress() == null ? other.getPictureAddress() == null : this.getPictureAddress().equals(other.getPictureAddress()))
-            && (this.getDxfAddress() == null ? other.getDxfAddress() == null : this.getDxfAddress().equals(other.getDxfAddress()))
-            && (this.getCreateby() == null ? other.getCreateby() == null : this.getCreateby().equals(other.getCreateby()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((boxHighth == null) ? 0 : boxHighth.hashCode());
+		result = prime * result + ((boxId == null) ? 0 : boxId.hashCode());
+		result = prime * result + ((boxLength == null) ? 0 : boxLength.hashCode());
+		result = prime * result + ((boxUnit == null) ? 0 : boxUnit.hashCode());
+		result = prime * result + ((boxWidth == null) ? 0 : boxWidth.hashCode());
+		result = prime * result + ((createby == null) ? 0 : createby.hashCode());
+		result = prime * result + ((createtime == null) ? 0 : createtime.hashCode());
+		result = prime * result + ((dxfAddress == null) ? 0 : dxfAddress.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((paperLength == null) ? 0 : paperLength.hashCode());
+		result = prime * result + ((paperUnit == null) ? 0 : paperUnit.hashCode());
+		result = prime * result + ((paperWidth == null) ? 0 : paperWidth.hashCode());
+		result = prime * result + ((paperXId == null) ? 0 : paperXId.hashCode());
+		result = prime * result + ((pictureAddress == null) ? 0 : pictureAddress.hashCode());
+		result = prime * result + ((utilizationRate == null) ? 0 : utilizationRate.hashCode());
+		result = prime * result + ((xnumber == null) ? 0 : xnumber.hashCode());
+		result = prime * result + ((ynumber == null) ? 0 : ynumber.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getBoxId() == null) ? 0 : getBoxId().hashCode());
-        result = prime * result + ((getBoxLength() == null) ? 0 : getBoxLength().hashCode());
-        result = prime * result + ((getBoxWidth() == null) ? 0 : getBoxWidth().hashCode());
-        result = prime * result + ((getBoxHighth() == null) ? 0 : getBoxHighth().hashCode());
-        result = prime * result + ((getBoxUnit() == null) ? 0 : getBoxUnit().hashCode());
-        result = prime * result + ((getPaperLength() == null) ? 0 : getPaperLength().hashCode());
-        result = prime * result + ((getPaperWidth() == null) ? 0 : getPaperWidth().hashCode());
-        result = prime * result + ((getPaperUnit() == null) ? 0 : getPaperUnit().hashCode());
-        result = prime * result + ((getPaperXId() == null) ? 0 : getPaperXId().hashCode());
-        result = prime * result + ((getXnumber() == null) ? 0 : getXnumber().hashCode());
-        result = prime * result + ((getYnumber() == null) ? 0 : getYnumber().hashCode());
-        result = prime * result + ((getPictureAddress() == null) ? 0 : getPictureAddress().hashCode());
-        result = prime * result + ((getDxfAddress() == null) ? 0 : getDxfAddress().hashCode());
-        result = prime * result + ((getCreateby() == null) ? 0 : getCreateby().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LayoutDetail other = (LayoutDetail) obj;
+		if (boxHighth == null) {
+			if (other.boxHighth != null)
+				return false;
+		} else if (!boxHighth.equals(other.boxHighth))
+			return false;
+		if (boxId == null) {
+			if (other.boxId != null)
+				return false;
+		} else if (!boxId.equals(other.boxId))
+			return false;
+		if (boxLength == null) {
+			if (other.boxLength != null)
+				return false;
+		} else if (!boxLength.equals(other.boxLength))
+			return false;
+		if (boxUnit == null) {
+			if (other.boxUnit != null)
+				return false;
+		} else if (!boxUnit.equals(other.boxUnit))
+			return false;
+		if (boxWidth == null) {
+			if (other.boxWidth != null)
+				return false;
+		} else if (!boxWidth.equals(other.boxWidth))
+			return false;
+		if (createby == null) {
+			if (other.createby != null)
+				return false;
+		} else if (!createby.equals(other.createby))
+			return false;
+		if (createtime == null) {
+			if (other.createtime != null)
+				return false;
+		} else if (!createtime.equals(other.createtime))
+			return false;
+		if (dxfAddress == null) {
+			if (other.dxfAddress != null)
+				return false;
+		} else if (!dxfAddress.equals(other.dxfAddress))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (paperLength == null) {
+			if (other.paperLength != null)
+				return false;
+		} else if (!paperLength.equals(other.paperLength))
+			return false;
+		if (paperUnit == null) {
+			if (other.paperUnit != null)
+				return false;
+		} else if (!paperUnit.equals(other.paperUnit))
+			return false;
+		if (paperWidth == null) {
+			if (other.paperWidth != null)
+				return false;
+		} else if (!paperWidth.equals(other.paperWidth))
+			return false;
+		if (paperXId == null) {
+			if (other.paperXId != null)
+				return false;
+		} else if (!paperXId.equals(other.paperXId))
+			return false;
+		if (pictureAddress == null) {
+			if (other.pictureAddress != null)
+				return false;
+		} else if (!pictureAddress.equals(other.pictureAddress))
+			return false;
+		if (utilizationRate == null) {
+			if (other.utilizationRate != null)
+				return false;
+		} else if (!utilizationRate.equals(other.utilizationRate))
+			return false;
+		if (xnumber == null) {
+			if (other.xnumber != null)
+				return false;
+		} else if (!xnumber.equals(other.xnumber))
+			return false;
+		if (ynumber == null) {
+			if (other.ynumber != null)
+				return false;
+		} else if (!ynumber.equals(other.ynumber))
+			return false;
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", boxId=").append(boxId);
-        sb.append(", boxLength=").append(boxLength);
-        sb.append(", boxWidth=").append(boxWidth);
-        sb.append(", boxHighth=").append(boxHighth);
-        sb.append(", boxUnit=").append(boxUnit);
-        sb.append(", paperLength=").append(paperLength);
-        sb.append(", paperWidth=").append(paperWidth);
-        sb.append(", paperUnit=").append(paperUnit);
-        sb.append(", paperXId=").append(paperXId);
-        sb.append(", xnumber=").append(xnumber);
-        sb.append(", ynumber=").append(ynumber);
-        sb.append(", pictureAddress=").append(pictureAddress);
-        sb.append(", dxfAddress=").append(dxfAddress);
-        sb.append(", createby=").append(createby);
-        sb.append(", createtime=").append(createtime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
+	@Override
+	public String toString() {
+		return "LayoutDetail [id=" + id + ", boxId=" + boxId + ", boxLength=" + boxLength + ", boxWidth=" + boxWidth
+				+ ", boxHighth=" + boxHighth + ", boxUnit=" + boxUnit + ", paperLength=" + paperLength + ", paperWidth="
+				+ paperWidth + ", paperUnit=" + paperUnit + ", paperXId=" + paperXId + ", xnumber=" + xnumber
+				+ ", ynumber=" + ynumber + ", utilizationRate=" + utilizationRate + ", pictureAddress=" + pictureAddress
+				+ ", dxfAddress=" + dxfAddress + ", createby=" + createby + ", createtime=" + createtime + "]";
+	}
+
+   
 }

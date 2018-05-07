@@ -35,17 +35,36 @@
     <include refid="TechnologyDetail_Column_List" />
     from t_technology_detail
     <where>
-    level = #{map.level,jdbcType=VARCHAR} 
-     <if test="map.cname !=null and map.cname !=''">
-      and cname= #{map.cname,jdbcType=VARCHAR}
+    level = #{level,jdbcType=VARCHAR} 
+     <if test="cname !=null and cname !=''">
+      and cname= #{cname,jdbcType=VARCHAR}
     </if>
-    <if test="map.groupid !=null and map.groupid !=''">
-      and parentId= #{map.groupid,jdbcType=VARCHAR}
+    <if test="groupid !=null and groupid !=''">
+      and parentId= #{groupid,jdbcType=VARCHAR}
     </if>
-    </where>
-      
+    </where>  
   </select>
   
+   <select id="getTechnologyByDetail" parameterType="java.util.Map" resultMap="TechnologyDetailResultMap">
+    SELECT a.* FROM t_technology_detail a
+	left JOIN t_technology_detail b
+	on a.parentId=b.id
+    <where>
+     <if test="parentId !=null and parentId !=''">
+        a.parentId = #{parentId,jdbcType=VARCHAR} 
+    </if>
+     <if test="level !=null and level !=''">
+      and a.level = #{level,jdbcType=VARCHAR} 
+    </if>
+     <if test="cname !=null and cname !=''">
+      and a.cname= #{cname,jdbcType=VARCHAR}
+    </if>
+    <if test="description !=null and description !=''">
+      and b.description= #{description,jdbcType=VARCHAR}
+    </if>
+    </where>   
+   </select>
+    
     
    <select id="getAllTechnologyList" resultType="map">
     SELECT a.*,b.name as parentName from t_technology_detail a

@@ -13,11 +13,13 @@ public interface TechnologyDetailMapper extends BaseMapper<TechnologyDetail,Stri
 
 	TechnologyDetail checkTechnologyDetailNameExists(String name);
 
-	List<TechnologyDetail> getTechnologyByParentLevel(@Param("map") Map<String, Object> map);
+	List<TechnologyDetail> getTechnologyByParentLevel(Map<String, Object> map);
 
 	List<Map<String,Object>> getAllTechnologyList();
 
 	List<Map<String, Object>> technologyDetailSearchList(@Param("map") Map<String, Object> map);
 	 
 	List<TreeNode> getTechnologyTree();
+
+	List<TechnologyDetail> getTechnologyByDetail(Map<String, Object> map);
 }

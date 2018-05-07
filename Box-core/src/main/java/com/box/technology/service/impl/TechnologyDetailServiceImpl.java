@@ -169,5 +169,12 @@ public class TechnologyDetailServiceImpl implements TechnologyDetailService {
 		return TreeUtil.getNodeList(nodelist);
 	}
 
+	@Override
+	public List<TechnologyDetail> getTechnologyByDetail(Map<String, Object> map) {
+		List<TechnologyDetail> list=technologyDetailMapper.getTechnologyByDetail(map);
+		return list;
+		
+	}
+
 }
 
