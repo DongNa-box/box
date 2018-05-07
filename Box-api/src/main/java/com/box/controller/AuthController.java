@@ -77,8 +77,8 @@ public class AuthController {
     	String password = jsonObj.getString("password");
     	Map<String,String> map=new HashMap<String,String>();
     	map.put("loginName",account);
-    	map.put("password",password);
-		User user = userService.getUserByAccount(map);//这个里面需要去查询验证码是否通过
+    	map.put("email","");
+		User user = userService.getUserByMsg(map);//这个里面需要去查询验证码是否通过
 		if(user == null){
 			return new Result(false,RspCode.R10000);
 		}else if(!user.getPassword().equals(password)){

@@ -50,7 +50,7 @@ public class UserController {
 		if(user!=null){
 			Map<String,String> m=new HashMap<String,String>();
 			m.put("userId",user.getId());
-			return new Result(true,map);
+			return new Result(true,m);
 		}else{
 			return new Result(false,RspCode.R00001);
 		}
