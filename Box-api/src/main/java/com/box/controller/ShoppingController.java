@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.algriothm.Paiban;
 import com.box.framework.pojo.Result;
@@ -92,9 +93,28 @@ public class ShoppingController {
     	double boxlength =Double.parseDouble(jsonObj.getString("boxLength"));
     	double boxwidth = Double.parseDouble(jsonObj.getString("boxWidth"));
     	double boxheight = Double.parseDouble(jsonObj.getString("boxHeight"));
-    	int type = jsonObj.getIntValue("boxType");
+    	int type = 1;
     	String paperNumber=jsonObj.getString("papergrams");
     	//查询盒型类型，传入盒型类型
+    	Map<String,Object> box=boxTypeService.getAllById(shoppingDetail.getBoxId());
+    	if(box.get("classId").equals("1523178448293000")){//管式盒
+    		if((box.get("detail1").equals("1523190385039003")||box.get("detail1").equals("1523190385039004"))&&
+    				(box.get("detail2").equals("1523192628473001")||box.get("detail2").equals("1523192628473000"))){
+    		  //盒盖前开直插，盒底后开直插	
+    			type=1;
+    		}
+    		if((box.get("detail1").equals("1523190385039003")||box.get("detail1").equals("1523190385039004"))&&
+    				(box.get("detail2").equals("1523192628473003")||box.get("detail2").equals("1523192628473004"))){
+      		  //盒盖前开直插，盒底锁底
+      			type=2;
+      		}
+    		if(box.get("detail1").equals("1523190385039005")||box.get("detail3").equals("1523192628473002")){
+      		  //盒盖前开直插，后开直插	
+      			type=3;
+      		}
+    	}else{
+    		type=3;
+    	}
 	   	Map<String,Object> pmap=new Paiban().getResult(boxwidth, boxlength, boxheight,type);
 	   	for (Entry<String, Object> entry : pmap.entrySet()) { 
 	   	  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 

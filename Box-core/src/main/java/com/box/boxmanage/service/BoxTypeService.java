@@ -37,5 +37,7 @@ public interface BoxTypeService extends BaseService<BoxType, String> {
 
 	List<Map<String, Object>> getWebBoxTypeList(Map<String, Object> map);
 
+	Map<String,Object> getAllById(String boxId);
+
 }
 

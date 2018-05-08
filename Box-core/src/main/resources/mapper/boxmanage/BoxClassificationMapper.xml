@@ -6,11 +6,12 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="groupID" jdbcType="VARCHAR" property="groupid" />
+    <result column="enabled" jdbcType="VARCHAR" property="enabled" />
     <result column="createby" jdbcType="VARCHAR" property="createby" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="BoxClassification_Column_List">
-    id, name, level, groupID, createby, createtime
+    id, name, level, groupID,enabled, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
     select 
@@ -71,10 +72,10 @@
   
   <insert id="insert" parameterType="com.box.boxmanage.model.BoxClassification">
     insert into t_box_classification (id, name, level, 
-      groupID, createby, createtime
+      groupID, enabled,createby, createtime
       )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
-      #{groupid,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      #{groupid,jdbcType=VARCHAR},#{enabled,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.box.boxmanage.model.BoxClassification">
@@ -91,6 +92,9 @@
       </if>
       <if test="groupid != null">
         groupID,
+      </if>
+       <if test="enabled != null">
+        enabled,
       </if>
       <if test="createby != null">
         createby,
@@ -112,6 +116,9 @@
       <if test="groupid != null">
         #{groupid,jdbcType=VARCHAR},
       </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=VARCHAR},
+      </if>
       <if test="createby != null">
         #{createby,jdbcType=VARCHAR},
       </if>
@@ -131,6 +138,9 @@
       </if>
       <if test="groupid != null">
         groupID = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=VARCHAR},
       </if>
       <if test="createby != null">
         createby = #{createby,jdbcType=VARCHAR},

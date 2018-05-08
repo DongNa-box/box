@@ -47,6 +47,20 @@
   on a.detail3=e.id
   </select>
   
+  <select id="getAllById" resultType="map">
+  SELECT a.*,b.name as className,c.`name` as detail1Name,d.`name` as detail2Name,e.`name`as detail3Name from t_box_type a
+  left JOIN t_box_classification b
+  on a.classId=b.id
+  left JOIN t_box_classification c
+  on a.detail1=c.id
+  left JOIN t_box_classification d
+  on a.detail2=d.id
+  left JOIN t_box_classification e
+  on a.detail3=e.id
+  where a.boxId=#{boxId,jdbcType=VARCHAR}
+  and b.enabled=1
+  </select>
+  
     
   <select id="boxTypeSearchList" resultType="map">
   SELECT a.*,b.name as className,c.`name` as detail1Name,d.`name` as detail2Name,e.`name`as detail3Name from t_box_type a

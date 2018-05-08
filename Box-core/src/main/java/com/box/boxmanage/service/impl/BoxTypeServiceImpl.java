@@ -144,6 +144,12 @@ public class BoxTypeServiceImpl implements BoxTypeService {
 		
 	}
 
+	@Override
+	public Map<String,Object> getAllById(String boxId) {
+		// TODO Auto-generated method stub
+		return boxTypeMapper.getAllById(boxId);
+	}
+
 	
 
 

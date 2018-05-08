@@ -15,5 +15,7 @@ public interface BoxTypeMapper extends BaseMapper<BoxType,String>{
 	List<Map<String, Object>> boxTypeSearchList(Map<String, Object> map);
 
 	List<Map<String, Object>> getWebBoxTypeList(Map<String, Object> map);
+
+	Map<String,Object> getAllById(String boxId);
   
 }
