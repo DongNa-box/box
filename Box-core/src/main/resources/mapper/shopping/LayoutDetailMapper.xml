@@ -6,7 +6,7 @@
     <result column="box_id" jdbcType="VARCHAR" property="boxId" />
     <result column="box_length" jdbcType="DOUBLE" property="boxLength" />
     <result column="box_width" jdbcType="DOUBLE" property="boxWidth" />
-    <result column="box_highth" jdbcType="DOUBLE" property="boxHighth" />
+    <result column="box_height" jdbcType="DOUBLE" property="boxHeight" />
     <result column="box_unit" jdbcType="INTEGER" property="boxUnit" />
     <result column="paper_length" jdbcType="DOUBLE" property="paperLength" />
     <result column="paper_width" jdbcType="DOUBLE" property="paperWidth" />
@@ -21,7 +21,7 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, box_id, box_length, box_width, box_highth, box_unit, paper_length, paper_width, 
+    id, box_id, box_length, box_width, box_height, box_unit, paper_length, paper_width, 
     paper_unit, paper_X_id, xnumber, ynumber, utilizationRate,picture_address, dxf_address, createby, 
     createtime
   </sql>
@@ -31,19 +31,26 @@
     from t_layout_detail
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="getMaxId" resultType="map">
+    select 
+    max(id)
+    from t_layout_detail
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_layout_detail
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.box.shopping.model.LayoutDetail">
     insert into t_layout_detail (id, box_id, box_length, 
-      box_width, box_highth, box_unit, 
+      box_width, box_height, box_unit, 
       paper_length, paper_width, paper_unit, 
       paper_X_id, xnumber, ynumber, utilizationRate,
       picture_address, dxf_address, createby, 
       createtime)
     values (#{id,jdbcType=VARCHAR}, #{boxId,jdbcType=VARCHAR}, #{boxLength,jdbcType=DOUBLE}, 
-      #{boxWidth,jdbcType=DOUBLE}, #{boxHighth,jdbcType=DOUBLE}, #{boxUnit,jdbcType=INTEGER}, 
+      #{boxWidth,jdbcType=DOUBLE}, #{boxHeight,jdbcType=DOUBLE}, #{boxUnit,jdbcType=INTEGER}, 
       #{paperLength,jdbcType=DOUBLE}, #{paperWidth,jdbcType=DOUBLE}, #{paperUnit,jdbcType=INTEGER}, 
       #{paperXId,jdbcType=VARCHAR}, #{xnumber,jdbcType=INTEGER}, #{ynumber,jdbcType=INTEGER}, 
       #{utilizationRate,jdbcType=VARCHAR},  #{pictureAddress,jdbcType=VARCHAR}, #{dxfAddress,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, 
@@ -64,8 +71,8 @@
       <if test="boxWidth != null">
         box_width,
       </if>
-      <if test="boxHighth != null">
-        box_highth,
+      <if test="boxHeight != null">
+        box_height,
       </if>
       <if test="boxUnit != null">
         box_unit,
@@ -117,8 +124,8 @@
       <if test="boxWidth != null">
         #{boxWidth,jdbcType=DOUBLE},
       </if>
-      <if test="boxHighth != null">
-        #{boxHighth,jdbcType=DOUBLE},
+      <if test="boxHeight != null">
+        #{boxHeight,jdbcType=DOUBLE},
       </if>
       <if test="boxUnit != null">
         #{boxUnit,jdbcType=INTEGER},
@@ -170,8 +177,8 @@
       <if test="boxWidth != null">
         box_width = #{boxWidth,jdbcType=DOUBLE},
       </if>
-      <if test="boxHighth != null">
-        box_highth = #{boxHighth,jdbcType=DOUBLE},
+      <if test="boxHeight != null">
+        box_height = #{boxHeight,jdbcType=DOUBLE},
       </if>
       <if test="boxUnit != null">
         box_unit = #{boxUnit,jdbcType=INTEGER},
@@ -217,7 +224,7 @@
     set box_id = #{boxId,jdbcType=VARCHAR},
       box_length = #{boxLength,jdbcType=DOUBLE},
       box_width = #{boxWidth,jdbcType=DOUBLE},
-      box_highth = #{boxHighth,jdbcType=DOUBLE},
+      box_height = #{boxHeight,jdbcType=DOUBLE},
       box_unit = #{boxUnit,jdbcType=INTEGER},
       paper_length = #{paperLength,jdbcType=DOUBLE},
       paper_width = #{paperWidth,jdbcType=DOUBLE},
@@ -232,9 +239,16 @@
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+    <update id="updateImageByid" parameterType="com.box.shopping.model.LayoutDetail">
+    update t_layout_detail
+    set picture_address = #{pictureAddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+   </update>
+   
   <select id="getLayoutDetailList" resultType="map">
 	select 
-	 a.box_id as boxId,c.name as boxName,a.box_length as boxLength,a.box_width as boxWidth,a.box_highth as boxHighth,
+	 a.box_id as boxId,c.name as boxName,a.box_length as boxLength,a.box_width as boxWidth,a.box_height as boxHeight,
 	 a.box_unit as boxUnit,a.paper_length as paperLength,a.paper_width as paperWidth,
 	 a.paper_unit as paperUnit,a.paper_X_id as paperXId,b.size as paperXValue,a.xnumber,a.ynumber,a.picture_address as pictureAddress,
 	 a.dxf_address as dxfAddress,a.createby,a.createtime
@@ -253,8 +267,8 @@
 	      <if test="boxWidth != null and boxWidth != ''">
 	        and a.box_width = #{boxWidth,jdbcType=DOUBLE}
 	      </if>
-	      <if test="boxHighth != null and boxHighth != ''">
-	       and a.box_highth = #{boxHighth,jdbcType=DOUBLE}
+	      <if test="boxHeight != null and boxHeight != ''">
+	       and a.box_height = #{boxHeight,jdbcType=DOUBLE}
 	      </if>
 	      <if test="boxUnit != null and boxUnit != ''">
 	       and a.box_unit = #{boxUnit,jdbcType=INTEGER}

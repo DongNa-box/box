@@ -10,6 +10,8 @@
 
 package com.box.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -38,8 +43,14 @@ import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.algriothm.Paiban;
 import com.box.framework.pojo.Result;
+import com.box.framework.pojo.RspCode;
+import com.box.framework.utils.FileUtil;
+import com.box.framework.utils.Sequence;
+import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.model.ShoppingRate;
+import com.box.shopping.service.LayoutDetailService;
+import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingRateService;
 import com.box.technology.model.TechnologyDetail;
 import com.box.technology.service.TechnologyDetailService;
@@ -64,10 +75,18 @@ public class ShoppingController {
 	
 	@Resource
 	BoxTypeService boxTypeService;
+	
 	@Resource
 	TechnologyPriceService technologyPriceService;
+	
 	@Resource
 	ShoppingRateService shoppingRateService;
+	
+	@Resource
+	ShoppingDetailService shoppingDetailService;
+	
+	@Resource
+	LayoutDetailService layoutDetailService;
 	
 	@Autowired
 	JwtUtil jwt;
@@ -86,7 +105,7 @@ public class ShoppingController {
 	 */
 	@RequestMapping(value = "/getPrice",method = RequestMethod.POST)
 	@ResponseBody
-	public Result login(@RequestHeader HttpHeaders headers){
+	public Result getPrice(@RequestHeader HttpHeaders headers){
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
     	ShoppingDetail shoppingDetail  = JSON.parseObject(jsonObj.toString(),ShoppingDetail.class);
@@ -313,9 +332,85 @@ public class ShoppingController {
 		  mymap.put("width", pmap.get("Y"));
 		  mymap.put("wnum", pmap.get("N"));
 		  mymap.put("lnum",pmap.get("M"));
+		  mymap.put("type",type);
          return new Result(true,mymap);
 	}
 
+	@RequestMapping(value = "/addShopping",method = RequestMethod.POST)
+	@ResponseBody
+	public Result addShopping(@RequestHeader HttpHeaders headers){
+		String token = headers.getFirst("token");
+		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+    	ShoppingDetail shoppingDetail  = JSON.parseObject(jsonObj.toString(),ShoppingDetail.class);
+    	LayoutDetail layoutDetail= JSON.parseObject(jsonObj.toString(),LayoutDetail.class);
+    	shoppingDetail.setShoppingId(Sequence.nextId());
+    	layoutDetail.setId(Sequence.nextId());
+    	shoppingDetail.setUvUnit(0);
+    	shoppingDetail.setConvexUnit(0);
+    	shoppingDetail.setPvcUnit(0);
+    	shoppingDetail.setBronzingUnit(0);
+    	shoppingDetail.setLayoutId(layoutDetail.getId());
+    	shoppingDetail.setCreateby(shoppingDetail.getUserId());
+    	shoppingDetail.setCreatetime(new Date());
+    	layoutDetail.setCreateby(shoppingDetail.getUserId());
+    	layoutDetail.setCreatetime(new Date());
+    	layoutDetail.setBoxUnit(0);
+    	layoutDetail.setPaperUnit(0);
+    	Map<String,Object> map=new HashMap<String,Object>();
+    	map.put("shoppingDetail", shoppingDetail);
+    	map.put("layoutDetail", layoutDetail);
+    	boolean result=shoppingDetailService.createLayoutAndShopping(map);
+    	if(result){
+    		Map<String,String> m=new HashMap<String,String>();
+    		m.put("layoutId", layoutDetail.getId());
+    	    return new Result(true,m);
+    	}else{
+    		return new Result(false);
+    	}
+	}
+	
+	@RequestMapping(value = "/imageUpload",method = RequestMethod.POST)
+	@ResponseBody
+	public Result imageUpload(@RequestHeader HttpHeaders headers,HttpServletRequest httpRequest){
+		String token = headers.getFirst("token");
+		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+    	MultipartHttpServletRequest request = (MultipartHttpServletRequest) httpRequest;
+		MultipartFile file=request.getFile("headImg");
+		String UPLOADDIR = "previewimageaddress";
+        String contentType = request.getContentType();
+        if (contentType.indexOf("multipart/form-data") >= 0) {
+        	String id = jsonObj.getString("layoutId"); 
+			String path2=File.separator+"home"+File.separator+"ubuntu"+File.separator+"tomcat"+File.separator+"tomcat-2-8080";
+        	String uploadPath=path2+File.separator+"Box-management"+File.separator+"images"+File.separator+"LayoutDetail";
+    		System.out.println(uploadPath);
+        	String filePath=uploadPath+File.separator+id+File.separator+UPLOADDIR;
+    	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+       		Date date = new Date();
+       		String time= formatter.format(date);
+           	String fileName = id+"-"+time+".jpg";  
+    		try {
+  				FileUtil.upload(file.getInputStream(),fileName,filePath);
+  				 //将图片的名称存放在数据库中
+  				LayoutDetail d=new LayoutDetail();
+  				d.setId(id);
+  				d.setPictureAddress(fileName);
+  				boolean r=layoutDetailService.updateImageByid(d);
+  	    		if(r){
+  					return new Result(true);						
+  				}else{
+  					return new Result(false,RspCode.R00000);
+  				}  
+  			} catch (IOException e) {
+  				e.printStackTrace();	
+  				return new Result(false,RspCode.R00000);
+  			}
+    		   
+        }else{
+        	return new Result(false,RspCode.R00000);
+        }
+
+	}
+	
 	public Float getDecimal(float p){
 	    	float a=0;
 	    	 DecimalFormat decimalFormat=new DecimalFormat(".00");

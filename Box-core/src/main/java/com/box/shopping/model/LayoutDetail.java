@@ -12,7 +12,7 @@ public class LayoutDetail implements Serializable {
 
     private Double boxWidth;
 
-    private Double boxHighth;
+    private Double boxHeight;
 
     private Integer boxUnit;
 
@@ -72,15 +72,15 @@ public class LayoutDetail implements Serializable {
         this.boxWidth = boxWidth;
     }
 
-    public Double getBoxHighth() {
-        return boxHighth;
-    }
+    public Double getBoxHeight() {
+		return boxHeight;
+	}
 
-    public void setBoxHighth(Double boxHighth) {
-        this.boxHighth = boxHighth;
-    }
+	public void setBoxHeight(Double boxHeight) {
+		this.boxHeight = boxHeight;
+	}
 
-    public Integer getBoxUnit() {
+	public Integer getBoxUnit() {
         return boxUnit;
     }
 
@@ -181,7 +181,7 @@ public class LayoutDetail implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((boxHighth == null) ? 0 : boxHighth.hashCode());
+		result = prime * result + ((boxHeight == null) ? 0 : boxHeight.hashCode());
 		result = prime * result + ((boxId == null) ? 0 : boxId.hashCode());
 		result = prime * result + ((boxLength == null) ? 0 : boxLength.hashCode());
 		result = prime * result + ((boxUnit == null) ? 0 : boxUnit.hashCode());
@@ -210,10 +210,10 @@ public class LayoutDetail implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LayoutDetail other = (LayoutDetail) obj;
-		if (boxHighth == null) {
-			if (other.boxHighth != null)
+		if (boxHeight == null) {
+			if (other.boxHeight != null)
 				return false;
-		} else if (!boxHighth.equals(other.boxHighth))
+		} else if (!boxHeight.equals(other.boxHeight))
 			return false;
 		if (boxId == null) {
 			if (other.boxId != null)
@@ -301,11 +301,13 @@ public class LayoutDetail implements Serializable {
 	@Override
 	public String toString() {
 		return "LayoutDetail [id=" + id + ", boxId=" + boxId + ", boxLength=" + boxLength + ", boxWidth=" + boxWidth
-				+ ", boxHighth=" + boxHighth + ", boxUnit=" + boxUnit + ", paperLength=" + paperLength + ", paperWidth="
+				+ ", boxHeight=" + boxHeight + ", boxUnit=" + boxUnit + ", paperLength=" + paperLength + ", paperWidth="
 				+ paperWidth + ", paperUnit=" + paperUnit + ", paperXId=" + paperXId + ", xnumber=" + xnumber
 				+ ", ynumber=" + ynumber + ", utilizationRate=" + utilizationRate + ", pictureAddress=" + pictureAddress
 				+ ", dxfAddress=" + dxfAddress + ", createby=" + createby + ", createtime=" + createtime + "]";
 	}
+
+	
 
    
 }

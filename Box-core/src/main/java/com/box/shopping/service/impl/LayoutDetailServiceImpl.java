@@ -122,5 +122,19 @@ public class LayoutDetailServiceImpl implements LayoutDetailService {
 		
 	}
 
+	@Override
+	public String getMaxId() {
+		// TODO Auto-generated method stub
+		Map<String,String> d=layoutDetailMapper.getMaxId();
+		return d.get("id");
+	}
+
+	@Override
+	public boolean updateImageByid(LayoutDetail d) {
+		// TODO Auto-generated method stub
+		int result=layoutDetailMapper.updateImageByid(d);
+		return result>0?true:false;
+	}
+
 }
 

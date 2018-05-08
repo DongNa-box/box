@@ -26,11 +26,12 @@ import com.box.shopping.model.ShoppingDetail;
  * @since    JDK 1.8
  * @see 	 
  */
-public interface ShoppingDeatilService extends BaseService<ShoppingDetail, String>{
+public interface ShoppingDetailService extends BaseService<ShoppingDetail, String>{
  
 	boolean createLayoutAndShopping(Map<String, Object> map);
 	 
 	List<Map<String, Object>> getShoppingDetailList(Map<String, Object> map);
+
 
 
 }

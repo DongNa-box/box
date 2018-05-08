@@ -41,5 +41,9 @@ public interface LayoutDetailService extends BaseService<LayoutDetail, String> {
 	 
 	List<Map<String, Object>> getLayoutDetailList(Map<String, Object> map);
 
+	String getMaxId();
+
+	boolean updateImageByid(LayoutDetail d);
+
 }
 

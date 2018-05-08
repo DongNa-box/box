@@ -44,7 +44,7 @@ import com.box.shopping.dao.ShoppingDetailMapper;
 import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.service.LayoutDetailService;
-import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingDetailService;
 
 
 /**
@@ -58,7 +58,7 @@ import com.box.shopping.service.ShoppingDeatilService;
  * @since JDK 1.8
  */
 @Service("shoppingDetailServiceImpl")
-public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
+public class ShoppingDetailServiceImpl implements ShoppingDetailService {
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingDetailServiceImpl.class);
 	@Resource
 	ShoppingDetailMapper shoppingDetailMapper;
@@ -186,7 +186,7 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	
 	 /**
 	 * TODO 简单描述该方法的实现功能（可选）.
-	 * @see com.box.shopping.service.ShoppingDeatilService#getShoppingDetailList(java.util.Map)
+	 * @see com.box.shopping.service.ShoppingDetailService#getShoppingDetailList(java.util.Map)
 	 */
 	 
 	@Override
@@ -200,7 +200,7 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 	
 	 /**
 	 * TODO 生成排版信息，订单信息，
-	 * @see com.box.shopping.service.ShoppingDeatilService#createLayoutAndShopping(java.util.Map)
+	 * @see com.box.shopping.service.ShoppingDetailService#createLayoutAndShopping(java.util.Map)
 	 */
 	 
 	@Override
@@ -221,7 +221,6 @@ public class ShoppingDetailServiceImpl implements ShoppingDeatilService {
 		}
 		
 	}
-
 	
 
 }

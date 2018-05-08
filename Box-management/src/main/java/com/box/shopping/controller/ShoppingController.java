@@ -40,7 +40,7 @@ import com.box.shopping.model.LayoutSize;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.model.ShoppingPantone;
 import com.box.shopping.model.ShoppingRate;
-import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingOrderService;
 import com.box.shopping.service.ShoppingPantoneService;
 import com.box.shopping.service.ShoppingRateService;
@@ -68,7 +68,7 @@ public class ShoppingController {
 	 @Resource
 	 ShoppingRateService shoppingRateService;
 	 @Resource
-	 ShoppingDeatilService shoppingDeatilService;
+	 ShoppingDetailService shoppingDeatilService;
 	 @Resource
 	 ShoppingPantoneService shoppingPantoneService;
 	 @Resource
