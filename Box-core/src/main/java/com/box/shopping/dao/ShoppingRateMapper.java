@@ -16,5 +16,7 @@ public interface ShoppingRateMapper extends BaseMapper<ShoppingRate, String>{
 	 
 	ShoppingRate getByType(int type);
 
+	List<ShoppingRate> getAllList();
+
   
 }

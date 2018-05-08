@@ -107,7 +107,7 @@ public class ShoppingRateServiceImpl implements ShoppingRateService {
 	public List<ShoppingRate> getAllList() {
 
 		// TODO Auto-generated method stub
-		return null;
+		return shoppingRateMapper.getAllList();
 
 	}
 
