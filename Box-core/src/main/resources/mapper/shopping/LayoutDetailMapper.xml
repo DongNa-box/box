@@ -248,7 +248,7 @@
    
   <select id="getLayoutDetailList" resultType="map">
 	select 
-	 a.box_id as boxId,c.name as boxName,a.box_length as boxLength,a.box_width as boxWidth,a.box_height as boxHeight,
+	 a.id as layoutId,a.box_id as boxId,c.name as boxName,a.box_length as boxLength,a.box_width as boxWidth,a.box_height as boxHeight,
 	 a.box_unit as boxUnit,a.paper_length as paperLength,a.paper_width as paperWidth,
 	 a.paper_unit as paperUnit,a.paper_X_id as paperXId,b.size as paperXValue,a.xnumber,a.ynumber,a.picture_address as pictureAddress,
 	 a.dxf_address as dxfAddress,a.createby,a.createtime

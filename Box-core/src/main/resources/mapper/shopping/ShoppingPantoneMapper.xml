@@ -105,7 +105,7 @@
   </update>
   <select id="getPantoneList"  resultType="map">
 	select 
-	  a.tid,b.name as technologyName,a.color_num as colorNum,a.attr1,a.attr2,a.attr3
+	  a.id as pantoneId,a.tid,b.name as technologyName,a.color_num as colorNum,a.attr1,a.attr2,a.attr3
 	from t_shopping_pantone a
 	left join t_technology_detail b
 	on a.tid=b.id

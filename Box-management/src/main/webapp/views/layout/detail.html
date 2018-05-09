@@ -112,7 +112,7 @@
 						<thead>
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
-<!-- 								<th data-align="center" data-field="id" data-sortable="true">排版ID</th>
+<!-- 								<th data-align="center" data-field="layoutId" data-sortable="true">排版ID</th>
  -->
 								<th data-align="center" data-field="boxName" data-sortable="true" >盒子名称</th> 
 								<th data-align="center" data-field="boxLength" data-sortable="true" >盒子长</th>
@@ -145,13 +145,14 @@
 		<div class="modal-content">
 			<form class="form-horizontal" action="" id="layout-form" method="post">
 				<input type="hidden" id="flag" name="flag">
-				<input type="hidden" id="id" name="id">
+				<input type="hidden" id="layoutId" name="layoutId">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
 					<h4 class="modal-title" id="modalLayoutLabel"></h4>
 				</div>
 				<div class="modal-body">
+				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">盒子名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
@@ -193,6 +194,8 @@
 							</select>
 						</div>
 					</div>
+					</div>
+					<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">纸张长<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
@@ -241,20 +244,40 @@
 								maxlength="11">
 						</div>
 					</div>
-					<div class="form-group">
+					</div>
+					
+					 <div class="row">
+		                   <label for="" class="col-sm-4 control-label"  >排版图片</label>
+					  </div>
+		              <div class="row">
+		                  <div class="form-group">
+		                         <input id="file-1" type="file" name="file-1"  class="file" data-overwrite-initial="false" data-min-file-count="1">
+		                  </div>
+					  </div>
+					
+					<!-- <div class="form-group">
 						<label class="col-sm-4 control-label">排版图片地址<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="pictureAddress" name="pictureAddress" type="text" class="form-control"
 								maxlength="11">
 						</div>
-					</div>
-					<div class="form-group">
+					</div> -->
+					  <div class="row">
+		                <label for="" class="col-sm-4 control-label"  >DXF排版文件</label>
+
+				  </div>
+	              <div class="row">
+	                  <div class="form-group" >
+	                       <input id="file-2" type="file" name="file-2" class="file" data-overwrite-initial="false" data-min-file-count="1" >
+	                  </div>
+				  </div>
+					<!-- <div class="form-group" style="display:none">
 						<label class="col-sm-4 control-label">dxf文件地址<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
 							<input id="dxfAddress" name="dxfAddress" type="text" class="form-control"
 								maxlength="11">
 						</div>
-					</div>
+					</div> -->
 					
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-success" id="saveBtn"><i class="fa fa-save"></i>保存</button>
@@ -287,7 +310,8 @@
 			$("#modal-layout").modal("toggle");
 			$("#saveBtn").hide();
 			$('#layout-form').find('input,textarea,select').attr('readonly',true);
-			layoutForm.initFormData(selected[0]);
+			formEdit(selected[0]);
+			
 		   	break;
 		case 'search':
 			var formParams = $("#layout-search-form").serializeJSON();
@@ -336,5 +360,71 @@
 		}else{
 			return value;
 		}	
+	}
+	//查看纸盒时回传数据
+	function formEdit(data) {
+		layoutForm.initFormData(data);
+	    console.log(data);
+	    pictureAddress=data.pictureAddress;
+	    dxfAddress=data.dxfAddress;
+		orlist=new Array();//图片地址集合
+		titlelist=new Array();//图片名称集合
+		var t=new Object();
+		t.width="120px";
+    	t.key=0;
+		    	    var path="images/LayoutDetail/"+data.layoutId;
+		    	    orlist[0]=path+"/previewimageaddress/"+pictureAddress;
+		        	t.caption=pictureAddress;
+		            titlelist[0]=t;	
+		            setScanFileStyle('file-1',orlist,titlelist,pictureAddress);
+		           
+		            orlist[0]=path+"/dxf/"+dxfAddress;
+		        	t.caption=dxfAddress;
+		            titlelist[0]=t;	
+		            $("#file-2").fileinput({
+		    			language: 'zh', //设置语言
+		    		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    		    showRemove: false,
+		    		    showBrowse:false,
+		    		    overwriteInitial: false,
+		    		    showUpload:false,
+		    		    showPreview:false,
+		    		    dropZoneEnabled: false,//是否显示拖拽区域
+		    		    maxFileCount: 1,
+		    		    minFileCount: 1,
+		    		    layoutTemplates:{
+		    		    	actionDelete:'',
+		    		    	actionUpload:'',
+		    		    },
+		    		    initialPreview:orlist,
+		    		    initialPreviewAsData: true,
+		    	        initialPreviewConfig: titlelist,
+		    		    slugCallback: function (dxf) {
+		    		        return dxf.replace('(', '_').replace(']', '_');
+		    		    },
+		    		});
+
+	}
+	function setScanFileStyle(fileId,orlist,titlelist,filename){
+	    $("#"+fileId).fileinput({
+			language: 'zh', //设置语言
+		    uploadUrl: '#', // you must set a valid URL here else you will get an error
+		    showRemove: false,
+		    overwriteInitial: false,
+		    showBrowse:false,
+		    showUpload:false,
+		    maxFileCount: 1,
+		    minFileCount: 1,
+		    layoutTemplates:{
+		    	actionDelete:'',
+		    	actionUpload:'',
+		    },
+		    initialPreview:orlist,
+		    initialPreviewAsData: true,
+	        initialPreviewConfig: titlelist,
+		    slugCallback: function (filename) {
+		        return filename.replace('(', '_').replace(']', '_');
+		    },
+		});
 	}
 </script>

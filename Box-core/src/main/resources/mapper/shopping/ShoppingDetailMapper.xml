@@ -539,7 +539,7 @@
   </update>
   <select id="getShoppingDetailList"  resultType="map">
 	select 
-	 b.login_name as loginName,a.box_id as BoxId,d.name as boxName,c.id as layoutId,a.print_paper_id as printPaperId,
+	 a.shopping_id as shoppingId,b.login_name as loginName,a.box_id as BoxId,d.name as boxName,c.id as layoutId,a.print_paper_id as printPaperId,
 	 e.name as printPaperName,a.paper_grams_id as paperGramsId,f.name as paperGramsName,
 	 a.print_color_id as printColorId,g.name as printColorName,a.pantone_id as pantoneId,
 	 a.surface_treatment_id as surfaceTreatmentId,h.name as surfaceTreatmentName,
@@ -636,7 +636,7 @@
       c.box_width as boxWidth,c.box_height as boxHeight,
 	 c.box_unit as boxUnit,c.paper_length as paperLength,c.paper_width as paperWidth,
 	 c.paper_unit as paperUnit,c.paper_X_id as paperXId,n.size as paperXValue,c.xnumber,c.ynumber,c.picture_address as pictureAddress,
-	 c.dxf_address as dxfAddress,
+	 c.dxf_address as dxfAddress,c.utilizationRate
 	 b.*,j.name as className,k.name as detail1Name,l.name as detail2Name,m.name as detail3Name
 	from t_shopping_detail a 
 	left join t_box_type b
