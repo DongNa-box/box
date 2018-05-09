@@ -173,5 +173,12 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 		
 	}
 
+	@Override
+	public List<Map<String, Object>> getAllDetailList() {
+		List<Map<String, Object>> list=boxClassficationMapper.getAllDetailList();
+		return list;
+
+	}
+
 }
 

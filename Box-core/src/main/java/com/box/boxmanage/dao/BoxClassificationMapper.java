@@ -17,5 +17,7 @@ public interface BoxClassificationMapper extends BaseMapper<BoxClassification,St
 	BoxClassification getBoxClassificaionByGroupid(String groupid);
 
 	List<BoxClassification> boxClassificationSearchList(String name);
+
+	List<Map<String, Object>> getAllDetailList();
  
 }

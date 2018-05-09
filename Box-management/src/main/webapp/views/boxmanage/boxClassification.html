@@ -59,6 +59,7 @@
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="name" data-sortable="true">纸盒类型</th>
 								<th data-align="center" data-field="level" data-sortable="true" data-formatter="formatterlevel">类型级别</th>
+								<th data-align="center" data-field="groupName" data-sortable="true">上一级名称</th>
 								<th data-align="center" data-field="createtime" data-sortable="true" data-formatter="formatteryyyyMMddHHmmss">创建时间</th>
 							</tr>
 						</thead>
@@ -315,7 +316,37 @@ $(function(){
 		});
 	}
 	 
-
+	 /**
+	  * 设置类型级别为0级的下拉列表
+	  * @param selectid
+	  * @returns
+	  */
+	 function setSelect(selectid,groupid,level,oneGroupid){
+		var p=new Object();
+		p.groupid=groupid;
+		p.level=level;
+	 	ajaxPost("boxmanage/getBoxClassLevelList", {
+	 		params :JSON.stringify(p)
+	 	}, function(data) {
+	 		var $select = $('#'+selectid); 
+	 		$select.empty();
+	 		if(data.length==0){
+	 			 $select.val("");
+	 		}
+	 		if(data.length>0){
+	 			 $select.append('<option value="">请选择...</option>'); 
+	 		}
+	 		for(var i=0, len = data.length;i<len;i++){ 
+	 		  var b=data[i];
+	 		  var bid=b.id;
+	 		  var bname=b.name;
+	 		   $select.append('<option value="'+bid+'">'+bname+'</option>');  
+	 		} 
+           if(oneGroupid!=null){
+           	$select.val(oneGroupid);
+           }
+	 	});
+	 }
 	 function setScanSelect(selected){
 		if(selected.level==1){
 			$("#divgroupid1").show();

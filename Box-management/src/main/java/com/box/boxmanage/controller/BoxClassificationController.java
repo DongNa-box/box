@@ -69,8 +69,8 @@ public class BoxClassificationController {
 	  */
 	    @RequestMapping(method = RequestMethod.GET, value = "/boxClassificationList")
 	   	@ResponseBody
-	   	protected List<BoxClassification> boxClassificationList(){
-			List<BoxClassification> list = boxClassificationService.getAllList();
+	   	protected List<Map<String,Object>> boxClassificationList(){
+			List<Map<String,Object>> list = boxClassificationService.getAllDetailList();
 	   		return list;
 	   	}	
 	
@@ -96,6 +96,7 @@ public class BoxClassificationController {
 	    			box.setId(Sequence.nextId());
 	    			box.setCreateby(SecurityUtil.getUser().getId());
 	    			box.setCreatetime(new Date());
+	    			box.setEnabled("1");
 			    	result = boxClassificationService.save(box);
 	    	    	return result ? new Result(true,"新增成功") : new Result(false,"新增失败");
            //盒型修改

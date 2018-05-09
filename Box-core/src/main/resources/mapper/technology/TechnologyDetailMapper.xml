@@ -70,7 +70,7 @@
     SELECT a.*,b.name as parentName from t_technology_detail a
     left join t_technology_detail b
     on a.parentId=b.id
-    order by a.cname
+    order by a.cname,a.parentId
    </select>
   
    <select id="technologyDetailSearchList" parameterType="java.util.Map" resultType="map">

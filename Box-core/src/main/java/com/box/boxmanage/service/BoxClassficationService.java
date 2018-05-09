@@ -39,5 +39,7 @@ public interface BoxClassficationService extends BaseService<BoxClassification, 
 	
 	List<TreeNode> getWebTree();
 
+	List<Map<String, Object>> getAllDetailList();
+
 }
 

@@ -26,6 +26,13 @@
     from t_box_classification
   </select>
   
+  
+   <select id="getAllDetailList"  resultType="map">
+   SELECT a.*,b.name as 'groupName' from t_box_classification a
+   LEFT JOIN t_box_classification b
+   on a.groupID=b.id
+   </select>
+  
   <select id="getBoxClassificaionByLevel" parameterType="java.lang.String" resultMap="BoxClassificationResultMap">
     select 
     <include refid="BoxClassification_Column_List" />
@@ -62,13 +69,15 @@
   </delete>
   
     
-  <delete id="batchDeleteByIds" parameterType="java.lang.String">
-    delete from t_box_classification
+  <update id="batchDeleteByIds" parameterType="java.lang.String">
+     update t_box_classification
+     set
+      enabled = "0"
      where id in
      <foreach collection="ids" item="id" open="(" separator="," close=")">
   		#{id}
   	</foreach>
-  </delete>
+  </update>
   
   <insert id="insert" parameterType="com.box.boxmanage.model.BoxClassification">
     insert into t_box_classification (id, name, level, 
@@ -155,7 +164,7 @@
     update t_box_classification
     set name = #{name,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
-      groupID = #{groupid,jdbcType=VARCHAR},
+      groupID = #{groupid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
