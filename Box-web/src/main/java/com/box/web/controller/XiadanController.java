@@ -38,7 +38,7 @@ import com.box.framework.utils.Sequence;
 import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.service.LayoutDetailService;
-import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingRateService;
 import com.box.technology.service.TechnologyDetailService;
 
@@ -63,7 +63,7 @@ public class XiadanController {
 	 @Resource
 	 TechnologyDetailService technologyDetailService;
 	 @Resource 
-	 ShoppingDeatilService shoppingDeatilService;
+	 ShoppingDetailService shoppingDetailService;
 	 @Resource
 	 LayoutDetailService layoutDetailService;
 	 @Resource
@@ -136,7 +136,7 @@ public class XiadanController {
 		layoutDetail.setBoxId(jsonObj.getString("boxId"));
     	layoutDetail.setBoxLength(Double.parseDouble(jsonObj.getString("boxLength")));
 		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxWidth")));
-		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxHighth")));
+		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxHeight")));
 		layoutDetail.setBoxUnit(Integer.valueOf(jsonObj.getString("boxUnit")));
 		layoutDetail.setCreateby(SecurityUtil.getUser().getId());
 		layoutDetail.setCreatetime(DateUtil.getCurrDate());
@@ -196,7 +196,7 @@ public class XiadanController {
 		map.put("layoutDetail", layoutDetail);
 		map.put("shoppingDetail", shoppingDetail);
 		//生成订单记录和排版记录
-		boolean result=shoppingDeatilService.createLayoutAndShopping(map);
+		boolean result=shoppingDetailService.createLayoutAndShopping(map);
 		//排版（生成排版图片，dxf文件上传）
 		//1.读取dxf
 		
@@ -210,7 +210,7 @@ public class XiadanController {
 		try {
 			result1 = ExcelUtil.getData(file, 1);
 			 int rowLength = result1.length;
-	       String[][] body = writeData(result1, shoppingDeatilService.get(shoppingDetail.getShoppingId()),
+	       String[][] body = writeData(result1, shoppingDetailService.get(shoppingDetail.getShoppingId()),
 	    		   layoutDetailService.get(layoutDetail.getId()));
 	       /* for(int i=0;i<rowLength;i++) {
            for(int j=0;j<result[i].length;j++) {
@@ -455,20 +455,20 @@ public class XiadanController {
     }
 	/**
 	 * 判断纸盒高度
-	 * checkBoxHighth:(这里用一句话描述这个方法的作用).
+	 * checkBoxHeight:(这里用一句话描述这个方法的作用).
 	 *
 	 * @author luowen
-	 * @param BoxHighth
+	 * @param boxHeight
 	 * @param BoxId
 	 * @return
 	 * @since JDK 1.8
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/checkBoxHighth")
+	@RequestMapping(method = RequestMethod.POST, value = "/checkBoxHeight")
     @ResponseBody
-    private JSONObject checkBoxHighth(HttpServletRequest request){
+    private JSONObject checkboxHeight(HttpServletRequest request){
     	boolean result =true;
     	BoxType boxType= boxTypeService.get(request.getParameter("BoxId"));
-    	double len=Double.parseDouble(request.getParameter("boxHighth"));
+    	double len=Double.parseDouble(request.getParameter("boxHeight"));
     	if (Double.doubleToLongBits(len)<Double.doubleToLongBits(boxType.getHmin())||
     			Double.doubleToLongBits(len)>Double.doubleToLongBits(boxType.getHmax())) {
 			result=false;

@@ -226,7 +226,7 @@
 				    <label class="col-sm-4 control-label" ></label> 
 					<label class="col-sm-2 control-label" >高：</label>
 					<div class="col-sm-4">
-					<input id="boxHighth" name="boxHighth" type="text" class="form-control" >
+					<input id="boxHeight" name="boxHeight" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
 					<select name="boxUnit1" id="boxUnit1" class="form-control">
@@ -761,15 +761,15 @@ $(function(){
 			return;
 			}
 		});
-	$("#boxHighth").change(function(){
-		var selected = parseInt($('#boxHighth').val());
+	$("#boxHeight").change(function(){
+		var selected = parseInt($('#boxHeight').val());
 		if(selected<hmin){
 			layer.alert("纸盒高度不能小于"+hmin);
-			$('#boxHighth').val("");
+			$('#boxHeight').val("");
 			return;
 			}if(selected>hmax){
 			layer.alert("纸盒高度不能大于"+hmax);
-			$('#boxHighth').val("");
+			$('#boxHeight').val("");
 			return;
 			}
 		}); */
@@ -1020,16 +1020,16 @@ $(function(){
 				 
 				}
 			},
-			boxHighth : {
+			boxHeight : {
 				validators : {
 					notEmpty : {
 						message : '纸盒宽度不能为空'
 					},
 					numeric: {message: '只能输入数字'},
 					 remote : {
-							url : basePath + "/web/checkBoxHighth",
+							url : basePath + "/web/checkBoxHeight",
 							message : '纸盒高度超过范围',
-							data:{boxHighth:$("#boxHighth").val(),
+							data:{boxHeight:$("#boxHeight").val(),
 								BoxId:sessionStorage.getItem("boxId")},
 							delay : 2000,
 							type : 'POST'

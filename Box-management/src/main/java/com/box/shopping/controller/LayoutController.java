@@ -175,7 +175,7 @@ public class LayoutController {
 	   			map.put("boxName", jsonObj.getString("search-boxName"));
 	   			map.put("boxLength", jsonObj.getString("search-boxLength"));
 			   	map.put("boxWidth", jsonObj.getString("search-boxWidth"));
-			    map.put("boxHighth", jsonObj.getString("search-boxHighth"));
+			    map.put("boxHeight", jsonObj.getString("search-boxHeight"));
 		    	map.put("paperLength",jsonObj.getString("search-paperLength"));
 		    	map.put("paperWidth", jsonObj.getString("search-paperWidth"));
 				map.put("paperXValue", jsonObj.getString("search-paperXValue"));

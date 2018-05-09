@@ -18,7 +18,7 @@ import com.box.boxmanage.service.BoxClassficationService;
 import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.pojo.TreeNode;
 import com.box.shopping.service.LayoutDetailService;
-import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingRateService;
 import com.box.technology.service.TechnologyDetailService;
 
@@ -43,7 +43,7 @@ public class PictureController {
 	 @Resource
 	 TechnologyDetailService technologyDetailService;
 	 @Resource 
-	 ShoppingDeatilService shoppingDeatilService;
+	 ShoppingDetailService shoppingDetailService;
 	 @Resource
 	 LayoutDetailService layoutDetailService;
 	 @Resource

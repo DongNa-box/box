@@ -14,7 +14,7 @@ import com.box.boxmanage.service.BoxTypeService;
 import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.service.LayoutDetailService;
-import com.box.shopping.service.ShoppingDeatilService;
+import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingRateService;
 import com.box.technology.service.TechnologyDetailService;
 
@@ -39,7 +39,7 @@ public class LayoutController {
 	 @Resource
 	 TechnologyDetailService technologyDetailService;
 	 @Resource 
-	 ShoppingDeatilService shoppingDeatilService;
+	 ShoppingDetailService shoppingDetailService;
 	 @Resource
 	 LayoutDetailService layoutDetailService;
 	 @Resource
@@ -61,7 +61,7 @@ public class LayoutController {
     @ResponseBody
     public ShoppingDetail getShopping(@Param(value = "params") String params){
 		JSONObject jsonObj = JSONObject.parseObject(params);
-		ShoppingDetail shoppingDetail = shoppingDeatilService.get(jsonObj.getString("shoppingId"));
+		ShoppingDetail shoppingDetail = shoppingDetailService.get(jsonObj.getString("shoppingId"));
 		return shoppingDetail;
 	}
 	/**
