@@ -83,6 +83,8 @@ public class ShoppingDetail implements Serializable {
     private Double unitPrice;
     
     private String excelAddress;
+    
+    private Integer enabled;
 
 	private String createby;
 
@@ -409,6 +411,14 @@ public class ShoppingDetail implements Serializable {
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
+    
+    public Integer getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Integer enabled) {
+		this.enabled = enabled;
+	}
 
     public String getCreateby() {
         return createby;
@@ -426,7 +436,56 @@ public class ShoppingDetail implements Serializable {
         this.createtime = createtime;
     }
 
-    @Override
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((boxId == null) ? 0 : boxId.hashCode());
+		result = prime * result + ((bronzingLength == null) ? 0 : bronzingLength.hashCode());
+		result = prime * result + ((bronzingPrice == null) ? 0 : bronzingPrice.hashCode());
+		result = prime * result + ((bronzingUnit == null) ? 0 : bronzingUnit.hashCode());
+		result = prime * result + ((bronzingWidth == null) ? 0 : bronzingWidth.hashCode());
+		result = prime * result + ((colorPrice == null) ? 0 : colorPrice.hashCode());
+		result = prime * result + ((convexLength == null) ? 0 : convexLength.hashCode());
+		result = prime * result + ((convexPrice == null) ? 0 : convexPrice.hashCode());
+		result = prime * result + ((convexUnit == null) ? 0 : convexUnit.hashCode());
+		result = prime * result + ((convexWidth == null) ? 0 : convexWidth.hashCode());
+		result = prime * result + ((createby == null) ? 0 : createby.hashCode());
+		result = prime * result + ((createtime == null) ? 0 : createtime.hashCode());
+		result = prime * result + ((excelAddress == null) ? 0 : excelAddress.hashCode());
+		result = prime * result + ((isBronzing == null) ? 0 : isBronzing.hashCode());
+		result = prime * result + ((isConvex == null) ? 0 : isConvex.hashCode());
+		result = prime * result + ((isPvc == null) ? 0 : isPvc.hashCode());
+		result = prime * result + ((isUv == null) ? 0 : isUv.hashCode());
+		result = prime * result + ((layoutId == null) ? 0 : layoutId.hashCode());
+		result = prime * result + ((managementPrice == null) ? 0 : managementPrice.hashCode());
+		result = prime * result + ((pantoneId == null) ? 0 : pantoneId.hashCode());
+		result = prime * result + ((paperGramsId == null) ? 0 : paperGramsId.hashCode());
+		result = prime * result + ((paperPrice == null) ? 0 : paperPrice.hashCode());
+		result = prime * result + ((printColorId == null) ? 0 : printColorId.hashCode());
+		result = prime * result + ((printNumber == null) ? 0 : printNumber.hashCode());
+		result = prime * result + ((printPaperId == null) ? 0 : printPaperId.hashCode());
+		result = prime * result + ((pvcLength == null) ? 0 : pvcLength.hashCode());
+		result = prime * result + ((pvcPrice == null) ? 0 : pvcPrice.hashCode());
+		result = prime * result + ((pvcUnit == null) ? 0 : pvcUnit.hashCode());
+		result = prime * result + ((pvcWidth == null) ? 0 : pvcWidth.hashCode());
+		result = prime * result + ((receiveAreaId == null) ? 0 : receiveAreaId.hashCode());
+		result = prime * result + ((shoppingId == null) ? 0 : shoppingId.hashCode());
+		result = prime * result + ((surfacePrice == null) ? 0 : surfacePrice.hashCode());
+		result = prime * result + ((surfaceTreatmentId == null) ? 0 : surfaceTreatmentId.hashCode());
+		result = prime * result + ((taxPrice == null) ? 0 : taxPrice.hashCode());
+		result = prime * result + ((totalPrice == null) ? 0 : totalPrice.hashCode());
+		result = prime * result + ((transportPrice == null) ? 0 : transportPrice.hashCode());
+		result = prime * result + ((unitPrice == null) ? 0 : unitPrice.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((uvLength == null) ? 0 : uvLength.hashCode());
+		result = prime * result + ((uvPrice == null) ? 0 : uvPrice.hashCode());
+		result = prime * result + ((uvUnit == null) ? 0 : uvUnit.hashCode());
+		result = prime * result + ((uvWidth == null) ? 0 : uvWidth.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -600,6 +659,11 @@ public class ShoppingDetail implements Serializable {
 				return false;
 		} else if (!surfaceTreatmentId.equals(other.surfaceTreatmentId))
 			return false;
+		if (enabled == null) {
+			if (other.enabled != null)
+				return false;
+		} else if (!enabled.equals(other.enabled))
+			return false;
 		if (taxPrice == null) {
 			if (other.taxPrice != null)
 				return false;
@@ -648,56 +712,7 @@ public class ShoppingDetail implements Serializable {
 		return true;
 	}
 
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((boxId == null) ? 0 : boxId.hashCode());
-		result = prime * result + ((bronzingLength == null) ? 0 : bronzingLength.hashCode());
-		result = prime * result + ((bronzingPrice == null) ? 0 : bronzingPrice.hashCode());
-		result = prime * result + ((bronzingUnit == null) ? 0 : bronzingUnit.hashCode());
-		result = prime * result + ((bronzingWidth == null) ? 0 : bronzingWidth.hashCode());
-		result = prime * result + ((colorPrice == null) ? 0 : colorPrice.hashCode());
-		result = prime * result + ((convexLength == null) ? 0 : convexLength.hashCode());
-		result = prime * result + ((convexPrice == null) ? 0 : convexPrice.hashCode());
-		result = prime * result + ((convexUnit == null) ? 0 : convexUnit.hashCode());
-		result = prime * result + ((convexWidth == null) ? 0 : convexWidth.hashCode());
-		result = prime * result + ((createby == null) ? 0 : createby.hashCode());
-		result = prime * result + ((createtime == null) ? 0 : createtime.hashCode());
-		result = prime * result + ((excelAddress == null) ? 0 : excelAddress.hashCode());
-		result = prime * result + ((isBronzing == null) ? 0 : isBronzing.hashCode());
-		result = prime * result + ((isConvex == null) ? 0 : isConvex.hashCode());
-		result = prime * result + ((isPvc == null) ? 0 : isPvc.hashCode());
-		result = prime * result + ((isUv == null) ? 0 : isUv.hashCode());
-		result = prime * result + ((layoutId == null) ? 0 : layoutId.hashCode());
-		result = prime * result + ((managementPrice == null) ? 0 : managementPrice.hashCode());
-		result = prime * result + ((pantoneId == null) ? 0 : pantoneId.hashCode());
-		result = prime * result + ((paperGramsId == null) ? 0 : paperGramsId.hashCode());
-		result = prime * result + ((paperPrice == null) ? 0 : paperPrice.hashCode());
-		result = prime * result + ((printColorId == null) ? 0 : printColorId.hashCode());
-		result = prime * result + ((printNumber == null) ? 0 : printNumber.hashCode());
-		result = prime * result + ((printPaperId == null) ? 0 : printPaperId.hashCode());
-		result = prime * result + ((pvcLength == null) ? 0 : pvcLength.hashCode());
-		result = prime * result + ((pvcPrice == null) ? 0 : pvcPrice.hashCode());
-		result = prime * result + ((pvcUnit == null) ? 0 : pvcUnit.hashCode());
-		result = prime * result + ((pvcWidth == null) ? 0 : pvcWidth.hashCode());
-		result = prime * result + ((receiveAreaId == null) ? 0 : receiveAreaId.hashCode());
-		result = prime * result + ((shoppingId == null) ? 0 : shoppingId.hashCode());
-		result = prime * result + ((surfacePrice == null) ? 0 : surfacePrice.hashCode());
-		result = prime * result + ((surfaceTreatmentId == null) ? 0 : surfaceTreatmentId.hashCode());
-		result = prime * result + ((taxPrice == null) ? 0 : taxPrice.hashCode());
-		result = prime * result + ((totalPrice == null) ? 0 : totalPrice.hashCode());
-		result = prime * result + ((transportPrice == null) ? 0 : transportPrice.hashCode());
-		result = prime * result + ((unitPrice == null) ? 0 : unitPrice.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result + ((uvLength == null) ? 0 : uvLength.hashCode());
-		result = prime * result + ((uvPrice == null) ? 0 : uvPrice.hashCode());
-		result = prime * result + ((uvUnit == null) ? 0 : uvUnit.hashCode());
-		result = prime * result + ((uvWidth == null) ? 0 : uvWidth.hashCode());
-		return result;
-	}
-
-    @Override
+	@Override
 	public String toString() {
 		return "ShoppingDetail [shoppingId=" + shoppingId + ", userId=" + userId + ", boxId=" + boxId + ", layoutId="
 				+ layoutId + ", printPaperId=" + printPaperId + ", paperGramsId=" + paperGramsId + ", printColorId="
@@ -711,7 +726,9 @@ public class ShoppingDetail implements Serializable {
 				+ surfacePrice + ", bronzingPrice=" + bronzingPrice + ", convexPrice=" + convexPrice + ", printNumber="
 				+ printNumber + ", uvPrice=" + uvPrice + ", pvcPrice=" + pvcPrice + ", taxPrice=" + taxPrice
 				+ ", managementPrice=" + managementPrice + ", transportPrice=" + transportPrice + ", totalPrice="
-				+ totalPrice + ", unitPrice=" + unitPrice + ", excelAddress=" + excelAddress + ", createby=" + createby
-				+ ", createtime=" + createtime + "]";
+				+ totalPrice + ", unitPrice=" + unitPrice + ", excelAddress=" + excelAddress + ", enabled=" + enabled
+				+ ", createby=" + createby + ", createtime=" + createtime + "]";
 	}
+
+   
 }

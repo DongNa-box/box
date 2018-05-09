@@ -11,5 +11,8 @@ public interface ShoppingDetailMapper extends BaseMapper<ShoppingDetail, String>
 	 
 	int updateByPrimaryKeySelective(ShoppingDetail record);
 	 
-  
+	List<Map<String, Object>> getInfoByUserIdandShoppingId(Map<String, Object> map);
+	 
+	int updateByEnabled(Map<String, Object> map);
+
 }

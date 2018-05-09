@@ -146,6 +146,7 @@ public class XiadanController {
 		shoppingDetail.setBoxId(jsonObj.getString("boxId"));
 		shoppingDetail.setLayoutId(layoutDetail.getId());
 		shoppingDetail.setUserId(SecurityUtil.getUser().getId());
+		shoppingDetail.setEnabled(1);
 		shoppingDetail.setCreateby(SecurityUtil.getUser().getId());
 		shoppingDetail.setCreatetime(DateUtil.getCurrDate());
 		shoppingDetail.setPrintPaperId(jsonObj.getString("printPaperId"));

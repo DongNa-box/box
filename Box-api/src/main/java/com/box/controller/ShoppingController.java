@@ -350,6 +350,7 @@ public class ShoppingController {
     	shoppingDetail.setPvcUnit(0);
     	shoppingDetail.setBronzingUnit(0);
     	shoppingDetail.setLayoutId(layoutDetail.getId());
+    	shoppingDetail.setEnabled(1);
     	shoppingDetail.setCreateby(shoppingDetail.getUserId());
     	shoppingDetail.setCreatetime(new Date());
     	layoutDetail.setCreateby(shoppingDetail.getUserId());
@@ -410,7 +411,58 @@ public class ShoppingController {
         }
 
 	}
-	
+	@RequestMapping(value = "/queryShopping",method = RequestMethod.POST)
+	@ResponseBody
+	public Result queryShopping(@RequestHeader HttpHeaders headers){
+		String token = headers.getFirst("token");
+		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+		String userId = jsonObj.getString("userId");		
+		String shoppingId = jsonObj.getString("shoppingId");
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("userId", userId);
+		
+		if (shoppingId.equals("00")) {
+			map.put("shoppingId", null);
+			
+		}else{
+			map.put("shoppingId", shoppingId);
+		}
+		List<Map<String, Object>> shoppingDetails=shoppingDetailService.getInfoByUserIdandShoppingId(map);
+		return new Result(true,shoppingDetails);
+	}
+	@RequestMapping(value = "/updateShopping",method = RequestMethod.POST)
+	@ResponseBody
+	public Result updateShopping(@RequestHeader HttpHeaders headers){
+		String token = headers.getFirst("token");
+		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+		ShoppingDetail shoppingDetail  = JSON.parseObject(jsonObj.toString(),ShoppingDetail.class);
+		System.out.println(shoppingDetail.toString());
+		boolean res = shoppingDetailService.update(shoppingDetail);
+		if (res) {
+			return new Result(true);
+		}else {
+			return new Result(false);
+		}
+		
+	}
+	@RequestMapping(value = "/deteleShopping",method = RequestMethod.POST)
+	@ResponseBody
+	public Result deteleShopping(@RequestHeader HttpHeaders headers){
+		String token = headers.getFirst("token");
+		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
+		String userId = jsonObj.getString("userId");		
+		String shoppingId = jsonObj.getString("shoppingId");
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("userId", userId);
+		map.put("shoppingId", shoppingId);
+		boolean res = shoppingDetailService.updateByEnabled(map);
+		if (res) {
+			return new Result(true);
+		}else {
+			return new Result(false);
+		}
+		
+	}
 	public Float getDecimal(float p){
 	    	float a=0;
 	    	 DecimalFormat decimalFormat=new DecimalFormat(".00");
@@ -429,5 +481,6 @@ public class ShoppingController {
 	     a=Double.parseDouble(decimalFormat.format(p));//format 返回的是字符串
         return a;
     }	
+	
 }
 

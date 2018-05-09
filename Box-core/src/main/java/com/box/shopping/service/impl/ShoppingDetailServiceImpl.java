@@ -221,6 +221,34 @@ public class ShoppingDetailServiceImpl implements ShoppingDetailService {
 		}
 		
 	}
+
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.shopping.service.ShoppingDetailService#getInfoByUserIdandShoppingId(java.util.Map)
+	 */
+	 
+	@Override
+	public List<Map<String, Object>> getInfoByUserIdandShoppingId(Map<String, Object> map) {
+		
+		// TODO Auto-generated method stub
+		return shoppingDetailMapper.getInfoByUserIdandShoppingId(map);
+		
+	}
+
+	
+	 /**
+	 * TODO 简单描述该方法的实现功能（可选）.
+	 * @see com.box.shopping.service.ShoppingDetailService#updateByEnabled(java.util.Map)
+	 */
+	 
+	@Override
+	public boolean updateByEnabled(Map<String, Object> map) {
+		
+		int res = shoppingDetailMapper.updateByEnabled(map);
+		return res>0?true:false;
+		
+	}
 	
 
 }
