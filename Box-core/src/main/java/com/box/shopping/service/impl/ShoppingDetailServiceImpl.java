@@ -243,9 +243,9 @@ public class ShoppingDetailServiceImpl implements ShoppingDetailService {
 	 */
 	 
 	@Override
-	public boolean updateByEnabled(Map<String, Object> map) {
+	public boolean updateByEnabled(List<String> list) {
 		
-		int res = shoppingDetailMapper.updateByEnabled(map);
+		int res = shoppingDetailMapper.updateByEnabled(list);
 		return res>0?true:false;
 		
 	}

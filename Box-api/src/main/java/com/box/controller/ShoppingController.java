@@ -38,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.box.boxmanage.model.BoxType;
 import com.box.boxmanage.service.BoxTypeService;
@@ -56,6 +57,7 @@ import com.box.technology.model.TechnologyDetail;
 import com.box.technology.service.TechnologyDetailService;
 import com.box.technology.service.TechnologyPriceService;
 import com.box.token.JwtUtil;
+
 
 
 
@@ -445,17 +447,19 @@ public class ShoppingController {
 		}
 		
 	}
-	@RequestMapping(value = "/deteleShopping",method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteShopping",method = RequestMethod.POST)
 	@ResponseBody
-	public Result deteleShopping(@RequestHeader HttpHeaders headers){
+	public Result deleteShopping(@RequestHeader HttpHeaders headers){
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
-		String userId = jsonObj.getString("userId");		
-		String shoppingId = jsonObj.getString("shoppingId");
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("userId", userId);
-		map.put("shoppingId", shoppingId);
-		boolean res = shoppingDetailService.updateByEnabled(map);
+		//String userId = jsonObj.getString("userId");
+		JSONArray arr=jsonObj.getJSONArray("shoppingId");//代表已经成功删除广告素材的广告ID
+		List<String> list=new ArrayList<String>();
+		for(int i=0;i<arr.size();i++){
+			list.add(arr.getString(i));
+		}
+
+		boolean res = shoppingDetailService.updateByEnabled(list);
 		if (res) {
 			return new Result(true);
 		}else {
