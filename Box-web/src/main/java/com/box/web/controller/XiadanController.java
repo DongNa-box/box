@@ -136,7 +136,7 @@ public class XiadanController {
 		layoutDetail.setBoxId(jsonObj.getString("boxId"));
     	layoutDetail.setBoxLength(Double.parseDouble(jsonObj.getString("boxLength")));
 		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxWidth")));
-		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxHeight")));
+		layoutDetail.setBoxHeight(Double.parseDouble(jsonObj.getString("boxHeight")));
 		layoutDetail.setBoxUnit(Integer.valueOf(jsonObj.getString("boxUnit")));
 		layoutDetail.setCreateby(SecurityUtil.getUser().getId());
 		layoutDetail.setCreatetime(DateUtil.getCurrDate());
