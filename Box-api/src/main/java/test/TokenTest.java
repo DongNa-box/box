@@ -31,10 +31,10 @@ public class TokenTest {
 //	  map.put("cname", "2");
 //  	  map.put("level", "2");
 //  	  map.put("description", "");
-//  	  map.put("parentId", "1523523977642007");
+  	  map.put("parentId", "1523523977642007");
 	  map.put("printPaperId", "1523521257758003");
   	  map.put("paperGramsId", "1523611171534008");
-  	 // map.put("papergrams", "300");
+      map.put("papergrams", "300");
   	  map.put("printColorId", "1523523977642004");
   	  map.put("surfaceTreatmentId", "1523609723044008");
  	  map.put("isBronzing", 0);
@@ -51,38 +51,32 @@ public class TokenTest {
  	  map.put("pvcWidth", 0);
  	  map.put("receiveAreaId","1523531798224000");
  	  map.put("printNumber", 1000);
- 	  
- 	  map.put("managementPrice","23");
- 	  map.put("taxPrice","12");	
- 	  map.put("totalPrice","2300");
- 	  map.put("unitPrice","2.3");
- 	  map.put("paperprice","45");
- 	  map.put("colorPrice","30");
- 	  map.put("surfacePrice","45");
- 	  map.put("bronzingPrice","0");
- 	  map.put("convexPrice","0");
- 	  map.put("uvPrice","0");
- 	  map.put("pvcprice","0");
- 	  map.put("transportPrice","1500");
- 	  
- 	
-
-
- 	
- 	
- 	
- 	
+// 	  
+// 	  map.put("managementPrice","23");
+// 	  map.put("taxPrice","12");	
+// 	  map.put("totalPrice","2300");
+// 	  map.put("unitPrice","2.3");
+// 	  map.put("paperprice","45");
+// 	  map.put("colorPrice","30");
+// 	  map.put("surfacePrice","45");
+// 	  map.put("bronzingPrice","0");
+// 	  map.put("convexPrice","0");
+// 	  map.put("uvPrice","0");
+// 	  map.put("pvcprice","0");
+// 	  map.put("transportPrice","1500");
+// 	  
  	  map.put("userId", "1525657483518000");
 	  map.put("boxLength", "30");
 	  map.put("boxWidth", "40");
 	  map.put("boxHeight", "50");
-	  map.put("boxId", "1524627135192000");
- 	map.put("paperLength","456");
- 	map.put("paperWidth","789");
- 	map.put("xnumber","5");
- 	map.put("ynumber","6");
- 	map.put("utilizationRate","70.87");
-
+	  map.put("boxId", "1525858321220000");
+// 	map.put("paperLength","456");
+// 	map.put("paperWidth","789");
+// 	map.put("xnumber","5");
+// 	map.put("ynumber","6");
+// 	map.put("utilizationRate","70.87");
+	  //map.put("userId", "1525657483518000");
+	 // map.put("shoppingId", "00");
 	  String subject = JwtUtil.generalSubject(map);
 	  System.out.println(jwt.genJwtForAndroid(subject));
    }

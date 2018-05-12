@@ -533,8 +533,6 @@
       unit_price = #{unitPrice,jdbcType=DOUBLE},
       excel_address = #{excelAddress,jdbcType=VARCHAR},
       enabled = #{enabled,jdbcType=INTEGER},
-      createby = #{createby,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
     where shopping_id = #{shoppingId,jdbcType=VARCHAR}
   </update>
   <select id="getShoppingDetailList"  resultType="map">
@@ -618,53 +616,56 @@
       </if>
 	 </select>
 	 <select id="getInfoByUserIdandShoppingId" parameterType="java.util.Map" resultType="java.util.Map">
-	 select 
+     select 
 	 a.shopping_id as shoppingId,a.print_paper_id as printPaperId,
 	 e.name as printPaperName,a.paper_grams_id as paperGramsId,f.name as paperGramsName,
-	 a.print_color_id as printColorId,g.name as printColorName,a.pantone_id as pantoneId,
+	 a.print_color_id as printColorId,g.name as printColorName,o.id as printColorParentId,o.`name` as printColorParentName,a.pantone_id as pantoneId,
 	 a.surface_treatment_id as surfaceTreatmentId,h.name as surfaceTreatmentName,
 	 a.is_bronzing as isBronzing, a.bronzing_length as bronzingLength,a.bronzing_width as bronzingWidth,
      a.bronzing_unit as bronzingUnit,a.is_convex as isConvex,a.convex_length as convexLength,a.convex_width as convexWidth,
-      a.convex_unit as convexUnit,a.is_UV as isUv,a.UV_length as uvLength,a.UV_width as uvWidth,
-      a.UV_unit as uvUnit,a.is_PVC as isPvc,a.PVC_length as pvcLength,a.PVC_width as pvcWidth,
-      a.PVC_unit as pvcUnit,a.receive_area_id as receiveAreaId,i.name as receiveAreaName,a.paper_price as paperPrice,
-      a.color_price as colorPrice,a.surface_price as surfacePrice,a.bronzing_price as bronzingPrice,
-      a.convex_price as convexPrice,a.print_number as printNumber,a.UV_price as uvPrice,
-      a.PVC_price as pvcPrice,a.tax_price as taxPrice,a.management_price as managementPrice,
-      a.transport_price as transportPrice,a.total_price as totalPrice,a.unit_price as unitPrice,
-      a.excel_address as excelAddress,a.enabled,a.createby,a.createtime,c.id as layoutId,c.box_length as boxLength,
-      c.box_width as boxWidth,c.box_height as boxHeight,
+     a.convex_unit as convexUnit,a.is_UV as isUv,a.UV_length as uvLength,a.UV_width as uvWidth,
+     a.UV_unit as uvUnit,a.is_PVC as isPvc,a.PVC_length as pvcLength,a.PVC_width as pvcWidth,
+     a.PVC_unit as pvcUnit,a.receive_area_id as receiveAreaId,i.name as receiveAreaName,a.paper_price as paperPrice,
+     a.color_price as colorPrice,a.surface_price as surfacePrice,a.bronzing_price as bronzingPrice,
+     a.convex_price as convexPrice,a.print_number as printNumber,a.UV_price as uvPrice,
+     a.PVC_price as pvcPrice,a.tax_price as taxPrice,a.management_price as managementPrice,
+     a.transport_price as transportPrice,a.total_price as totalPrice,a.unit_price as unitPrice,
+     a.excel_address as excelAddress,a.enabled,a.createby,a.createtime,c.id as layoutId,c.box_length as boxLength,
+     c.box_width as boxWidth,c.box_height as boxHeight,
 	 c.box_unit as boxUnit,c.paper_length as paperLength,c.paper_width as paperWidth,
 	 c.paper_unit as paperUnit,c.paper_X_id as paperXId,n.size as paperXValue,c.xnumber,c.ynumber,c.picture_address as pictureAddress,
-	 c.dxf_address as dxfAddress,c.utilizationRate
+	 c.dxf_address as dxfAddress,c.utilizationRate,
 	 b.*,j.name as className,k.name as detail1Name,l.name as detail2Name,m.name as detail3Name
-	from t_shopping_detail a 
-	left join t_box_type b
-   on a.box_id=b.boxId
-   left join t_layout_detail c
-   on a.layout_id=c.id
-   left join t_technology_detail e
-   on a.print_paper_id = e.id
-   left join t_technology_detail f
-   on a.paper_grams_id = f.id
-   left join t_technology_detail g
-   on a.print_color_id = g.id
-   left join t_technology_detail h
-   on a.surface_treatment_id = h.id
-   left join t_technology_detail i
-   on a.receive_area_id = i.id
-   left JOIN t_box_classification j
-  on b.classId=j.id
-  left JOIN t_box_classification k
-  on b.detail1=k.id
-  left JOIN t_box_classification l
-  on b.detail2=l.id
-  left JOIN t_box_classification m
-  on b.detail3=m.id
-  left join t_layout_size n
-  on c.paper_X_id=n.id
-		where 1=1 and a.enabled=1
-		<if test="userId != null and userId!=''">
+     from t_shopping_detail a 
+     left join t_box_type b
+     on a.box_id=b.boxId
+     left join t_layout_detail c
+     on a.layout_id=c.id
+     left join t_technology_detail e
+     on a.print_paper_id = e.id
+     left join t_technology_detail f
+     on a.paper_grams_id = f.id
+     left join t_technology_detail g
+     on a.print_color_id = g.id
+     LEFT JOIN t_technology_detail o
+     on g.parentId=o.id
+     left join t_technology_detail h
+     on a.surface_treatment_id = h.id
+     left join t_technology_detail i
+     on a.receive_area_id = i.id
+     left JOIN t_box_classification j
+     on b.classId=j.id
+     left JOIN t_box_classification k
+     on b.detail1=k.id
+     left JOIN t_box_classification l
+     on b.detail2=l.id
+     left JOIN t_box_classification m
+     on b.detail3=m.id
+     left join t_layout_size n
+     on c.paper_X_id=n.id
+
+     where a.enabled=1
+	  <if test="userId != null and userId!=''">
        and a.user_id =#{userId,jdbcType=VARCHAR}  
       </if>
       <if test="shoppingId != null and shoppingId!=''">

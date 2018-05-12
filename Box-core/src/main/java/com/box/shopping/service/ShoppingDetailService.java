@@ -35,5 +35,7 @@ public interface ShoppingDetailService extends BaseService<ShoppingDetail, Strin
 	List<Map<String, Object>> getInfoByUserIdandShoppingId(Map<String, Object> map);
 
 	boolean updateByEnabled(List<String> list);
+
+	boolean updateAllDetail(Map<String, Object> map);
 }
 

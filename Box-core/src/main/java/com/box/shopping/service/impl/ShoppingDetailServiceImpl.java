@@ -249,6 +249,24 @@ public class ShoppingDetailServiceImpl implements ShoppingDetailService {
 		return res>0?true:false;
 		
 	}
+
+	@Override
+	public boolean updateAllDetail(Map<String, Object> map) {
+		LayoutDetail layoutDetail=(LayoutDetail)map.get("layoutDetail");
+		ShoppingDetail shoppingDetail=(ShoppingDetail)map.get("shoppingDetail");
+		
+		try {
+			int result1 = layoutDetailMapper.updateByPrimaryKey(layoutDetail);
+			int result2 = shoppingDetailMapper.updateByPrimaryKey(shoppingDetail);
+			return (result1+result2)==2?true:false;
+			
+		} catch (Exception e) {
+			logger.error("batchOperateCommunity失败，错误信息为："+e.getMessage().toString());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return false;
+		}
+		
+	}
 	
 
 }

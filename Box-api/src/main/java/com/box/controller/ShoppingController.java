@@ -48,9 +48,11 @@ import com.box.framework.pojo.RspCode;
 import com.box.framework.utils.FileUtil;
 import com.box.framework.utils.Sequence;
 import com.box.shopping.model.LayoutDetail;
+import com.box.shopping.model.LayoutSize;
 import com.box.shopping.model.ShoppingDetail;
 import com.box.shopping.model.ShoppingRate;
 import com.box.shopping.service.LayoutDetailService;
+import com.box.shopping.service.LayoutSizeService;
 import com.box.shopping.service.ShoppingDetailService;
 import com.box.shopping.service.ShoppingRateService;
 import com.box.technology.model.TechnologyDetail;
@@ -90,6 +92,9 @@ public class ShoppingController {
 	@Resource
 	LayoutDetailService layoutDetailService;
 	
+	@Resource
+	LayoutSizeService layoutSizeService;
+	
 	@Autowired
 	JwtUtil jwt;
 	
@@ -118,7 +123,7 @@ public class ShoppingController {
     	String paperNumber=jsonObj.getString("papergrams");
     	//查询盒型类型，传入盒型类型
     	Map<String,Object> box=boxTypeService.getAllById(shoppingDetail.getBoxId());
-    	if(box.get("classId").equals("1523178448293000")){//管式盒
+    	if(box!=null&&box.get("classId").equals("1523178448293000")){//管式盒
     		if((box.get("detail1").equals("1523190385039003")||box.get("detail1").equals("1523190385039004"))&&
     				(box.get("detail2").equals("1523192628473001")||box.get("detail2").equals("1523192628473000"))){
     		  //盒盖前开直插，盒底后开直插	
@@ -136,7 +141,46 @@ public class ShoppingController {
     	}else{
     		type=3;
     	}
-	   	Map<String,Object> pmap=new Paiban().getResult(boxwidth, boxlength, boxheight,type);
+    	//获取纸张尺寸信息
+    	List<LayoutSize> sizeList=layoutSizeService.getAllList();
+    	Map<String,Object> map=new HashMap<String,Object>();
+    	List<Integer> paperSize=new ArrayList<Integer>();	
+    	for(LayoutSize size:sizeList){
+    		if(size.getType()==0&&size.getName().equals("7")){
+    			if(size.getSize()>1000){
+    				paperSize.add(size.getSize()/2);//表示纸张尺寸可2开	
+    				paperSize.add(size.getSize()/3);//表示纸张尺寸可3开
+    			}else{
+    				paperSize.add(size.getSize());
+    			}
+    		
+    		}
+    		if(size.getName().equals("0")){
+    			map.put("zhjj", size.getSize());
+    		}
+    		if(size.getName().equals("1")){
+    			map.put("xd", size.getSize());
+    		}
+    		if(size.getName().equals("2")){
+    			map.put("yd", size.getSize());
+    		}
+    		if(size.getName().equals("3")){
+    			map.put("tmin", size.getSize());
+    		}
+    		if(size.getName().equals("4")){
+    			map.put("tmax", size.getSize());
+    		}
+    		if(size.getName().equals("5")){
+    			map.put("gmin", size.getSize());
+    		}
+    		if(size.getName().equals("6")){
+    			map.put("gmax", size.getSize());
+    		}
+    	}
+    	map.put("boxWidth", boxwidth);
+    	map.put("boxLength", boxlength);
+    	map.put("boxHeight", boxheight);
+	   	Map<String,Object> pmap=new Paiban(paperSize,type,map).getResult();
 	   	for (Entry<String, Object> entry : pmap.entrySet()) { 
 	   	  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
 	   	}
@@ -337,7 +381,11 @@ public class ShoppingController {
 		  mymap.put("type",type);
          return new Result(true,mymap);
 	}
-
+    /**
+     * 添加购物车
+     * @param headers
+     * @return
+     */
 	@RequestMapping(value = "/addShopping",method = RequestMethod.POST)
 	@ResponseBody
 	public Result addShopping(@RequestHeader HttpHeaders headers){
@@ -372,6 +420,13 @@ public class ShoppingController {
     	}
 	}
 	
+	
+	/**
+	 * 上传排版图片
+	 * @param headers
+	 * @param httpRequest
+	 * @return
+	 */
 	@RequestMapping(value = "/imageUpload",method = RequestMethod.POST)
 	@ResponseBody
 	public Result imageUpload(@RequestHeader HttpHeaders headers,HttpServletRequest httpRequest){
@@ -413,6 +468,13 @@ public class ShoppingController {
         }
 
 	}
+	
+	
+	/**
+	 * 查询购物车信息
+	 * @param headers
+	 * @return
+	 */
 	@RequestMapping(value = "/queryShopping",method = RequestMethod.POST)
 	@ResponseBody
 	public Result queryShopping(@RequestHeader HttpHeaders headers){
@@ -422,24 +484,32 @@ public class ShoppingController {
 		String shoppingId = jsonObj.getString("shoppingId");
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("userId", userId);
-		
 		if (shoppingId.equals("00")) {
 			map.put("shoppingId", null);
-			
 		}else{
 			map.put("shoppingId", shoppingId);
 		}
 		List<Map<String, Object>> shoppingDetails=shoppingDetailService.getInfoByUserIdandShoppingId(map);
 		return new Result(true,shoppingDetails);
 	}
+	
+	
+	/**
+	 * 更新购物车信息
+	 * @param headers
+	 * @return
+	 */
 	@RequestMapping(value = "/updateShopping",method = RequestMethod.POST)
 	@ResponseBody
 	public Result updateShopping(@RequestHeader HttpHeaders headers){
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
 		ShoppingDetail shoppingDetail  = JSON.parseObject(jsonObj.toString(),ShoppingDetail.class);
-		System.out.println(shoppingDetail.toString());
-		boolean res = shoppingDetailService.update(shoppingDetail);
+		LayoutDetail layoutDetail= JSON.parseObject(jsonObj.toString(),LayoutDetail.class);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("shoppingDetail", shoppingDetail);
+		map.put("layoutDetail", layoutDetail);
+		boolean res = shoppingDetailService.updateAllDetail(map);
 		if (res) {
 			return new Result(true);
 		}else {
@@ -447,13 +517,18 @@ public class ShoppingController {
 		}
 		
 	}
+	
+	/**
+	 * 删除购物车信息
+	 * @param headers
+	 * @return
+	 */
 	@RequestMapping(value = "/deleteShopping",method = RequestMethod.POST)
 	@ResponseBody
 	public Result deleteShopping(@RequestHeader HttpHeaders headers){
 		String token = headers.getFirst("token");
 		JSONObject jsonObj = jwt.parseJwtForAndroid(token);
-		//String userId = jsonObj.getString("userId");
-		JSONArray arr=jsonObj.getJSONArray("shoppingId");//代表已经成功删除广告素材的广告ID
+		JSONArray arr=jsonObj.getJSONArray("shoppingId");
 		List<String> list=new ArrayList<String>();
 		for(int i=0;i<arr.size();i++){
 			list.add(arr.getString(i));
@@ -467,6 +542,7 @@ public class ShoppingController {
 		}
 		
 	}
+	
 	public Float getDecimal(float p){
 	    	float a=0;
 	    	 DecimalFormat decimalFormat=new DecimalFormat(".00");

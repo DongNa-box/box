@@ -11,40 +11,66 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="layoutSize_Column_List">
-    id, size, unit, name, type, createby, createtime
+    id, size, unit, name, type,createby, createtime
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="layoutSizeResultMap">
     select 
     <include refid="layoutSize_Column_List" />
     from t_layout_size
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="getSizeByType"  resultType="java.lang.Integer">
-    select 
-    size
-    from t_layout_size
-    where type = 0
-  </select>
   
-    <select id="getSizeByName" parameterType="java.lang.String" resultMap="layoutSizeResultMap">
+ 
+  <select id="getLayoutSizelist"  resultType="map">
+	select 
+	 <include refid="layoutSize_Column_List" />
+	from t_layout_size
+		where 1=1 
+		 <if test="size != null and size!=''">
+	       and size = #{size,jdbcType=INTEGER} 
+	      </if>
+	      <if test="name != null and name!=''">
+	       and name  like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR}),'%') 
+	      </if>
+	      <if test="type != null and type!=''">
+	       and type = #{type,jdbcType=INTEGER}
+	      </if>
+ </select>
+ 
+  <select id="selectAll" resultMap="layoutSizeResultMap" >
     select 
     <include refid="layoutSize_Column_List" />
     from t_layout_size
-    where name = #{name,jdbcType=VARCHAR}
   </select>
   
+  <select id="checkNameExists" resultMap="layoutSizeResultMap" >
+    select 
+    <include refid="layoutSize_Column_List" />
+    from t_layout_size
+    where name=#{name} and size=#{size}
+  </select>
+	
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_layout_size
     where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="batchDeleteByIds">
+  	delete from t_layout_size where id in
+  	<foreach collection="ids" item="id" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
   </delete>
   <insert id="insert" parameterType="com.box.shopping.model.LayoutSize">
     insert into t_layout_size (id, size, unit, 
       name, type, createby, 
       createtime)
     values (#{id,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},#{createby,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP})
   </insert>
+  
   <insert id="insertSelective" parameterType="com.box.shopping.model.LayoutSize">
     insert into t_layout_size
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -109,12 +135,6 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="createby != null">
-        createby = #{createby,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -128,25 +148,6 @@
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-   <select id="getLayoutSizelist"  resultType="map">
-	select 
-	 <include refid="layoutSize_Column_List" />
-	from t_layout_size
-		where 1=1 
-		 <if test="size != null and size!=''">
-	       and size = #{size,jdbcType=INTEGER} 
-	      </if>
-	      <if test="name != null and name!=''">
-	       and name  like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR}),'%') 
-	      </if>
-	      <if test="type != null and type!=''">
-	       and type = #{type,jdbcType=INTEGER}
-	      </if>
-	 </select>
-	 <delete id="batchDeleteByIds">
-  	delete from t_layout_size where id in
-  	<foreach collection="ids" item="id" open="(" separator="," close=")">
-  		#{id}
-  	</foreach>
-  </delete>
+  
+
 </mapper>

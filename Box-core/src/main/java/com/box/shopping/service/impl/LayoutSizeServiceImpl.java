@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.box.boxmanage.model.BoxType;
 import com.box.shopping.dao.LayoutSizeMapper;
 import com.box.shopping.model.LayoutSize;
 import com.box.shopping.service.LayoutSizeService;
@@ -108,7 +109,7 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 	public List<LayoutSize> getAllList() {
 
 		// TODO Auto-generated method stub
-		return null;
+		return layoutSizeMapper.selectAll();
 
 	}
 
@@ -126,12 +127,6 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 		
 	}
 
-	@Override
-	public boolean checkNameExists(String name) {
-		LayoutSize layoutSize = layoutSizeMapper.getSizeByName(name);
-		return layoutSize == null?false : true;
-	}
-
 	
 	 /**
 	 * TODO 简单描述该方法的实现功能（可选）.
@@ -142,6 +137,13 @@ public class LayoutSizeServiceImpl implements LayoutSizeService {
 	public List<Integer> getSizeByType() {
 		return layoutSizeMapper.getSizeByType();
 		
+	}
+
+	@Override
+	public boolean checkNameExists(Map<String,Object> map) {
+		
+		LayoutSize b=layoutSizeMapper.checkNameExists(map);
+		return b==null?false:true;
 	}
 
 

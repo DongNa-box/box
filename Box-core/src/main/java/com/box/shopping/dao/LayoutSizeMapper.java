@@ -15,4 +15,6 @@ public interface LayoutSizeMapper extends BaseMapper<LayoutSize, String>{
 
 	List<Integer> getSizeByType();
 
+	LayoutSize checkNameExists(Map<String,Object> map);
+
 }
