@@ -26,7 +26,7 @@
 						</div>
 					</div>
 					</div>
-					<div class="col-sm-4">
+				<div class="col-sm-4">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">名称</label>
 						<div class="col-sm-8">
@@ -34,8 +34,8 @@
 								placeholder="请输入尺寸名称" maxlength="11">
 						</div>
 					</div>
-					</div>
-				<div class="col-sm-4">
+				</div>
+				 <div class="col-sm-4">
 					<div class="form-group">
 						<label class="col-sm-4 control-label">尺寸大小</label>
 						<div class="col-sm-8">
@@ -43,7 +43,7 @@
 								placeholder="请输入尺寸大小">
 						</div>
 					</div>
-	
+	           </div>
 	        </div>
 	        </form>
 	        
@@ -70,7 +70,7 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
   							    <th data-align="center" data-field="type" data-sortable="true" data-formatter="sizeTypeFormatter">尺寸类型</th>
-								<th data-align="center" data-field="name" data-sortable="true">尺寸名称</th>
+								<th data-align="center" data-field="name" data-sortable="true" data-formatter="nameFormatter">尺寸名称</th>
 								<th data-align="center" data-field="size" data-sortable="true">尺寸大小</th>
 								<th data-align="center" data-field="unit" data-sortable="true" data-formatter="unitFormatter">单位</th>
 								<th data-align="center" data-field="createby" data-sortable="true" >创建人</th>
@@ -111,8 +111,17 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label">尺寸名称<span style="color: red;">*</span></label>
 						<div class="col-sm-8">
-							<input id="name" name="name" type="text" class="form-control"
-								placeholder="请输入尺寸名称" maxlength="11">
+							<select name="name" id="name" class="form-control">
+								<option value="">请选择...</option>
+								<option value="0">纸盒间距</option>
+								<option value="1">与X一边的间距</option>
+								<option value="2">与Y边的间距</option>
+								<option value="3">T最小值</option>
+								<option value="4">T最大值</option>
+								<option value="5">G最小值</option>
+								<option value="6">G最大值</option>	
+								<option value="7">X边</option>			
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
@@ -249,13 +258,6 @@
 				validators : {
 					notEmpty : {
 						message : '请输入尺寸名称'
-					},
-					threshold : 10,
-					remote : {
-						url : basePath + "/layout/checkNameExists",
-						message : '尺寸名称已存在',
-						delay : 2000,
-						type : 'POST'
 					}
 				}
 			},
@@ -263,6 +265,22 @@
 				validators : {
 					notEmpty : {
 						message : '请输入尺寸大小'
+					},
+					threshold : 10,
+					remote : {
+						url : basePath + "/layout/checkNameExists",
+						data:{
+							size: function () {  
+                                return $('#size').val()  
+                            },  
+                            name: function () {  
+                                return $('#name').val();  
+                            }  
+						},
+						message : '尺寸已存在',
+						delay : 2000,
+						dataType: "json",
+						type : 'POST'
 					}
 				}
 			},
@@ -326,7 +344,30 @@
 		}	
 	}
 	
-function unitFormatter(value, row, index) {
+   function nameFormatter(value, row, index) {
+		if (value != undefined && value != null && $.trim(value) != '') {
+			if(value == '0'){
+				return '纸盒间距';
+			}else if(value=='1'){
+				return '与X一边的间距';
+			}else if(value=='2'){
+				return '与Y边的间距';
+			}else if(value=='3'){
+				return 'T最小值';
+			}else if(value=='4'){
+				return 'T最大值';
+			}else if(value=='5'){
+				return 'G最小值';
+			}else if(value=='6'){
+				return 'G最大值';
+			}else if(value=='7'){
+				return 'X边';
+			}
+		}else{
+			return value;
+		}	
+	}
+   function unitFormatter(value, row, index) {
 		if (value != undefined && value != null && $.trim(value) != '') {
 			if(value == '0'){
 				return 'mm';

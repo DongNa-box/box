@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Layout;
@@ -196,7 +197,7 @@ public class LayoutController {
 	   		return list;
 	 }
 	    /**
-	     * 名称去重
+	     * 尺寸及名称一样
 	     * checkNameExists:(这里用一句话描述这个方法的作用).
 	     *
 	     * @author Administrator
@@ -206,8 +207,11 @@ public class LayoutController {
 	     */
 	   @RequestMapping(method = RequestMethod.POST, value = "/checkNameExists")
 	    @ResponseBody
-	    private JSONObject checkNameExists(@RequestParam String name){
-		   boolean result = layoutSizeService.checkNameExists(name);
+	    private JSONObject checkNameExists(HttpServletRequest httpRequest){
+		   Map<String,Object> map=new HashMap<String,Object>();
+		   map.put("name", httpRequest.getParameter("name"));
+		   map.put("size", httpRequest.getParameter("size"));
+		   boolean result = layoutSizeService.checkNameExists(map);
 	    	JSONObject jsonObj = new JSONObject();
 	    	jsonObj.put("valid", (!result));
 			return jsonObj;
