@@ -169,6 +169,7 @@
 
 $(function(){
 	var shoppingId=sessionStorage.getItem("shoppingId");
+	var params={"shoppingId":shoppingId};
 	ajaxPost(basePath+"/web/getShopping", {
 		params:JSON.stringify(params)
 		}, function(data) {
@@ -190,8 +191,10 @@ $(function(){
 				$("#excelAddress").attr("href","${basePath}/res/excel/"+data.shoppingId+"/"+data.excelAddress);
 				}
 			});
+	var layoutId=sessionStorage.getItem("layoutId");
+	var params1={"layoutId":layoutId};
 	ajaxPost(basePath+"/web/getLayout", {
-		params:JSON.stringify(params)
+		params:JSON.stringify(params1)
 		}, function(data) {
 			if(data!=null){
 			$("#pictureAddress").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.id+"/"+data.pictureAddress);

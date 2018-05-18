@@ -88,9 +88,7 @@ public class BoxClassificationServiceImpl implements BoxClassficationService {
 
 	@Override
 	public BoxClassification get(String id) {
-
-		// TODO Auto-generated method stub
-		return null;
+		return boxClassficationMapper.selectByPrimaryKey(id);
 
 	}
 

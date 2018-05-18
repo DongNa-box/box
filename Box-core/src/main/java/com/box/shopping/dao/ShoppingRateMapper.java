@@ -3,6 +3,8 @@ package com.box.shopping.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.box.boxmanage.model.BoxType;
 import com.box.framework.base.dao.BaseMapper;
 import com.box.shopping.model.ShoppingRate;
@@ -14,7 +16,7 @@ public interface ShoppingRateMapper extends BaseMapper<ShoppingRate, String>{
 	 
 	List<Map<String, Object>> getRateList(Map<String, Object> map);
 	 
-	ShoppingRate getByType(int type);
+	ShoppingRate getByType(@Param(value="type") int type);
 
 	List<ShoppingRate> getAllList();
 

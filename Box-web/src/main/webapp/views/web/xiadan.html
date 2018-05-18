@@ -950,8 +950,8 @@ $(function(){
         	ajaxPost(basePath+"/web/createShoppingandLayout", {
 				params:JSON.stringify(formParams)
 				}, function(data) {
-					if(data.shoppingId!=null){
-						var boxid = sessionStorage.setItem("shoppingId",data.shoppingId);
+					if(data!=null){
+						var boxid = sessionStorage.setItem("shoppingId",data);
 						loadPage(basePath+"/web/layout");
 						}else{
 						layer.alert("操作失败");

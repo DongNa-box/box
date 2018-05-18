@@ -21,12 +21,13 @@
     <result column="hmax" jdbcType="DOUBLE" property="hmax" />
     <result column="lmax" jdbcType="DOUBLE" property="lmax" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="createby" jdbcType="VARCHAR" property="createby" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="BoxType_Column_List">
     boxId, name, dime, pla, plan, phy,dxf, description, classId, detail1, detail2, detail3, 
-    wmin, hmin, lmin, wmax, hmax, lmax, unit, createby, createtime
+    wmin, hmin, lmin, wmax, hmax, lmax, unit,type, createby, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BoxTypeResultMap">
     select 
@@ -112,14 +113,14 @@
       classId, detail1, detail2, 
       detail3, wmin, hmin, 
       lmin, wmax, hmax, lmax, 
-      unit, createby, createtime
+      unit, type,createby, createtime
       )
     values (#{boxid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{dime,jdbcType=VARCHAR}, 
       #{pla,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{phy,jdbcType=VARCHAR},  #{dxf,jdbcType=VARCHAR},
       #{description,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, #{detail1,jdbcType=VARCHAR}, #{detail2,jdbcType=VARCHAR}, 
       #{detail3,jdbcType=VARCHAR}, #{wmin,jdbcType=DOUBLE}, #{hmin,jdbcType=DOUBLE}, 
       #{lmin,jdbcType=DOUBLE}, #{wmax,jdbcType=DOUBLE}, #{hmax,jdbcType=DOUBLE}, #{lmax,jdbcType=DOUBLE}, 
-      #{unit,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      #{unit,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.box.boxmanage.model.BoxType">
@@ -181,6 +182,9 @@
       </if>
       <if test="unit != null">
         unit,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="createby != null">
         createby,
@@ -247,6 +251,9 @@
       <if test="unit != null">
         #{unit,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
       <if test="createby != null">
         #{createby,jdbcType=VARCHAR},
       </if>
@@ -312,6 +319,9 @@
       <if test="unit != null">
         unit = #{unit,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
       <if test="createby != null">
         createby = #{createby,jdbcType=VARCHAR},
       </if>
@@ -341,6 +351,7 @@
       hmax = #{hmax,jdbcType=DOUBLE},
       lmax = #{lmax,jdbcType=DOUBLE},
       unit = #{unit,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
     where boxId = #{boxid,jdbcType=VARCHAR}
   </update>
   <select id="getWebBoxTypeList" resultType="map">

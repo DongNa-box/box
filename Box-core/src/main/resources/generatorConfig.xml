@@ -16,22 +16,22 @@
 		</commentGenerator>
 		<!--数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://127.0.0.1:3306/dongnabox" userId="root" password="123456">
+			connectionURL="jdbc:mysql://127.0.0.1:3306/newbox" userId="root" password="123456">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="com.box.boxmanage.model" targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.box.shopping.model" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成映射文件的包名和位置 -->
-		<sqlMapGenerator targetPackage="mapper.boxmanage" targetProject="src/main/resources">
+		<sqlMapGenerator targetPackage="mapper.shopping" targetProject="src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 -->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.box.boxmanage.dao" targetProject="src/main/java">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.box.shopping.dao" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -44,12 +44,12 @@
 			<property name="useActualColumnNames" value="false"/>
 		</table>
  --> 
-		<table tableName="t_box_type" domainObjectName="BoxType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table tableName="t_shopping_detail" domainObjectName="ShoppingDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="false"/>
 		</table> 
-		<table tableName="t_box_classification" domainObjectName="BoxClassification" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<!-- <table tableName="t_box_classification" domainObjectName="BoxClassification" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="false"/>
-		</table> 
+		</table>  -->
 		<!--<table tableName="t_uums_rolefunction" domainObjectName="RoleFunction" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="false"/>
 		</table> 

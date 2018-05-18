@@ -6,6 +6,15 @@ public class PaibanResult {
     private int m;//x边方向的个数
     private int n;//y边方向的个数
     private double p;//利用率
+    private String xid;
+    
+	
+	public String getXid() {
+		return xid;
+	}
+	public void setXid(String xid) {
+		this.xid = xid;
+	}
 	public int getX() {
 		return x;
 	}

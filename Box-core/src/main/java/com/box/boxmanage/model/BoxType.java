@@ -41,8 +41,18 @@ public class BoxType implements Serializable {
     private Double lmax;
 
     private Integer unit;
+    
+    private Integer type;
 
-    private String createby;
+    public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	private String createby;
 
     private Date createtime;
 
@@ -217,15 +227,6 @@ public class BoxType implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "BoxType [boxid=" + boxid + ", name=" + name + ", dime=" + dime + ", pla=" + pla + ", plan=" + plan
-				+ ", phy=" + phy + ", dxf=" + dxf + ", description=" + description + ", classid=" + classid
-				+ ", detail1=" + detail1 + ", detail2=" + detail2 + ", detail3=" + detail3 + ", wmin=" + wmin
-				+ ", hmin=" + hmin + ", lmin=" + lmin + ", wmax=" + wmax + ", hmax=" + hmax + ", lmax=" + lmax
-				+ ", unit=" + unit + ", createby=" + createby + ", createtime=" + createtime + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -247,6 +248,7 @@ public class BoxType implements Serializable {
 		result = prime * result + ((phy == null) ? 0 : phy.hashCode());
 		result = prime * result + ((pla == null) ? 0 : pla.hashCode());
 		result = prime * result + ((plan == null) ? 0 : plan.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
 		result = prime * result + ((wmax == null) ? 0 : wmax.hashCode());
 		result = prime * result + ((wmin == null) ? 0 : wmin.hashCode());
@@ -352,6 +354,11 @@ public class BoxType implements Serializable {
 				return false;
 		} else if (!plan.equals(other.plan))
 			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
 		if (unit == null) {
 			if (other.unit != null)
 				return false;
@@ -369,6 +376,17 @@ public class BoxType implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "BoxType [boxid=" + boxid + ", name=" + name + ", dime=" + dime + ", pla=" + pla + ", plan=" + plan
+				+ ", phy=" + phy + ", dxf=" + dxf + ", description=" + description + ", classid=" + classid
+				+ ", detail1=" + detail1 + ", detail2=" + detail2 + ", detail3=" + detail3 + ", wmin=" + wmin
+				+ ", hmin=" + hmin + ", lmin=" + lmin + ", wmax=" + wmax + ", hmax=" + hmax + ", lmax=" + lmax
+				+ ", unit=" + unit + ", type=" + type + ", createby=" + createby + ", createtime=" + createtime + "]";
+	}
+
+	
 
    
 }

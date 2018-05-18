@@ -111,6 +111,7 @@ public class BoxTypeController {
 	    	box.setWmin(Double.parseDouble(request.getParameter("wmin")));
 	    	box.setHmax(Double.parseDouble(request.getParameter("hmax")));
 	    	box.setHmin(Double.parseDouble(request.getParameter("hmin")));
+	    	box.setType(Integer.parseInt(request.getParameter("type")));
 	    	//设置单位,默认mm
 	    	box.setUnit(Integer.parseInt(request.getParameter("unit")));
 	    	if(box.getBoxid()==null || box.getBoxid().equals("")){
