@@ -96,7 +96,7 @@
     <!-- /.login-box -->
 </div>
 </div>
-   <script type="text/javascript">
+<script type="text/javascript">
 	var basePath="${basePath}";//给外部js文件传递路径参数
 	var apiHost="${apiHost}";
 	var softwareVersionUrl="${softwareVersionUrl}";
@@ -202,6 +202,7 @@
 
     function registerDiv(){
     	$("#denglu").hide();
+    	console.log(basePath+"/register");
     	loadLogin(basePath+"/register");
         }
     </script>

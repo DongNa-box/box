@@ -45,7 +45,7 @@ public class RegisterContoller {
 	 private static final Logger LOGGER = LoggerFactory.getLogger(RegisterContoller.class);
 
 	 private final static String LOGIN_PAGE = "login";
-	 private final static String REGISTER_PAGE = "register";
+	 private final static String REGISTER_PAGE = "redirect:/register";
 	 @Resource
 	 UserService userService;
 	 

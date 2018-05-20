@@ -1,5 +1,36 @@
-
- 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="PdoneCI">
+    <meta property="wb:webmaster" content="4f7a2b4a630250fe" />
+    <title>东纳包装盒 | 注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/x-icon" href="${basePath}/assets/common/favicon.ico"/>
+  	<!-- Bootstrap -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/bootstrap/css/bootstrap.min.css">
+  	<!-- Font Awesome --> 
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/font-awesome-master/css/font-awesome.min.css">
+    <!-- Ionicons -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/dist/css/AdminLTE.css">
+    <!-- iCheck -->
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/iCheck/square/blue.css">
+  	<link rel="stylesheet" href="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/css/bootstrap-validator.css"/>
+    <style type="text/css">
+		.loginBg{width: 100%;height: 88%;background: url("${basePath}/assets/common/images/background1.jpg") no-repeat;background-size: cover;padding-top: 80px;padding-bottom: 25px;}
+		<!--.title{color:white;font-size:16px;}-->
+    </style>
+	
+</head>
+<!--  .title{color:white;font-size:16px;}
+<body class="hold-transition login-page">
+-->
+<body>
+<div class="loginBg" id="loginDiv" > 
 <div class="login-box">
     <!-- /.login-logo -->
 	 <div class="login-logo">
@@ -44,13 +75,28 @@
                 </div>
             </div>
         </form>
-		<a href="${basePath}/toLogin" class="text-center"><b><--返回登录</b></a>
+		<a href="${basePath}/login" class="text-center"><b><--返回登录</b></a>
         <!-- /.login-box-body -->
     </div>
     <!-- /.login-box -->
 </div>
-
-
+</div>
+<script type="text/javascript">
+	var basePath="${basePath}";//给外部js文件传递路径参数
+	var apiHost="${apiHost}";
+	var softwareVersionUrl="${softwareVersionUrl}";
+</script> 
+ <!-- jQuery 2.2.3 -->
+    <script src="${basePath}/assets/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="${basePath}/assets/adminlte/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="${basePath}/assets/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-validator-->
+	<script src="${basePath}/assets/adminlte/plugins/bootstrap-validator/dist/js/bootstrap-validator.js"></script>
+    <script src="${basePath}/assets/common/js/login.js"></script>
+    <script src="${basePath}/assets/common/js/base.js"></script>
+ 
 
 <script>
     $(function () {
@@ -143,3 +189,5 @@
         </#if>
     });
 </script>
+</body>
+</html>
