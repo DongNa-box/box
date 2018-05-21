@@ -148,13 +148,27 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.box.technology.model.TechnologyPrice">
-    update t_technology_price
-    set tid = #{tid,jdbcType=VARCHAR},
-      pid = #{pid,jdbcType=VARCHAR},
-      color_num = #{colorNum,jdbcType=INTEGER},
-      style = #{style,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DOUBLE},
-      unit = #{unit,jdbcType=VARCHAR},
+     update t_technology_price
+    <set>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNum != null">
+        color_num = #{colorNum,jdbcType=INTEGER},
+      </if>
+      <if test="style != null">
+        style = #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+    </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

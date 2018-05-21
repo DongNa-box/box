@@ -35,7 +35,7 @@
     <include refid="TechnologyDetail_Column_List" />
     from t_technology_detail
     <where>
-    level = #{level,jdbcType=VARCHAR} 
+    level = #{level,jdbcType=VARCHAR}  and enabled='1' and description!='纸张克数'
      <if test="cname !=null and cname !=''">
       and cname= #{cname,jdbcType=VARCHAR}
     </if>
@@ -70,6 +70,7 @@
     SELECT a.*,b.name as parentName from t_technology_detail a
     left join t_technology_detail b
     on a.parentId=b.id
+    where a.enabled=1
     order by a.cname,a.parentId
    </select>
   
@@ -217,5 +218,6 @@
     select 
     <include refid="TechnologyDetail_Column_List" />
     from t_technology_detail
+    where enabled=1 and cname!='3'
   </select>
 </mapper>

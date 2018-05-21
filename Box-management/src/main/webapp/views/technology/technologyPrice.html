@@ -163,6 +163,7 @@
 							  <option value="元/吨">元/吨</option>
 							  <option value="元/令">元/令</option>
 							  <option value="元/色令">元/色令</option>
+							  <option value="元/印张">元/印张</option>
 							  <option value="元/平方米">元/平方米</option>
 							</select>
 						</div>
@@ -306,6 +307,13 @@ $(function(){
 						message : '请输入工艺描述'
 					}
 				}
+			},
+			unit : {
+				validators : {
+					notEmpty : {
+						message : '请选择单位'
+					}
+				}
 			}
 		},
 
@@ -361,11 +369,16 @@ $(function(){
 	       var selected=$(this).children('option:selected').val();
 	       var name=$("#groupid1").children('option:selected').text();//groupid1的值
 	       var cname=$("#cname").val();
-	       if(selected!=""&&name=="印刷颜色"){
+	       console.log(name);
+	       console.log(cname);
+	       if(selected!=""&&name=="印刷纸质"){
 	        setSelect('groupid3',selected,"2",cname,null);
-	        setSelect('style',null,"1","1",null);
-	        $('#divgroupid4').show();
-	       }
+	        
+	       }else  if(selected!=""&&name=="印刷颜色") {
+	    	 setSelect('groupid3',selected,"2",cname,null);
+		     setSelect('style',null,"1","1",null);
+		     $('#divgroupid4').show();
+		   }
 	 });
 	
 });
@@ -387,10 +400,21 @@ $(function(){
 	}
 	 
 	 function setScanSelect(selected){
+		    //console.log(selected);
 			$("#divgroupid1").show();
 			setSelect('groupid1',null,"0",null,selected.pid);
 	        $("#divgroupid2").show();
-	        setSelect('groupid2',$('#groupid1').val(),"1",null,selected.tid);
+	        setSelect('groupid2',$('#groupid1').val(),"1",null,selected.tid); 
+		    var name=$("#groupid1").children('option:selected').text();//groupid1的值
+		    var cname=$("#cname").val();
+		   if(selected!=""&&name=="印刷纸质"){
+		        setSelect('groupid3',selected,"2",cname,null);
+		        
+		       }else  if(selected!=""&&name=="印刷颜色") {
+		    	 setSelect('groupid3',selected,"2",cname,null);
+			     setSelect('style',null,"1","1",null);
+			     $('#divgroupid4').show();
+		  }
 	 }
 	 /**
 	  * 设置类型级别为0级的下拉列表

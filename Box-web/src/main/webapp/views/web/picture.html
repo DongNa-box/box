@@ -223,12 +223,12 @@ $(function(){
 			var detail2 = $("#search-detail2 option:selected").val();
 			var params={"search-box":classid,"search-detail0":detail0,"search-detail1":detail1,
 					"search-detail2":detail2}
-			console.log(JSON.stringify(params));
+			//console.log(JSON.stringify(params));
 			ajaxPost(basePath + "/web/pictureList", {
 				params:JSON.stringify(params)
 				
 			}, function(data) {
-				console.log(JSON.stringify(data));
+				//console.log(JSON.stringify(data));
 				//dataImg=data;
 				getPage(data,1);
 			});	
@@ -268,7 +268,7 @@ $(function(){
 	  
 	//查询全部图表列表
 		ajaxPost(basePath + "/web/pictureList", null, function(data) {
-				console.log(JSON.stringify(data));
+				//console.log(JSON.stringify(data));
 				//dataImg=data;
 				getPage(data,1);
 				});	
@@ -282,7 +282,7 @@ $(function(){
 function setBox(selectid){
 	var basePath="${basePath}";
 	ajaxPost(basePath+"/web/boxTree", null, function(data) {
-		console.log("查询下拉列表"+JSON.stringify(data));
+		//console.log("查询下拉列表"+JSON.stringify(data));
 		var $select = $('#'+selectid);  
 		$select.empty();
 		if(data.length==0){
@@ -316,7 +316,7 @@ function setBoxType(boxId){
 			var c=data[i]; 
 			 var a = c.nodes;
 			   if(c.id==boxId){
-				   console.log(JSON.stringify(a));
+				   //console.log(JSON.stringify(a));
 				   
 				   for(var j=0,len29 = a.length;j<len29;j++){
 					   if(a.length==0){
@@ -331,7 +331,7 @@ function setBoxType(boxId){
 					   $("#divgroupid"+j).show();
 					   $("#detail"+j).text(dtext);
 					   if(d.nodes!=null&&d.nodes.length>0){
-						   console.log(JSON.stringify(d.nodes));
+						   //console.log(JSON.stringify(d.nodes));
 						   var e = d.nodes;
 						   for(var k=0,len30 = e.length;k<len30;k++){
 							   var f=e[k];
@@ -410,7 +410,7 @@ function setBoxType(boxId){
 	 }
 	//翻页
 	  function getPage(dataImg,pn){
-		console.log(JSON.stringify(dataImg));
+		//console.log(JSON.stringify(dataImg));
 	    var dataCount=dataImg.length;//总数据条数
 	    var pageSize=12;//每页显示条数
 	    var pageCount= Math.ceil(dataCount / pageSize);//总页数
@@ -433,7 +433,7 @@ function setBoxType(boxId){
 						$("#box"+i).val(dataImg[i].boxId);
 						$("#boxName"+i).html(dataImg[i].name);
 						var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i].boxId+"/plan/"+dataImg[i].plan;
-						console.log(imgUrl);
+						//console.log(imgUrl);
 						$("#img"+i).attr("src",imgUrl);
 						/* $("#img"+i).attr("src",data[i].pla); */
 						}
@@ -444,7 +444,7 @@ function setBoxType(boxId){
 							$("#box"+i).val(dataImg[i+page].boxId);
 							$("#boxName"+i).html(dataImg[i+page].name);
 							var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
-							console.log(imgUrl);
+							//console.log(imgUrl);
 							$("#img"+i).attr("src",imgUrl);
 							/* $("#img"+i).attr("src",data[i].pla); */
 							}
@@ -454,7 +454,7 @@ function setBoxType(boxId){
 								$("#box"+i).val(dataImg[i+page].boxId);
 								$("#boxName"+i).html(dataImg[i+page].name);
 								var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
-								console.log(imgUrl);
+								//console.log(imgUrl);
 								$("#img"+i).attr("src",imgUrl);
 								/* $("#img"+i).attr("src",data[i].pla); */
 								}

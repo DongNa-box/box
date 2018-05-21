@@ -145,42 +145,17 @@
 <div class="form-group" >
 	<label class="col-sm-12 control-label" ></label>
 </div>
-
+            <label class="col-sm-4 control-label" >纸张材质：</label>
 			<div class="form-group dowebok" id="printPaperId">
-				<label class="col-sm-4 control-label" >纸张材质：</label>
-				
-				    <div class="col-sm-2">
-					<input type="radio" name="printPaperId" id="printPaperId0" checked  class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<input type="radio" name="printPaperId" id="printPaperId1"  class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<input type="radio" name="printPaperId" id="printPaperId2" class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<input type="radio" name="printPaperId" id="printPaperId3" class="form-control">
-					</div>
-				</div> 
+
+			</div> 
 <div class="form-group" >
 	<label class="col-sm-12 control-label" ></label>
 </div>
+            <label class="col-sm-4 control-label" >纸张克数：</label>
 			<div class="form-group dowebok" id="paperGramsId">
-				<label class="col-sm-4 control-label" >纸张克数：</label>
-				  <div class="col-sm-2">
-					<input type="radio" name="paperGramsId" id="paperGramsId0" checked class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<!-- <button type="button" data-btn-type="search" id="parper1" class="btn btn-block btn-default">
-					灰卡</button> -->
-					<input type="radio" name="paperGramsId" id="paperGramsId1" class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<input type="radio" name="paperGramsId" id="paperGramsId2" class="form-control">
-					</div>
-					<div class="col-sm-2">
-					<input type="radio" name="paperGramsId" id="paperGramsId3" class="form-control">
-					</div>
+	
+
 				</div>
 <div class="form-group" >
 	<label class="col-sm-12 control-label" ></label>
@@ -675,35 +650,114 @@ $(function(){
 		console.log(data);
 		for(var i=0,len1 = data.length;i<len1;i++){
 			if(data[i].text=="收货区域"){
-				for(var j=0,len2 = data[i].nodes.length;j<len2;j++){
-					
-					$("#receiveAreaId"+j).labelauty({
-						checked_label: data[i].nodes[j].text,
-						unchecked_label: data[i].nodes[j].text
-						});
-				$("#receiveAreaId"+j).val(data[i].nodes[j].id);
-				$("#receiveAreaId").val(data[i].id);
+				node=data[i].nodes;
+				if(node!=null){
+					len2=node.length;
+				if(len2!=''&&len2!=null){
+					for(var j=0,len2 = data[i].nodes.length;j<len2;j++){
+						$("#receiveAreaId"+j).labelauty({
+							checked_label: data[i].nodes[j].text,
+							unchecked_label: data[i].nodes[j].text
+							});
+		            $("#receiveAreaId"+j).val(data[i].nodes[j].id);
+					$("#receiveAreaId").val(data[i].id);
+					}
+			     }
 				}
 				}else if(data[i].text=="印刷纸质"){
 				array=data[i].nodes;
-				for(var j=0,len3 = data[i].nodes.length;j<len3;j++){
-				$("#printPaperId"+j).labelauty({
-						checked_label: data[i].nodes[j].text,
-						unchecked_label: data[i].nodes[j].text
-						});
-			
-				$("#printPaperId"+j).val(data[i].nodes[j].id);
-				$("#printPaperId").val(data[i].id);
+				if(array!=null){
+					len3 =array.length;
+			        count=0;
+					 for(var j=0;j<len3;j++){
+					   var	array1=array[j].nodes;
+					    if(array1!=null){
+					    	for(var k=0;k<array1.length;k++){
+					         var t=array1[k].text;
+					         if(isNaN(t)){ 
+		
+					        	 var c='<div class="col-sm-1"><input type="radio" name="printPaperId" id="printPaperId'+count+'" '
+								 var c1='checked class="form-control"></div>'
+								 var c2='class="form-control"></div>'
+						         if(count==0){
+						        	 $("#printPaperId").append(c+c1);	 	 
+						          }else{
+						        	  $("#printPaperId").append(c+c2);	 	  
+						          }
+					        	 count=count+1;
+					        
+					         }
+							}
+					    }
+					  
+					 }
+					  m=count;
+					  ct=0;
+					   for(var j=0;j<len3;j++){
+						   var	array1=array[j].nodes;
+						 if(array1!=null){
+							 for(var k=0;k<array1.length;k++){
+								 var t=array1[k].text;
+						         if(isNaN(t)){
+						        	if(ct<m){
+									   $("#printPaperId"+ct).labelauty({
+											checked_label: array1[k].text,
+									 		unchecked_label: array1[k].text
+									   });
+								
+									   $("#printPaperId"+ct).val(array1[k].id);
+									   $("#printPaperId").val(array1[k].id); 
+									   ct=ct+1;
+						        	}
+						         }
+							 }
+						 }
+					 
+					  }
+					   gt=0;
+					   //for(var j=0;j<len3;j++){
+						   var	array1=array[0].nodes;
+						    if(array1!=null){
+						    	for(var k=0;k<array1.length;k++){
+						         var t=array1[k].text;
+						         if(!isNaN(t)){ 
+                                	 var c='<div class="col-sm-1"><input type="radio" name="paperGramsId" id="paperGramsId'+gt+'" '
+									 var c1='checked class="form-control"></div>'
+									 var c2='class="form-control"></div>'
+							         if(gt==0){
+							        	 $("#paperGramsId").append(c+c1);	 	 
+							          }else{
+							        	  $("#paperGramsId").append(c+c2);	 	  
+							          }
+						        	 gt=gt+1;
+						         }
+								}
+						  }
+					  //}
+					  m=gt;
+				      ct=0;
+						  // for(var j=0;j<len3;j++){
+							   var	array1=array[0].nodes;
+							 if(array1!=null){
+								 for(var k=0;k<array1.length;k++){
+									 var t=array1[k].text;
+							         if(!isNaN(t)){
+							        	if(ct<m){
+										   $("#paperGramsId"+ct).labelauty({
+												checked_label: array1[k].text,
+										 		unchecked_label: array1[k].text
+										   });
+									
+										   $("#paperGramsId"+ct).val(array1[k].id);
+										   ct=ct+1;
+							        	}
+							         }
+								 }
+							 }
+						 
+						  //}
 
-				}
-				for(var k=0,len8 = array[0].nodes.length;k<len8;k++){
-					$("#paperGramsId"+k).labelauty({
-						checked_label: array[0].nodes[k].text,
-						unchecked_label: array[0].nodes[k].text
-						});
-					$("#paperGramsId"+k).val(array[0].nodes[k].id);
-					
-				}
+			  }
 			}else if(data[i].text=="印刷颜色"){
 					for(var j=0,len4 = data[i].nodes.length;j<len4;j++){
 					$("#printColorId"+j).labelauty({
