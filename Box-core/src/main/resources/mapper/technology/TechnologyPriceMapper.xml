@@ -32,6 +32,24 @@
    left join t_technology_detail d
    on a.style=d.id
   </select>
+  <select id="technologyPriceSearchList" parameterType="java.util.Map" resultType="map">
+   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname  from t_technology_price a
+   left join t_technology_detail b
+   on a.tid=b.id
+   left join t_technology_detail c
+   on a.pid=c.id
+   left join t_technology_detail d
+   on a.style=d.id
+    <where>
+       b.name LIKE CONCAT(CONCAT('%', #{map.name}),'%')
+         <if test="map.parentId != null and map.parentId!= '' ">
+           and a.pid=#{map.parentId}
+         </if>
+         <if test="map.cname != null and map.cname != '' ">
+           and c.cname=#{map.cname }
+         </if>
+      </where>
+  </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_technology_price

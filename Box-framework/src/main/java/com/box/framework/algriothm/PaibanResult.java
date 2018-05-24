@@ -7,8 +7,22 @@ public class PaibanResult {
     private int n;//y边方向的个数
     private double p;//利用率
     private String xid;
+    private int t;
+    private int g;
     
 	
+	public int getT() {
+		return t;
+	}
+	public void setT(int t) {
+		this.t = t;
+	}
+	public int getG() {
+		return g;
+	}
+	public void setG(int g) {
+		this.g = g;
+	}
 	public String getXid() {
 		return xid;
 	}

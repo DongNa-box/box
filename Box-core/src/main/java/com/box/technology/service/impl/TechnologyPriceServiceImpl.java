@@ -114,7 +114,7 @@ public class TechnologyPriceServiceImpl implements TechnologyPriceService {
 	public List<Map<String, Object>> technologyPriceSearchList(Map<String, Object> map) {
 		
 		// TODO Auto-generated method stub
-		return null;
+		return technologyPriceMapper.technologyPriceSearchList(map);
 		
 	}
 

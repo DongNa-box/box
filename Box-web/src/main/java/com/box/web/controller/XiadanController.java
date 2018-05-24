@@ -41,6 +41,7 @@ import com.box.framework.utils.Sequence;
 import com.box.shopping.model.LayoutDetail;
 import com.box.shopping.model.LayoutSize;
 import com.box.shopping.model.ShoppingDetail;
+import com.box.shopping.model.ShoppingPantone;
 import com.box.shopping.model.ShoppingRate;
 import com.box.shopping.service.LayoutDetailService;
 import com.box.shopping.service.LayoutSizeService;
@@ -168,11 +169,24 @@ public class XiadanController {
 		shoppingDetail.setPrintPaperId(jsonObj.getString("printPaperId"));
 		shoppingDetail.setPaperGramsId(jsonObj.getString("paperGramsId"));
 		shoppingDetail.setPrintColorId(jsonObj.getString("printColorId"));
-		
+		ShoppingPantone shoppingPantone=new ShoppingPantone();
 		//0单色 1多色
 		if (jsonObj.getString("colorFlag")!="") {
 			if (jsonObj.getString("colorFlag").equals("0")) {
-				shoppingDetail.setPantoneId(jsonObj.getString("pantoneId"));
+
+				shoppingPantone.setId(Sequence.nextId());
+				shoppingPantone.setColorNum("1");
+				shoppingPantone.setAttr1(jsonObj.getString("attr1"));
+				shoppingPantoneService.save(shoppingPantone);
+				shoppingDetail.setPantoneId(shoppingPantone.getId());
+			}else{
+				shoppingPantone.setId(Sequence.nextId());
+				shoppingPantone.setColorNum(jsonObj.getString("colorNumber"));
+				shoppingPantone.setAttr1(jsonObj.getString("attr1"));
+				shoppingPantone.setAttr1(jsonObj.getString("attr2"));
+				shoppingPantone.setAttr1(jsonObj.getString("attr3"));
+				shoppingPantoneService.save(shoppingPantone);
+				shoppingDetail.setPantoneId(shoppingPantone.getId());
 			}
 			
 		}
@@ -219,7 +233,31 @@ public class XiadanController {
 			shoppingDetail.setUvLength(0.0);
 			shoppingDetail.setUvWidth(0.0);
 			shoppingDetail.setUvUnit(0);
+		}if (jsonObj.getString("isMosha")!=null&jsonObj.getString("isMosha")!="") {
+			shoppingDetail.setIsMosha(1);
+			shoppingDetail.setMoshaLength(Double.parseDouble(jsonObj.getString("moshaLength")));
+			shoppingDetail.setMoshaWidth(Double.parseDouble(jsonObj.getString("moshaWidth")));
+			shoppingDetail.setMoshaUnit(Integer.valueOf(jsonObj.getString("moshaUnit")));
+		}else {
+			shoppingDetail.setIsMosha(0);
+			shoppingDetail.setMoshaLength(0.0);
+			shoppingDetail.setMoshaWidth(0.0);
+			shoppingDetail.setMoshaUnit(0);
+		}if (jsonObj.getString("isZhouwen")!=null&jsonObj.getString("isZhouwen")!="") {
+			shoppingDetail.setIsZhouwen(1);
+			shoppingDetail.setZhouwenLength(Double.parseDouble(jsonObj.getString("zhouwenLength")));
+			shoppingDetail.setZhouwenWidth(Double.parseDouble(jsonObj.getString("zhouwenWidth")));
+			shoppingDetail.setZhouwenUnit(Integer.valueOf(jsonObj.getString("zhouwenUnit")));
+		}else {
+			shoppingDetail.setIsZhouwen(0);
+			shoppingDetail.setZhouwenLength(0.0);
+			shoppingDetail.setZhouwenWidth(0.0);
+			shoppingDetail.setZhouwenUnit(0);
 		}
+		shoppingDetail.setBaozhuangId(jsonObj.getString("baozhuangId"));
+		shoppingDetail.setYawenId(jsonObj.getString("yawenId"));
+		shoppingDetail.setZhanheId(jsonObj.getString("zhanheId"));
+		shoppingDetail.setMoqieId(jsonObj.getString("moqieId"));
 		shoppingDetail.setReceiveAreaId(jsonObj.getString("receiveAreaId"));
 		shoppingDetail.setPrintNumber(Integer.valueOf(jsonObj.getString("printNumber")));
 		
@@ -230,12 +268,17 @@ public class XiadanController {
     	List<Integer> paperSize=new ArrayList<Integer>();	
     	for(LayoutSize size:sizeList){
     		if(size.getType()==0&&size.getName().equals("7")){
-    			if(size.getSize()>1000){
-    				paperSize.add(size.getSize()/2);//表示纸张尺寸可2开	
-    				paperSize.add(size.getSize()/3);//表示纸张尺寸可3开
-    			}else{
+    			if (size.getSize()>420&size.getSize()<1000) {
     				paperSize.add(size.getSize());
+				}
+    			if(size.getSize()/2>420&size.getSize()/2<1000){
+    				paperSize.add(size.getSize()/2);//表示纸张尺寸可2开	
+    				
     			}
+    			if (size.getSize()/3>420&size.getSize()/3<1000) {
+    				paperSize.add(size.getSize()/3);//表示纸张尺寸可2开	
+    				
+				}
     		
     		}
     		if(size.getName().equals("0")){
@@ -258,6 +301,21 @@ public class XiadanController {
     		}
     		if(size.getName().equals("6")){
     			sizeMap.put("gmax", size.getSize());
+    		}
+    		if(size.getName().equals("8")){
+    			sizeMap.put("zhjjmin", size.getSize());
+    		}
+    		if(size.getName().equals("9")){
+    			sizeMap.put("xdmin", size.getSize());
+    		}
+    		if(size.getName().equals("10")){
+    			sizeMap.put("ydmin", size.getSize());
+    		}
+    		if(size.getName().equals("11")){
+    			sizeMap.put("t", size.getSize());
+    		}
+    		if(size.getName().equals("12")){
+    			sizeMap.put("g", size.getSize());
     		}
     	}
     	sizeMap.put("boxWidth", layoutDetail.getBoxWidth());
@@ -303,7 +361,7 @@ public class XiadanController {
         int papernumber = (int) Math.ceil(count);//纸张数量
         int cnumber=0;//印刷令数
         float pprice=0;//印刷纸质价格
-        float cprice = 0;//单色价格
+        
        float colorbanfei=0;
        float colordanjia=0;
        float danprice=0;
@@ -323,7 +381,7 @@ public class XiadanController {
  		float uvqibu=0;
  		float uvdanjia=0;
  		float uvprice=0;
- 		float pvckaiji=0;
+ 		
 		float pvcqibu=0;
 		float pvcdanjia=0;
 		float pvcprice=0;
@@ -342,11 +400,14 @@ public class XiadanController {
 		float yawenprice=0;
 		float moqiebanfei=0;
 		float moqieprice=0;
-		float moqieqibu=0;
+		
 		float moqiedanjia=0;
 		float zhanhedanjia=0;
 		float zhanheprice=0;
 		float baozhuangk=0;
+		float baozhuang4k=0;
+		float baozhuang9k=0;
+		float baozhuang18k=0;
 		float baozhuangdanjia=0;
 		float transprice=0;
 		float transdanjia=0;
@@ -365,7 +426,7 @@ public class XiadanController {
 						}else if (m.get("tname").equals("单色价格")) {
 							danprice=Float.parseFloat(m.get("price").toString());//1(一个颜色40)
 						}else if (m.get("tname").equals("专色价格")) {
-							danprice=Float.parseFloat(m.get("price").toString());//1.3(一个颜色40)
+							zhuanprice=Float.parseFloat(m.get("price").toString());//1.3(一个颜色40)
 						}
 		        		
 		        	}
@@ -380,7 +441,7 @@ public class XiadanController {
 						}else if (m.get("tname").equals("单色价格")) {
 							danprice=Float.parseFloat(m.get("price").toString());//1(一个颜色40)
 						}else if (m.get("tname").equals("专色价格")) {
-							danprice=Float.parseFloat(m.get("price").toString());//1.3(一个颜色40)
+							zhuanprice=Float.parseFloat(m.get("price").toString());//1.3(一个颜色40)
 						}
 	            	}
 	        	}
@@ -423,9 +484,7 @@ public class XiadanController {
 	  	       }
 	           }
 	           if(shoppingDetail.getIsPvc().equals("1")){
-		   	      if(m.get("pname").equals("PVC")&&m.get("tname").equals("开机费")){
-		   	    	    pvckaiji=Float.parseFloat(m.get("price").toString());
-			       }
+		   	     
 		   	      if(m.get("pname").equals("PVC")&&m.get("tname").equals("起步价")){
 		   	    	    pvcqibu=Float.parseFloat(m.get("price").toString());
 			       }
@@ -434,14 +493,14 @@ public class XiadanController {
 		       }
 	           }
 	           if (shoppingDetail.getIsMosha().equals("1")) {
-	        	   if(m.get("pname").equals("磨砂")&&m.get("tname").equals("版费")){
-		   	    	    moqiebanfei=Float.parseFloat(m.get("price").toString());
+	        	   if(m.get("pname").equals("磨砂")&&m.get("tname").equals("开机费")){
+		   	    	    moshakaiji=Float.parseFloat(m.get("price").toString());
 			       }
 	        	   if(m.get("pname").equals("磨砂")&&m.get("tname").equals("单价")){
-		   	    	    moqiedanjia=Float.parseFloat(m.get("price").toString());
+		   	    	    moshadanjia=Float.parseFloat(m.get("price").toString());
 			       }
 	        	   if(m.get("pname").equals("磨砂")&&m.get("tname").equals("起步价")){
-		   	    	    moqieqibu=Float.parseFloat(m.get("price").toString());
+		   	    	    moshaqibu=Float.parseFloat(m.get("price").toString());
 			       }
 			}
 	           if (shoppingDetail.getIsZhouwen().equals(1)) {
@@ -467,9 +526,7 @@ public class XiadanController {
 			       }
 	        	}
 	           if (m.get("tid").equals(shoppingDetail.getMoqieId())) {
-	        	   if(m.get("pname").equals("模切")&&m.get("tname").equals("起步价")){
-		   	    	    moqieqibu=Float.parseFloat(m.get("price").toString());
-			       }
+	        	   
 	        	   if(m.get("pname").equals("模切")&&m.get("tname").equals("版费")){
 		   	    	    moqiebanfei=Float.parseFloat(m.get("price").toString());
 			       }
@@ -489,13 +546,13 @@ public class XiadanController {
 			       }
 	        	   if(m.get("pname").equals("k值")){
 	        		   if (m.get("tname").equals("4k")) {
-						baozhuangk=Float.parseFloat(m.get("price").toString());
+						baozhuang4k=Float.parseFloat(m.get("price").toString());
 					}
 	        		   if (m.get("tname").equals("9k")) {
-							baozhuangk=Float.parseFloat(m.get("price").toString());
+							baozhuang9k=Float.parseFloat(m.get("price").toString());
 						}
 	        		   if (m.get("tname").equals("18k")) {
-							baozhuangk=Float.parseFloat(m.get("price").toString());
+							baozhuang18k=Float.parseFloat(m.get("price").toString());
 						}
 		   	    	 
 			       }
@@ -530,18 +587,13 @@ public class XiadanController {
 				 cnumber=5;
 			 }
 			 float printprice=0;
+			 pantonenumber=Integer.parseInt(shoppingPantone.getColorNum());
 			 if (jsonObj.getString("colorFlag").equals("0")) {
 					//0单色1多色
-				 if (shoppingPantoneService.get(shoppingDetail.getPantoneId())!=null) {
-					 pantonenumber=Integer.parseInt(shoppingPantoneService.get(shoppingDetail.getPantoneId()).getColorNum());
-				}else {
-					pantonenumber=0;
-				}
-			   		printprice=colorbanfei+colordanjia*cnumber*danprice;
-				}else {
+			   		printprice=(float) (colorbanfei*1+colordanjia*cnumber*(1*danprice+zhuanprice*pantonenumber));
+				}else {					
 					printprice=(float) (colorbanfei*(4+pantonenumber)+colordanjia*cnumber*(4*danprice+zhuanprice*pantonenumber));
-				}
-			
+				}			
 		     System.out.println("印刷价格："+getDecimal(printprice));
 		     shoppingDetail.setColorPrice(getDecimal(Double.valueOf(printprice)));
 	   	  
@@ -676,16 +728,12 @@ public class XiadanController {
 //		     * 版费： 统一收费：500
 //		     计算方式：
 //		     0.03*印张数量+500元
-		     if (papernumber*yawendanjia<moqieqibu) {
-					moqieprice=moqieqibu+moqiebanfei;
-				}else {
-					moqieprice=papernumber*moqiedanjia+moqiebanfei;
-				}
+		    
+		     	moqieprice=papernumber*moqiedanjia+moqiebanfei;
+				
 			     System.out.println("模切价格结果："+getDecimal(moqieprice));
 			     shoppingDetail.setMoqiePrice(getDecimal(Double.valueOf(moqieprice)));
-		     //计算总价
-		     System.out.println("运输费用"+getDecimal(moqieprice));
-		     shoppingDetail.setMoqiePrice(getDecimal(Double.valueOf(moqieprice)));
+		    
 //		     12.粘盒：
 //		     计算方式：
 //		     0.05*用户输入的那个盒子总数
@@ -699,13 +747,14 @@ public class XiadanController {
 //		     (纸张数量*盒子数量（每印张）/200)*1 （4k-9K盒）
 //		     (纸张数量*盒子数量（每印张）/600)*1 （9k-18k）
 		     int bao=0;
-		     if (xl*yl<=4) {
-				bao=(int) (printnumber/50);
-			}else if (xl*yl>4&xl*yl<=9) {
-				bao=(int) (printnumber/200);
-			}else if (xl*yl>9&xl*yl<=18) {
-				bao=(int) (printnumber/600);
+		     if (xl*yl<=4) {	
+				baozhuangk=baozhuang4k;
+			}else if (xl*yl>4&xl*yl<=9) {	
+				baozhuangk=baozhuang9k;
+			}else if (xl*yl>9&xl*yl<=18) {	
+				baozhuangk=baozhuang18k;
 			}
+		     bao=(int) (printnumber/baozhuangk);
 		     baozhuangprice=(papernumber*xl*yl/baozhuangk)*baozhuangdanjia;
 		     System.out.println("包装价格结果："+getDecimal(baozhuangprice));
 		     shoppingDetail.setBaozhuangPrice(getDecimal(Double.valueOf(baozhuangprice)));
