@@ -17,7 +17,7 @@
               <h3 class="box-title"><b>排版效果展示图</b></h3>
 			 <div class="btn-group pull-right">
 				<a href="" id="excelAddress" class="btn btn-default"><i class="fa fa-download"></i>订单详情（excel）</a>
-				<a href="" id="dxfAddress" class="btn btn-warning"><i class="fa fa-download"></i>排版图（dxf）</a>
+				<a href="javascript:void(0)" id="dxfAddress" class="btn btn-warning"><i class="fa fa-download"></i>排版图（dxf）</a>
 						
 					</div>
 			  </div>
@@ -41,7 +41,7 @@
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-4 control-label" >颜色价格：</label>
+				<label class="col-sm-4 control-label" >印刷价格：</label>
 				<div class="col-sm-6">
 					<input id="colorPrice" name="colorPrice" readonly type="text" class="form-control" >
 				</div>
@@ -87,7 +87,52 @@
 				</div>
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
-
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >磨砂价格：</label>
+				<div class="col-sm-6">
+					<input id="moshaPrice" name="moshaPrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >皱纹价格：</label>
+				<div class="col-sm-6">
+					<input id="zhouwenPrice" name="zhouwenPrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >压纹价格：</label>
+				<div class="col-sm-6">
+					<input id="yawenPrice" name="yawenPrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >模切价格：</label>
+				<div class="col-sm-6">
+					<input id="moqiePrice" name="moqiePrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >粘盒价格：</label>
+				<div class="col-sm-6">
+					<input id="zhanhePrice" name="zhanhePrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" >包装价格：</label>
+				<div class="col-sm-6">
+					<input id="baozhuangPrice" name="baozhuangPrice" readonly type="text" class="form-control" >
+				</div>
+				<label class="col-sm-2 control-label" >元</label>
+			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >运输费：</label>
 				<div class="col-sm-6">
@@ -140,7 +185,7 @@
 </section>
 
 <!-- 查看图片的弹窗 -->
-	<div class="modal-dialog">
+	<!-- <div class="modal-dialog">
 		<div class="modal-content">
 			<form class="form-horizontal" action="" id="form" method="post">
 				<div class="modal-header">
@@ -159,7 +204,7 @@
 			   	</div>			
 			</form>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <script src="${basePath}/assets/adminlte/plugins/bootstrap-table/bootstrap-table.js"></script>
@@ -181,6 +226,12 @@ $(function(){
 				$("#convexPrice").val(data.convexPrice);
 				$("#uvPrice").val(data.uvPrice);
 				$("#pvcPrice").val(data.pvcPrice);
+				$("#moshaPrice").val(data.moshaPrice);
+				$("#zhouwenPrice").val(data.zhouwenPrice);
+				$("#yawenPrice").val(data.yawenPrice);
+				$("#moqiePrice").val(data.moqiePrice);
+				$("#zhanhePrice").val(data.zhanhePrice);
+				$("#baozhuangPrice").val(data.baozhuangPrice);
 				$("#taxPrice").val(data.taxPrice);
 				$("#managementPrice").val(data.managementPrice);
 				$("#transportPrice").val(data.transportPrice);
@@ -188,7 +239,7 @@ $(function(){
 				$("#printNumber").val(data.printNumber);
 				$("#unitPrice").val(data.unitPrice);
 				sessionStorage.setItem("layoutId",data.layoutId);
-				$("#excelAddress").attr("href","${basePath}/res/excel/"+data.shoppingId+"/"+data.excelAddress);
+				$("#excelAddress").attr("href","../images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
 				}
 			});
 	var layoutId=sessionStorage.getItem("layoutId");
@@ -197,8 +248,8 @@ $(function(){
 		params:JSON.stringify(params1)
 		}, function(data) {
 			if(data!=null){
-			$("#pictureAddress").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.id+"/"+data.pictureAddress);
-			$("#dxfAddress").attr("href","${basePath}/res/dxf/"+data.id+"/"+data.dxfAddress);
+			$("#pictureAddress").attr("src","../images/LayoutDetail/"+data.id+"/previewimageadress/"+data.pictureAddress);
+			//$("#dxfAddress").attr("href","${basePath}/res/dxf/"+data.id+"/"+data.dxfAddress);
 				}
 		});
 });

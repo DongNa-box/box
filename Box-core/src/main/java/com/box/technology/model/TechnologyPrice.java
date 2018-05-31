@@ -10,7 +10,7 @@ public class TechnologyPrice implements Serializable {
 
     private String pid;
 
-    private Integer colorNum;
+    private String mid;
 
     private String style;
 
@@ -48,12 +48,12 @@ public class TechnologyPrice implements Serializable {
         this.pid = pid == null ? null : pid.trim();
     }
 
-    public Integer getColorNum() {
-        return colorNum;
+    public String getMid() {
+        return mid;
     }
 
-    public void setColorNum(Integer colorNum) {
-        this.colorNum = colorNum;
+    public void setMid(String mid) {
+        this.mid  = mid == null ? null : mid.trim();
     }
 
     public String getStyle() {
@@ -111,7 +111,7 @@ public class TechnologyPrice implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTid() == null ? other.getTid() == null : this.getTid().equals(other.getTid()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
-            && (this.getColorNum() == null ? other.getColorNum() == null : this.getColorNum().equals(other.getColorNum()))
+            && (this.getMid() == null ? other.getMid() == null : this.getMid().equals(other.getMid()))
             && (this.getStyle() == null ? other.getStyle() == null : this.getStyle().equals(other.getStyle()))
             && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
             && (this.getUnit() == null ? other.getUnit() == null : this.getUnit().equals(other.getUnit()))
@@ -126,7 +126,7 @@ public class TechnologyPrice implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTid() == null) ? 0 : getTid().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
-        result = prime * result + ((getColorNum() == null) ? 0 : getColorNum().hashCode());
+        result = prime * result + ((getMid() == null) ? 0 : getMid().hashCode());
         result = prime * result + ((getStyle() == null) ? 0 : getStyle().hashCode());
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getUnit() == null) ? 0 : getUnit().hashCode());
@@ -144,7 +144,7 @@ public class TechnologyPrice implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", tid=").append(tid);
         sb.append(", pid=").append(pid);
-        sb.append(", colorNum=").append(colorNum);
+        sb.append(", mid=").append(mid);
         sb.append(", style=").append(style);
         sb.append(", price=").append(price);
         sb.append(", unit=").append(unit);

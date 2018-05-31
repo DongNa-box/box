@@ -5,7 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="tid" jdbcType="VARCHAR" property="tid" />
     <result column="pid" jdbcType="VARCHAR" property="pid" />
-    <result column="color_num" jdbcType="INTEGER" property="colorNum" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
     <result column="style" jdbcType="VARCHAR" property="style" />
     <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
@@ -13,7 +13,7 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="TechnologyPrice_Column_List">
-    id, tid, pid, color_num, style, price, unit, createby, createtime
+    id, tid, pid, mid, style, price, unit, createby, createtime
   </sql>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TechnologyPriceResultMap">
@@ -24,24 +24,31 @@
   </select>
  
    <select id="getAllPriceList" parameterType="java.lang.String" resultType="map">
-   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname  from t_technology_price a
+   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname,e.name as mname  from t_technology_price a
    left join t_technology_detail b
    on a.tid=b.id
    left join t_technology_detail c
    on a.pid=c.id
    left join t_technology_detail d
    on a.style=d.id
+   left join t_technology_detail e
+   on a.mid=e.id
   </select>
   <select id="technologyPriceSearchList" parameterType="java.util.Map" resultType="map">
-   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname  from t_technology_price a
+   SELECT a.*,b.name as tname,c.`name` as pname,c.cname,d.name as sname,e.name as mname  from t_technology_price a
    left join t_technology_detail b
    on a.tid=b.id
    left join t_technology_detail c
    on a.pid=c.id
    left join t_technology_detail d
    on a.style=d.id
+   left join t_technology_detail e
+   on a.mid=c.id
     <where>
-       b.name LIKE CONCAT(CONCAT('%', #{map.name}),'%')
+    1=1
+      <if test="map.name != null and map.name!= '' ">
+       and b.name LIKE CONCAT(CONCAT('%', #{map.name}),'%')
+       </if>
          <if test="map.parentId != null and map.parentId!= '' ">
            and a.pid=#{map.parentId}
          </if>
@@ -66,11 +73,11 @@
    
   <insert id="insert" parameterType="com.box.technology.model.TechnologyPrice">
     insert into t_technology_price (id, tid, pid, 
-      color_num, style, price, 
+      mid, style, price, 
       unit, createby, createtime
       )
     values (#{id,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
-      #{colorNum,jdbcType=INTEGER}, #{style,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{mid,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
       #{unit,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -86,8 +93,8 @@
       <if test="pid != null">
         pid,
       </if>
-      <if test="colorNum != null">
-        color_num,
+      <if test="mid != null">
+        mid,
       </if>
       <if test="style != null">
         style,
@@ -115,8 +122,8 @@
       <if test="pid != null">
         #{pid,jdbcType=VARCHAR},
       </if>
-      <if test="colorNum != null">
-        #{colorNum,jdbcType=INTEGER},
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
       </if>
       <if test="style != null">
         #{style,jdbcType=VARCHAR},
@@ -144,8 +151,8 @@
       <if test="pid != null">
         pid = #{pid,jdbcType=VARCHAR},
       </if>
-      <if test="colorNum != null">
-        color_num = #{colorNum,jdbcType=INTEGER},
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
       </if>
       <if test="style != null">
         style = #{style,jdbcType=VARCHAR},
@@ -174,8 +181,8 @@
       <if test="pid != null">
         pid = #{pid,jdbcType=VARCHAR},
       </if>
-      <if test="colorNum != null">
-        color_num = #{colorNum,jdbcType=INTEGER},
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
       </if>
       <if test="style != null">
         style = #{style,jdbcType=VARCHAR},

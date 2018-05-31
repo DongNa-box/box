@@ -178,7 +178,18 @@ public class ExcelUtil {
 	         WritableWorkbook book;
 	         try {
 	             // 根据路径生成excel文件
-	             book = Workbook.createWorkbook(new File(filePath));
+	        	 File targetFile = new File(filePath);
+	        	 if(!targetFile.exists()){
+	        		    //先得到文件的上级目录，并创建上级目录，在创建文件
+	        		 targetFile.getParentFile().mkdirs();
+	        		    try {
+	        		        //创建文件
+	        		    	targetFile.createNewFile();
+	        		    } catch (IOException e) {
+	        		        e.printStackTrace();
+	        		    }
+	        		}
+	             book = Workbook.createWorkbook(targetFile);
 	             // 创建一个sheet名为"表格"
 	             WritableSheet sheet = book.createSheet("内部格式", 0);
 	             WritableSheet sheet1 = book.createSheet("在线格式", 1);

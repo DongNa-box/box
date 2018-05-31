@@ -79,7 +79,10 @@
       <include refid="TechnologyDetail_Column_List" />
       from t_technology_detail
       <where>
+      1=1
+      <if test="map.name != null and map.name!= '' ">
        name LIKE CONCAT(CONCAT('%', #{map.name}),'%')
+       </if>
          <if test="map.parentId != null and map.parentId!= '' ">
            and parentId=#{map.parentId}
          </if>

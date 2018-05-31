@@ -49,6 +49,7 @@
 							  <option value="">--请选择--</option>
 							  <option value="1">纸张</option>
 							  <option value="2">工艺</option>
+							  <option value="3">费用属性</option>
 							</select>
 						</div>	
 					</div>
@@ -80,7 +81,8 @@
 							<tr>
 								<th data-checkbox="true" class="select-checkbox"></th>
 								<th data-align="center" data-field="tname" data-sortable="true">工艺名称</th>
-								<th data-align="center" data-field="pname" data-sortable="true">工艺类型</th>
+								<th data-align="center" data-field="mname" data-sortable="true">工艺二级类型</th>
+								<th data-align="center" data-field="pname" data-sortable="true">工艺一级类型</th>
 								<th data-align="center" data-field="sname" data-sortable="true">纸质</th>
 								<th data-align="center" data-field="price" data-sortable="true">工艺价格</th>
 								<th data-align="center" data-field="unit" data-sortable="true">单位</th>
@@ -115,6 +117,7 @@
 							  <option value="">--请选择--</option>
 							  <option value="1">纸张</option>
 							  <option value="2">工艺</option>
+							  <option value="3">费用属性</option>
 							</select>
 						</div>
 					</div>
@@ -165,6 +168,10 @@
 							  <option value="元/色令">元/色令</option>
 							  <option value="元/印张">元/印张</option>
 							  <option value="元/平方米">元/平方米</option>
+							  <option value="元/个">元/个</option>
+							  <option value="元/包">元/包</option>
+							  <option value="元/箱">元/箱</option>
+							  <option value="个/包">个/包</option>
 							</select>
 						</div>
 					</div>
@@ -323,7 +330,8 @@ $(function(){
         	var groupid2=$('#groupid2').val();
         	var groupid3=$('#groupid3').val();
         	if(groupid3!=null && groupid3!=""){
-        		formParams.pid=groupid2;
+        		formParams.pid=groupid1;
+        		formParams.mid=groupid2;
         		formParams.tid=groupid3;
         	}else{
         		formParams.pid=groupid1;
@@ -374,11 +382,21 @@ $(function(){
 	       if(selected!=""&&name=="印刷纸质"){
 	        setSelect('groupid3',selected,"2",cname,null);
 	        
-	       }else  if(selected!=""&&name=="印刷颜色") {
+	       }else if(selected!=""&&name=="印刷颜色") {
 	    	 setSelect('groupid3',selected,"2",cname,null);
 		     setSelect('style',null,"1","1",null);
 		     $('#divgroupid4').show();
-		   }
+		   }else if(selected!=""&&name=="压纹"){
+			   setSelect('groupid3',selected,"2",cname,null);
+			     
+			   }else if(selected!=""&&name=="包装"){
+				   setSelect('groupid3',selected,"2",cname,null);
+				     
+			   }
+			   else if(selected!=""&&name=="粘盒"){
+				   setSelect('groupid3',selected,"2",cname,null);
+				     
+			   }
 	 });
 	
 });
@@ -400,21 +418,23 @@ $(function(){
 	}
 	 
 	 function setScanSelect(selected){
-		    //console.log(selected);
+		    console.log(selected);
 			$("#divgroupid1").show();
 			setSelect('groupid1',null,"0",null,selected.pid);
 	        $("#divgroupid2").show();
-	        setSelect('groupid2',$('#groupid1').val(),"1",null,selected.tid); 
-		    var name=$("#groupid1").children('option:selected').text();//groupid1的值
-		    var cname=$("#cname").val();
-		   if(selected!=""&&name=="印刷纸质"){
-		        setSelect('groupid3',selected,"2",cname,null);
-		        
-		       }else  if(selected!=""&&name=="印刷颜色") {
-		    	 setSelect('groupid3',selected,"2",cname,null);
-			     setSelect('style',null,"1","1",null);
+	        if(selected.mid!=null&&selected.mid!=""){
+	        	setSelect('groupid2',$('#groupid1').val(),"1",null,selected.mid);
+	 		    var cname=$("#cname").val();
+	        	setSelect('groupid3',$('#groupid2').val(),"2",null,selected.tid);
+	        	$("#divgroupid3").show();	
+		    }else{
+		        setSelect('groupid2',$('#groupid1').val(),"1",null,selected.tid);  
+			}
+	        if(selected.style!=null&&selected.style!=""){
+	        	setSelect('style',null,"1","1",selected.style);
 			     $('#divgroupid4').show();
-		  }
+		        } 
+		  
 	 }
 	 /**
 	  * 设置类型级别为0级的下拉列表
@@ -453,4 +473,5 @@ $(function(){
 	 		}
 	 	});
 	 }
+	
 </script>

@@ -53,7 +53,7 @@
         data-placement="bottom" title="底部的 Tooltip" alt="First slide"> 
 			  <div class="row" >
 					<div class="thumbnail-item"> 
-						<a href="#">
+						<a href="javascript:getPicture(1)">
 							<img src="${basePath}/assets/common/images/1.jpg" id="img1" width="80" height="80" border="0"
 							 class="thumbnail" alt="First slide">
 						</a>
@@ -63,7 +63,7 @@
 						</div>   
 					</div>
 					<div class="thumbnail-item"> 
-						<a href="#">
+						<a href="javascript:getPicture(2)">
 							<img src="${basePath}/assets/common/images/1.jpg" id="img2"  width="80" height="80" border="0"
 							 class="thumbnail" alt="First slide">
 						</a>
@@ -73,7 +73,7 @@
 						</div>					
 					</div>
 					<div class="thumbnail-item"> 
-						<a href="#">
+						<a href="javascript:getPicture(3)">
 							<img src="${basePath}/assets/common/images/1.jpg" id="img3"  width="80" height="80" border="0"
 						 class="thumbnail" alt="First slide">
 						</a>
@@ -91,7 +91,7 @@
 			<form id="xiadan-form" action="" class="form-horizontal" method="post">
 			
 			<div class="form-group">
-				<label class="col-sm-4 control-label" >成品尺寸：</label> 
+				<label class="col-sm-3 control-label" >成品尺寸：</label> 
 				<label class="col-sm-2 control-label" >长：</label>
 				<div class="col-sm-4">
 					<input id="boxLength" name="boxLength" type="text" class="form-control" >
@@ -105,11 +105,11 @@
 					</select>
 					</div>
 					</div>
-            <div class="form-group" >
+           <!--  <div class="form-group" >
 	          <label class="col-sm-12 control-label" ></label>
-             </div>
+             </div> -->
 				<div class="form-group">
-				    <label class="col-sm-4 control-label" ></label> 
+				    <label class="col-sm-3 control-label" ></label> 
 					<label class="col-sm-2 control-label" >宽：</label>
 					<div class="col-sm-4">
 					<input id="boxWidth" name="boxWidth"  type="text" class="form-control" >
@@ -123,11 +123,11 @@
 					</select>
 					</div>
 					</div>
-			<div class="form-group" >
+			<!-- <div class="form-group" >
 				<label class="col-sm-12 control-label" ></label>
-			</div>
+			</div> -->
 			<div class="form-group">
-				    <label class="col-sm-4 control-label" ></label> 
+				    <label class="col-sm-3 control-label" ></label> 
 					<label class="col-sm-2 control-label" >高：</label>
 					<div class="col-sm-4">
 					<input id="boxHeight" name="boxHeight" type="text" class="form-control" >
@@ -142,89 +142,71 @@
 					</div>
 				</div> 
 			
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
-            <label class="col-sm-4 control-label" >纸张材质：</label>
+
+            <label class="col-sm-3 control-label" >纸张材质：</label>
 			<div class="form-group dowebok" id="printPaperId">
 
 			</div> 
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
-            <label class="col-sm-4 control-label" >纸张克数：</label>
+
+            <label class="col-sm-3 control-label" >纸张克数：</label>
 			<div class="form-group dowebok" id="paperGramsId">
+			</div>
 	
+			<label class="col-sm-3 control-label" >纸张颜色：</label>
+			<div class="form-group dowebok" id="color">
+			
+			</div>
 
+			<label class="col-sm-3 control-label" ></label>
+			<div class="form-group dowebok" id="papercolortype0" style="display:none">	
+			</div>
+
+			<label class="col-sm-2 control-label" ></label>
+				<div class="form-group dowebok" id="papercolortype1" style="display:none">
+						
+				<label class="col-sm-2 control-label" >专色数量：</label> 
+				<div class="col-sm-2">
+				<select name="colorNumber" id="colorNumber" class="form-control">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select>
 				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>			
-			
-				<label class="col-sm-4 control-label" >纸张颜色：</label>
-				<div class="form-group dowebok" id="printColorId">
 				
-				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
-			
+			</div>
+				
+			<div class="form-group dowebok" id="pantoneId" style="display:none">
 				<label class="col-sm-2 control-label" ></label>
-				<div class="form-group dowebok" id="papercolortype0" style="display:none">	
+			
+				<label class="col-sm-4 control-label" >请填写PANTONE色号：</label>
+				<div class="col-sm-2">
+					<input id="attr1" name="attr1" type="text" class="form-control" >
 				</div>
+				<div class="col-sm-2">
+					<input id="attr2" name="attr2" type="text" class="form-control" style="display:none">
+				</div>
+				<div class="col-sm-2">
+					<input id="attr3" name="attr3" type="text" class="form-control" style="display:none">
+				</div>
+			</div>
 
-				<label class="col-sm-4 control-label" ></label>
-					<div class="form-group " id="papercolortype1" style="display:none">
-							
-					<label class="col-sm-2 control-label" >专色数量：</label> 
-					<div class="col-sm-4">
-					<select name="colorNumber" id="colorNumber" class="form-control">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-					</select>
-					</div>
-					
-				</div>
-				
-				<div class="form-group dowebok" id="pantoneId" style="display:none">
-					<label class="col-sm-2 control-label" ></label>
-				
-					<label class="col-sm-2 control-label" >请填写PANTONE色号：</label>
-					<div class="col-sm-2">
-						<input id="attr1" name="attr1" type="text" class="form-control" >
-					</div>
-					<div class="col-sm-2">
-						<input id="attr2" name="attr2" type="text" class="form-control" style="display:none">
-					</div>
-					<div class="col-sm-2">
-						<input id="attr3" name="attr3" type="text" class="form-control" style="display:none">
-					</div>
-				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
 			
-				<label class="col-sm-4 control-label" >印刷保护：</label>
-				<div class="form-group dowebok" id="surfaceTreatmentId">
-				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+			<label class="col-sm-3 control-label" >印刷保护：</label>
+			<div class="form-group dowebok" id="surfaceTreatmentId">
+			</div>
+
 			
-				<label class="col-sm-4 control-label" >增加其他工艺：</label>
-				<div class="form-group dowebok" id="technology">
+			<label class="col-sm-3 control-label" >增加其他工艺：</label>
+			<div class="form-group dowebok" id="technology">
 					
 			</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 
 			<div class="form-group dowebok" id="bronzing" style="display:none">
-				<label class="col-sm-4 control-label" >烫金：</label>
+				<label class="col-sm-2 control-label" >烫金：</label>
 				<label class="col-sm-1 control-label" >长：</label>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
 					<input id="bronzingLength" name="bronzingLength" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -236,7 +218,7 @@
 					</select>
 					</div>
 					<label class="col-sm-1 control-label" >宽：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 					<input id="bronzingWidth" name="bronzingWidth" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -248,14 +230,12 @@
 					</select>
 					</div>
 			</div> 
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 		
 			<div class="form-group" id="convex" style="display:none">
-				<label class="col-sm-4 control-label" >击凸：</label>
+				<label class="col-sm-2 control-label" >击凸：</label>
 				<label class="col-sm-1 control-label" >长：</label>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
 					<input id="convexLength" name="convexLength" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -267,7 +247,7 @@
 					</select>
 					</div>
 					<label class="col-sm-1 control-label" >宽：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 					<input id="convexWidth" name="convexWidth" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -279,13 +259,11 @@
 					</select>
 					</div>
 				</div> 
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 			<div class="form-group" id="pvc" style="display:none">
-				<label class="col-sm-4 control-label" >PVC：</label>
+				<label class="col-sm-2 control-label" >PVC：</label>
 				<label class="col-sm-1 control-label" >长：</label>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
 					<input id="pvcLength" name="pvcLength" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -297,7 +275,7 @@
 					</select>
 					</div>
 					<label class="col-sm-1 control-label" >宽：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 					<input id="pvcWidth" name="pvcWidth" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -309,13 +287,11 @@
 					</select>
 					</div>
 				</div> 
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 				<div class="form-group" id="uv" style="display:none">
-				<label class="col-sm-4 control-label" >UV：</label>
+				<label class="col-sm-2 control-label" >UV：</label>
 				<label class="col-sm-1 control-label" >长：</label>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
 					<input id="uvLength" name="uvLength" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -327,7 +303,7 @@
 					</select>
 					</div>
 					<label class="col-sm-1 control-label" >宽：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 					<input id="uvWidth" name="uvWidth" type="text" class="form-control" >
 					</div>
 					<div class="col-sm-2">
@@ -339,13 +315,11 @@
 					</select>
 					</div>
 				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 			<div class="form-group dowebok" id="mosha" style="display:none">
-					<label class="col-sm-4 control-label" >磨砂：</label>
+					<label class="col-sm-2 control-label" >磨砂：</label>
 					<label class="col-sm-1 control-label" >长：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 						<input id="moshaLength" name="moshaLength" type="text" class="form-control" >
 						</div>
 						<div class="col-sm-2">
@@ -357,7 +331,7 @@
 						</select>
 						</div>
 						<label class="col-sm-1 control-label" >宽：</label>
-						<div class="col-sm-1">
+						<div class="col-sm-2">
 						<input id="moshaWidth" name="moshaWidth" type="text" class="form-control" >
 						</div>
 						<div class="col-sm-2">
@@ -369,13 +343,11 @@
 						</select>
 						</div>
 				</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div> 
+
 				<div class="form-group dowebok" id="zhouwen" style="display:none">
-					<label class="col-sm-4 control-label" >皱纹：</label>
+					<label class="col-sm-2 control-label" >皱纹：</label>
 					<label class="col-sm-1 control-label" >长：</label>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 						<input id="zhouwenLength" name="zhouwenLength" type="text" class="form-control" >
 						</div>
 						<div class="col-sm-2">
@@ -387,7 +359,7 @@
 						</select>
 						</div>
 						<label class="col-sm-1 control-label" >宽：</label>
-						<div class="col-sm-1">
+						<div class="col-sm-2">
 						<input id="zhouwenWidth" name="zhouwenWidth" type="text" class="form-control" >
 						</div>
 						<div class="col-sm-2">
@@ -407,7 +379,7 @@
 				<label class="col-sm-3 control-label" >粘盒：</label>	
 			</div>
 			<div class="form-group dowebok" id="moqieId" style="display:none">
-				<label class="col-sm-3 control-label" >粘盒：</label>	
+				<label class="col-sm-3 control-label" >模切：</label>	
 			</div>
 			<div class="form-group dowebok" id="baozhuangId" >
 				<label class="col-sm-3 control-label" >包装：</label>	
@@ -415,9 +387,7 @@
 			<div class="form-group dowebok" id="receiveAreaId" >
 				<label class="col-sm-3 control-label" >收货区域：</label>	
 			</div>
-<div class="form-group" >
-	<label class="col-sm-12 control-label" ></label>
-</div>
+
 			<div class="form-group dowebok" >
 				<label class="col-sm-3 control-label" >定做数量：</label>
 					<div class="col-sm-3">
@@ -492,7 +462,6 @@ $(function(){
 	$("#papercolortype0").show();
 	var colorFlag="0";
 	var array=null;
-	var lmin=null,lmax=null,wmin=null,wmax=null,hmin=null,hmax=null;
 	//单位统一
 	$("#boxUnit").change(function(){
 		var selected=$(this).children('option:selected').val(); 
@@ -580,17 +549,11 @@ $(function(){
 		$("#img1").attr("src","http://139.199.159.121:8080/images/BoxType/1524627135192000/dime/1524627135192000-2018-04-25-11-32-15.jpg");//平面图
 		$("#img2").attr("src","http://139.199.159.121:8080/images/BoxType/1524627135192000/dime/1524627135192000-2018-04-25-11-32-15.jpg");//立体图
 		$("#img3").attr("src","http://139.199.159.121:8080/images/BoxType/1524627135192000/dime/1524627135192000-2018-04-25-11-32-15.jpg");//实物图  */
-	 	$("#img0").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxId+"/plan/"+data.plan);//平面图
-		$("#img1").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxId+"/plan/"+data.plan);//平面图
-		$("#img2").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxId+"/dime/"+data.dime);//立体图
-		$("#img3").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxId+"/phy/"+data.phy);//实物图 
-		lmin=parseInt(data.lmin);
-		lmax=parseInt(data.lmax);
-		wmin=parseInt(data.wmin);
-		wmax=parseInt(data.wmax);
-		hmin=parseInt(data.hmin);
-		hmax=parseInt(data.hmax);
-		console.log(lmin+"*"+lmax+"*"+wmin+"*"+wmax+"*"+hmin+"*"+hmax);
+	 	$("#img0").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img1").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img2").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/dime/"+data.dime);//立体图
+		$("#img3").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/phy/"+data.phy);//实物图 
+		
 		});
 	ajaxPost(basePath+"/web/technology", null, function(data) {
 		console.log(data);
@@ -600,7 +563,7 @@ $(function(){
 				$("#receiveAreaId").val(data[i].id);
 				if(arr!=null){
 			    	for(var k=0;k<arr.length;k++){
-                    	 var c='<div class="col-sm-1"><input type="radio" name="receiveAreaId" id="receiveAreaId'+k+'" '
+                    	 var c='<div class="col-sm-3"><input type="radio" name="receiveAreaId" id="receiveAreaId'+k+'" '
 						 var c1='checked class="form-control"></div>'
 						 var c2='class="form-control"></div>'
 				         if(k==0){
@@ -713,7 +676,7 @@ $(function(){
 			  }
 			}else if(data[i].text=="印刷颜色"){
 				var arr =data[i].nodes;
-				$("#printColorId").val(data[i].id);
+				$("#color").val(data[i].id);
 				if(arr!=null){
 			    	for(var k=0;k<arr.length;k++){
                     	 var c='<div class="col-sm-1"><input type="radio" name="color" id="color'+k+'" '
@@ -728,11 +691,13 @@ $(function(){
 								checked_label: arr[k].text,
 						 		unchecked_label: arr[k].text
 						   });
-						   $("#color"+k).val(arr[k].id);
-						   var arr1=arr[k].nodes;
-						   var co=0;
-						   if(arr1!=null){
+						  
+						  $("#color"+k).val(arr[k].id);
+						   
 							   if(arr[k].text=="单色"){
+								   var arr1=arr[k].nodes;
+								   var co=0;
+								   if(arr1!=null){
 								   for(var j=0;j<arr1.length;j++){
 									   var c='<div class="col-sm-1"><input type="radio" name="printColorId" id="printColorId'+co+'" '
 										 var c1='checked class="form-control"></div>'
@@ -748,10 +713,16 @@ $(function(){
 										   });
 										   $("#printColorId"+co).val(arr1[j].id);
 										   co=co+1;
+										  
 								   }
-								   }else if(arr[k].text=="多色"){
+								   }
+								   }
+							   if(arr[k].text=="多色"){
+									   var arr1=arr[k].nodes;
+									   var co=0;
+									   if(arr1!=null){
 									   for(var j=0;j<arr1.length;j++){
-									   var c='<div class="col-sm-1"><input type="radio" name="printColorId" id="printColorId'+co+'" '
+									   var c='<div class="col-sm-1"><input type="radio" name="printColor" id="printColor'+co+'" '
 										 var c1='checked class="form-control"></div>'
 										 var c2='class="form-control"></div>'
 								         if(j==0){
@@ -759,18 +730,20 @@ $(function(){
 								          }else{
 								        	  $("#papercolortype1").append(c+c2);	 	  
 								          }
-										  $("#printColorId"+co).labelauty({
+										  $("#printColor"+co).labelauty({
 												checked_label: arr1[j].text,
 										 		unchecked_label: arr1[j].text
 										   });
-										   $("#printColorId"+co).val(arr1[j].id);
+										   $("#printColor"+co).val(arr1[j].id);
+										   co=co+1;
+									   }
 									   }
 									   }
 							   }
 						 
 			    	}
 			      
-					}
+					
 					
 				}else if(data[i].text=="表面处理"){
 					var arr =data[i].nodes;
@@ -860,7 +833,7 @@ $(function(){
 					$("#yawenId").val(data[i].id);
 					if(arr!=null){
 				    	for(var k=0;k<arr.length;k++){
-	                    	 var c='<div class="col-sm-1"><input type="radio" name="yawenId" id="yawenId'+k+'" '
+	                    	 var c='<div class="col-sm-3"><input type="radio" name="yawenId" id="yawenId'+k+'" '
 							 var c1='checked class="form-control"></div>'
 							 var c2='class="form-control"></div>'
 					         if(k==0){
@@ -882,7 +855,7 @@ $(function(){
 					$("#zhanheId").val(data[i].id);
 					if(arr!=null){
 				    	for(var k=0;k<arr.length;k++){
-	                    	 var c='<div class="col-sm-1"><input type="radio" name="zhanheId" id="zhanheId'+k+'" '
+	                    	 var c='<div class="col-sm-3"><input type="radio" name="zhanheId" id="zhanheId'+k+'" '
 							 var c1='checked class="form-control"></div>'
 							 var c2='class="form-control"></div>'
 					         if(k==0){
@@ -904,7 +877,7 @@ $(function(){
 					$("#baozhuangId").val(data[i].id);
 					if(arr!=null){
 				    	for(var k=0;k<arr.length;k++){
-	                    	 var c='<div class="col-sm-1"><input type="radio" name="baozhuangId" id="baozhuangId'+k+'" '
+	                    	 var c='<div class="col-sm-3"><input type="radio" name="baozhuangId" id="baozhuangId'+k+'" '
 							 var c1='checked class="form-control"></div>'
 							 var c2='class="form-control"></div>'
 					         if(k==0){
@@ -922,6 +895,7 @@ $(function(){
 						}
 				}else if(data[i].text=="模切"){
 					 $("#moqieId").val(data[i].id);
+
 					}
 
 			}
@@ -968,7 +942,7 @@ $(function(){
 	});
 	//专色点击
 	$(":radio[id='printColorId4']").click(function() {
-		if($(":radio[name='printColorId4']").prop("checked")){
+		if($(":radio[id='printColorId4']").prop("checked")){
 			$("#pantoneId").show();
 			$("#attr1").show();
 			$("#attr2").hide();
@@ -1028,6 +1002,7 @@ $(function(){
 		});
 	//颜色
 	$("#color0").click(function() {
+		$("#pantoneId").hide();
 		if($("#color0").prop("checked")){
 			colorFlag="0";
 			$("#papercolortype0").show();
@@ -1039,6 +1014,7 @@ $(function(){
 				}
 		});
 	$("#color1").click(function() {
+		$("#pantoneId").hide();
 		if($("#color1").prop("checked")){
 			colorFlag="1";
 			$("#papercolortype1").show();
@@ -1053,7 +1029,7 @@ $(function(){
 	$("#colorNumber").change(function(){
 		var selected=$(this).children('option:selected').val(); 
 		if(selected=="0"){
-			$("#pantoneId").show();
+			$("#pantoneId").hide();
 			$("#attr1").hide();
 			$("#attr2").hide();
 			$("#attr3").hide();
@@ -1269,6 +1245,7 @@ $(function(){
         	var formParams = $("#xiadan-form").serializeJSON();
         	formParams.boxId=boxId;
         	formParams.colorFlag=colorFlag;
+        	formParams.moqieId=$("#moqieId").val();
         	console.log(formParams); 
         	ajaxPost(basePath+"/web/createShoppingandLayout", {
 				params:JSON.stringify(formParams)
@@ -1316,5 +1293,8 @@ $(function(){
 		 $("#imageId").attr('src',imagePath);
 		 $('#modal-image').modal('toggle');
 	 } 
+	 function getPicture(n){
+		 $("#img0").attr("src",$("#img"+n).src);
+		 }
 
 </script>
