@@ -126,6 +126,7 @@
 								<option value="0" selected="selected">第0级</option>
 								<option value="1">第1级</option>
 								<option value="2">第2级</option>
+								<option value="3">第3级</option>
 							</select>
 						</div>
 					</div>
@@ -141,6 +142,13 @@
 						<label class="col-sm-5 control-label">工艺类型第1级<span style="color: red;">*</span></label>
 						<div class="col-sm-7">
 							<select id="groupid2"  class="form-control"> </select>
+						</div>
+					</div>
+					
+					<div class="form-group"  id="divgroupid3" style="display:none">
+						<label class="col-sm-5 control-label">工艺类型第2级<span style="color: red;">*</span></label>
+						<div class="col-sm-7">
+							<select id="groupid3"  class="form-control"> </select>
 						</div>
 					</div>
 					
@@ -203,6 +211,7 @@ $(function(){
 			$('#enabled').val('1');
 			$("#divgroupid1").hide();
 		    $("#divgroupid2").hide();
+		    $("#divgroupid3").hide();
 		    $('#saveBtn').show();
 			break;
 		case 'edit':
@@ -214,6 +223,7 @@ $(function(){
 			$("#flag").val("2");
 			$("#divgroupid1").hide();
 	    	$("#divgroupid2").hide();
+	    	$("#divgroupid3").hide();
 			$("#modalTechnologyDetailLabel").text("编辑工艺类型");
 			$("#modal-technologyDetail").modal("toggle");
 			technologyDetailForm.initFormData(selected[0]);
@@ -229,6 +239,7 @@ $(function(){
 			$("#flag").val("2");
 			$("#divgroupid1").hide();
 	    	$("#divgroupid2").hide();
+	    	$("#divgroupid3").hide();
 			$("#modalTechnologyDetailLabel").text("查看");
 			$("#modal-technologyDetail").modal("toggle");
 			technologyDetailForm.initFormData(selected[0]);
@@ -315,10 +326,16 @@ $(function(){
          	var formParams = form.serializeJSON();
          	var groupid1=$('#groupid1').val();
         	var groupid2=$('#groupid2').val();
-        	if(groupid2!=null&& groupid2!=""){
-        		formParams.parentId=groupid2;
-        	}else{
-        		formParams.parentId=groupid1;
+        	var groupid3=$('#groupid3').val();
+        	if(groupid3!=null&& groupid3!=""){
+        		formParams.parentId=groupid3;
+            }else{
+        		if(groupid2!=null&& groupid2!=""){
+            		formParams.parentId=groupid2;
+            	}else{
+            		formParams.parentId=groupid1;
+                }
+        		
         	}
         	ajaxPost(basePath + "/technology/editTechnologyDetail", {
         		params:JSON.stringify(formParams)
@@ -348,6 +365,13 @@ $(function(){
 	    	   $("#divgroupid1").show();
 		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null);
 		 	   $("#divgroupid2").show();
+	       }else if(selected=="3"){
+	    	   setSelect('groupid1',null,"0",null);
+	    	   $("#divgroupid1").show();
+		 	   setSelect('groupid2',$('#groupid1 option:eq(1)').val(),"1",null);
+		 	   $("#divgroupid2").show();
+		 	  setSelect('groupid3',$('#groupid2 option:eq(1)').val(),"2",null);
+		 	   $("#divgroupid3").show();
 	       }
 	   });
 	
@@ -357,6 +381,15 @@ $(function(){
 	       if(selected!="" && level=="2"){
 	        setSelect('groupid2',selected,"1",null);
 	        $("#divgroupid2").show();
+	       }
+	 });
+
+	 $("#groupid2").change(function(){
+	       var selected=$(this).children('option:selected').val()
+	       var level=$('#level').val();
+	       if(selected!="" && level=="3"){
+	        setSelect('groupid3',selected,"2",null);
+	        $("#divgroupid3").show();
 	       }
 	 });
 
@@ -378,6 +411,7 @@ $(function(){
 	}
 
 	 function setScanSelect(selected){
+		 
 		if(selected.level==1){
 			$("#divgroupid1").show();
 			setSelect('groupid1',null,"0",selected.parentId);
@@ -390,6 +424,25 @@ $(function(){
 			},  function(data){
 				setSelect('groupid1',null,"0",data.parentId);
 				setSelect('groupid2',data.parentId,"1",selected.parentId);
+	        });
+		}else if(selected.level==3){
+			$("#divgroupid1").show();
+			$("#divgroupid2").show();
+			$("#divgroupid3").show();
+			var levelid=null;
+			//通过2级id查1级id
+			ajaxPost(basePath + "/technology/getTechnologyByParentid", {
+	        	params:JSON.stringify(selected.parentId)
+			},  function(data){
+				setSelect('groupid2',null,"1",data.parentId);
+				setSelect('groupid3',data.parentId,"2",selected.parentId);
+				levelid = data.parentId; 
+	        });
+	        
+			ajaxPost(basePath + "/technology/getTechnologyByParentid", {
+	        	params:JSON.stringify(levelid)
+			},  function(data){
+				setSelect('groupid1',null,"0",data.parentId);
 	        });
 		}
 	 }

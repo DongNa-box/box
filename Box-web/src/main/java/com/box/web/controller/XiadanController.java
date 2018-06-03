@@ -148,7 +148,7 @@ public class XiadanController {
     	layoutDetail.setBoxLength(Double.parseDouble(jsonObj.getString("boxLength")));
 		layoutDetail.setBoxWidth(Double.parseDouble(jsonObj.getString("boxWidth")));
 		layoutDetail.setBoxHeight(Double.parseDouble(jsonObj.getString("boxHeight")));
-		layoutDetail.setBoxUnit(Integer.valueOf(jsonObj.getString("boxUnit")));
+		layoutDetail.setBoxUnit(0);
 		layoutDetail.setCreateby(SecurityUtil.getUser().getId());
 		layoutDetail.setCreatetime(DateUtil.getCurrDate());
 		layoutDetail.setPaperUnit(0);
@@ -205,7 +205,7 @@ public class XiadanController {
 			shoppingDetail.setIsBronzing(1);
 			shoppingDetail.setBronzingLength(Double.parseDouble(jsonObj.getString("bronzingLength")));
 			shoppingDetail.setBronzingWidth(Double.parseDouble(jsonObj.getString("bronzingWidth")));
-			shoppingDetail.setBronzingUnit(Integer.valueOf(jsonObj.getString("bronzingUnit")));
+			shoppingDetail.setBronzingUnit(0);
 		}else {
 			shoppingDetail.setIsBronzing(0);
 			shoppingDetail.setBronzingLength(0.0);
@@ -217,7 +217,8 @@ public class XiadanController {
 			shoppingDetail.setIsConvex(1);
 			shoppingDetail.setConvexLength(Double.parseDouble(jsonObj.getString("convexLength")));
 			shoppingDetail.setConvexWidth(Double.parseDouble(jsonObj.getString("convexWidth")));
-			shoppingDetail.setConvexUnit(Integer.valueOf(jsonObj.getString("convexUnit")));
+			//shoppingDetail.setConvexUnit(Integer.valueOf(jsonObj.getString("convexUnit")));
+			shoppingDetail.setConvexUnit(0);
 		}else{
 			shoppingDetail.setIsConvex(0);
 			shoppingDetail.setConvexLength(0.0);
@@ -227,7 +228,9 @@ public class XiadanController {
 			shoppingDetail.setIsPvc(1);
 			shoppingDetail.setPvcLength(Double.parseDouble(jsonObj.getString("pvcLength")));
 			shoppingDetail.setPvcWidth(Double.parseDouble(jsonObj.getString("pvcWidth")));
-			shoppingDetail.setPvcUnit(Integer.valueOf(jsonObj.getString("pvcUnit")));
+			//shoppingDetail.setPvcUnit(Integer.valueOf(jsonObj.getString("pvcUnit")));
+			shoppingDetail.setPvcUnit(0);
+
 		}else{
 			shoppingDetail.setIsPvc(0);
 			shoppingDetail.setPvcLength(0.0);
@@ -237,7 +240,9 @@ public class XiadanController {
 			shoppingDetail.setIsUv(1);
 			shoppingDetail.setUvLength(Double.parseDouble(jsonObj.getString("uvLength")));
 			shoppingDetail.setUvWidth(Double.parseDouble(jsonObj.getString("uvWidth")));
-			shoppingDetail.setUvUnit(Integer.valueOf(jsonObj.getString("uvUnit")));
+			//shoppingDetail.setUvUnit(Integer.valueOf(jsonObj.getString("uvUnit")));
+			shoppingDetail.setUvUnit(0);
+
 		}else {
 			shoppingDetail.setIsUv(0);
 			shoppingDetail.setUvLength(0.0);
@@ -247,7 +252,8 @@ public class XiadanController {
 			shoppingDetail.setIsMosha(1);
 			shoppingDetail.setMoshaLength(Double.parseDouble(jsonObj.getString("moshaLength")));
 			shoppingDetail.setMoshaWidth(Double.parseDouble(jsonObj.getString("moshaWidth")));
-			shoppingDetail.setMoshaUnit(Integer.valueOf(jsonObj.getString("moshaUnit")));
+			//shoppingDetail.setMoshaUnit(Integer.valueOf(jsonObj.getString("moshaUnit")));
+			shoppingDetail.setMoshaUnit(0);
 		}else {
 			shoppingDetail.setIsMosha(0);
 			shoppingDetail.setMoshaLength(0.0);
@@ -257,7 +263,7 @@ public class XiadanController {
 			shoppingDetail.setIsZhouwen(1);
 			shoppingDetail.setZhouwenLength(Double.parseDouble(jsonObj.getString("zhouwenLength")));
 			shoppingDetail.setZhouwenWidth(Double.parseDouble(jsonObj.getString("zhouwenWidth")));
-			shoppingDetail.setZhouwenUnit(Integer.valueOf(jsonObj.getString("zhouwenUnit")));
+			shoppingDetail.setZhouwenUnit(0);
 		}else {
 			shoppingDetail.setIsZhouwen(0);
 			shoppingDetail.setZhouwenLength(0.0);

@@ -432,7 +432,7 @@ function setBoxType(boxId){
 						$("#box"+i).show();
 						$("#box"+i).val(dataImg[i].boxId);
 						$("#boxName"+i).html(dataImg[i].name);
-						var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i].boxId+"/plan/"+dataImg[i].plan;
+						var imgUrl="../images/BoxType/"+dataImg[i].boxId+"/plan/"+dataImg[i].plan;
 						//console.log(imgUrl);
 						$("#img"+i).attr("src",imgUrl);
 						/* $("#img"+i).attr("src",data[i].pla); */
@@ -443,7 +443,7 @@ function setBoxType(boxId){
 							$("#box"+i).show();
 							$("#box"+i).val(dataImg[i+page].boxId);
 							$("#boxName"+i).html(dataImg[i+page].name);
-							var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
+							var imgUrl="../images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
 							//console.log(imgUrl);
 							$("#img"+i).attr("src",imgUrl);
 							/* $("#img"+i).attr("src",data[i].pla); */
@@ -453,7 +453,7 @@ function setBoxType(boxId){
 								$("#box"+i).show();
 								$("#box"+i).val(dataImg[i+page].boxId);
 								$("#boxName"+i).html(dataImg[i+page].name);
-								var imgUrl="http://139.199.159.121:8080/images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
+								var imgUrl="../images/BoxType/"+dataImg[i+page].boxId+"/plan/"+dataImg[i+page].plan;
 								//console.log(imgUrl);
 								$("#img"+i).attr("src",imgUrl);
 								/* $("#img"+i).attr("src",data[i].pla); */
