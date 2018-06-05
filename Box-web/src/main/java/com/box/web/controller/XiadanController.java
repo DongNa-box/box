@@ -23,11 +23,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
+import com.box.boxmanage.model.BoxClassification;
 import com.box.boxmanage.model.BoxType;
+import com.box.boxmanage.model.PaibanType;
+import com.box.boxmanage.model.PaibanTypeL;
 import com.box.boxmanage.service.BoxClassficationService;
 import com.box.boxmanage.service.BoxTypeService;
 import com.box.framework.algriothm.MergePicture;
 import com.box.framework.algriothm.Paiban;
+import com.box.framework.algriothm.PaibanResult;
+
 import com.box.framework.pojo.TreeNode;
 import com.box.framework.security.util.SecurityUtil;
 import com.box.framework.utils.DateUtil;
@@ -279,6 +284,7 @@ public class XiadanController {
 		
 		//排版（生成排版图片，dxf文件上传）
 		//1.获取纸张尺寸信息
+		int T=0;
     	List<LayoutSize> sizeList=layoutSizeService.getAllList();
     	Map<String,Object> sizeMap=new HashMap<String,Object>();
     	List<Integer> paperSize=new ArrayList<Integer>();	
@@ -329,6 +335,7 @@ public class XiadanController {
     		}
     		if(size.getName().equals("11")){
     			sizeMap.put("t", size.getSize());
+    			T=size.getSize();
     		}
     		if(size.getName().equals("12")){
     			sizeMap.put("g", size.getSize());
@@ -343,8 +350,11 @@ public class XiadanController {
     	sizeMap.put("isUv", shoppingDetail.getIsUv());
     	//2.读取纸盒排版模式
     	int type = boxTypeService.get(layoutDetail.getBoxId()).getType();
-    	//3.进行排版预估
-    	Map<String,Object> pmap=new Paiban(paperSize,type,sizeMap).getResult();
+    	//3.查询纸盒信息，lgai，ldi，lock相关信息
+    	List<BoxClassification> boxClassifications = boxClassficationService.getAllList();
+    	BoxType boxType = boxTypeService.get(layoutDetail.getBoxId());
+    	//4.进行排版预估
+    	Map<String,Object> pmap=new PaibanType(paperSize,boxClassifications,boxType,type,sizeMap).getResult();
 	   	for (Entry<String, Object> entry : pmap.entrySet()) { 
 	   	  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
 	   	}
@@ -353,14 +363,14 @@ public class XiadanController {
 		int xl=Integer.parseInt(pmap.get("N")+"");
 		int yl=Integer.parseInt(pmap.get("M")+"");
 		float utilizationRate=Float.parseFloat((pmap.get("P")+""));
-		//4.查询size的x的id
+		//5.查询size的x的id
 		for(LayoutSize size:sizeList){
 			if (size.getSize()==length||size.getSize()/2==length||
 					size.getSize()/3==length) {
 				layoutDetail.setPaperXId(size.getId());
 			}
 		}
-		//5.存数据库
+		//6.存数据库
 		System.out.println(length+"&&"+Double.valueOf(length)+"&&"+getDecimal(Double.valueOf(length))+
 				"&&"+Double.valueOf(getDecimal(length)));
 		layoutDetail.setPaperLength(getDecimal(Double.valueOf(length)));
@@ -369,7 +379,7 @@ public class XiadanController {
 		layoutDetail.setUtilizationRate(String.valueOf(utilizationRate));
 		layoutDetail.setXnumber(xl);
 		layoutDetail.setYnumber(yl);
-		//6.价格初始化
+		//7.价格初始化
 		int printnumber=shoppingDetail.getPrintNumber();//订做数量
 		double c=(double)printnumber /(double)(xl * yl);
         c=(double) Math.ceil(c);
@@ -382,8 +392,7 @@ public class XiadanController {
        float colordanjia=0;
        float danprice=0;
        float zhuanprice=0;
-       
-    	
+       	
 	    float  sprice=0;
 	   	float bronzingdanjia=0;
 	   	float bronzingkaiji=0;
@@ -838,7 +847,7 @@ public class XiadanController {
 			//获取原图照片
 			String file1=null;
 			String targetFile=null;
-			BoxType boxType = boxTypeService.get(shoppingDetail.getBoxId());
+			//BoxType boxType = boxTypeService.get(shoppingDetail.getBoxId());
 			if (boxType!=null) {
 				file1=uploadfile+"BoxType"+File.separator+boxType.getBoxid()+File.separator+
 						"pla"+File.separator+boxType.getPla();
