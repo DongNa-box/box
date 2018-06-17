@@ -85,6 +85,18 @@ public class PaibanType {
     	double t=Double.parseDouble(map.get("t").toString());
     	double g=Double.parseDouble(map.get("g").toString());
     	
+    
+        Map<String, Object> result = new HashMap<String, Object>();//结果集
+        if(t<tmin){
+        	t=10;
+        }else if(t>tmax){
+        		t=20;
+        }
+        if(g<gmin){
+        	g=10;
+        }else if(g>gmax){
+        		g=20;
+        }
     	Map<String, Object> boxmap = getBoxTypeResult(t);
     	double lgai=Double.parseDouble(boxmap.get("lgai").toString());
     	double ldi=Double.parseDouble(boxmap.get("ldi").toString());
@@ -101,18 +113,6 @@ public class PaibanType {
 			gaikou=0;
 			dikou=0;
 		}
-        Map<String, Object> result = new HashMap<String, Object>();//结果集
-        if(t<tmin){
-        	t=10;
-        }else if(t>tmax){
-        		t=20;
-        }
-        if(g<gmin){
-        	g=10;
-        }else if(g>gmax){
-        		g=20;
-        }
-   //     System.out.println("常数："+t+"常数："+g);
         //面积计算公式：
         double s =(2 * lh + 2 * wh + g) * ht+sgai+sdi;
      // double s = (2 * lh + 2 * wh + g) * ht + 2 * wh * (wh + t) + 2 * (wh + t) * lh;//实际纸盒所占面积
@@ -145,7 +145,6 @@ public class PaibanType {
     			p=getPaibanResult(isComplex,s, L1, 0, W1);//平铺
     			
     		}	
-	       // System.out.print("最大利用率"+p.getP());
         	result.put("X", p.getX());
         	result.put("Y", p.getY());
         	result.put("N", p.getN());
@@ -201,13 +200,10 @@ public class PaibanType {
 		int[] n=new int[length];//Y方向的个数
 		int[] f=new int[length];
 		double[] p=new double[length];
-		for (int i = 0; i < length; i++)
-			
+		for (int i = 0; i < length; i++)	
 		{
 			t=t1;
 			g=g1;
-			
-	    	
 	        if(t<tmin){
 	        	t=10;
 	        }else if(t>tmax){
@@ -239,6 +235,9 @@ public class PaibanType {
     		m[i]=Integer.parseInt(intmap.get("m").toString());
     		n[i]=Integer.parseInt(intmap.get("n").toString());
     		y[i]=rowLength(n[i], w);
+    		if (type==3) {
+    			gaikou=0;
+			}
     		if (type==1||type==3) {
     			if ((sizeList.get(i) - yd*2 - (m[i] - 1) * (zhjj+gaikou) - m[i] * l )<=extra){
     			
@@ -254,7 +253,7 @@ public class PaibanType {
 							g--;
 							gflag=true;				
 						}
-						if (t==tmin&g==gmin) {
+						if (t==tmin&g==gmin){
 							if (m[i]>=1) {
 								m[i]--;
 		    					
@@ -286,8 +285,9 @@ public class PaibanType {
 				    		gflag=false;	
 				    		
 						}
-						f[i] = m[i]*n[i];
+						
 					}
+					f[i] = m[i]*n[i];
 			}else {
 				
 				f[i] = m[i]*n[i];
@@ -339,17 +339,13 @@ public class PaibanType {
 				    		tflag=false;
 				    		gflag=false;
 				    		l=L2;
-				    		extra=L4;
-				    		
-						}
-						f[i] = m[i]*n[i];
-					    
+				    		extra=L4;   		
+						}	    
 					}
-					
-				}
-				
-			}
-			
+					m[i] = m[i] * 2 ;
+					f[i] = m[i]*n[i];	
+				}	
+			}		
 			if (m[i]<1) {
 				n[i]=0;
 			}
@@ -357,7 +353,7 @@ public class PaibanType {
 		+"   Y边的长："+y[i]+"   x方向个数："
 				+m[i]+"   y方向个数："+n[i]+"   t:"+t+
 				"  g:"+g+"  纸盒间距："+zhjj+"  xd:"+xd+"  yd:"+yd);
-		s = (2 * lh + 2 * wh + g) * ht + 2 * wh * (wh + t) + 2 * (wh + t) * lh;//实际纸盒所占面积
+	
 			p[i] = (f[i] * s) / (sizeList.get(i) * y[i]);//利用率	
 
 //    			p[i] = (f[i] * s) / (sizeList.get(i) * (n[i]*w+zhjj*n[i]+11));//利用率	
@@ -367,7 +363,7 @@ public class PaibanType {
 		int j = 0;
 		j = Largest(p, length);//利用率最大值
 		r.setX(sizeList.get(j));
-		r.setY((int)(n[j] * w + zhjj * n[j] + 11));
+		r.setY(y[j]);
 		r.setM(m[j]);
 		r.setN(n[j]);
 		r.setP(p[j]);
@@ -407,64 +403,58 @@ public class PaibanType {
 				if (boxClassificationList.get(i).getName().equals("前开直插")||
 						boxClassificationList.get(i).equals("后开直插")) {
 					Lgai=wh+t;
-					Ldi=0;
 					gai=1;
 					zhicha=false;
-					sgai=(wh+t)*wh+Lgai*lh;
+					sgai=sgai+(wh+t)*wh+Lgai*lh;
 				}else if (boxClassificationList.get(i).getName().equals("吊口")) {
 					Lgai=2*wh+t;
-					Ldi=0;
 					gai=2;
-					sgai=(wh+t)*wh+Lgai*lh+(wh+t)*lh;
+					sgai=sgai+(wh+t)*wh+Lgai*lh+(wh+t)*lh;
 				}else if (boxClassificationList.get(i).getName().equals("平粘")) {
 					Lgai=wh;
-					Ldi=0;
 					gai=3;
-					sgai=(wh+t)*wh+Lgai*lh*2;
+					sgai=sgai+(wh+t)*wh+Lgai*lh*2;
 				}
 			}
 			if (boxType.getDetail3().equals(boxClassificationList.get(i).getId())) {
 				if (boxClassificationList.get(i).getName().equals("三角孔")||
 						boxClassificationList.get(i).getName().equals("圆孔")||
 						boxClassificationList.get(i).getName().equals("飞机孔")) {
+					//盒盖为吊口才有
 					lock=0;
 					Lgai=2*wh+t;
-					Ldi=0;
 				}else if (boxClassificationList.get(i).getName().equals("安全扣")){
 					lock=1;
 					Lgai=wh+t;
-					Ldi=0;
 					sgai=sgai+lh*8/5;
 				}else if(boxClassificationList.get(i).getName().equals("双安全扣")){
 					lock=2;
-					Lgai=wh+t;
-					Ldi=0;
+					Lgai=wh+t;	
 					sgai=sgai+lh*8/5;
 					sdi=sdi+lh*8/5;
 				}
 				else if(boxClassificationList.get(i).getName().equals("安全扣+指甲扣")){
 					lock=3;
 					Lgai=wh+t;
-					Ldi=0;
 					sgai=sgai+lh*8/5;
 				}
 				else if(boxClassificationList.get(i).getName().equals("指甲扣")) {
 					lock=4;
 					Lgai=wh+t;
-					Ldi=0;
+					
 				}else if (boxClassificationList.get(i).getName().equals("撕拉线")) {
 					lock=0;
 					Lgai=wh;
-					Ldi=0;
+					
 				}else if (boxClassificationList.get(i).getName().equals("正常")) {
 					lock=0;
 					xijie=1;
-					Ldi=0;
 					switch (gai) {
 					case 1:
 						break;
 					case 2:
 						Lgai=0.5*wh;
+						sgai=2*(wh+lh)*Lgai;
 						break;
 					case 3:
 						break;
@@ -478,33 +468,26 @@ public class PaibanType {
 						boxClassificationList.get(i).getName().equals("后开直插")) {
 					zhicha=true;
 					Ldi=wh+t;
-					sdi=(wh+t)*wh+sdi*lh;
+					sdi=sdi+(wh+t)*wh+Ldi*lh;
 				}else if (boxClassificationList.get(i).getName().equals("平粘")) {
 					if (gai==2&&xijie==1) {
 						Ldi=0.5*wh;
 						sdi=2*(wh+lh)*Ldi;
 					}else {
 						Ldi=wh;
-						sdi=(wh+t)*wh+Ldi*lh*2;
+						sdi=sdi+(wh+t)*wh+Ldi*lh*2;
 					}
 				}else if (boxClassificationList.get(i).getName().equals("自动锁底")) {
-					if (gai==3&&xijie==1) {
-						
 						Ldi=0.5*wh+15;
-						
-					}else{
-						Ldi=0.5*wh+15;
-					}
+					
 					sdi=2*(wh+lh)*Ldi;
 				}else if (boxClassificationList.get(i).getName().equals("锁底")) {
 					if (gai==3&&xijie==1) {
-						Lgai=wh*0.5;
-						Ldi=2*wh/3;
+						Lgai=0.5*wh;
 						sgai=2*(wh+lh)*Lgai;
-					}else{
-						Ldi=2*wh/3;
 					}
-					sdi=2*(wh+lh)*Ldi;
+					Ldi=2*wh/3;
+					sdi=sdi+2*(wh+lh)*Ldi;
 				}
 			}
 		}

@@ -239,7 +239,7 @@ $(function(){
 				$("#printNumber").val(data.printNumber);
 				$("#unitPrice").val(data.unitPrice);
 				sessionStorage.setItem("layoutId",data.layoutId);
-				$("#excelAddress").attr("href","../images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
+				$("#excelAddress").attr("href","http://139.199.159.121:8080/images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
 				}
 			});
 	var layoutId=sessionStorage.getItem("layoutId");
@@ -248,7 +248,7 @@ $(function(){
 		params:JSON.stringify(params1)
 		}, function(data) {
 			if(data!=null){
-			$("#pictureAddress").attr("src","../images/LayoutDetail/"+data.id+"/previewimageadress/"+data.pictureAddress);
+			$("#pictureAddress").attr("src","http://139.199.159.121:8080/images/LayoutDetail/"+data.id+"/previewimageadress/"+data.pictureAddress);
 			//$("#dxfAddress").attr("href","${basePath}/res/dxf/"+data.id+"/"+data.dxfAddress);
 				}
 		});

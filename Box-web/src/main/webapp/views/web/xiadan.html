@@ -467,71 +467,7 @@ $(function(){
 	var colorFlag="0";
 	var array=null;
 	//单位统一
-	/* $("#boxUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#boxUnit0").val(selected);
-		$("#boxUnit1").val(selected);
-		});
-	$("#boxUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#boxUnit").val(selected);
-		$("#boxUnit1").val(selected);
-		});
-	$("#boxUnit1").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#boxUnit0").val(selected);
-		$("#boxUnit").val(selected);
-		});
 	
-	$("#bronzingUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#bronzingUnit0").val(selected);
-		});
-	$("#bronzingUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#bronzingUnit").val(selected);
-		});
-	$("#convexUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#convexUnit0").val(selected);
-		});
-	$("#convexUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#convexUnit").val(selected);
-		});
-	$("#pvcUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#pvcUnit0").val(selected);
-		});
-	$("#pvcUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#pvcUnit").val(selected);
-		});
-	$("#uvUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#uvUnit0").val(selected);
-		});
-	$("#uvUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#uvUnit").val(selected);
-		});
-	$("#moshaUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#moshaUnit0").val(selected);
-		});
-	$("#moshaUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#moshaUnit").val(selected);
-		});
-	$("#zhouwenUnit").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#zhouwenUnit0").val(selected);
-		});
-	$("#zhouwenUnit0").change(function(){
-		var selected=$(this).children('option:selected').val(); 
-		$("#zhouwenUnit").val(selected);
-		});
-	 */
 	//小图点击事件
 	$("#img1").click(function(){
 		$("#img0").attr("src",$("#img1").src);
@@ -550,10 +486,10 @@ $(function(){
 		console.log(JSON.stringify(data));
 		$("#title").html(data.name);
 
-	 	$("#img0").attr("src","../images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
-		$("#img1").attr("src","../images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
-		$("#img2").attr("src","../images/BoxType/"+data.boxid+"/dime/"+data.dime);//立体图
-		$("#img3").attr("src","../images/BoxType/"+data.boxid+"/phy/"+data.phy);//实物图 
+	 	$("#img0").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img1").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img2").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/dime/"+data.dime);//立体图
+		$("#img3").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/phy/"+data.phy);//实物图 
 		
 		});
 	ajaxPost(basePath+"/web/technology", null, function(data) {
@@ -893,47 +829,32 @@ $(function(){
 			    	}
 	    	}
 	      
-		}
-
-		
-		 /* for(var j=0;j<array.length;j++){
-			 if(array[j].node!=null){
-				 for(var k=0;k<array[j].nodes.length;k++){
-					 if(printPaperId==array[j].nodes[k].id){
-							var arr=array[j].nodes[k];
-							for(var i=0;i<arr.length;i++){
-								$("#paperGramsId"+i).labelauty({
-									checked_label: arr.nodes[i].text,
-									unchecked_label: arr.nodes[i].text
-									});
-								$("#paperGramsId"+i).val(arr.nodes[i].id);
-								
-							}
-							}
-					 }
-				 }
-			
-			} */ 
+		} 
 	});
 	$(":radio[name='paperGramsId']").click(function() {
-		alert($(":radio[name='paperGramsId']:checked").val());
+		//alert($(":radio[name='paperGramsId']:checked").val());
+		calculateprice();
 	});
 	$(":radio[name='color']").click(function() {
 		//alert($(":radio[name='co']:checked").val());
+		calculateprice();
 	});
 	$(":radio[name='printColorId']").click(function() {
 		//alert($(":radio[name='printColorId']:checked").val());
+		calculateprice();
 	});
 	$(":radio[name='surfaceTreatmentId']").click(function() {
 		//alert($(":radio[name='surfaceTreatmentId']:checked").val());
+		calculateprice();
 	});
 	//表面处理
 	$(":radio[name='receiveAreaId']").click(function() {
 		//alert($(":radio[name='receiveAreaId']:checked").val());
+		calculateprice();
 	});
 	$(":checkbox[id='isBronzing']").click(function() {
 		//alert($(":checkbox[id='isBronzing']:checked").val());
-		
+		calculateprice();
 		
 	});
 	//专色点击
@@ -1291,6 +1212,25 @@ $(function(){
 	 } 
 	 function getPicture(n){
 		 $("#img0").attr("src",$("#img"+n).src);
+		 }
+	 function calculateprice(){
+		 var formParams = $("#xiadan-form").serializeJSON();
+     	formParams.boxId=boxId;
+     	formParams.colorFlag=colorFlag;
+     	formParams.moqieId=$("#moqieId").val();
+     	console.log(formParams); 
+     	ajaxPost(basePath+"/web/caculateprice", {
+				params:JSON.stringify(formParams)
+				}, function(data) {
+					if(data!=null){
+						var totalprice=data.totalprice;
+						var unitprice=data.unitprice;
+						$("#totalprice").val(totalprice);
+						$("#unitprice").val(unitprice);
+						}else{
+						layer.alert("操作失败");
+							}
+				});
 		 }
 
 </script>
