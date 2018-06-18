@@ -713,8 +713,8 @@ public class XiadanController {
 	 	    double totalprice=(sum+ manag+ tax)*res;
 	 	    double unitprice=totalprice/printnumber;
 	 	   JSONObject jsonObject=new JSONObject();
-	 	   jsonObject.put("totalprice", totalprice);
-	 	   jsonObject.put("unitprice", unitprice);
+	 	   jsonObject.put("totalprice", getDecimal(totalprice));
+	 	   jsonObject.put("unitprice", getDecimal(unitprice));
 	 	   return jsonObject.toJSONString();
 	}
 	/**

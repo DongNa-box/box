@@ -395,22 +395,42 @@
 			<div class="form-group dowebok" >
 				<label class="col-sm-3 control-label" >定做数量：</label>
 					<div class="col-sm-3">
-					<button type="button" data-btn-type="add" onclick="add()" class="btn btn-block btn-default">+</button>
+					<button type="button" data-btn-type="add" id="add" class="btn btn-block btn-default">+</button>
 					</div>
 					
 					<div class="col-sm-3">
 					<input id="printNumber" name="printNumber" type="text" class="form-control" value="1000">
 					</div>
 					<div class="col-sm-3">
-					<button type="button" data-btn-type="minus" onclick="minus()" class="btn btn-block btn-default">-</button>
+					<button type="button" data-btn-type="minus" id="minus" class="btn btn-block btn-default">-</button>
 					</div>
+			</div>
+			
+			<div class="form-group dowebok" >
+			 
+                   
+				<label class="col-sm-3 control-label" ><div class="dtName_One HdMargin">印刷价格：</div></label>
+					
+					 <div class="col-sm-8" >
+                        <span><b style="padding-top:3px;font-size:30px;color:red" id="totalprice" name="totalprice">0.00</b>&nbsp;&nbsp;元</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>（单价：
+                        <span style="padding-top:3px;font-size:10px;color:red" id="unitprice" name="unitprice">0.00</span>&nbsp;&nbsp;元）</span>
+
+                    <span style="margin-left:10px;color:#c4261b"></span>                   
+                     </div>
+					
 			</div>
 <div class="form-group" >
 	<label class="col-sm-12 control-label" ></label>
 </div>
 			<div class="form-group" style="margin-top:10px;">
+				<button id="jijia" data-btn-type="layout" class="btn btn-block btn-default">计价</button>
+			</div>
+			<div class="form-group" style="margin-top:10px;">
 				<button type="submit" data-btn-type="layout" class="btn btn-block btn-primary">排版</button>
 			</div>
+			
+			
 </form>
 		</div>
      </div>
@@ -831,41 +851,72 @@ $(function(){
 	      
 		} 
 	});
+	$(":radio[name='printPaperId']").click(function() {
+		//alert($(":radio[name='paperGramsId']:checked").val());
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
+	});
 	$(":radio[name='paperGramsId']").click(function() {
 		//alert($(":radio[name='paperGramsId']:checked").val());
-		calculateprice();
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
 	});
-	$(":radio[name='color']").click(function() {
+	$(":radio[name='printcolor']").click(function() {
 		//alert($(":radio[name='co']:checked").val());
-		calculateprice();
-	});
-	$(":radio[name='printColorId']").click(function() {
-		//alert($(":radio[name='printColorId']:checked").val());
-		calculateprice();
-	});
-	$(":radio[name='surfaceTreatmentId']").click(function() {
-		//alert($(":radio[name='surfaceTreatmentId']:checked").val());
-		calculateprice();
-	});
-	//表面处理
-	$(":radio[name='receiveAreaId']").click(function() {
-		//alert($(":radio[name='receiveAreaId']:checked").val());
-		calculateprice();
-	});
-	$(":checkbox[id='isBronzing']").click(function() {
-		//alert($(":checkbox[id='isBronzing']:checked").val());
-		calculateprice();
-		
-	});
-	//专色点击
-	$(":radio[id='printColorId4']").click(function() {
 		if($(":radio[id='printColorId4']").prop("checked")){
 			$("#pantoneId").show();
 			$("#attr1").show();
 			$("#attr2").hide();
 			$("#attr3").hide();
 			}
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
+	});
+	$(":radio[name='printColorId']").click(function() {
 		//alert($(":radio[name='printColorId']:checked").val());
+		if($(":radio[id='printColorId4']").prop("checked")){
+			$("#pantoneId").show();
+			$("#attr1").show();
+			$("#attr2").hide();
+			$("#attr3").hide();
+			}
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
+	});
+	$(":radio[name='surfaceTreatmentId']").click(function() {
+		//alert($(":radio[name='surfaceTreatmentId']:checked").val());
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
+	});
+	//表面处理
+		$(":radio[name='receiveAreaId']").click(function() {
+		//alert($(":radio[name='receiveAreaId']:checked").val());
+			if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+				calculateprice(colorFlag);
+			}else{}
+	});
+		$(":radio[name='yawenId']").click(function() {
+			//alert($(":radio[name='receiveAreaId']:checked").val());
+			if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+				calculateprice(colorFlag);
+			}else{}
+		});
+		$(":radio[name='zhanheId']").click(function() {
+			//alert($(":radio[name='receiveAreaId']:checked").val());
+			if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+				calculateprice(colorFlag);
+			}else{}
+		});
+	$(":radio[name='baozhuangId']").click(function() {
+		//alert($(":radio[name='receiveAreaId']:checked").val());
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
 	});
 	//其他工艺
 	$("#isBronzing").click(function() {
@@ -929,6 +980,9 @@ $(function(){
 				$("#papercolortype1").show();
 				$("#papercolortype0").hide();
 				}
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
 		});
 	$("#color1").click(function() {
 		$("#pantoneId").hide();
@@ -941,6 +995,9 @@ $(function(){
 				$("#papercolortype0").show();
 				$("#papercolortype1").hide();
 				}
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
 		});
 	//pantone个数改变时
 	$("#colorNumber").change(function(){
@@ -969,6 +1026,19 @@ $(function(){
 					$("#pantoneId").hide();
 					}
 		});
+	$("#jijia").click(function() {
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
+	});
+	$("#add").click(function() {
+		add(colorFlag);
+		
+	});
+	$("#minus").click(function() {
+		minus(colorFlag);
+		
+	});
 	//tooltip显示图片
     $('div.thumbnail-item').mouseenter(function(e) {  
   
@@ -1178,7 +1248,7 @@ $(function(){
    
 	});
 			
-	
+
 	//-------------Validator from end----------------
 });
 	/**
@@ -1194,14 +1264,20 @@ $(function(){
 	        $tabContent.load(url);
 	    }
 	}
-	function add() {
+	function add(colorFlag) {
 		$("#printNumber").val(parseInt($("#printNumber").val())+1000);
+		if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+			calculateprice(colorFlag);
+		}else{}
 	}
-	function minus() {
+	function minus(colorFlag) {
 		if($("#printNumber").val()=="1000"||$("#printNumber").val()==1000){
 			layer.alert("定做数量不能少于1000");
 			}else{
 			$("#printNumber").val(parseInt($("#printNumber").val())-1000);
+			if($("#boxLength").val()!=""&$("#boxWidth").val()!=""&$("#boxHeight").val()!=""){
+				calculateprice(colorFlag);
+			}else{} 
 				}
 	    
 	}
@@ -1213,20 +1289,21 @@ $(function(){
 	 function getPicture(n){
 		 $("#img0").attr("src",$("#img"+n).src);
 		 }
-	 function calculateprice(){
+	 function calculateprice(colorFlag){
+		 var boxId=sessionStorage.getItem("boxId");
 		 var formParams = $("#xiadan-form").serializeJSON();
      	formParams.boxId=boxId;
      	formParams.colorFlag=colorFlag;
      	formParams.moqieId=$("#moqieId").val();
      	console.log(formParams); 
-     	ajaxPost(basePath+"/web/caculateprice", {
+     	ajaxPost(basePath+"/web/calculatePrice", {
 				params:JSON.stringify(formParams)
 				}, function(data) {
 					if(data!=null){
 						var totalprice=data.totalprice;
 						var unitprice=data.unitprice;
-						$("#totalprice").val(totalprice);
-						$("#unitprice").val(unitprice);
+						$("#totalprice").text(totalprice);
+						$("#unitprice").html(unitprice);
 						}else{
 						layer.alert("操作失败");
 							}
