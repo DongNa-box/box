@@ -506,10 +506,10 @@ $(function(){
 		console.log(JSON.stringify(data));
 		$("#title").html(data.name);
 
-	 	$("#img0").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
-		$("#img1").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
-		$("#img2").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/dime/"+data.dime);//立体图
-		$("#img3").attr("src","http://139.199.159.121:8080/images/BoxType/"+data.boxid+"/phy/"+data.phy);//实物图 
+	 	$("#img0").attr("src","../images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img1").attr("src","../images/BoxType/"+data.boxid+"/plan/"+data.plan);//平面图
+		$("#img2").attr("src","../images/BoxType/"+data.boxid+"/dime/"+data.dime);//立体图
+		$("#img3").attr("src","../images/BoxType/"+data.boxid+"/phy/"+data.phy);//实物图 
 		
 		});
 	ajaxPost(basePath+"/web/technology", null, function(data) {

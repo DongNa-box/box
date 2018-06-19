@@ -353,7 +353,7 @@ public class XiadanController {
 						colorbanfei=Float.parseFloat(m.get("price").toString());//40(一个颜色40)
 					}
 	        	}
-	           if(m.get("tid").equals(jsonObj.getString("SurfaceTreatmentId"))){
+	           if(m.get("tid").equals(jsonObj.getString("surfaceTreatmentId"))){
 	        		 sprice=Float.parseFloat(m.get("price").toString());
 	        	}
 	           if(m.get("pname").equals("烫金")){

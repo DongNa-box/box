@@ -162,11 +162,11 @@
 				<label class="col-sm-2 control-label" >元</label>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" >单价：</label>
+				<label class="col-sm-4 control-label" >印刷数量：</label>
 				<div class="col-sm-6">
 					<input id="printNumber" name="printNumber" readonly type="text" class="form-control" >
 				</div>
-				<label class="col-sm-2 control-label" >元</label>
+				<label class="col-sm-2 control-label" >个</label>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" >总价：</label>
@@ -239,7 +239,7 @@ $(function(){
 				$("#printNumber").val(data.printNumber);
 				$("#unitPrice").val(data.unitPrice);
 				sessionStorage.setItem("layoutId",data.layoutId);
-				$("#excelAddress").attr("href","http://139.199.159.121:8080/images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
+				$("#excelAddress").attr("href","../images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
 				}
 			});
 	var layoutId=sessionStorage.getItem("layoutId");
@@ -248,7 +248,7 @@ $(function(){
 		params:JSON.stringify(params1)
 		}, function(data) {
 			if(data!=null){
-			$("#pictureAddress").attr("src","http://139.199.159.121:8080/images/LayoutDetail/"+data.id+"/previewimageadress/"+data.pictureAddress);
+			$("#pictureAddress").attr("src","../images/LayoutDetail/"+data.id+"/previewimageadress/"+data.pictureAddress);
 			//$("#dxfAddress").attr("href","${basePath}/res/dxf/"+data.id+"/"+data.dxfAddress);
 				}
 		});
