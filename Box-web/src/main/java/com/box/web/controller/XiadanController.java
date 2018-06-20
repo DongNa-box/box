@@ -266,8 +266,8 @@ public class XiadanController {
 	   	}
 		int length=Integer.parseInt(pmap.get("X")+"");//排版后的纸张的长度
 	   	int width=Integer.parseInt(pmap.get("Y")+"");//排版后的纸张的宽度
-		int xl=Integer.parseInt(pmap.get("N")+"");
-		int yl=Integer.parseInt(pmap.get("M")+"");
+		int xl=Integer.parseInt(pmap.get("M")+"");
+		int yl=Integer.parseInt(pmap.get("N")+"");
 		float utilizationRate=Float.parseFloat((pmap.get("P")+""));
 		//5.查询size的x的id
 		
@@ -945,8 +945,8 @@ public class XiadanController {
 	   	}
 		int length=Integer.parseInt(pmap.get("X")+"");//排版后的纸张的长度
 	   	int width=Integer.parseInt(pmap.get("Y")+"");//排版后的纸张的宽度
-		int xl=Integer.parseInt(pmap.get("N")+"");
-		int yl=Integer.parseInt(pmap.get("M")+"");
+		int xl=Integer.parseInt(pmap.get("M")+"");
+		int yl=Integer.parseInt(pmap.get("N")+"");
 		float utilizationRate=Float.parseFloat((pmap.get("P")+""));
 		//5.查询size的x的id
 		for(LayoutSize size:sizeList){
