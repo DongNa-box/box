@@ -350,16 +350,16 @@ $(function(){
 	 function setScanSelect(selected){
 		if(selected.level==1){
 			$("#divgroupid1").show();
-			setSelect('groupid1',null,"0",selected.groupid);
+			setSelect('groupid1',null,"0",selected.groupID);
 		}else if(selected.level==2){
 			$("#divgroupid1").show();
 			$("#divgroupid2").show();
 			//通过1级id查0级id
 			ajaxPost(basePath + "/boxmanage/getBoxClassifByGroupid", {
-	        	params:JSON.stringify(selected.groupid)
+	        	params:JSON.stringify(selected.groupID)
 			},  function(data){
 				setSelect('groupid1',null,"0",data.id);
-				setSelect('groupid2',data.id,"1",selected.groupid);
+				setSelect('groupid2',data.id,"1",selected.groupID);
 	        });
 		}
 	 }

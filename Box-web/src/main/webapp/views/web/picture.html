@@ -216,6 +216,9 @@ $(function(){
 		switch (action) {
 		
 		case 'search':
+			for(var i=0;i<12;i++){
+				$("#box"+i).hide();
+			}
 			//var formParams = $("#picture-form").serializeJSON();
 			var classid = $("#search-box option:selected").val();
 			var detail0 = $("#search-detail0 option:selected").val();
@@ -223,6 +226,7 @@ $(function(){
 			var detail2 = $("#search-detail2 option:selected").val();
 			var params={"search-box":classid,"search-detail0":detail0,"search-detail1":detail1,
 					"search-detail2":detail2}
+			console.log(params);
 			//console.log(JSON.stringify(params));
 			ajaxPost(basePath + "/web/pictureList", {
 				params:JSON.stringify(params)

@@ -714,10 +714,7 @@ public class ShoppingController {
  	    shoppingDetail.setTotalPrice(getDecimal(totalprice));
  	    shoppingDetail.setUnitPrice(getDecimal(unitprice));
  	   //生成订单记录和排版记录
- 	   Map<String, Object> cmap=new HashMap<String,Object>();
-		cmap.put("layoutDetail", layoutDetail);
-		cmap.put("shoppingDetail", shoppingDetail);
-		boolean result1=shoppingDetailService.createLayoutAndShopping(cmap);
+ 	  
 		 Map<String,Object> mymap=new HashMap<String,Object>();
 		  mymap.put("paperprice", paperprice);
 		  mymap.put("colorprice", printprice);
@@ -744,11 +741,9 @@ public class ShoppingController {
 		  mymap.put("wnum", pmap.get("N"));
 		  mymap.put("lnum",pmap.get("M"));
 		  mymap.put("type",type);
-		if (result1) {
-			return new Result(true,mymap);
-		}else {
-			return new Result(false);
-		}
+	
+		return new Result(true,mymap);
+		
 		
 		
 	     
@@ -768,6 +763,49 @@ public class ShoppingController {
     	LayoutDetail layoutDetail= JSON.parseObject(jsonObj.toString(),LayoutDetail.class);
     	shoppingDetail.setShoppingId(Sequence.nextId());
     	layoutDetail.setId(Sequence.nextId());
+    	shoppingDetail.setPaperPrice(getDecimal(shoppingDetail.getPaperPrice()));
+    	shoppingDetail.setColorPrice(getDecimal(shoppingDetail.getColorPrice()));
+    	shoppingDetail.setSurfacePrice(getDecimal(shoppingDetail.getSurfacePrice()));
+    	if (shoppingDetail.getIsBronzing()==0) {
+			shoppingDetail.setBronzingPrice(0.0);
+		}else{
+			shoppingDetail.setBronzingPrice(getDecimal(shoppingDetail.getBronzingPrice()));
+		}if (shoppingDetail.getIsConvex()==0) {
+			shoppingDetail.setConvexPrice(0.0);
+		}else{
+	    	shoppingDetail.setConvexPrice(getDecimal(shoppingDetail.getConvexPrice()));
+		}if (shoppingDetail.getIsUv()==0) {
+			shoppingDetail.setUvPrice(0.0);
+		}else{
+	    	shoppingDetail.setUvPrice(getDecimal(shoppingDetail.getUvPrice()));
+		}if (shoppingDetail.getIsPvc()==0) {
+			shoppingDetail.setPvcPrice(0.0);
+		}else{
+			shoppingDetail.setPvcPrice(getDecimal(shoppingDetail.getPvcPrice()));
+		}if (shoppingDetail.getIsMosha()==0) {
+			shoppingDetail.setMoshaPrice(0.0);
+		}else {
+			shoppingDetail.setMoshaPrice(getDecimal(shoppingDetail.getMoshaPrice()));
+		}if (shoppingDetail.getIsZhouwen()==0) {
+			shoppingDetail.setZhouwenPrice(0.0);
+		}else {
+			shoppingDetail.setZhouwenPrice(getDecimal(shoppingDetail.getZhouwenPrice()));
+		}
+		//查找模切
+    	Map<String,Object> map=new HashMap<String,Object>();
+    	map.put("cname", 2);
+    	map.put("level", 0);
+    	map.put("parentId,", "");
+    	List<TechnologyDetail> result1=technologyDetailService.getTechnologyByDetail(map);
+    	shoppingDetail.setMoqieId(result1.get(0).getId());
+    	shoppingDetail.setYawenPrice(getDecimal(shoppingDetail.getYawenPrice()));
+    	shoppingDetail.setZhanhePrice(getDecimal(shoppingDetail.getZhouwenPrice()));
+    	shoppingDetail.setBaozhuangPrice(getDecimal(shoppingDetail.getBaozhuangPrice()));
+    	shoppingDetail.setTaxPrice(getDecimal(shoppingDetail.getTaxPrice()));
+    	shoppingDetail.setManagementPrice(getDecimal(shoppingDetail.getManagementPrice()));
+    	shoppingDetail.setTotalPrice(getDecimal(shoppingDetail.getTotalPrice()));
+    	shoppingDetail.setUnitPrice(getDecimal(shoppingDetail.getUnitPrice()));
+    	shoppingDetail.setTransportPrice(getDecimal(shoppingDetail.getTransportPrice()));
     	shoppingDetail.setUvUnit(0);
     	shoppingDetail.setConvexUnit(0);
     	shoppingDetail.setPvcUnit(0);
@@ -782,10 +820,10 @@ public class ShoppingController {
     	layoutDetail.setCreatetime(new Date());
     	layoutDetail.setBoxUnit(0);
     	layoutDetail.setPaperUnit(0);
-    	Map<String,Object> map=new HashMap<String,Object>();
-    	map.put("shoppingDetail", shoppingDetail);
-    	map.put("layoutDetail", layoutDetail);
-    	boolean result=shoppingDetailService.createLayoutAndShopping(map);
+    	Map<String,Object> map1=new HashMap<String,Object>();
+    	map1.put("shoppingDetail", shoppingDetail);
+    	map1.put("layoutDetail", layoutDetail);
+    	boolean result=shoppingDetailService.createLayoutAndShopping(map1);
     	if(result){
     		Map<String,String> m=new HashMap<String,String>();
     		m.put("layoutId", layoutDetail.getId());
