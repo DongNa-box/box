@@ -75,11 +75,8 @@ public class MergePicture {
 				
 			}
 			 BufferedImage images1 = null;
-		        
-		        
 		        int[] ImageArrays = null;
 				try {
-					
 					images1 = ImageIO.read(src);
 					 int wi = images1.getWidth();  
 				     int he = images1.getHeight();  
@@ -108,16 +105,16 @@ public class MergePicture {
 							height_i+=images1.getHeight()-25;
 						}
 					}else if (type==2) {
-//						for (int i = 0; i < m; i++) {
-//							for (int j = 0; j < n; j++) {
-//								ImageNew.setRGB(width_i, height_i, images.getWidth(), images.getHeight(), ImageArrays, 0,  
-//										images.getWidth()); 
-//								System.out.println(width_i+"____"+height_i);
-//								width_i +=images.getWidth();
-//							}
-//							width_i=0;
-//							height_i+=(images.getHeight()*rate2+zhjjg-extrag);
-//						}
+						for (int i = 0; i < m; i++) {
+							for (int j = 0; j < n; j++) {
+								ImageNew.setRGB(width_i, height_i, images1.getWidth(), images.getHeight(), ImageArrays, 0,  
+										images1.getWidth()); 
+								System.out.println(width_i+"____"+height_i);
+								width_i +=images1.getWidth();
+							}
+							width_i=0;
+							height_i+=images1.getHeight();
+						}
 					}else if (type==3) {
 					for (int i = 0; i < m; i++) {
 						for (int j = 0; j < n; j++) {

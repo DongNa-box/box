@@ -240,6 +240,7 @@ $(function(){
 				$("#unitPrice").val(data.unitPrice);
 				sessionStorage.setItem("layoutId",data.layoutId);
 				$("#excelAddress").attr("href","../images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
+				//$("#excelAddress").attr("href","http://134.175.141.129:8080/images/LayoutDetail/"+data.layoutId+"/excel/"+data.excelAddress);
 				}
 			});
 	var layoutId=sessionStorage.getItem("layoutId");

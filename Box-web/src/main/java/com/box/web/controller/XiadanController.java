@@ -1437,7 +1437,6 @@ public class XiadanController {
 				file1=uploadfile+"BoxType"+File.separator+boxType.getBoxid()+File.separator+
 						"pla"+File.separator+boxType.getPla();
 				
-				
 			}
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date date1 = new Date();
@@ -1448,6 +1447,7 @@ public class XiadanController {
 			targetFile=uploadfile+"LayoutDetail"+File.separator+layoutDetail.getId()+File.separator+
 					"previewimageadress"+File.separator+layoutDetail.getId()+
 	        		"-"+time1+".jpg";
+			
 			Map<String,Object> pictureMap=new HashMap<String,Object>();
 			pictureMap.put("type", boxType.getType());
 			pictureMap.put("m", xl);
